@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 2 · Modelos de Integración: TPACK, SAMR y PICRAT</title>
+<style>
+  :root {
+    --nav:   #1D3461; --teal:  #00949A; --cl:   #B2E8EA; --pale: #E6F7F8;
+    --grn:   #2A6049; --gcl:  #DFF0E9;
+    --amb:   #D4873A; --acl:  #FDF0E4;
+    --vio:   #3D5A99; --vcl:  #E4EAF7;
+    --slate: #4A6080;
+    --gris:  #F3F6F9; --bd:   #C5D2DC; --txt:  #4A5E70;
+    --neg:   #1A2C3A; --bco:  #FFFFFF;
+    --r: 8px; --sh: 0 2px 8px rgba(0,0,0,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65; overflow-x: hidden;}
+
+  /* TOP BAR */
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.9;text-align:right;font-weight:bold;background:rgba(255,255,255,0.2);padding:4px 8px;border-radius:4px;}
+  .btn-reset { display: none; color:var(--cl); margin-right:12px; text-decoration:none; border-bottom: 1px dotted var(--cl); cursor:pointer; }
+  body.career-selected .btn-reset { display: inline-block; }
+
+  /* SELECTOR DE CARRERA */
+  #welcome-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 20px; text-align: center; }
+  #welcome-screen h2 { font-size: 24px; color: var(--nav); margin-bottom: 10px; }
+  #welcome-screen p { font-size: 16px; color: var(--txt); margin-bottom: 30px; font-weight: 600; }
+  .btn-career { background: var(--bco); border: 2px solid var(--teal); color: var(--teal); font-size: 16px; font-weight: 700; padding: 16px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-width: 220px; }
+  .btn-career:hover { background: var(--teal); color: white; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 148, 154, 0.25); }
+  .career-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; width: 100%; max-width: 900px; }
+
+  /* LÓGICA DE FILTRADO */
+  #main-app { display: none; }
+  body.career-selected #welcome-screen { display: none; }
+  body.career-selected #main-app { display: block; }
+  .c-block { display: none; }
+  body.show-ini .c-ini { display: block; }
+  body.show-his .c-his { display: block; }
+  body.show-geo .c-geo { display: block; }
+  body.show-ing .c-ing { display: block; }
+
+  /* TÍTULO Y TABS */
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px; sticky; top: 0; z-index: 100;}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+
+  /* CONTENIDO ADAPTABLE */
+  .wrap{max-width:1200px; width: 95%; margin: 0 auto; padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden; width: 100%;}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd); text-transform:uppercase; letter-spacing:0.5px; color:var(--nav);}
+  .cb{padding:18px 25px}
+  .card-b .ch{background:var(--pale);color:var(--nav)}
+  .card-g .ch{background:var(--gcl);color:var(--grn)}
+  .card-v .ch{background:var(--vcl);color:var(--vio)}
+  .note{border-radius:var(--r);padding:14px 18px;font-size:13px;margin:10px 0;display:flex;gap:9px;align-items:flex-start}
+  .nb{background:var(--pale);border-left:4px solid var(--teal)}
+
+  /* OPINIONES */
+  .opinion-box { display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start; background: var(--gris); padding: 15px; border-radius: 6px; }
+  .op-icon { font-size: 14px; font-weight: bold; color: var(--nav); flex-shrink: 0; background: #fff; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid var(--bd); }
+  .op-text { font-size: 14px; color: var(--txt); }
+  .op-text strong { display: block; color: var(--nav); font-size: 12.5px; text-transform: uppercase; margin-bottom: 2px; }
+
+  /* TEORÍA ESTILOS EXTENDIDOS */
+  .theory{background:var(--slate);padding:25px;border-bottom:3px solid var(--teal)}
+  .theory h4{font-size:18px;color:#fff;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px}
+  .theory-intro{font-size:14.5px;color:#E6F7F8;line-height:1.6;margin-bottom:20px}
+  .theory-detail{padding:15px 20px;background:var(--bco); display:flex; gap:10px; flex-wrap:wrap;}
+  .btn-link{display:inline-flex;align-items:center;gap:6px;background:var(--teal);color:#fff;text-decoration:none;border-radius:6px;padding:8px 16px;font-size:13px;font-weight:600}
+  
+  .tc-box{background:rgba(255,255,255,.12);border-left:4px solid var(--cl);border-radius:4px;padding:18px;color:#E6F7F8;font-size:14px; margin-top:15px;}
+  .tc-box strong{display:block;font-size:12px;color:var(--cl);margin-bottom:8px; text-transform:uppercase; letter-spacing:0.8px;}
+
+  /* PICRAT TABLE */
+  .picrat-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; color: #fff; background: rgba(0,0,0,0.1); }
+  .picrat-table th, .picrat-table td { border: 1px solid rgba(255,255,255,0.2); padding: 14px; text-align: center; }
+  .picrat-table th { background: rgba(0,0,0,0.3); color: var(--cl); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  .picrat-highlight { background: rgba(0, 148, 154, 0.4); font-weight: bold; border: 2px solid var(--cl); color: #fff; }
+
+  /* SAMR VISUAL - ALTO CONTRASTE */
+  .samr{display:flex;flex-direction:column;gap:12px;margin:15px 0}
+  .samr-row{display:flex;align-items:center;gap:15px;border-radius:6px;padding:15px 20px; color: #fff;}
+  .samr-level{font-size:12px;font-weight:900;text-transform:uppercase;width:125px;flex-shrink:0; color: #fff; letter-spacing: 0.8px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);}
+  .samr-desc{font-size:14px; line-height: 1.5; color: #fff; text-shadow: 1px 1px 1px rgba(0,0,0,0.3);}
+  .samr-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.4);}
+  .samr-r{background:rgba(46,125,50,0.7);border-left:5px solid #4CAF50}
+  .samr-d{background:rgba(21,101,192,0.7);border-left:5px solid #2196F3}
+  .samr-m{background:rgba(249,168,37,0.7);border-left:5px solid #FFC107}
+  .samr-s{background:rgba(191,54,12,0.7);border-left:5px solid #FF5722}
+  .bg-r{background:#2E7D32}.bg-d{background:#1565C0}.bg-m{background:#F9A825}.bg-s{background:#BF360C}
+
+  /* ACTIVIDADES */
+  .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden; width: 100%;}
+  .ach{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;background:var(--bco)}
+  .an{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .at{flex:1}.at strong{display:block;font-size:15px; color:var(--nav);}
+  .acb{display:none;padding:20px 25px}
+  .act.open .acb{display:block}
+  .step{background:var(--gris);border-radius:var(--r);padding:16px 22px;margin-bottom:15px;font-size:14px;border-left:4px solid var(--bd)}
+  .step strong{display:block;color:var(--nav);margin-bottom:10px;text-transform:uppercase;font-size:12px;letter-spacing:0.8px}
+  .step ul{margin-left:18px;margin-top:10px}.step li{margin-bottom:8px}
+
+  /* REPOSITORIO RESPONSIVO */
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+  .tool-card { border: 1px solid var(--bd); border-left: 5px solid var(--teal); border-radius: var(--r); padding: 18px; background: #fff; transition: all 0.2s; }
+  .tool-card:hover { transform: translateY(-3px); border-color: var(--nav); box-shadow: var(--sh); }
+  .tool-card strong { display: block; font-size: 15px; color: var(--nav); margin-bottom: 6px; }
+  .tool-card p { font-size: 13px; color: var(--txt); line-height: 1.4; margin-bottom: 15px; }
+  .tool-link { font-size: 11px; color: var(--teal); text-decoration: none; font-weight: 700; text-transform: uppercase; border: 1px solid var(--teal); padding: 5px 10px; border-radius: 4px; display: inline-block; }
+
+  /* FOOTER COLABORATIVO */
+  .colab-box { margin-top: 25px; background: linear-gradient(135deg, var(--nav), var(--teal)); padding: 30px; border-radius: var(--r); text-align: center; color: #fff; box-shadow: var(--sh); width: 100%; }
+  .colab-box h3 { margin-bottom: 12px; font-size: 20px; color: var(--cl); }
+  .colab-box p { font-size: 15px; opacity: 0.9; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div><strong>Proyectos Educativos con TIC</strong>
+    <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small></div>
+  <div class="top-r"><a href="#" class="btn-reset" onclick="resetCareer()">Cambiar disciplina</a> 2026</div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Elegí tu Profesorado</h2>
+  <p>Hacé clic según tu área específica para ver contenidos situados.</p>
+  <div class="career-grid">
+    <button class="btn-career" onclick="selectCareer('ini', '· Inicial')">Educación Inicial</button>
+    <button class="btn-career" onclick="selectCareer('his', '· Historia')">Historia</button>
+    <button class="btn-career" onclick="selectCareer('geo', '· Geografía')">Geografía</button>
+    <button class="btn-career" onclick="selectCareer('ing', '· Inglés')">Inglés</button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 2 · 3 de abril</p>
+    <h2>¿Sustituir o transformar? <span>TPACK, SAMR y la decisión pedagógica</span></h2>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
+    <button class="tab-btn" onclick="showTab('teoria',this)">Marco teórico</button>
+    <button class="tab-btn" onclick="showTab('actividades',this)">Actividades</button>
+    <button class="tab-btn" onclick="showTab('repositorio',this)">Caja de herramientas</button>
+  </div>
+
+  <div class="wrap">
+    
+    <!-- PANE: INICIO -->
+    <div id="pane-inicio" class="pane on">
+      <div class="card card-b">
+        <div class="ch">La pregunta de fondo</div>
+        <div class="cb">
+          <p style="font-size:17px;font-weight:600;color:var(--nav);">¿Qué cambia realmente en el aprendizaje cuando reemplazamos una fotocopia por un PDF proyectado?</p>
+          <p style="margin-top:10px; font-size:15px;">En la Clase 0 abrimos el debate sobre el "Aula Tecnológica vs. Aula Rural" y problematizamos la idea de que los dispositivos por sí solos garantizan la innovación. Hoy vamos a dar un paso más: analizaremos qué sucede cuando la incorporación de tecnología en el aula carece de un propósito didáctico claro y se convierte en mero "ruido" visual en lugar de una herramienta de transformación.</p>
+          
+          <div class="note nb" style="margin-top:14px; background:var(--vcl); border-left-color:var(--vio);">
+            <span><strong>La tensión actual:</strong> A este debate histórico hoy se le suma la Inteligencia Artificial. ¿Es una aliada que redefine nuestra matriz de enseñanza o simplemente automatiza prácticas tradicionales vaciándolas de sentido crítico?</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-g">
+        <div class="ch">Mandato normativo</div>
+        <div class="cb">
+          <p style="font-size:15px; margin-bottom:12px;">Integrar tecnología en nuestras secuencias didácticas no es una moda ni una elección personal: es un derecho de quienes aprenden y una obligación del sistema educativo. Nuestras propuestas deben dar respuesta concreta a estas exigencias:</p>
+          <ul style="margin-left: 20px; font-size: 14px;">
+            <li style="margin-bottom: 8px;"><strong>Ley de Educación Nacional (26.206):</strong> Art. 88, derecho a la inclusión digital para los/as estudiantes. <a href="http://servicios.infoleg.gob.ar/infolegInternet/anexos/120000-124999/123542/norma.htm" target="_blank" style="color:var(--teal); font-size:12px; font-weight:700; text-decoration:none;">Ver Ley</a></li>
+            <li style="margin-bottom: 8px;"><strong>NAP de Educación Digital (Res. CFE 343/18):</strong> Saberes transversales en Programación y TIC. <a href="https://www.argentina.gob.ar/sites/default/files/nap_educacion_digital_programacion_y_robotica.pdf" target="_blank" style="color:var(--teal); font-size:12px; font-weight:700; text-decoration:none;">Ver PDF</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="ch">Voces en debate</div>
+        <div class="cb">
+          <p style="font-size:15px; margin-bottom:15px;">Si la ley nos exige integrar tecnología, ¿por qué en la práctica tantas veces termina siendo un recurso superficial? Leer y posicionarnos frente a estas perspectivas nos da el sustento profesional necesario:</p>
+          <div class="opinion-box">
+            <div class="op-icon">ID</div>
+            <div class="op-text">
+              <strong>Inés Dussel</strong>
+              "A menudo vemos 'usos empobrecidos' de la tecnología, donde las nuevas pantallas solo reemplazan al papel sin alterar la matriz de enseñanza tradicional."
+              <br><a href="https://plyse.flacso.org.ar/publicaciones/aprender-y-ensenar-en-la-cultura-digital/" target="_blank" style="font-size:11px;color:var(--teal);">Dussel, I. (2011). Aprender y enseñar en la cultura digital (FLACSO).</a>
+            </div>
+          </div>
+          <div class="opinion-box">
+            <div class="op-icon">MM</div>
+            <div class="op-text">
+              <strong>Mariana Maggio</strong>
+              "La inclusión genuina requiere aprovechar la tecnología para que el/la estudiante cree conocimiento nuevo, no solo para consumir información."
+              <br><a href="https://dialnet.unirioja.es/servlet/articulo?codigo=4204993" target="_blank" style="font-size:11px;color:var(--teal);">Maggio, M. (2012). Enriquecer la enseñanza. Paidós (Dialnet).</a>
+            </div>
+          </div>
+          <div class="opinion-box">
+            <div class="op-icon">CL</div>
+            <div class="op-text">
+              <strong>Carina Lion</strong>
+              "La Inteligencia Artificial nos obliga a salir de la zona de confort. Si una máquina puede resolver nuestra consigna en segundos, el problema no es la tecnología, es que la tarea no requería pensamiento crítico."
+              <br><a href="https://www.youtube.com/watch?v=vo05X6k2x88" target="_blank" style="font-size:11px;color:var(--teal);">Lion, C. (2023). Aprendizajes y tecnologías en la era de la IA.</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: MARCO TEÓRICO -->
+    <div id="pane-teoria" class="pane">
+      
+      <!-- 1. TPACK EXTENDIDO -->
+      <div class="res" style="border:1px solid var(--bd); border-radius:var(--r); margin-bottom:18px; overflow:hidden;">
+        <div style="background:var(--gris); padding:10px 15px; display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:13px; color:var(--nav);">Mishra & Koehler (2006) — TPACK</strong>
+          <span style="font-size:11px; background:var(--vcl); padding:3px 8px; border-radius:10px; color:var(--vio); font-weight:700;">MODELO DE SABERES</span>
+        </div>
+        <div class="theory">
+          <h4>¿Qué conocimiento necesita un docente hoy?</h4>
+          <p class="theory-intro">Punya Mishra y Matthew Koehler, basándose en el concepto de "Conocimiento Pedagógico del Contenido" (PCK) de Lee Shulman (1986), desarrollaron el marco "TPACK". Este modelo sostiene que la integración tecnológica eficaz no surge de aprender a usar una herramienta de forma aislada, sino de la intersección dialéctica de tres dominios esenciales. En la era de la IA, el "TK" exige además comprender la lógica algorítmica y su sesgo en la producción de saber.</p>
+          
+          <div style="text-align:center; margin:20px 0; background: rgba(0,0,0,0.2); border-radius: 8px; padding: 25px 0;">
+            <svg viewBox="0 0 320 260" width="100%" style="max-width: 500px; height: auto;">
+              <circle cx="160" cy="90" r="85" fill="rgba(0, 200, 255, 0.4)" stroke="#00C8FF" stroke-width="2.5"/>
+              <text x="160" y="55" font-size="12" font-weight="bold" fill="#00C8FF" text-anchor="middle">TECNOLÓGICO (TK)</text>
+              <circle cx="110" cy="175" r="85" fill="rgba(255, 170, 0, 0.4)" stroke="#FFAA00" stroke-width="2.5"/>
+              <text x="70" y="235" font-size="12" font-weight="bold" fill="#FFAA00" text-anchor="middle">PEDAGÓGICO (PK)</text>
+              <circle cx="210" cy="175" r="85" fill="rgba(173, 255, 47, 0.4)" stroke="#ADFF2F" stroke-width="2.5"/>
+              <text x="250" y="235" font-size="12" font-weight="bold" fill="#ADFF2F" text-anchor="middle">DISCIPLINAR (CK)</text>
+              <text x="160" y="150" font-size="18" font-weight="900" fill="#fff" text-anchor="middle">TPACK</text>
+            </svg>
+          </div>
+
+          <div class="tc-box">
+            <strong>Las Intersecciones Críticas:</strong>
+            <p>• "PCK" (Pedagogical Content Knowledge): Cómo enseñar un tema específico de manera que se comprenda, adaptando el contenido a las necesidades del grupo.</p>
+            <p>• "TCK" (Technological Content Knowledge): Cómo la tecnología cambia la forma en que se produce el conocimiento en la disciplina (ej. la IA en la investigación histórica).</p>
+            <p>• "TPK" (Technological Pedagogical Knowledge): Cómo una herramienta digital potencia o limita una estrategia de enseñanza específica (independiente del tema).</p>
+          </div>
+        </div>
+        <div class="theory-detail">
+          <a class="btn-link" href="http://tpack.org/" target="_blank">Portal Oficial TPACK.org</a>
+          <a class="btn-link" href="https://estudiantes-argentina.unir.net/noticias/educacion/tpack-que-es/" target="_blank" style="background:var(--amb)">Análisis en UNIR (Español)</a>
+        </div>
+      </div>
+
+      <!-- 2. SAMR EXTENDIDO -->
+      <div class="res" style="border:1px solid var(--bd); border-radius:var(--r); margin-bottom:18px; overflow:hidden;">
+        <div style="background:var(--gris); padding:10px 15px; display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:13px; color:var(--nav);">Puentedura (2010) — SAMR</strong>
+          <span style="font-size:11px; background:var(--vcl); padding:3px 8px; border-radius:10px; color:var(--vio); font-weight:700;">BRÚJULA TÉCNICA</span>
+        </div>
+        <div class="theory">
+          <h4>Hacia la transformación del aprendizaje</h4>
+          <p class="theory-intro">El Dr. Rubén Puentedura diseñó este marco para que los docentes puedan autoevaluar el grado de innovación de sus propuestas. El modelo se divide en dos grandes niveles separados por una "línea de corte" pedagógica que define si estamos ante una simple mejora o una verdadera redefinición de la enseñanza.</p>
+          
+          <div class="samr">
+            <div class="samr-row samr-r">
+              <div class="samr-badge bg-r">R</div>
+              <div class="samr-level">Redefinición</div>
+              <div class="samr-desc">La tecnología permite la creación de nuevas tareas, anteriormente inconcebibles. El aprendizaje se vuelve una producción original e imposible sin el medio digital.</div>
+            </div>
+            <div class="samr-row samr-d">
+              <div class="samr-badge bg-d">M</div>
+              <div class="samr-level">Modificación</div>
+              <div class="samr-desc">Se produce un rediseño significativo de la tarea. La TIC permite cambios sustanciales en el flujo de trabajo y la colaboración entre pares.</div>
+            </div>
+            <div style="text-align:center; padding: 5px 0; border-top: 2px dashed rgba(255,255,255,0.4); margin: 5px 0;">
+              <span style="font-size:10px; color:var(--cl); text-transform:uppercase; font-weight:900; letter-spacing:2px">Línea de Transformación Pedagógica</span>
+            </div>
+            <div class="samr-row samr-m">
+              <div class="samr-badge bg-m">A</div>
+              <div class="samr-level">Aumento</div>
+              <div class="samr-desc">Sustitución con mejora funcional. La tecnología aporta agilidad o elementos multimedia, pero la estructura de la tarea no cambia.</div>
+            </div>
+            <div class="samr-row samr-s">
+              <div class="samr-badge bg-s">S</div>
+              <div class="samr-level">Sustitución</div>
+              <div class="samr-desc">Cambio de soporte físico (papel por pantalla) sin ninguna mejora funcional. Es el nivel del copia directa o lectura pasiva.</div>
+            </div>
+          </div>
+        </div>
+        <div class="theory-detail">
+          <a class="btn-link" href="https://eduteka.icesi.edu.co/articulos/samr" target="_blank" style="background:var(--amb)">Análisis en Eduteka</a>
+          <a class="btn-link" href="https://www.hippasus.com/rrpweblog/archives/2013/10/02/SAMR_ABriefIntroduction.pdf" target="_blank" style="background:var(--slate)">PDF Original (Puentedura)</a>
+        </div>
+      </div>
+
+      <!-- 3. PICRAT AMPLIADO -->
+      <div class="res" style="border:1px solid var(--bd); border-radius:var(--r); margin-bottom:18px; overflow:hidden;">
+        <div style="background:var(--gris); padding:10px 15px; display:flex; justify-content:space-between; align-items:center;">
+          <strong style="font-size:13px; color:var(--nav);">Kimmons, Graham & West (2020) — PICRAT</strong>
+          <span style="font-size:11px; background:var(--vcl); padding:3px 8px; border-radius:10px; color:var(--vio); font-weight:700;">MODELO RELACIONAL</span>
+        </div>
+        <div class="theory">
+          <h4>La relación Estudiante-Docente-Tecnología</h4>
+          <p class="theory-intro">El modelo "PICRAT" propone una matriz que integra dos dimensiones inseparables del aula:</p>
+          
+          <div class="tc-box" style="border-left-color: var(--amb);">
+            <strong>Dimensión PIC (Eje del Estudiante):</strong>
+            <p>Evalúa la relación cognitiva del alumno con la tecnología: ¿Es "Pasiva" (solo recibe), "Interactiva" (manipula y responde) o "Creativa" (produce contenido original)?</p>
+          </div>
+
+          <div class="tc-box" style="border-left-color: var(--teal);">
+            <strong>Dimensión RAT (Eje del Docente):</strong>
+            <p>Evalúa el impacto en la práctica pedagógica: ¿La tecnología es un simple "Reemplazo" (mismo método), una "Amplificación" (mejor funcionalidad) o una "Transformación" (cambio radical del método)?</p>
+          </div>
+
+          <div style="overflow-x: auto; width: 100%;">
+            <table class="picrat-table">
+              <tr><th>Docente ↓ / Estudiante →</th><th>Pasivo (P)</th><th>Interactivo (I)</th><th>Creativo (C)</th></tr>
+              <tr><th>Transformación (T)</th><td>PT</td><td>IT</td><td class="picrat-highlight">CT (Ideal)</td></tr>
+              <tr><th>Amplificación (A)</th><td>PA</td><td>IA</td><td>CA</td></tr>
+              <tr><th>Reemplazo (R)</th><td style="background:rgba(191,54,12,0.5); font-weight:bold;">PR (Riesgo)</td><td>IR</td><td>CR</td></tr>
+            </table>
+          </div>
+
+          <div class="tc-box">
+            <strong>¿Por qué usar PICRAT en la era de la IA?</strong>
+            <p>Este modelo es fundamental para no caer en la "automatización vacía". Si le pedimos a una IA que haga un resumen y el alumno solo lo lee, estamos en el nivel "PR". Si el alumno usa la IA para co-crear un debate o modelar un problema, nos movemos hacia el nivel "CT".</p>
+          </div>
+        </div>
+        <div class="theory-detail">
+          <a class="btn-link" href="https://roycekimmons.com/tools/picrat" target="_blank">Sitio Oficial de Royce Kimmons</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: ACTIVIDADES -->
+    <div id="pane-actividades" class="pane">
+      <div class="act" id="a0">
+        <div class="ach" onclick="toggleAct('a0')"><div class="an">1</div><div class="at"><strong>Análisis de caso: "El Proyector de Oro"</strong></div></div>
+        <div class="acb">
+          <div class="step">
+            <strong>Caso Situacional:</strong>
+            <p>Una escuela invirtió quince millones de pesos ($15.000.000) en equipamiento multimedia de última generación. El primer día de clases, el docente usa el proyector 4K para proyectar la página de un libro en formato PDF y pide a los/as estudiantes que copien el texto en sus carpetas.</p>
+            <ul style="margin-top:10px;">
+              <li>Utilizando "SAMR": ¿En qué nivel ubicarías esta práctica? Justificá.</li>
+              <li>Utilizando "PICRAT": ¿Cómo definirías la acción del estudiante (PIC) y el impacto en la práctica docente (RAT)?</li>
+              <li>¿Qué componente del "TPACK" está fallando en esta decisión pedagógica?</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="act" id="a1">
+        <div class="ach" onclick="toggleAct('a1')"><div class="an">2</div><div class="at"><strong>Exploración: Buceando en la Caja de Herramientas</strong></div></div>
+        <div class="acb">
+          <div class="step">
+            <strong>El valor de la exploración (Contexto):</strong>
+            <p>Antes de animarnos a rediseñar una clase entera, necesitamos conocer con qué recursos contamos. Explorar aplicaciones nuevas amplía nuestro <strong>Conocimiento Tecnológico (TK)</strong> y nos da ideas frescas. Nadie puede transformar una práctica con herramientas que no conoce.</p>
+          </div>
+          <div class="step" style="border-left-color: var(--teal);">
+            <strong>La Consigna:</strong>
+            <ul style="margin-top:8px;">
+              <li><strong>1. Elegir:</strong> Andá a la pestaña "Caja de herramientas" y elegí una aplicación que NUNCA hayas usado (puede ser Blooket, Gimkit, MagicSchool, Padlet, etc.).</li>
+              <li><strong>2. Explorar:</strong> Entrá al sitio web, create una cuenta gratuita y jugá con la plataforma por 10 o 15 minutos para ver qué opciones ofrece.</li>
+              <li><strong>3. Mini-diseño:</strong> Pensá una micro-actividad muy puntual para tu disciplina usando esa herramienta (ej: "Un juego de estrategia para repasar las capitales").</li>
+              <li><strong>4. Posicionamiento:</strong> ¿En qué nivel de "SAMR" o "PICRAT" ubicarías esa micro-actividad? ¿Por qué?</li>
+            </ul>
+            <p style="margin-top:10px; font-style:italic; font-size:13px;">Nota: Registrá este análisis breve en tus apuntes personales, te servirá como insumo de ideas para el trabajo final.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="act" id="a2">
+        <div class="ach" onclick="toggleAct('a2')"><div class="an">3</div><div class="at"><strong>Clínica de Reciclaje: Vamos a analizar propuestas de clase</strong></div></div>
+        <div class="acb">
+          <p style="margin-bottom:15px;">En este bloque, vamos a analizar una consigna tradicional de tu disciplina para intentar transformarla en una propuesta innovadora fundamentada.</p>
+          <div class="step"><strong>Instancia 1: "Actividad Original"</strong><p>Elegí una consigna tradicional de tu disciplina (puede ser de residencias o propia). Describila brevemente: ¿Qué hace el/la estudiante? ¿Qué recursos usa y cómo se evalúa?</p></div>
+          <div class="step" style="border-left-color: var(--amb);"><strong>Instancia 2: "Diagnóstico con Lupa"</strong><p>Analizá esa actividad bajo la lupa de los marcos teóricos para entender dónde está el "techo":</p><ul><li>"SAMR y PICRAT:" ¿Es una sustitución pasiva? ¿Hay interactividad real?</li><li>"Trampa de la IA:" ¿Podría una IA resolverla sin que el estudiante piense o procese nada?</li></ul></div>
+          <div class="step" style="border-left-color: var(--nav);"><strong>Instancia 3: "Rediseño Pedagógico"</strong><p>Pensá la nueva consigna textual tal como se la entregarías a tus estudiantes. Debería alcanzar el nivel "Creativo-Transformador (CT)".</p></div>
+          
+          <div class="step" style="background:var(--vcl); border-left-color:var(--vio);">
+            <strong>Pautas para la Entrega:</strong>
+            <p>Subí tu propuesta al aula cumpliendo lo siguiente:</p>
+            <ul style="margin-top:8px;">
+              <li><strong>Formato:</strong> Un único documento PDF (Apellido_Clase2_Disciplina.pdf).</li>
+              <li><strong>Contenido:</strong> Incluir la actividad original, la actividad rediseñada y el análisis de relaciones.</li>
+              <li><strong>Análisis de relaciones (mín. 100 palabras):</strong> Reflexioná sobre los puntos de contacto que encontrás entre tu propuesta rediseñada y los marcos teóricos (TPACK, SAMR y PICRAT).</li>
+            </ul>
+            <p style="margin-top:10px; font-style:italic;">Nota: El intercambio sobre las producciones se realizará presencialmente en la próxima clase.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: REPOSITORIO -->
+    <div id="pane-repositorio" class="pane">
+      <div class="card card-b">
+        <div class="ch">Caja de herramientas</div>
+        <div class="cb">
+          <p style="font-size:15px; font-weight: 600; color: var(--nav);">Herramientas tradicionales y de IA seleccionadas que pueden contribuir al proceso de enseñanza y aprendizaje en el contexto.</p>
+        </div>
+      </div>
+
+      <h3 style="font-size:14px; color:var(--nav); margin:20px 0 15px; border-left:4px solid var(--teal); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">Herramientas Transversales y Lúdicas</h3>
+      <div class="tool-grid">
+        <div class="tool-card"><strong>Wordwall</strong><p>Creación de juegos interactivos personalizados (cuestionarios, postas, laberintos).</p><a href="https://wordwall.net/es" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Kahoot!</strong><p>Plataforma para juegos de preguntas y respuestas en tiempo real.</p><a href="https://kahoot.com/es/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Blooket</strong><p>Juegos de preguntas y respuestas con dinámicas de estrategia, azar y recompensas.</p><a href="https://www.blooket.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Gimkit</strong><p>Plataforma de juegos en vivo tipo "arcade", muy dinámica y altamente competitiva.</p><a href="https://www.gimkit.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Padlet</strong><p>Muros colaborativos para lluvias de ideas y porfolios.</p><a href="https://padlet.com" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Genially</strong><p>Presentaciones, infografías y experiencias gamificadas interactivas.</p><a href="https://genial.ly/es/" class="tool-link" target="_blank">Visitar</a></div>
+      </div>
+
+      <h3 style="font-size:14px; color:var(--vio); margin:25px 0 15px; border-left:4px solid var(--vio); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">IA Generativa y Asistentes</h3>
+      <div class="tool-grid">
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>ChatGPT / Gemini</strong><p>Generación de ideas, resúmenes y tutoría personalizada.</p><a href="https://chatgpt.com" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>Claude</strong><p>Modelo avanzado ideal para análisis de textos extensos y redacción natural.</p><a href="https://claude.ai/" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>DeepSeek</strong><p>Asistente de IA destacado por su alta capacidad de razonamiento lógico y estructuración.</p><a href="https://chat.deepseek.com/" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>Microsoft Copilot</strong><p>Asistente con acceso en tiempo real a la web y creación de imágenes integrada.</p><a href="https://copilot.microsoft.com/" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>NotebookLM</strong><p>Asistente de investigación que responde basándose únicamente en los documentos que vos le subís.</p><a href="https://notebooklm.google.com/" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>Perplexity AI</strong><p>Buscador con IA que cita fuentes académicas reales.</p><a href="https://www.perplexity.ai" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>MagicSchool.ai</strong><p>Plataforma específica para planificación docente.</p><a href="https://www.magicschool.ai" class="tool-link" target="_blank">Probar</a></div>
+      </div>
+
+      <div class="colab-box">
+        <h3>¿Conocés alguna otra herramienta?</h3>
+        <p>Este repositorio es un <strong>documento vivo</strong> que vamos a ir construyendo juntos/as durante el cuatrimestre. Si usaste alguna aplicación que te resultó significativa para tus prácticas en el contexto de Tierra del Fuego, ¡queremos conocerla!</p>
+        <div style="background: rgba(255,255,255,0.15); display: inline-block; padding: 12px 25px; border-radius: 50px; font-weight: 700; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;">
+          Sumá tu sugerencia en el foro de la clase
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectCareer(code, name) {
+  document.body.className = '';
+  document.body.classList.add('show-' + code);
+  document.body.classList.add('career-selected');
+  document.getElementById('lbl-career').innerText = name;
+  document.querySelectorAll('.tab-btn')[0].click();
+}
+function resetCareer() { 
+  document.body.classList.remove('career-selected'); 
+  document.getElementById('lbl-career').innerText = '';
+}
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('active');
+}
+function toggleAct(id){ document.getElementById(id).classList.toggle('open'); }
+
+window.onload = function() {
+  document.querySelectorAll('.act').forEach(a => a.classList.remove('open'));
+}
+</script>
+</body>
+</html>

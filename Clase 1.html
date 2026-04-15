@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Quién decide lo que aprendemos? — Proyectos Educativos con TIC</title>
+<style>
+  :root {
+    /* ── Paleta IPESfa · pasteles institucionales ── */
+    --nav:    #1D3461; /* navy IPESfa (texto "IPES") */
+    --med:    #00949A; /* teal IPESfa (texto "fa" + flechas) */
+    --cl:     #B2E8EA; /* teal claro */
+    --pale:   #E6F7F8; /* teal muy pálido */
+    --grn:    #2A6049; /* verde bosque */
+    --gcl:    #DFF0E9; /* verde pálido */
+    --amb:    #D4873A; /* terracota cálida (alerta) */
+    --acl:    #FDF0E4; /* terracota pálido */
+    --vio:    #3D5A99; /* azul medio IPESfa (foro/acciones) */
+    --vcl:    #E4EAF7; /* azul pálido */
+    --slate:  #4A6080; /* gris azulado del banner IPESfa */
+    --gris:   #F3F6F9; /* fondo gris suave */
+    --bd:     #C5D2DC; /* borde gris azulado */
+    --txt:    #4A5E70; /* texto secundario */
+    --neg:    #1A2C3A; /* texto principal */
+    --bco:    #FFFFFF;
+    --r: 8px; --sh: 0 2px 8px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65}
+
+  /* ── TOPBAR ── */
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--med)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.78}
+  .top-r{font-size:11px;opacity:.65;text-align:right}
+
+  /* ── HERO ── */
+  .hero{background:linear-gradient(135deg,var(--nav) 0%,var(--med) 100%);color:#fff;padding:32px 28px 24px}
+  .hbadge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 14px;font-size:12px;letter-spacing:.5px;margin-bottom:10px}
+  .hero h1{font-size:23px;font-weight:700;line-height:1.3;margin-bottom:6px}
+  .hero-sub{font-size:13px;opacity:.8;margin-bottom:16px}
+  .pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:14px}
+  .pill{background:rgba(255,255,255,.17);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:3px 12px;font-size:12px;white-space:nowrap}
+
+  /* ── TABS ── */
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:12px 18px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--med)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+
+  /* ── LAYOUT ── */
+  .wrap{max-width:860px;margin:0 auto;padding:26px 20px 60px}
+  .pane{display:none}.pane.on{display:block}
+
+  /* ── CARD ── */
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd)}
+  .cb{padding:16px 20px}
+  .card-b .ch{background:var(--pale);color:var(--nav)}
+  .card-g .ch{background:var(--gcl);color:var(--grn)}
+  .card-v .ch{background:var(--vcl);color:var(--vio)}
+
+  /* ── NOTE ── */
+  .note{border-radius:var(--r);padding:9px 13px;font-size:13px;margin:10px 0;display:flex;gap:9px;align-items:flex-start}
+  .ni{font-size:16px;flex-shrink:0;margin-top:1px}
+  .nb{background:var(--pale);border-left:3px solid var(--med)}
+  .ng{background:var(--gcl);border-left:3px solid var(--grn)}
+  .na{background:var(--acl);border-left:3px solid var(--amb)}
+
+  /* ── RESOURCE ITEM ── */
+  .res{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:22px;overflow:hidden}
+  .res-head{display:flex;align-items:flex-start;gap:13px;padding:13px 16px;background:var(--gris)}
+  .ri{font-size:24px;flex-shrink:0;margin-top:2px}
+  .rm{flex:1}
+  .rm strong{display:block;font-size:13.5px;color:var(--nav);margin-bottom:2px}
+  .rm small{font-size:12px;color:var(--txt)}
+  .badge{flex-shrink:0;border-radius:12px;padding:3px 9px;font-size:11px;font-weight:700}
+  .bo{background:#FFE4E4;color:#9B2335}.bc{background:var(--gcl);color:var(--grn)}.bv{background:var(--vcl);color:var(--vio)}
+
+  /* ── SYNTHESIS ── */
+  .syn{background:var(--slate);padding:16px 20px;border-bottom:3px solid var(--med)}
+  .syn-lbl{font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--cl);margin-bottom:7px;text-transform:uppercase}
+  .syn h4{font-size:14px;color:#fff;margin-bottom:9px}
+  .syn-intro{font-size:12.5px;color:#E6F7F8;margin-bottom:13px;line-height:1.55}
+  .syn-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+  .sc{background:rgba(255,255,255,.15);border-left:3px solid var(--cl);border-radius:4px;padding:10px 12px}
+  .sc strong{display:block;font-size:11.5px;color:var(--cl);margin-bottom:4px}
+  .sc p{font-size:12px;color:#E6F7F8;line-height:1.5;margin:0}
+  .sq{background:rgba(0,148,154,.2);border-left:3px solid var(--med);border-radius:4px;padding:10px 14px;font-size:12.5px;font-style:italic;color:#E6F7F8;margin-bottom:11px}
+  .sqs{font-size:10.5px;color:var(--cl);display:block;margin-top:5px;font-style:normal}
+  .sdeb{margin-top:11px;background:rgba(255,255,255,.1);border-radius:4px;padding:10px 14px}
+  .sdeb strong{display:block;font-size:11px;color:var(--cl);margin-bottom:5px;letter-spacing:.4px}
+  .sdeb ul{margin-left:15px}.sdeb li{font-size:12px;color:#E6F7F8;margin-bottom:4px}
+
+  .res-detail{padding:14px 18px 16px}
+  .rp{display:inline-block;background:var(--pale);color:var(--nav);border-radius:6px;padding:4px 10px;font-size:12.5px;font-weight:600;margin-bottom:9px}
+  .res-detail p{font-size:13.5px;margin-bottom:9px}
+
+  .btn{display:inline-flex;align-items:center;gap:6px;background:var(--med);color:#fff;text-decoration:none;border-radius:6px;padding:7px 13px;font-size:13px;font-weight:600;transition:background .15s;margin-right:6px;margin-top:2px}
+  .btn:hover{background:var(--nav)}
+  .btng{background:none;color:var(--med);border:1.5px solid var(--med)}.btng:hover{background:var(--pale)}
+
+  /* ── VIDEO ── */
+  .vid-ts{display:inline-block;background:var(--vcl);color:var(--vio);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;margin-bottom:8px}
+  .vid-wrap{position:relative;padding-top:56.25%;border-radius:6px;overflow:hidden;margin:10px 0}
+  .vid-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0}
+
+  /* ── ACTIVITIES ── */
+  .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden}
+  .ach{display:flex;align-items:center;gap:11px;padding:12px 16px;cursor:pointer;background:var(--bco)}
+  .an{width:33px;height:33px;border-radius:50%;background:var(--med);color:#fff;font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .an.opt{background:var(--txt)}
+  .at{flex:1}.at strong{display:block;font-size:14px}.at small{font-size:12px;color:var(--txt)}
+  .chips{display:flex;gap:5px;flex-wrap:wrap;margin-top:3px}
+  .ch2{border-radius:12px;padding:2px 8px;font-size:11px;font-weight:600}
+  .cb2{background:var(--cl);color:var(--nav)}.cg2{background:var(--gcl);color:var(--grn)}
+  .cv2{background:var(--vcl);color:var(--vio)}.ca2{background:var(--acl);color:#7A4F1A}
+  .arr{font-size:15px;color:var(--txt);transition:transform .2s}
+  .act.open .arr{transform:rotate(90deg)}
+  .acb{display:none;padding:5px 17px 17px 60px}
+  .act.open .acb{display:block}
+  .acb p{font-size:13.5px;margin-bottom:9px}
+  .acb ul{margin:5px 0 9px 17px}.acb li{font-size:13.5px;margin-bottom:4px}
+  .step{background:var(--gris);border-radius:var(--r);padding:11px 15px;margin-bottom:9px}
+  .step strong{display:block;font-size:13px;color:var(--nav);margin-bottom:3px}
+  .step p,.step li{font-size:13px}.step ul{margin:5px 0 0 15px}
+
+  /* ── CARRERA TABS ── */
+  .ctabs{display:flex;border-radius:var(--r);overflow:hidden;border:1.5px solid var(--med);margin-bottom:13px}
+  .ct{flex:1;background:none;border:none;cursor:pointer;padding:8px 12px;font-size:13px;font-weight:600;color:var(--med);transition:all .15s;text-align:center}
+  .ct.on{background:var(--med);color:#fff}.ct:not(.on):hover{background:var(--pale)}
+  .cpanel{display:none}.cpanel.on{display:block}
+
+  /* ── FORUM ── */
+  .forum{background:var(--vcl);border:2px solid var(--vio);border-radius:var(--r);padding:20px 22px;margin-bottom:18px}
+  .forum h3{color:var(--nav);font-size:15.5px;margin-bottom:8px}
+  .fq{background:#fff;border-radius:6px;padding:13px 15px;font-size:13.5px;font-style:italic;color:var(--neg);margin-bottom:13px;border-left:3px solid var(--med)}
+  .fcrit{margin-bottom:13px}.fcrit strong{display:block;font-size:13px;color:var(--nav);margin-bottom:5px}
+  .fcrit ul{margin-left:17px}.fcrit li{font-size:13px;margin-bottom:3px}
+  .fdate{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.7);border-radius:6px;padding:9px 13px;font-size:13px}
+
+  /* ── TABLE ── */
+  .tbl{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:9px}
+  .tbl th{background:var(--nav);color:#fff;padding:7px 11px;text-align:left}
+  .tbl td{padding:7px 11px;border-bottom:1px solid var(--bd);vertical-align:top}
+  .tbl tr:nth-child(even) td{background:var(--gris)}
+
+  /* ── RESPONSIVE — full fluid behavior ── */
+
+  /* Base: remove fixed max-width constraint so it fills any screen */
+  .wrap { max-width: 100%; padding: 20px 24px 60px; }
+
+  /* Medium screens (tablets landscape, small laptops) */
+  @media (min-width: 700px) {
+    .wrap { padding: 24px 32px 60px; }
+  }
+
+  /* Large screens: cap readable line length */
+  @media (min-width: 1100px) {
+    .wrap { max-width: 900px; margin: 0 auto; padding: 28px 40px 60px; }
+  }
+
+  /* Small phones */
+  @media (max-width: 480px) {
+    body { font-size: 14px; }
+    .top { padding: 10px 14px; flex-direction: column; align-items: flex-start; gap: 4px; }
+    .top-r { display: none; }
+    .tab-bar { padding: 0 10px; }
+    .tab-btn { font-size: 12.5px; padding: 10px 11px; }
+    .wrap { padding: 14px 12px 40px; }
+    .ch { font-size: 13px; padding: 11px 14px; }
+    .cb { padding: 13px 14px; }
+    .res-head { flex-wrap: wrap; gap: 8px; padding: 11px 12px; }
+    .badge { align-self: flex-start; }
+    .syn { padding: 14px 14px; }
+    .syn-grid { grid-template-columns: 1fr; }
+    .syn h4 { font-size: 13px; }
+    .res-detail { padding: 12px 14px; }
+    .acb { padding: 5px 12px 15px 12px; }
+    .ctabs { flex-direction: column; }
+    .ct { padding: 9px 10px; font-size: 12.5px; }
+    .forum { padding: 15px 14px; }
+    .fq { font-size: 12.5px; padding: 10px 12px; }
+    .btn { font-size: 12px; padding: 6px 10px; }
+    .step { padding: 10px 12px; }
+    .sdeb { padding: 9px 12px; }
+    .sc { padding: 9px 10px; }
+    .sc p { font-size: 11.5px; }
+    .syn-intro { font-size: 12px; }
+    .sq { font-size: 12px; padding: 9px 12px; }
+    .sdeb li { font-size: 11.5px; }
+  }
+
+  /* Mid-range phones / portrait tablets */
+  @media (min-width: 481px) and (max-width: 699px) {
+    .syn-grid { grid-template-columns: 1fr; }
+    .ctabs { flex-direction: column; }
+    .wrap { padding: 16px 16px 50px; }
+    .tab-btn { font-size: 13px; padding: 11px 14px; }
+    .acb { padding: 5px 14px 16px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div><strong>Proyectos Educativos con TIC</strong>
+    <small>IPES "Florentino Ameghino" · 4.° Año · Campo General · Gustavo Iturriz</small></div>
+  <div class="top-r">2026</div>
+</div>
+
+<div style="background:var(--nav);border-top:1px solid rgba(255,255,255,.1);padding:10px 24px 12px;border-bottom:3px solid var(--teal)">
+  <p style="font-size:11px;color:rgba(255,255,255,.55);letter-spacing:.8px;text-transform:uppercase;margin-bottom:3px">Semana 1 · 28 de marzo</p>
+  <p style="font-size:16px;font-weight:700;color:#fff;line-height:1.3">¿Quién decide lo que aprendemos? <span style="font-weight:400;color:var(--teal)">Pantallas, algoritmos y responsabilidad docente</span></p>
+</div>
+
+<div class="tab-bar">
+  <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
+  <button class="tab-btn" onclick="showTab('dussel',this)">Dussel y Quevedo</button>
+  <button class="tab-btn" onclick="showTab('nap',this)">NAP Educación Digital</button>
+  <button class="tab-btn" onclick="showTab('actividades',this)">Actividades</button>
+  <button class="tab-btn" onclick="showTab('foro',this)">Foro</button>
+</div>
+
+<div class="wrap">
+
+<!-- ═══════════════════════ INICIO ════════════════════════════════ -->
+<div id="pane-inicio" class="pane on">
+
+  <div class="card card-b">
+    <div class="ch">🔍 Pregunta que organiza esta semana</div>
+    <div class="cb">
+      <p style="font-size:15px;font-weight:600;color:var(--nav)">¿Cómo enseñar en un mundo donde las pantallas son cotidianas, pero la brecha digital en TDF no es solo de acceso, sino también de uso?</p>
+      <div class="note nb" style="margin-top:10px">
+        <span class="ni">📱</span>
+        <span>Traé a tu memoria el dato de tu tiempo de pantalla de los últimos días (función Bienestar Digital / Tiempo de Uso de tu celular).</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ DUSSEL Y QUEVEDO ═════════════════════ -->
+<div id="pane-dussel" class="pane">
+
+  <div class="res">
+    <div class="res-head">
+      <div class="ri">📄</div>
+      <div class="rm">
+        <strong>Dussel, I. y Quevedo, L. A. — Educación y nuevas tecnologías: los desafíos pedagógicos ante el mundo digital</strong>
+        <small>Fundación Santillana / FLACSO Argentina · 2010 · 80 pp. · ISBN 978-950-46-2252-9</small>
+      </div>
+      <span class="badge bo">OBLIGATORIO</span>
+    </div>
+
+    <div class="syn">
+      <div class="syn-lbl">📋 Síntesis</div>
+      <h4>¿De qué trata? ¿Por qué lo leemos?</h4>
+      <p class="syn-intro">Escrito para el VI Foro Latinoamericano de Educación (FLACSO/Santillana, 2010). Analiza qué está pasando realmente con la tecnología en las escuelas latinoamericanas, más allá del discurso entusiasta y del pánico moral. Es el texto fundacional del Eje 1 — sin él, los modelos de aprendizaje mediado por TIC de la semana próxima no tienen sustento crítico.</p>
+
+      <div class="syn-grid">
+        <div class="sc">
+          <strong>I. No es un problema de infraestructura</strong>
+          <p>Equipar escuelas no alcanza. El desafío real es simbólico y cultural: la escuela opera con lógica disciplinar y secuencial; las plataformas digitales operan con lógica de personalización, seducción y velocidad. Son dos formas de relacionarse con el conocimiento en tensión permanente.</p>
+        </div>
+        <div class="sc">
+          <strong>II. El mito del "nativo digital"</strong>
+          <p>La idea de que los jóvenes "nacen con el chip incorporado" desresponsabiliza a adultos e instituciones. Las competencias digitales no dependen de la edad sino del capital cultural y el nivel socioeconómico. Muchos jóvenes usan tecnología casi solo para entretenimiento.</p>
+        </div>
+        <div class="sc">
+          <strong>III. Los 3 tipos de brecha digital</strong>
+          <p><strong>De acceso:</strong> no tener dispositivos o conectividad.<br><strong>De uso:</strong> tener acceso pero usarlo solo para consumo pasivo.<br><strong>Generacional:</strong> la diferencia no es por edad sino por capital cultural. La brecha de uso es la más relevante para la formación docente.</p>
+        </div>
+        <div class="sc">
+          <strong>IV. La responsabilidad docente no desaparece</strong>
+          <p>El docente ya no es el único portador del saber, pero sí quien puede mediar críticamente entre los estudiantes y el torrente de información digital. Esa mediación crítica es más necesaria ahora, no menos.</p>
+        </div>
+      </div>
+
+      <div class="sq">
+        "El sistema escolar, basado en una noción de cultura pública común, debería ocuparse de garantizar la equidad no solo en el acceso a las nuevas tecnologías sino también a una variedad y riqueza de prácticas de conocimiento."
+        <span class="sqs">— Dussel y Quevedo (2010, p. 13)</span>
+      </div>
+
+      <div class="sdeb">
+        <strong>PREGUNTAS DE REFLEXIÓN</strong>
+        <ul>
+          <li>¿Qué tipo de brecha digital predomina en las escuelas donde hacés o harás práctica?</li>
+          <li>¿Conocés algún docente que sea buen ejemplo de "mediación crítica"? ¿Qué hace concretamente?</li>
+          <li>¿El argumento de Dussel y Quevedo te resulta convincente, o el mito del nativo digital tiene algo de verdad?</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="res-detail">
+      <div class="rp">📑 Lectura obligatoria: Cap. I "Introducción" pp. 9–14 + inicio Cap. II pp. 15–22</div>
+      <br>
+      <a class="btn" href="https://www.flacso.org.ar/wp-content/uploads/2015/02/educacion-y-nuevas-tecnologias.-santillana-dussel-quevedo.pdf" target="_blank">📥 PDF completo — FLACSO Argentina</a>
+      <div class="note ng" style="margin-top:10px"><span class="ni">📡</span><span>PDF de 1.2 MB — descargalo con Wi-Fi para tener acceso offline en clase.</span></div>
+    </div>
+  </div>
+
+  <!-- VIDEO DUSSEL — AMPLIATORIO -->
+  <div class="res">
+    <div class="res-head">
+      <div class="ri">🎥</div>
+      <div class="rm">
+        <strong>Inés Dussel — "La clase en pantuflas: reflexiones a partir de la excepcionalidad"</strong>
+        <small>ISEP Córdoba · YouTube · 23 de abril de 2020 · 1 h 30 min</small>
+      </div>
+      <span class="badge bc">AMPLIATORIO</span>
+    </div>
+
+    <div class="syn">
+      <div class="syn-lbl">📋 Para quienes quieren profundizar</div>
+      <h4>¿Qué dice Dussel en los primeros 20 minutos?</h4>
+      <p class="syn-intro">Este conversatorio actualiza los argumentos del libro 2010 desde la experiencia de la pandemia. No es de lectura obligatoria para esta semana, pero si querés escuchar a Dussel hablar de brecha digital, conectividad y vínculo pedagógico en su propia voz, los primeros 20 minutos son los más densos y directamente conectados con lo que trabajamos hoy.</p>
+
+      <div class="syn-grid">
+        <div class="sc">
+          <strong>La brecha que nadie nombraba</strong>
+          <p>En muchos hogares hay un solo celular para toda la familia, los datos móviles son un recurso escaso, y las familias no quieren gastarlos en tareas escolares — por razones completamente legítimas. Esa es la brecha de uso en su forma más concreta y urgente.</p>
+        </div>
+        <div class="sc">
+          <strong>El aula como estructura comunicativa</strong>
+          <p>El aula no es solo un espacio físico: es una estructura que regula quién habla, cómo y cuándo. Cuando esa estructura se disuelve — en la virtualidad o en la distracción digital — el vínculo pedagógico se debilita, y eso no lo resuelve ninguna app.</p>
+        </div>
+      </div>
+
+      <div class="sq">
+        "Dar clase en pantuflas para muchos implica a veces trabajar 12, 15 horas por día, tener que explicitar todo, armar recorridos con soportes más desafiantes, sentirse siempre evaluados."
+        <span class="sqs">— Inés Dussel, "La clase en pantuflas", 2020</span>
+      </div>
+    </div>
+
+    <div class="res-detail">
+      <div class="vid-ts">▶ Ver: minutos 0 al 20</div>
+      <div class="vid-wrap">
+        <iframe src="https://www.youtube.com/embed/6xKvCtBC3Vs?start=0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen title="La clase en pantuflas — Inés Dussel — ISEP 2020"></iframe>
+      </div>
+      <div class="note nb"><span class="ni">📡</span><span>Sin conexión: los primeros 20 min son lo relevante. Descargarlo con Wi-Fi antes de la clase si lo querés ver.</span></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ NAP ═══════════════════════════════════ -->
+<div id="pane-nap" class="pane">
+
+  <div class="res">
+    <div class="res-head">
+      <div class="ri">📄</div>
+      <div class="rm">
+        <strong>Ministerio de Educación — NAP de Educación Digital, Programación y Robótica</strong>
+        <small>MECCyT · Resolución CFE N° 343/18 · 2018 · Documento oficial</small>
+      </div>
+      <span class="badge bc">COMPLEMENTARIO</span>
+    </div>
+
+    <div class="syn">
+      <div class="syn-lbl">📋 Síntesis</div>
+      <h4>¿Por qué existe y para qué sirve en este taller?</h4>
+      <p class="syn-intro">En 2018, Argentina se convirtió en el primer país de América Latina en integrar formalmente la educación digital, la programación y la robótica a toda la educación obligatoria. Este documento es el marco curricular que respalda esa decisión — y el que van a tener que citar en el <strong>Hito 1 — Anteproyecto (entrega: 12 de junio)</strong>.</p>
+
+      <div class="syn-grid">
+        <div class="sc">
+          <strong>¿Qué son los NAP?</strong>
+          <p>Núcleos de Aprendizajes Prioritarios: acuerdos federales sobre qué debe saber un estudiante al finalizar cada nivel, independientemente de la provincia. Son un piso curricular común — no un programa de aula ni una planificación lista para usar.</p>
+        </div>
+        <div class="sc">
+          <strong>¿Cómo se construyeron?</strong>
+          <p>A través de consultas con más de 100 especialistas del ámbito académico, la comunidad educativa y la industria. Participaron representantes de todas las jurisdicciones argentinas. Fueron aprobados por el Consejo Federal de Educación (Res. CFE N° 343/18).</p>
+        </div>
+        <div class="sc" style="grid-column:1/-1">
+          <strong>¿Qué propone para cada nivel?</strong>
+          <p>
+            <strong style="color:var(--amb)">Inicial:</strong> juego digital acompañado por adulto. Identidad digital básica. Uso seguro y acotado de dispositivos.<br>
+            <strong style="color:var(--amb)">Primaria:</strong> ciudadanía digital, uso crítico de fuentes, programación visual básica, pensamiento computacional inicial.<br>
+            <strong style="color:var(--amb)">Secundaria:</strong> producción de contenidos digitales, pensamiento computacional, participación en entornos virtuales, uso ético de IA.
+          </p>
+        </div>
+      </div>
+
+      <div class="sdeb">
+        <strong>POR CARRERA — LO QUE MÁS LES IMPORTA</strong>
+        <ul>
+          <li><strong>Inicial:</strong> el eje de los NAP para este nivel no es la tecnología en sí sino la identidad y la seguridad en entornos digitales. La mediación adulta es obligatoria, no opcional. Buscar el eje de "ciudadanía digital" en Sala de 4 y 5.</li>
+          <li><strong>Historia y Geografía:</strong> los NAP para secundaria incluyen el uso crítico de fuentes digitales y la producción de contenidos — directamente articulable con el análisis de fuentes históricas y la cartografía digital. Es la entrada más natural a la propuesta final.</li>
+          <li><strong>Inglés:</strong> los NAP plantean la participación en comunidades digitales y el uso de herramientas de IA como apoyo al aprendizaje del idioma. El inglés es el idioma dominante de internet: la brecha de uso tiene aquí una dimensión lingüística específica.</li>
+        </ul>
+      </div>
+
+      <div class="sdeb" style="margin-top:10px;background:rgba(0,148,154,.15);">
+        <strong>⚠ PARA LA PROPUESTA DE CIERRE DEL TALLER</strong>
+        <ul>
+          <li>Deben citar el NAP o el eje del Diseño Curricular Jurisdiccional del nivel en que van a enseñar.</li>
+          <li>Formato correcto: <em>Ministerio de Educación de la Nación (2018). NAP de Educación Digital, Programación y Robótica. Resolución CFE N° 343/18.</em></li>
+          <li>Empiecen a identificar el eje que corresponde a su carrera desde hoy. No es un trámite de último momento.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="res-detail">
+      <div class="rp">📑 Lectura complementaria: Presentación e Introducción pp. 1–6</div>
+      <br>
+      <a class="btn" href="http://www.bnm.me.gov.ar/giga1/documentos/EL006995.pdf" target="_blank">📥 PDF — Biblioteca Nacional Maestro</a>
+      <a class="btn btng" href="https://www.educ.ar/recursos/150123/nap-de-educacion-digital-programacion-y-robotica" target="_blank">🔗 Ver en Educ.ar</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════ ACTIVIDADES ══════════════════════════ -->
+<div id="pane-actividades" class="pane">
+
+  <div class="note nb" style="margin-bottom:18px">
+    <span class="ni">📌</span>
+    <span>La actividad principal de reflexión escrita de esta semana es el <strong>Foro "Mi Biografía Tecnológica"</strong> (pestaña Foro). Las dos actividades de acá son complementarias y usan herramientas distintas.</span>
+  </div>
+
+  <!-- ACT 1 — PADLET CURADURÍA 24M -->
+  <div class="act open" id="a1">
+    <div class="ach" onclick="toggleAct('a1')">
+      <div class="an">1</div>
+      <div class="at">
+        <strong>Curaduría digital: memoria, algoritmos y mi carrera</strong>
+        <small>Individual · Tablero colaborativo por carrera · Estimado: 20 min</small>
+        <div class="chips"><span class="ch2 cb2">Obligatoria</span><span class="ch2 cv2">Disciplinar</span><span class="ch2 ca2">24 de Marzo</span></div>
+      </div>
+      <span class="arr">›</span>
+    </div>
+    <div class="acb">
+      <p>Dussel y Quevedo plantean que la brecha digital más relevante no es la de acceso a dispositivos, sino la de <strong>uso crítico</strong>: la diferencia entre quienes consumen información sin mediación y quienes pueden leerla, contextualizarla y disputarla. Esa brecha tiene una dimensión que pocas veces se nombra: <strong>la memoria colectiva también se construye algorítmicamente</strong>.</p>
+      <p style="margin-top:8px">El 24 de marzo es una fecha que condensa esa tensión. Lo que un estudiante de 15 años encuentra cuando busca "24 de marzo" en Google, TikTok o YouTube no es neutral: es el resultado de decisiones técnicas, comerciales y políticas que determinan qué versión de la historia llega primero. <strong>Ahí está el docente — o no está.</strong></p>
+      <p style="margin-top:8px">El taller tiene un <strong>único tablero colaborativo compartido por todos los profesorados</strong>. Abrí el link, encontrá la columna de tu carrera y completá <strong>una tarjeta</strong>: el recurso digital que encontraste (link o captura) + no más de 2 oraciones explicando por qué importa para tu práctica docente futura.</p>
+      <p style="margin-top:8px">El tablero es visible para todos los profesorados. Cuando termines, mirá lo que aportaron las otras columnas — la conversación entre disciplinas es parte de la actividad.</p>
+      <div class="note nb" style="margin-top:12px">
+        <span class="ni">🔗</span>
+        <span><strong>Link al tablero:</strong> <a href="https://padlet.com/iturrizeducaciontdf/curadur-a-digital-memoria-y-algoritmos-h134df2usi90960o" target="_blank" rel="noopener" style="color:var(--teal)">padlet.com — Curaduría digital: memoria y algoritmos</a></span>
+      </div>
+
+      <div class="ctabs">
+        <button class="ct" onclick="showC('ini',this)">🧸 Inicial</button>
+        <button class="ct" onclick="showC('his',this)">🗺 Historia y Geo.</button>
+        <button class="ct" onclick="showC('ing',this)">🇬🇧 Inglés</button>
+      </div>
+
+      <div id="c-ini" class="cpanel">
+        <div class="step" style="background:var(--acl);border-left:3px solid var(--amb)">
+          <strong style="color:#7A4F1A">Inicial — El derecho a la identidad en la primera infancia</strong>
+          <p>Durante la dictadura se prohibieron libros infantiles que hoy están digitalizados. Buscá un audiocuento o un fragmento de Paka Paka sobre identidad o libertad de expresión y pegá el link en tu tarjeta. En las 2 oraciones: ¿por qué es adecuado para Sala de 5 y qué cuidado requiere su uso?</p>
+        </div>
+      </div>
+
+      <div id="c-his" class="cpanel">
+        <div class="step" style="background:var(--gcl);border-left:3px solid var(--grn)">
+          <strong style="color:var(--grn)">Historia y Geografía — La materialidad digital de la memoria</strong>
+          <p><strong>Historia:</strong> buscá en el <a href="https://www.argentina.gob.ar/derechoshumanos/anm" target="_blank">Archivo Nacional de la Memoria</a> un documento desclasificado y pegá el link. En 2 oraciones: ¿qué tipo de fuente es y cómo la usarías con estudiantes de secundaria para trabajar "fuente primaria digital"?</p>
+          <p style="margin-top:8px"><strong>Geografía:</strong> buscá en Google Earth o Street View un Sitio de la Memoria en TDF o en el país. Pegá la captura o el link. En 2 oraciones: ¿qué dimensión espacial agrega la geolocalización a la lectura histórica del lugar?</p>
+        </div>
+      </div>
+
+      <div id="c-ing" class="cpanel">
+        <div class="step" style="background:var(--vcl);border-left:3px solid var(--vio)">
+          <strong style="color:var(--vio)">Inglés — El lenguaje y el algoritmo no son neutrales</strong>
+          <p><strong>1:</strong> hacé una captura de cómo un traductor automático o una IA traduce "Desaparecidos" o "Apropiación de bebés" al inglés. En 2 oraciones: ¿encontrás algún sesgo anglocentrista en la traducción? Si es así, ¿cuál es?</p>
+          <p style="margin-top:8px"><strong>2:</strong> buscá una noticia de archivo de 1976 de la BBC o The New York Times sobre Argentina. En 2 oraciones: ¿cómo usarías ese documento auténtico en una clase de EFL sin que el idioma sea una barrera cognitiva?</p>
+        </div>
+      </div>
+
+      <div class="note nb" style="margin-top:10px">
+        <span class="ni">👆</span>
+        <span>Seleccioná tu carrera para ver la consigna. Una tarjeta, un recurso, dos oraciones.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACT 2 OPTATIVA — MENTIMETER -->
+  <div class="act" id="a2">
+    <div class="ach" onclick="toggleAct('a2')">
+      <div class="an opt">2</div>
+      <div class="at">
+        <strong>¿Qué cedés cuando hacés clic en "Aceptar"?</strong>
+        <small>Respuesta en Mentimeter </small>
+        <div class="chips"><span class="ch2 ca2">Obligatoria</span><span class="ch2 cg2">Soberanía tecnológica</span></div>
+      </div>
+      <span class="arr">›</span>
+    </div>
+    <div class="acb">
+      <p>Elegí UNA plataforma que uses habitualmente. Abrí sus Términos y Condiciones y buscá la sección de privacidad — solo esa sección, no el documento entero.</p>
+      <p>Entrá al Mentimeter de la cátedra <a href="https://www.menti.com/alf353bee75j" target="_blank" rel="noopener" style="color:var(--med); font-weight:600; text-decoration:none;">haciendo clic acá</a> (o ingresá a https://www.menti.com/alf353bee75j) y respondé la pregunta abierta con <strong>una oración</strong>: ¿qué fue lo que más te sorprendió o te preocupó de lo que encontraste?</p>
+       
+      <div class="note ng">
+        <span class="ni">🔗</span>
+        <span>Esta actividad es el punto de partida para cuando hablemos de — Soberanía Tecnológica.</span>
+      </div>
+    </div>
+  </div>
+ <!-- ACT 3 -->
+      <div class="act" id="a3">
+        <div class="ach" onclick="toggleAct('a3')">
+          <div class="an">3</div>
+          <div class="at">
+            <strong>Productores Críticos (Diseño de Disparadores)</strong>
+            <small>Diseño visual en Canva, IA y Reflexión DUA</small>
+            <div class="chips"><span class="ch2 ca2">Obligatoria</span><span class="ch2 cv2">Producción</span></div>
+          </div>
+          <span class="arr">›</span>
+        </div>
+        <div class="acb">
+          <p><strong>Objetivo:</strong> Pasar del rol de "curadores" al de "productores" de un recurso digital con intención pedagógica, utilizando la IA como asistente creativo y analizando críticamente la herramienta de diseño.</p>
+          
+          <h4 style="margin-top: 18px; margin-bottom: 8px; color: var(--nav);">🛠️ La Consigna (El Hacer)</h4>
+          <ol style="margin-left: 20px; margin-bottom: 15px; line-height: 1.7;">
+            <li><strong>Elegí algo q  ue te interesó de tu Padlet:</strong> Seleccioná el recurso que más te haya impactado de la investigación que hiciste en la Actividad 1 (una noticia, foto de Street View, audiocuento, etc.).</li>
+            <li><strong>Producí una pieza visual:</strong> Usando Canva (o la app que prefieras, ¡pero animate con Canva1), diseñá una imagen o póster pensado para tus futuros estudiantes.
+               <ul style="margin-left: 20px; margin-top: 5px; margin-bottom: 5px;">
+                  <li><em>El objetivo de la placa:</em> Tiene que funcionar como un <strong>"disparador didáctico"</strong>. No debe explicar todo, debe generar curiosidad e intriga, y llevar un código QR o enlace corto al material original.</li>
+               </ul>
+            </li>
+            <li><strong>🤖 El Copiloto IA (Sugerencia):</strong> ¿No se te ocurre qué texto ponerle a la placa? Pedile ayuda a ChatGPT , Gemini, o Claude. Podés usar un prompt como este: <br><em>"Actuá como un docente creativo. Sugerime 3 frases cortas o intrigantes para un póster escolar que invite a mis estudiantes a escanear un QR sobre un documento desclasificado de 1976. Tiene que generar curiosidad sin contar el final."</em></li>
+            <li><strong>Descargá tu producción</strong> en formato imagen (JPG/PNG).</li>
+          </ol>
+
+          <h4 style="margin-top: 18px; margin-bottom: 8px; color: var(--nav);">🧠 La Reflexión (El Pensar)</h4>
+          <p>Subí la imagen que generaste al <strong>Foro</strong>  y acompañala de una breve reflexión (no más de 15 líneas) respondiendo a estos tres puntos:</p>
+          <ul style="margin-left: 20px; margin-bottom: 15px; line-height: 1.7;">
+            <li><strong>Descripción y Uso Pedagógico:</strong> ¿Para qué nivel/año pensaste esta placa y cómo la introducirías en la clase? (Ej: "La mandaría por WhatsApp para generar interés").</li>
+            <li><strong>Crítica a la Herramienta (El "lado B"):</strong> Usaste Canva u otra app. ¿Qué facilidades te dio? Pero más importante: ¿Qué limitaciones pedagógicas le encontrás? (Ej: "¿Te condicionó usar plantillas prearmadas?", "¿Te pedía pagar para elementos clave?").</li>
+            <li><strong>Accesibilidad (Filtro DUA inicial):</strong> Mirá tu placa con ojos críticos. ¿Es accesible para alguien con daltonismo? ¿La letra contrasta bien con el fondo? ¿Tiene texto alternativo para lectores de pantalla?</li>
+          </ul>
+
+          <div class="note ng">
+            <span class="ni">💡</span>
+            <span><strong>Por qué hacemos esto:</strong> Cierra el círculo de la clase (Investigar → Producir → Reflexionar). Desmitifica la herramienta elegida y te prepara para el Filtro DUA exigido en el Proyecto Final.</span>
+          </div>
+        </div>
+      </div>
+
+</div>
+
+<!-- ═══════════════════════ FORO ══════════════════════════════════ -->
+<div id="pane-foro" class="pane">
+
+  <div class="forum">
+    <h3>💬 Foro 1 — "Mi Biografía Tecnológica"</h3>
+    <p style="font-size:13px;margin-bottom:13px;color:var(--nav)"><strong>Este foro se retoma en la clase de cierre del taller (julio)</strong> para la metacognición final. Lo que escribás hoy es el punto de partida de esa comparación. Escribí con honestidad.</p>
+
+    <div class="fq">"Contame en 10 renglones cuál fue la tecnología — una compu vieja, un casete, el primer celular, un software del colegio, una tablet prestada — que marcó un antes y un después en cómo aprendías o enseñabas. No tiene que ser sofisticada. Lo que importa no es el dispositivo: es el cambio en tu relación con el aprendizaje o la enseñanza."</div>
+
+    <div class="fcrit">
+      <strong>La publicación debe incluir:</strong>
+      <ul>
+        <li>El recuerdo concreto y situado: ¿qué pasó, dónde, cuándo, con quién?</li>
+        <li>Una reflexión: ¿qué cambió en tu relación con aprender o enseñar?</li>
+        <li>Una conexión mínima con alguna idea de Dussel y Quevedo — informal, sin formato académico.</li>
+      </ul>
+    </div>
+
+    <div class="fcrit">
+      <strong>Sobre el uso de IA:</strong>
+      <ul>
+        <li>El recuerdo y el análisis deben ser 100% tuyos.</li>
+        <li>Podés usar IA para pulir la redacción. Si lo hacés, declararlo en una línea final.</li>
+      </ul>
+    </div>
+
+    <div class="fdate">
+      <span style="font-size:19px">⏰</span>
+      <span><strong>Plazo:</strong> la próxima clase (3 de abril) &nbsp;·&nbsp; <strong>Extensión:</strong> 150–300 palabras &nbsp;·&nbsp; <strong>Formato:</strong> publicar en el hilo, no adjuntar archivos.</span>
+    </div>
+  </div>
+
+  <div class="card card-b">
+    <div class="ch">📌 ¿Por qué este foro importa al cierre del taller?</div>
+    <div class="cb">
+      <p>En la clase de cierre (julio) el docente va a recuperar fragmentos de este foro y preguntará: <em>"¿Qué docente digital eras en marzo y qué docente digital sos hoy?"</em></p>
+      <p style="margin-top:8px">Una publicación honesta sobre un recuerdo simple sirve infinitamente más que una reflexión fabricada para impresionar.</p>
+    </div>
+  </div>
+
+  <div class="card card-b">
+    <div class="ch">🔄 ¿Hay que responder a otros?</div>
+    <div class="cb">
+      <p>Esta semana no es obligatorio. El Foro 1 es de construcción individual. Si alguna biografía te resonó, podés dejar un comentario — bienvenido pero no evaluado esta semana.</p>
+    </div>
+  </div>
+
+</div>
+</div><!-- /wrap -->
+
+<script>
+function showTab(id, btn) {
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('active');
+}
+function toggleAct(id){ document.getElementById(id).classList.toggle('open'); }
+function showC(id, btn) {
+  document.querySelectorAll('.cpanel').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ct').forEach(b=>b.classList.remove('on'));
+  document.getElementById('c-'+id).classList.add('on');
+  btn.classList.add('on');
+}
+</script>
+</body>
+</html>

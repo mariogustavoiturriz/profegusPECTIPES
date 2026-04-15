@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 3 · Ciudadanía e Identidad Digital</title>
+<style>
+  :root {
+    --nav:   #1D3461; --teal:  #00949A; --cl:   #B2E8EA; --pale: #E6F7F8;
+    --grn:   #2A6049; --gcl:  #DFF0E9;
+    --amb:   #D4873A; --acl:  #FDF0E4;
+    --vio:   #3D5A99; --vcl:  #E4EAF7;
+    --slate: #4A6080;
+    --gris:  #F3F6F9; --bd:   #C5D2DC; --txt:  #4A5E70;
+    --neg:   #1A2C3A; --bco:  #FFFFFF;
+    --r: 8px; --sh: 0 2px 8px rgba(0,0,0,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65; overflow-x: hidden;}
+
+  /* TOP BAR */
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.9;text-align:right;font-weight:bold;background:rgba(255,255,255,0.2);padding:4px 8px;border-radius:4px;}
+  .btn-reset { display: none; color:var(--cl); margin-right:12px; text-decoration:none; border-bottom: 1px dotted var(--cl); cursor:pointer; }
+  body.career-selected .btn-reset { display: inline-block; }
+
+  /* SELECTOR DE CARRERA */
+  #welcome-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 20px; text-align: center; }
+  #welcome-screen h2 { font-size: 24px; color: var(--nav); margin-bottom: 10px; }
+  #welcome-screen p { font-size: 16px; color: var(--txt); margin-bottom: 30px; font-weight: 600; }
+  .btn-career { background: var(--bco); border: 2px solid var(--teal); color: var(--teal); font-size: 16px; font-weight: 700; padding: 16px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-width: 220px; }
+  .btn-career:hover { background: var(--teal); color: white; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 148, 154, 0.25); }
+  .career-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; width: 100%; max-width: 900px; }
+
+  /* LÓGICA DE FILTRADO */
+  #main-app { display: none; }
+  body.career-selected #welcome-screen { display: none; }
+  body.career-selected #main-app { display: block; }
+  .c-block { display: none; }
+  body.show-ini .c-ini { display: block; }
+  body.show-his .c-his { display: block; }
+  body.show-geo .c-geo { display: block; }
+  body.show-ing .c-ing { display: block; }
+
+  /* TÍTULO Y TABS */
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px; position: sticky; top: 0; z-index: 100;}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+
+  /* CONTENIDO ADAPTABLE */
+  .wrap{max-width:1200px; width: 95%; margin: 0 auto; padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden; width: 100%;}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd); text-transform:uppercase; letter-spacing:0.5px; color:var(--nav);}
+  .cb{padding:18px 25px}
+  .card-b .ch{background:var(--pale);color:var(--nav)}
+  .card-g .ch{background:var(--gcl);color:var(--grn)}
+  .card-v .ch{background:var(--vcl);color:var(--vio)}
+  .note{border-radius:var(--r);padding:14px 18px;font-size:13px;margin:10px 0;display:flex;gap:9px;align-items:flex-start}
+  .nb{background:var(--pale);border-left:4px solid var(--teal)}
+
+  /* TEORÍA ESTILOS */
+  .theory{background:var(--slate);padding:25px;border-bottom:3px solid var(--teal); border-radius:var(--r); margin-bottom: 18px;}
+  .theory h4{font-size:18px;color:#fff;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px}
+  .theory-intro{font-size:14.5px;color:#E6F7F8;line-height:1.6;margin-bottom:20px}
+  
+  .tc-box{background:rgba(255,255,255,.12);border-left:4px solid var(--cl);border-radius:4px;padding:18px;color:#E6F7F8;font-size:14px; margin-top:15px;}
+  .tc-box strong{display:block;font-size:12.5px;color:var(--cl);margin-bottom:8px; text-transform:uppercase; letter-spacing:0.8px;}
+
+  /* ACTIVIDADES */
+  .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden; width: 100%;}
+  .ach{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;background:var(--bco)}
+  .an{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .at{flex:1}.at strong{display:block;font-size:15px; color:var(--nav);}
+  .acb{display:none;padding:20px 25px}
+  .act.open .acb{display:block}
+  .step{background:var(--gris);border-radius:var(--r);padding:16px 22px;margin-bottom:15px;font-size:14px;border-left:4px solid var(--bd)}
+  .step strong{display:block;color:var(--nav);margin-bottom:10px;text-transform:uppercase;font-size:12px;letter-spacing:0.8px}
+  .step ul{margin-left:18px;margin-top:10px}.step li{margin-bottom:8px}
+
+  /* REPOSITORIO RESPONSIVO */
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+  .tool-card { border: 1px solid var(--bd); border-left: 5px solid var(--teal); border-radius: var(--r); padding: 18px; background: #fff; transition: all 0.2s; }
+  .tool-card:hover { transform: translateY(-3px); border-color: var(--nav); box-shadow: var(--sh); }
+  .tool-card strong { display: block; font-size: 15px; color: var(--nav); margin-bottom: 6px; }
+  .tool-card p { font-size: 13px; color: var(--txt); line-height: 1.4; margin-bottom: 15px; }
+  .tool-link { font-size: 11px; color: var(--teal); text-decoration: none; font-weight: 700; text-transform: uppercase; border: 1px solid var(--teal); padding: 5px 10px; border-radius: 4px; display: inline-block; }
+
+  /* FOOTER COLABORATIVO */
+  .colab-box { margin-top: 25px; background: linear-gradient(135deg, var(--nav), var(--teal)); padding: 30px; border-radius: var(--r); text-align: center; color: #fff; box-shadow: var(--sh); width: 100%; }
+  .colab-box h3 { margin-bottom: 12px; font-size: 20px; color: var(--cl); }
+  .colab-box p { font-size: 15px; opacity: 0.9; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div><strong>Proyectos Educativos con TIC</strong>
+    <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small></div>
+  <div class="top-r"><a href="#" class="btn-reset" onclick="event.preventDefault(); resetCareer();">Cambiar disciplina</a> 2026</div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Elegí tu Profesorado</h2>
+  <p>Hacé clic según tu área específica para ver los ejes situados.</p>
+  <div class="career-grid">
+    <button class="btn-career" onclick="selectCareer('ini', '· Inicial')">Educación Inicial</button>
+    <button class="btn-career" onclick="selectCareer('his', '· Historia')">Historia</button>
+    <button class="btn-career" onclick="selectCareer('geo', '· Geografía')">Geografía</button>
+    <button class="btn-career" onclick="selectCareer('ing', '· Inglés')">Inglés</button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 3 · 10 de abril</p>
+    <h2>Huellas y Sombras: <span>Ciudadanía e Identidad Digital Docente</span></h2>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
+    <button class="tab-btn" onclick="showTab('teoria',this)">Marco Teórico Ampliado</button>
+    <button class="tab-btn" onclick="showTab('actividades',this)">Laboratorio de Casos</button>
+    <button class="tab-btn" onclick="showTab('repositorio',this)">Caja de Herramientas</button>
+  </div>
+
+  <div class="wrap">
+    
+    <!-- PANE: INICIO -->
+    <div id="pane-inicio" class="pane on">
+      <div class="card card-b">
+        <div class="ch">La dimensión ética de la tecnología</div>
+        <div class="cb">
+          <p style="font-size:17px;font-weight:600;color:var(--nav);">¿Qué dice de nosotros lo que la red recuerda?</p>
+          <p style="margin-top:10px; font-size:15px;">En la primera clase debatimos sobre la brecha digital, y la semana pasada exploraron una herramienta e hicieron un análisis preliminar con tres modelos clave: <strong>TPACK, SAMR y PICRAT</strong>. Hoy nos toca diagnosticarnos a nosotros mismos y a las prácticas de nuestras instituciones. Internet no olvida, y en el rol docente, nuestra Identidad Digital cruza constantemente la frontera entre lo público, lo privado y lo profesional.</p>
+          <p style="margin-top:10px; font-size:15px;">Esta clase aborda problemáticas urgentes de la ciudadanía digital contemporánea: cómo la información que publicamos forma una <strong>Huella Digital</strong> indeleble, y cuáles son los riesgos a los que exponemos a nuestros estudiantes (y a nosotros mismos) frente a fenómenos como el "Grooming", el "Sharenting" y el nuevo desafío del perfilado con Inteligencia Artificial.</p>
+          
+          <div class="note nb" style="margin-top:14px; background:var(--vcl); border-left-color:var(--vio);">
+            <span><strong>El desafío de hoy:</strong> Pasar de ser "usuarios" a ser "ciudadanos digitales críticos", capaces de diseñar protocolos de cuidado áulico amparados en el marco de la Ley de Protección de Datos Personales y evaluar críticamente las respuestas de la IA.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card card-g">
+        <div class="ch">Un problema de soberanía y cuidado</div>
+        <div class="cb">
+          <p style="font-size:15px; margin-bottom:12px;">En las escuelas de Tierra del Fuego, el manejo de la imagen y los datos de menores es un tema delicado que muchas veces se aborda desde el desconocimiento. Entender estos conceptos nos permite:</p>
+          <ul style="margin-left: 20px; font-size: 14px;">
+            <li style="margin-bottom: 8px;"><strong>Prevenir:</strong> Detectar señales de ciberacoso o manipulación en nuestros estudiantes antes de que escalen.</li>
+            <li style="margin-bottom: 8px;"><strong>Legislar el aula:</strong> Crear acuerdos de convivencia digital claros con las familias y la institución.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: MARCO TEÓRICO -->
+    <div id="pane-teoria" class="pane">
+      <div class="theory">
+        <h4>1. Huella e Identidad Digital</h4>
+        <p class="theory-intro">Nuestra identidad digital es el conjunto de información sobre nosotros que está expuesta en internet. Se compone de lo que publicamos voluntariamente y de los rastros que dejamos al navegar (cookies, geolocalización, interacciones).</p>
+        
+        <div class="tc-box" style="border-left-color: var(--amb);">
+          <strong>Riesgos Cotidianos:</strong>
+          <p style="margin-bottom: 8px;">• <strong>Sharenting (Share + Parenting):</strong> La sobreexposición de imágenes y datos de menores (hijos o estudiantes) en redes sociales sin su consentimiento.</p>
+          <p>• <strong>Grooming (Ciberacoso infantil):</strong> Estrategias que utiliza un adulto para ganarse la confianza de un menor con fines de abuso sexual.</p>
+        </div>
+
+        <h4 style="margin-top:25px;">2. El Marco Legal en Argentina</h4>
+        <div class="tc-box" style="border-left-color: var(--vio);">
+          <strong>Ley 25.326 de Protección de Datos Personales:</strong>
+          Establece que todo dato personal requiere consentimiento libre e informado. Subir fotos de estudiantes a perfiles personales es una violación directa a esta ley y a los derechos del niño.
+        </div>
+
+        <h4 style="margin-top:25px;">3. La Ética transversal a los 3 Modelos (TPACK, SAMR y PICRAT)</h4>
+        <div class="tc-box" style="border-left-color: var(--teal);">
+          <p style="margin-bottom: 8px;"><strong>El "Lado B" del TPACK:</strong> El Conocimiento Tecnológico (TK) es ético. Si el docente elige una app que vulnera la privacidad, su diseño pedagógico falla estructuralmente.</p>
+          <p style="margin-bottom: 8px;"><strong>La trampa de la "Redefinición" (SAMR):</strong> Tareas más complejas tecnológicamente suelen implicar mayor exposición de datos.</p>
+          <p><strong>El riesgo de la "Creatividad" en PICRAT:</strong> Al pedir un rol Creativo (C), forzamos al estudiante a producir huellas digitales tangibles que debemos proteger.</p>
+        </div>
+
+        <h4 style="margin-top:25px;">4. La IA y la nueva Huella Biométrica</h4>
+        <div class="tc-box" style="border-left-color: var(--amb);">
+          <p><strong>De la foto al Deepfake:</strong> Fotos de estudiantes publicadas hoy pueden ser usadas para entrenar modelos de IA o crear deepfakes. La imagen ya no es solo un recuerdo, es un dato biométrico global.</p>
+        </div>
+
+        <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.2); padding-top:15px;">
+            <p style="font-size:12px; color:var(--cl); font-style:italic;">"Fuentes consultadas y enlaces para profundizar:"<br>
+                • <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/norma.htm" target="_blank" style="color:var(--cl); text-decoration:underline;">Ley 25.326: Protección de los Datos Personales (InfoLEG).</a><br>
+                • <a href="https://www.argentina.gob.ar/justicia/convosenlaweb/situaciones/riesgos-de-subir-fotos-de-mis-hijos-e-hijas-a-las-redes-sociales" target="_blank" style="color:var(--cl); text-decoration:underline;">Con Vos en la Web: Riesgos del Sharenting (Min. Justicia).</a><br>
+                • <a href="https://www.argentina.gob.ar/justicia/convosenlaweb/situaciones/guia-para-padres-familias-y-docentes-grooming" target="_blank" style="color:var(--cl); text-decoration:underline;">Con Vos en la Web: Guía sobre Grooming (Min. Justicia).</a><br>
+                • <a href="https://citejournal.org/volume-20/issue-1-20/general/the-picrat-model-for-technology-integration-in-teacher-preparation/" target="_blank" style="color:var(--cl); text-decoration:underline;">Kimmons, R. et al. (2020). The PICRAT model for technology integration.</a><br>
+                • <a href="https://www.ted.com/talks/eli_pariser_beware_online_filter_bubbles?language=es" target="_blank" style="color:var(--cl); text-decoration:underline;">Pariser, E. (2011). Cuidado con la "Burbuja de Filtros" en la red (Charla TED).</a>
+            </p>
+        </div>
+
+        <div class="tc-box" style="background:var(--pale); color:var(--nav); border-left-color: var(--teal); margin-top:30px;">
+          <strong style="color:var(--nav)">Análisis de Riesgo por Profesorado</strong>
+          <div class="c-block c-ini">
+            <p><strong style="color:var(--nav);">Nivel Inicial:</strong> Priorizar la protección contra el sharenting institucional. Mostrar procesos, no rostros.</p>
+          </div>
+          <div class="c-block c-his">
+            <p><strong style="color:var(--nav);">Historia:</strong> Reflexionar sobre la huella digital como el archivo histórico del siglo XXI.</p>
+          </div>
+          <div class="c-block c-geo">
+            <p><strong style="color:var(--nav);">Geografía:</strong> Alfabetización espacial: apagar la geolocalización de las cámaras para proteger trayectorias.</p>
+          </div>
+          <div class="c-block c-ing">
+            <p><strong style="color:var(--nav);">Inglés:</strong> Entender la jerga internacional del riesgo (phishing, scam) en plataformas globales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: ACTIVIDADES -->
+    <div id="pane-actividades" class="pane">
+      <div class="act" id="a0">
+        <div class="ach" onclick="toggleAct('a0')">
+          <div class="an" style="background:var(--amb)">🔍</div>
+          <div class="at"><strong>Actividad 1: Egosurfing y la Burbuja de Filtros</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step">
+            <strong>Esencia TIC: Perfilado Algorítmico</strong>
+            <p>Google construye una "Burbuja de Filtros" (Eli Pariser) basada en tus cookies. Si no usás navegación privada, solo ves la imagen que el algoritmo cree que querés ver de vos mismo.</p>
+          </div>
+          
+          <div class="step" style="border-left-color: var(--teal);">
+            <strong>Auditoría paso a paso:</strong>
+            <ul>
+              <li><strong>Paso A (Romper la Burbuja):</strong> Activen el "Modo Incógnito" o usen <strong>DuckDuckGo</strong>. Simulen lo que vería un desconocido al googlear sus nombres.</li>
+              <li><strong>Paso B (Búsqueda Exacta / OSINT):</strong> Actúen como investigadores usando comillas (ej. "Gustavo Iturriz") para obligar al buscador a encontrar la cadena exacta. Crucen con datos locales.</li>
+              <li><strong>Paso C (Rastreo de Imágenes):</strong> Identifiquen de dónde provienen sus fotos públicas (redes, padrones, noticias).</li>
+            </ul>
+          </div>
+
+          <div class="step" style="background:var(--pale); border-left-color: var(--amb);">
+            <strong>Paso D: Momento Interactivo</strong>
+            <p>Ingresen a <strong>Mentimeter</strong> con el código proyectado y respondan anónimamente:</p>
+            <p style="font-weight:bold; margin-top:5px;">¿Qué sensación te dio ver tu huella digital expuesta?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="act" id="a1">
+        <div class="ach" onclick="toggleAct('a1')">
+          <div class="an">2</div>
+          <div class="at"><strong>Actividad 2: IA y Diseño de Infografía Preventiva</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step">
+            <strong>Situación Escolar:</strong>
+            <div style="background: rgba(255,255,255,0.5); padding: 10px; border-left: 3px solid var(--amb); margin-top: 10px; font-style: italic;">
+              "En la muestra anual, una madre publica en Facebook (perfil público) un álbum de 40 fotos donde aparecen en primer plano varios estudiantes, etiquetando al colegio."
+            </div>
+          </div>
+          
+          <div class="step" style="border-left-color: var(--vio);">
+            <strong>Consigna:</strong>
+            <p><strong>Paso 1: Ingeniería de Prompts</strong><br>Diseñen un prompt para una IA (ChatGPT/Claude) que incluya Rol, Contexto, Tarea y Tono para generar un protocolo preventivo de 3 reglas.</p>
+            
+            <div class="note nb" style="margin-top:15px; border-left-color: var(--amb); background: var(--acl);">
+              <span style="font-size: 16px;">💡</span>
+              <div>
+                <strong style="color:var(--nav); display:block; margin-bottom:4px;">Mini-Guía: La fórmula del Prompt Docente</strong>
+                A mayor precisión, mayor calidad pedagógica.
+                <br><a href="https://www.educaciontrespuntocero.com/tecnologia/prompts-de-ia-para-docentes/" target="_blank" style="color:var(--teal); font-weight:700; text-decoration:none; display:inline-block; margin-top:6px;">→ Leer Guía de Prompts para Docentes</a>
+              </div>
+            </div>
+
+            <p style="margin-top:12px;"><strong>Paso 2: Auditoría humana</strong><br>Corrijan la respuesta de la IA aplicando la Ley 25.326 y aportando el tacto docente real.</p>
+
+            <p style="margin-top:12px;"><strong>Paso 3: Diseño Visual</strong><br>Lleven el texto curado a <strong>Canva</strong> o Genially para crear una pieza clara para las familias.</p>
+          </div>
+
+          <div class="step" style="border-left-color: var(--nav);">
+            <strong>Foro de Cierre: Entrega y Cruce Teórico (Aula Virtual)</strong>
+            <p>Un integrante del grupo debe subir el enlace de la infografía al foro en el <strong>Aula Virtual</strong>.</p>
+            <p style="margin-top: 10px;">Agreguen el párrafo grupal respondiendo:</p>
+            <p style="font-style: italic; margin-top: 8px; padding: 12px; background: rgba(255,255,255,0.6); border-left: 3px solid var(--nav);">
+                "Si la actividad de la muestra buscaba la <strong>Redefinición</strong> (SAMR) forzando a los estudiantes a exponer su imagen para ser <strong>Creativos</strong> (PICRAT), ¿qué falló en el Conocimiento Tecnológico y Pedagógico (TPACK) de los docentes que organizaron el evento al no prever este riesgo a la privacidad?"
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: REPOSITORIO -->
+    <div id="pane-repositorio" class="pane">
+        <div class="tool-grid">
+            <div class="tool-card" style="border-left-color:var(--amb);"><strong>DuckDuckGo</strong><p>Buscador que prioriza la privacidad. No rastrea ni crea burbujas de filtros.</p><a href="https://duckduckgo.com/" class="tool-link" target="_blank">Visitar</a></div>
+            <div class="tool-card"><strong>Mentimeter</strong><p>Encuestas y nubes de palabras en tiempo real.</p><a href="https://www.mentimeter.com/" class="tool-link" target="_blank">Visitar</a></div>
+            <div class="tool-card"><strong>Canva</strong><p>Diseño visual simplificado con cuentas educativas gratuitas.</p><a href="https://www.canva.com/" class="tool-link" target="_blank">Visitar</a></div>
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function selectCareer(code, name) {
+  document.body.className = '';
+  document.body.classList.add('show-' + code);
+  document.body.classList.add('career-selected');
+  document.getElementById('lbl-career').innerText = name;
+  document.querySelectorAll('.tab-btn')[0].click();
+}
+function resetCareer() { 
+  document.body.classList.remove('career-selected'); 
+  document.getElementById('lbl-career').innerText = '';
+}
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('active');
+}
+function toggleAct(id){ document.getElementById(id).classList.toggle('open'); }
+</script>
+</body>
+</html>
