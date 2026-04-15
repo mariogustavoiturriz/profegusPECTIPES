@@ -21,7 +21,10 @@
   /* TOP BAR */
   .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
   .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
-  .top-r{font-size:11px;opacity:.9;text-align:right;font-weight:bold;background:rgba(255,255,255,0.2);padding:4px 8px;border-radius:4px;}
+  .top-r{font-size:11px;opacity:.65;text-align:right}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
+  .btn-back:hover{background:rgba(255,255,255,0.25)}
   .btn-reset { display: none; color:var(--cl); margin-right:12px; text-decoration:none; border-bottom: 1px dotted var(--cl); cursor:pointer; }
   body.career-selected .btn-reset { display: inline-block; }
 
@@ -100,9 +103,14 @@
 <body>
 
 <div class="top">
-  <div><strong>Proyectos Educativos con TIC</strong>
-    <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small></div>
-  <div class="top-r"><a href="#" class="btn-reset" onclick="event.preventDefault(); resetCareer();">Cambiar disciplina</a> 2026</div>
+  <div class="top-info">
+    <a href="index_pect.html" class="btn-back">← Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
+  </div>
+  <div class="top-r">Ciclo Lectivo 2026</div>
 </div>
 
 <div id="welcome-screen">
@@ -295,11 +303,17 @@
             <p style="margin-top:12px; padding-top:12px; border-top: 1px dashed var(--bd);"><strong>Paso 3: El Diseño de la Infografía</strong><br>Lleven ese texto ya curado a su lienzo de Canva o Genially. Agreguen íconos, usen colores institucionales y armen una pieza gráfica clara, pensada para ser enviada por WhatsApp o impresa para el cuaderno de comunicados.</p>
           </div>
 
-          <div class="step" style="border-left-color: var(--nav);">
-            <strong>Foro de Cierre: Entrega y Cruce Teórico (AVT)</strong>
-            <p>Terminada la clase, un/a integrante del grupo debe ingresar al Aula Virtual y subir el enlace (o la imagen descargada) de su infografía al Foro de la Semana 3.</p>
-            <p style="font-weight: bold; margin-top: 12px;">Junto a la entrega, deben agregar un párrafo grupal respondiendo a este cruce teórico:</p>
-            <p style="font-style: italic; margin-top: 4px; padding: 10px; background: rgba(255,255,255,0.6); border-left: 3px solid var(--nav);">"Si la actividad de la muestra buscaba la <em>Redefinición</em> (SAMR) forzando a los estudiantes a exponer su imagen para ser <em>Creativos</em> (PICRAT), ¿qué falló en el Conocimiento Tecnológico y Pedagógico (TPACK) de los docentes que organizaron el evento al no prever este riesgo a la privacidad?"</p>
+          <div class="step" style="border-left-color: var(--nav); background: #f0f4ff;">
+            <strong>¿Cómo se entrega esta actividad?</strong>
+            <p>Cada integrante sube al Aula Virtual <strong>dos cosas juntas</strong>:</p>
+            <ol style="margin: 10px 0 12px 20px; font-size: 14px; line-height: 1.8;">
+              <li><strong>El enlace público</strong> a la infografía en Canva o Genially (o la imagen descargada si usaron otra herramienta).</li>
+              <li><strong>Un párrafo individual</strong> respondiendo a la siguiente pregunta de análisis teórico:</li>
+            </ol>
+            <div style="font-style: italic; padding: 14px 16px; background: rgba(255,255,255,0.85); border-left: 4px solid var(--nav); border-radius: 6px; font-size: 14px; line-height: 1.7; color: var(--neg);">
+              "Si la actividad de la muestra buscaba la <em>Redefinición</em> (SAMR) —forzando a los estudiantes a exponer su imagen para ser <em>Creativos</em> (PICRAT)—, ¿qué falló en el Conocimiento Tecnológico y Pedagógico (TPACK) de los docentes que organizaron el evento al no prever este riesgo a la privacidad?"
+            </div>
+            <p style="margin-top: 10px; font-size: 13px; color: var(--txt);">No hay extensión mínima: importa la calidad del argumento, no la cantidad de palabras. La respuesta debe citar al menos uno de los tres modelos por nombre.</p>
           </div>
         </div>
       </div>
