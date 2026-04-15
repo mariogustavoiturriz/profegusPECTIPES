@@ -21,7 +21,10 @@
   /* TOP BAR */
   .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
   .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
-  .top-r{font-size:11px;opacity:.9;text-align:right;font-weight:bold;background:rgba(255,255,255,0.2);padding:4px 8px;border-radius:4px;}
+  .top-r{font-size:11px;opacity:.65;text-align:right}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
+  .btn-back:hover{background:rgba(255,255,255,0.25)}
   .btn-reset { display: none; color:var(--cl); margin-right:12px; text-decoration:none; border-bottom: 1px dotted var(--cl); cursor:pointer; }
   body.career-selected .btn-reset { display: inline-block; }
 
@@ -126,8 +129,13 @@
 <body>
 
 <div class="top">
-  <div><strong>Proyectos Educativos con TIC- Clase 2</strong>
-    <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small></div>
+  <div class="top-info">
+    <a href="index_pect.html" class="btn-back">← Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
+  </div>
   <div class="top-r"><a href="#" class="btn-reset" onclick="resetCareer()">Cambiar disciplina</a> 2026</div>
 </div>
 
