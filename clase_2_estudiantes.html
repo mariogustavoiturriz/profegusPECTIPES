@@ -21,10 +21,7 @@
   /* TOP BAR */
   .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
   .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
-  .top-r{font-size:11px;opacity:.65;text-align:right}
-  .top-info{display:flex;align-items:center;gap:20px}
-  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
-  .btn-back:hover{background:rgba(255,255,255,0.25)}
+  .top-r{font-size:11px;opacity:.9;text-align:right;font-weight:bold;background:rgba(255,255,255,0.2);padding:4px 8px;border-radius:4px;}
   .btn-reset { display: none; color:var(--cl); margin-right:12px; text-decoration:none; border-bottom: 1px dotted var(--cl); cursor:pointer; }
   body.career-selected .btn-reset { display: inline-block; }
 
@@ -129,21 +126,15 @@
 <body>
 
 <div class="top">
-  <div class="top-info">
-    <a href="index.html" class="btn-back">← Volver al Índice</a>
-    <div>
-      <strong>Proyectos Educativos con TIC</strong>
-      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
-    </div>
-  </div>
-  <div class="top-r"><a href="#" class="btn-reset" onclick="resetCareer()">Cambiar disciplina</a> 2026</div>
+  <div><strong>Proyectos Educativos con TIC</strong>
+    <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small></div>
+  <div class="top-r"><a href="#" class="btn-reset" onclick="event.preventDefault(); resetCareer();">Cambiar disciplina</a> 2026</div>
 </div>
 
 <div id="welcome-screen">
   <h2>Elegí tu Profesorado</h2>
-  <p>Hacé clic según tu área específica para ver contenidos situados.</p>
+  <p>Hacé clic según tu área específica para ver los contenidos situados.</p>
   <div class="career-grid">
-    <button class="btn-career" onclick="selectCareer('ini', '· Inicial')">Educación Inicial</button>
     <button class="btn-career" onclick="selectCareer('his', '· Historia')">Historia</button>
     <button class="btn-career" onclick="selectCareer('geo', '· Geografía')">Geografía</button>
     <button class="btn-career" onclick="selectCareer('ing', '· Inglés')">Inglés</button>
@@ -363,7 +354,7 @@
         <div class="ach" onclick="toggleAct('a1')"><div class="an">2</div><div class="at"><strong>Exploración: Buceando en la Caja de Herramientas</strong></div></div>
         <div class="acb">
           <div class="step">
-            <strong>El valor de la exploración (Contexto):</strong>
+            <strong>El valor de la exploración:</strong>
             <p>Antes de animarnos a rediseñar una clase entera, necesitamos conocer con qué recursos contamos. Explorar aplicaciones nuevas amplía nuestro <strong>Conocimiento Tecnológico (TK)</strong> y nos da ideas frescas. Nadie puede transformar una práctica con herramientas que no conoce.</p>
           </div>
           <div class="step" style="border-left-color: var(--teal);">
@@ -371,8 +362,9 @@
             <ul style="margin-top:8px;">
               <li><strong>1. Elegir:</strong> Andá a la pestaña "Caja de herramientas" y elegí una aplicación que NUNCA hayas usado (puede ser Blooket, Gimkit, MagicSchool, Padlet, etc.).</li>
               <li><strong>2. Explorar:</strong> Entrá al sitio web, create una cuenta gratuita y jugá con la plataforma por 10 o 15 minutos para ver qué opciones ofrece.</li>
-              <li><strong>3. Mini-diseño:</strong> Pensá una micro-actividad muy puntual para tu disciplina usando esa herramienta (ej: "Un juego de estrategia para repasar las capitales").</li>
-              <li><strong>4. Posicionamiento:</strong> ¿En qué nivel de "SAMR" o "PICRAT" ubicarías esa micro-actividad? ¿Por qué?</li>
+              <li><strong>3. Radiografía de la app:</strong> Describí brevemente la herramienta: ¿Para qué sirve y cómo se usa? ¿Es gratuita o tiene limitaciones fuertes? ¿Requiere registro obligatorio? ¿Se puede usar fácilmente en el aula y para qué nivel educativo? ¿El entorno es simple y amigable? (Esta info será la base para armar una grilla de valoración de herramientas más adelante).</li>
+              <li><strong>4. Mini-diseño:</strong> Pensá una micro-actividad muy puntual para tu disciplina usando esa herramienta (ej: "Un juego de estrategia para repasar las capitales").</li>
+              <li><strong>5. Posicionamiento:</strong> ¿En qué nivel de "SAMR" o "PICRAT" ubicarías esa micro-actividad? ¿Por qué?</li>
             </ul>
             <p style="margin-top:10px; font-style:italic; font-size:13px;">Nota: Registrá este análisis breve en tus apuntes personales, te servirá como insumo de ideas para el trabajo final.</p>
           </div>
@@ -410,14 +402,48 @@
         </div>
       </div>
 
-      <h3 style="font-size:14px; color:var(--nav); margin:20px 0 15px; border-left:4px solid var(--teal); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">Herramientas Transversales y Lúdicas</h3>
+      <h3 style="font-size:14px; color:var(--nav); margin:20px 0 15px; border-left:4px solid var(--teal); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">Gamificación y Cuestionarios</h3>
       <div class="tool-grid">
-        <div class="tool-card"><strong>Wordwall</strong><p>Creación de juegos interactivos personalizados (cuestionarios, postas, laberintos).</p><a href="https://wordwall.net/es" class="tool-link" target="_blank">Visitar</a></div>
-        <div class="tool-card"><strong>Kahoot!</strong><p>Plataforma para juegos de preguntas y respuestas en tiempo real.</p><a href="https://kahoot.com/es/" class="tool-link" target="_blank">Visitar</a></div>
-        <div class="tool-card"><strong>Blooket</strong><p>Juegos de preguntas y respuestas con dinámicas de estrategia, azar y recompensas.</p><a href="https://www.blooket.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Quizizz</strong><p>Alternativa directa a Kahoot. Ritmos controlados por el estudiante y enorme biblioteca en español. Plan Gratis: Ilimitado en tiempo y cuestionarios públicos.</p><a href="https://quizizz.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Educaplay</strong><p>Sopas de letras, crucigramas y mapas interactivos. Plan Gratis: Sin límite de tiempo, permite crear actividades ilimitadas (con anuncios).</p><a href="https://es.educaplay.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Cerebriti</strong><p>Portal español para crear juegos educativos o usar miles ya creados sobre cualquier materia. Plan Gratis: Totalmente gratuito y colaborativo.</p><a href="https://www.cerebriti.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Wordwall</strong><p>Crea actividades rápidas como "abre la caja" o "rueda del azar". Plan Gratis: Sin límite de tiempo, hasta 5 recursos propios (infinitamente editables).</p><a href="https://wordwall.net/es" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Socrative</strong><p>Más formal, ideal para feedback rápido y "tickets de salida" al final de la clase. Plan Gratis: 1 sala de clases pública para hasta 50 estudiantes.</p><a href="https://www.socrative.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Kahoot!</strong><p>Plataforma pionera para juegos de preguntas y respuestas en tiempo real, ideal para encender el aula.</p><a href="https://kahoot.com/es/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Blooket</strong><p>Juegos de preguntas con modos tipo "Tower Defense" o "Robar oro". Interfaz en inglés intuitiva. Plan Gratis: Acceso a modos y sets ilimitados.</p><a href="https://www.blooket.com/" class="tool-link" target="_blank">Visitar</a></div>
         <div class="tool-card"><strong>Gimkit</strong><p>Plataforma de juegos en vivo tipo "arcade", muy dinámica y altamente competitiva.</p><a href="https://www.gimkit.com/" class="tool-link" target="_blank">Visitar</a></div>
-        <div class="tool-card"><strong>Padlet</strong><p>Muros colaborativos para lluvias de ideas y porfolios.</p><a href="https://padlet.com" class="tool-link" target="_blank">Visitar</a></div>
-        <div class="tool-card"><strong>Genially</strong><p>Presentaciones, infografías y experiencias gamificadas interactivas.</p><a href="https://genial.ly/es/" class="tool-link" target="_blank">Visitar</a></div>
+      </div>
+
+      <h3 style="font-size:14px; color:var(--nav); margin:25px 0 15px; border-left:4px solid var(--teal); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">Presentaciones y Contenido Visual</h3>
+      <div class="tool-grid">
+        <div class="tool-card"><strong>Canva para Educación</strong><p>Crea presentaciones, pizarras online y videos. Plan Gratis: Versión "Pro" 100% gratuita si sos docente acreditado. Si no, muy generosa.</p><a href="https://www.canva.com/es_es/educacion/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Genially</strong><p>Herramienta estrella para presentaciones, infografías y experiencias gamificadas interactivas de alta calidad visual.</p><a href="https://genial.ly/es/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Nearpod</strong><p>Convierte diapositivas en lecciones interactivas donde los alumnos participan desde sus móviles. Plan Gratis: Espacio limitado (100MB), uso ilimitado.</p><a href="https://nearpod.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Pear Deck</strong><p>Complemento de Google Slides para añadir preguntas interactivas a tus presentaciones. Plan Gratis: Funciones básicas para siempre.</p><a href="https://www.peardeck.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Prezi</strong><p>Famoso por su "zoom" dinámico; incluye Prezi Video para aparecer junto a tu contenido. Plan Gratis: Público y sin límite de tiempo.</p><a href="https://prezi.com/es/" class="tool-link" target="_blank">Visitar</a></div>
+      </div>
+
+      <h3 style="font-size:14px; color:var(--nav); margin:25px 0 15px; border-left:4px solid var(--teal); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">Murales y Colaboración</h3>
+      <div class="tool-grid">
+        <div class="tool-card"><strong>Padlet</strong><p>El estándar para muros colaborativos, lluvias de ideas y armado de porfolios visuales.</p><a href="https://padlet.com" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Lino (Linoit)</strong><p>Corcho virtual alternativo a Padlet para post-its, imágenes y videos. Plan Gratis: Ilimitado en tiempo y bastante libre en lienzos.</p><a href="http://en.linoit.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Wakelet</strong><p>Permite curar contenido web (enlaces, videos) y organizarlo en colecciones visuales atractivas. Plan Gratis: Totalmente gratuito y en español.</p><a href="https://wakelet.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Miro</strong><p>Pizarra infinita profesional ideal para mapas mentales y diagramas colaborativos. Plan Gratis: 3 tableros editables ilimitados en tiempo.</p><a href="https://miro.com/es/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Symbaloo</strong><p>Organizador visual de enlaces en bloques, muy usado para armar entornos personales de aprendizaje (PLE). Plan Gratis: Básica indefinida.</p><a href="https://www.symbaloo.com/" class="tool-link" target="_blank">Visitar</a></div>
+      </div>
+
+      <h3 style="font-size:14px; color:var(--nav); margin:25px 0 15px; border-left:4px solid var(--teal); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">Video y Fichas Interactivas</h3>
+      <div class="tool-grid">
+        <div class="tool-card"><strong>Edpuzzle</strong><p>Convierte cualquier video en una lección interactiva insertando preguntas que pausan la reproducción. Plan Gratis: Hasta 20 videos propios.</p><a href="https://edpuzzle.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Flip (Flipgrid)</strong><p>Plataforma de debate en video de Microsoft donde lanzás una pregunta y responden con videos cortos. Plan Gratis: 100% gratuito.</p><a href="https://info.flip.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>LiveWorksheets</strong><p>Transforma fichas tradicionales en ejercicios interactivos autocorregibles online. Plan Gratis: Permite hasta 30 fichas privadas.</p><a href="https://www.liveworksheets.com/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Mentimeter</strong><p>Rey de las encuestas en tiempo real y nubes de palabras. Plan Gratis: Audiencia ilimitada, 2 preguntas y 5 diapositivas de quiz por presentación.</p><a href="https://www.mentimeter.com/" class="tool-link" target="_blank">Visitar</a></div>
+      </div>
+
+      <h3 style="font-size:14px; color:var(--nav); margin:25px 0 15px; border-left:4px solid var(--teal); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">Gestión y Repaso</h3>
+      <div class="tool-grid">
+        <div class="tool-card"><strong>ClassDojo</strong><p>Gestión de aula gamificada, portafolios digitales y comunicación directa con las familias. Plan Gratis: 100% gratuito para docentes.</p><a href="https://www.classdojo.com/es-es/" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Quizlet</strong><p>Herramienta líder para crear tarjetas de memoria (flashcards) y juegos rápidos de estudio. Plan Gratis: Acceso a biblioteca y modos básicos.</p><a href="https://quizlet.com/es" class="tool-link" target="_blank">Visitar</a></div>
       </div>
 
       <h3 style="font-size:14px; color:var(--vio); margin:25px 0 15px; border-left:4px solid var(--vio); padding-left:12px; text-transform:uppercase; letter-spacing:0.5px;">IA Generativa y Asistentes</h3>
@@ -427,8 +453,8 @@
         <div class="tool-card" style="border-left-color:var(--vio);"><strong>DeepSeek</strong><p>Asistente de IA destacado por su alta capacidad de razonamiento lógico y estructuración.</p><a href="https://chat.deepseek.com/" class="tool-link" target="_blank">Probar</a></div>
         <div class="tool-card" style="border-left-color:var(--vio);"><strong>Microsoft Copilot</strong><p>Asistente con acceso en tiempo real a la web y creación de imágenes integrada.</p><a href="https://copilot.microsoft.com/" class="tool-link" target="_blank">Probar</a></div>
         <div class="tool-card" style="border-left-color:var(--vio);"><strong>NotebookLM</strong><p>Asistente de investigación que responde basándose únicamente en los documentos que vos le subís.</p><a href="https://notebooklm.google.com/" class="tool-link" target="_blank">Probar</a></div>
-        <div class="tool-card" style="border-left-color:var(--vio);"><strong>Perplexity AI</strong><p>Buscador con IA que cita fuentes académicas reales.</p><a href="https://www.perplexity.ai" class="tool-link" target="_blank">Probar</a></div>
-        <div class="tool-card" style="border-left-color:var(--vio);"><strong>MagicSchool.ai</strong><p>Plataforma específica para planificación docente.</p><a href="https://www.magicschool.ai" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>Perplexity AI</strong><p>Buscador con IA que cita fuentes académicas reales en sus respuestas.</p><a href="https://www.perplexity.ai" class="tool-link" target="_blank">Probar</a></div>
+        <div class="tool-card" style="border-left-color:var(--vio);"><strong>MagicSchool.ai</strong><p>Plataforma con decenas de herramientas específicas para planificación y evaluación docente.</p><a href="https://www.magicschool.ai" class="tool-link" target="_blank">Probar</a></div>
       </div>
 
       <div class="colab-box">
