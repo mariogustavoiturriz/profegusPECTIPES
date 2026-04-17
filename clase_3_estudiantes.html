@@ -70,10 +70,29 @@
   /* TEORÍA ESTILOS */
   .theory{background:var(--slate);padding:25px;border-bottom:3px solid var(--teal); border-radius:var(--r); margin-bottom: 18px;}
   .theory h4{font-size:18px;color:#fff;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px}
+  .theory h5{font-size:15px;color:var(--cl);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
   .theory-intro{font-size:14.5px;color:#E6F7F8;line-height:1.6;margin-bottom:20px}
   
   .tc-box{background:rgba(255,255,255,.12);border-left:4px solid var(--cl);border-radius:4px;padding:18px;color:#E6F7F8;font-size:14px; margin-top:15px;}
   .tc-box strong{display:block;font-size:12.5px;color:var(--cl);margin-bottom:8px; text-transform:uppercase; letter-spacing:0.8px;}
+
+  /* PICRAT TABLE (De Clase 2) */
+  .picrat-table { width: 100%; border-collapse: collapse; margin: 15px 0; font-size: 13px; color: #fff; background: rgba(0,0,0,0.1); }
+  .picrat-table th, .picrat-table td { border: 1px solid rgba(255,255,255,0.2); padding: 14px; text-align: center; }
+  .picrat-table th { background: rgba(0,0,0,0.3); color: var(--cl); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; }
+  .picrat-highlight { background: rgba(0, 148, 154, 0.4); font-weight: bold; border: 2px solid var(--cl); color: #fff; }
+
+  /* SAMR VISUAL (De Clase 2) */
+  .samr{display:flex;flex-direction:column;gap:12px;margin:15px 0}
+  .samr-row{display:flex;align-items:center;gap:15px;border-radius:6px;padding:15px 20px; color: #fff;}
+  .samr-level{font-size:12px;font-weight:900;text-transform:uppercase;width:125px;flex-shrink:0; color: #fff; letter-spacing: 0.8px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);}
+  .samr-desc{font-size:14px; line-height: 1.5; color: #fff; text-shadow: 1px 1px 1px rgba(0,0,0,0.3);}
+  .samr-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800;color:#fff; flex-shrink: 0; box-shadow: 0 2px 4px rgba(0,0,0,0.4);}
+  .samr-r{background:rgba(46,125,50,0.7);border-left:5px solid #4CAF50}
+  .samr-d{background:rgba(21,101,192,0.7);border-left:5px solid #2196F3}
+  .samr-m{background:rgba(249,168,37,0.7);border-left:5px solid #FFC107}
+  .samr-s{background:rgba(191,54,12,0.7);border-left:5px solid #FF5722}
+  .bg-r{background:#2E7D32}.bg-d{background:#1565C0}.bg-m{background:#F9A825}.bg-s{background:#BF360C}
 
   /* ACTIVIDADES */
   .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden; width: 100%;}
@@ -145,19 +164,32 @@
         <div class="ch">La dimensión ética de la tecnología</div>
         <div class="cb">
           <p style="font-size:17px;font-weight:600;color:var(--nav);">¿Qué dice de nosotros lo que la red recuerda?</p>
-          <p style="margin-top:10px; font-size:15px;">En la primera clase debatimos sobre la brecha digital, y la semana pasada exploraron una herramienta e hicieron un análisis preliminar con tres modelos clave: <strong>TPACK, SAMR y PICRAT</strong>. Hoy nos toca diagnosticarnos a nosotros mismos y a las prácticas de nuestras instituciones. Internet no olvida, y en el rol docente, nuestra Identidad Digital cruza constantemente la frontera entre lo público, lo privado y lo profesional.</p>
-          <p style="margin-top:10px; font-size:15px;">Esta clase aborda problemáticas urgentes de la ciudadanía digital contemporánea: cómo la información que publicamos forma una <strong>Huella Digital</strong> indeleble, y cuáles son los riesgos a los que exponemos a nuestros estudiantes (y a nosotros mismos) frente a fenómenos como el "Grooming", el "Sharenting" y el nuevo desafío del perfilado con Inteligencia Artificial.</p>
           
-          <div class="note nb" style="margin-top:14px; background:var(--vcl); border-left-color:var(--vio);">
-            <span><strong>El desafío de hoy:</strong> Pasar de ser "usuarios" a ser "ciudadanos digitales críticos", capaces de diseñar protocolos de cuidado áulico amparados en el marco de la Ley de Protección de Datos Personales y evaluar críticamente las respuestas de la IA.</span>
+          <!-- INICIO PARA HISTORIA, GEO E INGLÉS -->
+          <div class="c-block c-his c-geo c-ing">
+            <p style="margin-top:10px; font-size:15px;">En la primera clase debatimos sobre la brecha digital, y la semana pasada exploraron una herramienta e hicieron un análisis preliminar con tres modelos clave: <strong>TPACK, SAMR y PICRAT</strong>. Hoy nos toca diagnosticarnos a nosotros mismos y a las prácticas de nuestras instituciones. Internet no olvida, y en el rol docente, nuestra Identidad Digital cruza constantemente la frontera entre lo público, lo privado y lo profesional.</p>
+            <p style="margin-top:10px; font-size:15px;">Esta clase aborda problemáticas urgentes de la ciudadanía digital contemporánea: cómo la información que publicamos forma una <strong>Huella Digital</strong> indeleble, y cuáles son los riesgos a los que exponemos a nuestros estudiantes frente a fenómenos como el "Grooming", el "Sharenting" y el nuevo desafío del perfilado con Inteligencia Artificial.</p>
+            <div class="note nb" style="margin-top:14px; background:var(--vcl); border-left-color:var(--vio);">
+              <span><strong>El desafío de hoy:</strong> Pasar de ser "usuarios" a ser "ciudadanos digitales críticos", capaces de diseñar protocolos de cuidado áulico amparados en el marco de la Ley de Protección de Datos Personales y evaluar críticamente las respuestas de la IA.</span>
+            </div>
           </div>
+
+          <!-- INICIO EXCLUSIVO PARA INICIAL (FUSIONADO Y GAMIFICADO) -->
+          <div class="c-block c-ini">
+            <p style="margin-top:10px; font-size:15px;">En nuestra primera clase debatimos sobre la brecha digital. Hoy vamos a dar un salto integrador (fusionando las Clases 2 y 3) para apropiarnos de tres modelos clave de diseño pedagógico mediado por TIC: <strong>TPACK, SAMR y PICRAT</strong>. Pero lo haremos enmarcados en un desafío urgente: el cuidado de nuestra Identidad Digital y la de las infancias frente a fenómenos como el "Sharenting".</p>
+            <p style="margin-top:10px; font-size:15px;">En el Nivel Inicial, enseñar ciudadanía digital no pasa por dar charlas teóricas, sino por poner el cuerpo y jugar. Por eso, el enfoque de hoy cruzará la teoría de estos modelos con la <strong>Gamificación</strong>, proponiendo la creación de propuestas lúdicas e interactivas que inviten a los más chicos a reconocer el cuidado de su propia imagen.</p>
+            <div class="note nb" style="margin-top:14px; background:var(--acl); border-left-color:var(--amb);">
+              <span><strong>🌟 ¡Clase Especial Integrada (2x1)!</strong> El desafío de hoy es doble: apropiarnos de la teoría de la integración tecnológica (los 3 modelos) y ponerla en práctica diseñando el prototipo de un juego interactivo que concientice sobre el cuidado del cuerpo y la privacidad en internet.</span>
+            </div>
+          </div>
+          
         </div>
       </div>
 
       <div class="card card-g">
         <div class="ch">Un problema de soberanía y cuidado</div>
         <div class="cb">
-          <p style="font-size:15px; margin-bottom:12px;">En las escuelas de Tierra del Fuego, el manejo de la imagen y los datos de menores es un tema delicado que muchas veces se aborda desde el desconocimiento. Entender estos conceptos nos permite:</p>
+          <p style="font-size:15px; margin-bottom:12px;">En las escuelas de Tierra del Fuego, el manejo de la imagen y los datos de menores es un tema delicado. Entender estos conceptos nos permite:</p>
           <ul style="margin-left: 20px; font-size: 14px;">
             <li style="margin-bottom: 8px;"><strong>Prevenir:</strong> Detectar señales de ciberacoso o manipulación en nuestros estudiantes antes de que escalen.</li>
             <li style="margin-bottom: 8px;"><strong>Legislar el aula:</strong> Crear acuerdos de convivencia digital claros con las familias y la institución.</li>
@@ -166,68 +198,132 @@
       </div>
     </div>
 
-    <!-- PANE: MARCO TEÓRICO (TEORÍA AMPLIADA) -->
+    <!-- PANE: MARCO TEÓRICO -->
     <div id="pane-teoria" class="pane">
       <div class="theory">
         <h4>1. Huella e Identidad Digital</h4>
-        <p class="theory-intro">Nuestra identidad digital es el conjunto de información sobre nosotros que está expuesta en internet. Se compone de lo que publicamos voluntariamente y de los rastros que dejamos al navegar (cookies, geolocalización, interacciones). Para el profesional de la educación, esta huella actúa como un currículum invisible y permanente.</p>
+        <p class="theory-intro">Nuestra identidad digital es el rastro que dejamos al navegar. Para el profesional de la educación, esta huella actúa como un currículum invisible y permanente.</p>
         
         <div class="tc-box" style="border-left-color: var(--amb);">
-          <strong>Riesgos Cotidianos:</strong>
-          <p style="margin-bottom: 8px;">• <strong>Sharenting (Share + Parenting):</strong> La sobreexposición de imágenes y datos de menores (hijos o alumnos) en redes sociales. Las instituciones educativas muchas veces caen en el "sharenting institucional" al publicar fotos de los estudiantes en actos escolares sin dimensionar que están alimentando bases de datos de reconocimiento facial o exponiéndolos a terceros.</p>
-          <p>• <strong>Grooming (Ciberacoso infantil):</strong> Estrategias que utiliza un adulto para ganarse la confianza de un menor a través de internet con fines de abuso sexual. Los docentes somos la primera línea de alerta temprana para detectar cambios de conducta asociados a esta violencia.</p>
+          <strong>Riesgos Críticos:</strong>
+          <p style="margin-bottom: 8px;">• <strong>Sharenting:</strong> La sobreexposición de imágenes de estudiantes en redes sociales sin consentimiento legal informado.</p>
+          <p>• <strong>Grooming:</strong> Estrategias de captación de menores con fines de abuso. El docente es la primera línea de detección temprana.</p>
         </div>
 
         <h4 style="margin-top:25px;">2. El Marco Legal en Argentina</h4>
-        <p class="theory-intro">El aula no es un vacío legal. El uso de imágenes, planillas y datos de los estudiantes está estrictamente regulado.</p>
         <div class="tc-box" style="border-left-color: var(--vio);">
           <strong>Ley 25.326 de Protección de Datos Personales:</strong>
-          Establece que todo dato personal (incluyendo la imagen y la voz) requiere consentimiento libre, expreso e informado para su tratamiento. En el caso de menores de edad, las escuelas necesitan autorizaciones específicas que detallen el fin educativo de esa imagen. Subir fotos de estudiantes a un perfil personal docente de Instagram es una violación directa a esta ley y a los derechos del niño.
+          El aula no es un vacío legal. Todo dato personal (imagen, voz, nombre) requiere consentimiento libre y expreso. Subir fotos de estudiantes a perfiles personales es una violación directa a esta ley y a los derechos del niño.
         </div>
 
-        <h4 style="margin-top:25px;">3. La Ética transversal a los 3 Modelos (TPACK, SAMR y PICRAT)</h4>
-        <p class="theory-intro">¿Cómo se conecta la Ley 25.326 con lo que vimos en la Clase 2? La protección de la identidad digital es la capa transversal a la tríada teórica. No hay innovación pedagógica si se vulneran derechos.</p>
-        <div class="tc-box" style="border-left-color: var(--teal);">
-          <p style="margin-bottom: 8px;"><strong>El "Lado B" del TPACK:</strong> El Conocimiento Tecnológico (TK) no es solo instrumental (saber dónde hacer clic); es ético y legal. Si el docente diseña una clase (PK) sobre su materia (CK) eligiendo una app que recopila datos de menores sin resguardo, su TPACK falla estructuralmente (Mishra y Koehler, 2006).</p>
-          <p style="margin-bottom: 8px;"><strong>La trampa de la "Redefinición" (SAMR):</strong> Cuando pasamos de una simple <em>Sustitución</em> (leer un PDF offline) a una <em>Redefinición</em> de la tarea (publicar un podcast global o debatir en foros abiertos), la exposición del menor escala de forma exponencial. La tecnología redefine la tarea, pero también redefine el riesgo (Puentedura, 2010).</p>
-          <p><strong>El riesgo de la "Creatividad" en PICRAT:</strong> Cuando llevamos al estudiante de un rol <em>Pasivo</em> a uno <em>Creativo (C)</em> o <em>Interactivo (I)</em>, lo estamos forzando a producir datos tangibles (fotos, voz, opiniones). A mayor nivel en la escala PICRAT, mayor huella digital genera el estudiante y, por ende, <strong>mayor debe ser el andamiaje legal y de cuidado del docente</strong> (Kimmons et al., 2020).</p>
+        <!-- 3. VERSIÓN ORIGINAL PARA HISTORIA, GEOGRAFÍA E INGLÉS -->
+        <div class="c-block c-his c-geo c-ing">
+          <h4 style="margin-top:25px;">3. La Ética transversal a los 3 Modelos</h4>
+          <div class="tc-box" style="border-left-color: var(--teal);">
+            <p style="margin-bottom: 8px;"><strong>TPACK:</strong> El Conocimiento Tecnológico (TK) es ético. Sin seguridad de datos, el diseño pedagógico (PK+CK) falla estructuralmente.</p>
+            <p style="margin-bottom: 8px;"><strong>SAMR:</strong> Tareas de "Redefinición" implican mayor exposición; requieren mayor andamiaje legal y de seguridad.</p>
+            <p><strong>PICRAT:</strong> Al pedir un rol Creativo (C), exponemos la producción digital del estudiante. Debemos proteger ese rastro.</p>
+          </div>
         </div>
 
+        <!-- 3. VERSIÓN CURSO ACELERADO (COMPLETO) PARA EDUCACIÓN INICIAL -->
+        <div class="c-block c-ini">
+          <h4 style="margin-top:25px; margin-bottom: 5px;">3. Fusión de Clases: Los 3 Modelos de Diseño Pedagógico</h4>
+          <p class="theory-intro" style="font-size:13.5px; color:#cde0ff;">Como Inicial no tuvo el encuentro anterior, aquí va el "curso acelerado". Estos son los tres marcos teóricos fundamentales para integrar tecnología, pero aplicados directamente al desafío de hoy: <strong>crear un juego (Gamificación) sobre el cuidado del cuerpo (ESI) sin vulnerar la privacidad.</strong></p>
+
+          <!-- TPACK -->
+          <div style="background:rgba(0,0,0,0.15); border-left:4px solid var(--teal); padding:20px; margin-bottom:20px; border-radius:6px;">
+            <h5>A. Modelo TPACK (Mishra & Koehler)</h5>
+            <p style="font-size:14px; color:#fff; margin-bottom:15px;">Plantea que no alcanza con saber usar una app. El buen diseño une la tecnología (TK) con el saber pedagógico (PK) y el contenido disciplinar (CK).</p>
+            
+            <div style="text-align:center; margin:15px 0;">
+              <svg viewBox="0 0 320 200" width="100%" style="max-width: 400px; height: auto;">
+                <circle cx="160" cy="70" r="65" fill="rgba(0, 200, 255, 0.4)" stroke="#00C8FF" stroke-width="2.5"/>
+                <text x="160" y="45" font-size="11" font-weight="bold" fill="#00C8FF" text-anchor="middle">TECNOLÓGICO (TK)</text>
+                <circle cx="120" cy="140" r="65" fill="rgba(255, 170, 0, 0.4)" stroke="#FFAA00" stroke-width="2.5"/>
+                <text x="90" y="185" font-size="11" font-weight="bold" fill="#FFAA00" text-anchor="middle">PEDAGÓGICO (PK)</text>
+                <circle cx="200" cy="140" r="65" fill="rgba(173, 255, 47, 0.4)" stroke="#ADFF2F" stroke-width="2.5"/>
+                <text x="230" y="185" font-size="11" font-weight="bold" fill="#ADFF2F" text-anchor="middle">DISCIPLINAR (CK)</text>
+                <text x="160" y="115" font-size="16" font-weight="900" fill="#fff" text-anchor="middle">TPACK</text>
+              </svg>
+            </div>
+            
+            <p style="font-size:13.5px; color:#E6F7F8; margin-top:10px;"><strong>Aplicado a nuestro caso:</strong> Tu <strong>TK</strong> será usar Canva/Genially y entender cómo protegen los datos; tu <strong>PK</strong> será saber cómo gamificar una experiencia para nenes de 5 años; y tu <strong>CK</strong> será el conocimiento de la ESI y los límites del cuerpo.</p>
+          </div>
+
+          <!-- SAMR -->
+          <div style="background:rgba(0,0,0,0.15); border-left:4px solid var(--teal); padding:20px; margin-bottom:20px; border-radius:6px;">
+            <h5>B. Modelo SAMR (Puentedura)</h5>
+            <p style="font-size:14px; color:#fff; margin-bottom:15px;">Mide el nivel de innovación. ¿Estamos usando la tecnología para hacer lo mismo de siempre (Sustituir) o para crear algo totalmente nuevo (Redefinir)?</p>
+            
+            <div class="samr">
+              <div class="samr-row samr-r">
+                <div class="samr-badge bg-r">R</div>
+                <div><div class="samr-level">Redefinición</div><div class="samr-desc" style="font-size:13px;">Crear un avatar digital propio en un entorno interactivo seguro donde los nenes deciden qué publicar y qué no. (Imposible sin TIC).</div></div>
+              </div>
+              <div class="samr-row samr-d">
+                <div class="samr-badge bg-d">M</div>
+                <div><div class="samr-level">Modificación</div><div class="samr-desc" style="font-size:13px;">Juego interactivo en Genially donde tocan la pantalla para tomar decisiones sobre la historia del personaje.</div></div>
+              </div>
+              <div style="text-align:center; padding: 5px 0; border-top: 1px dashed rgba(255,255,255,0.4); margin: 0;">
+                <span style="font-size:10px; color:var(--cl); text-transform:uppercase; font-weight:900; letter-spacing:1px">Línea de Transformación Lúdica</span>
+              </div>
+              <div class="samr-row samr-m">
+                <div class="samr-badge bg-m">A</div>
+                <div><div class="samr-level">Aumento</div><div class="samr-desc" style="font-size:13px;">Mostrarles a los niños un video de YouTube llamativo sobre el cuidado del cuerpo. (Mejora visual, pero no interactúan).</div></div>
+              </div>
+              <div class="samr-row samr-s">
+                <div class="samr-badge bg-s">S</div>
+                <div><div class="samr-level">Sustitución</div><div class="samr-desc" style="font-size:13px;">Proyectar en la TV la misma fotocopia estática de un nene y una nena que antes pegaban en el pizarrón.</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PICRAT -->
+          <div style="background:rgba(0,0,0,0.15); border-left:4px solid var(--teal); padding:20px; margin-bottom:20px; border-radius:6px;">
+            <h5>C. Modelo PICRAT (Kimmons)</h5>
+            <p style="font-size:14px; color:#fff; margin-bottom:15px;">Evalúa dos cosas a la vez: qué hace el alumno (Pasivo, Interactivo, Creativo) y qué logra el docente (Reemplazo, Amplificación, Transformación).</p>
+            
+            <div style="overflow-x: auto; width: 100%; margin-bottom:15px;">
+              <table class="picrat-table">
+                <tr><th>Docente ↓ / Alumno →</th><th>Pasivo (P)</th><th>Interactivo (I)</th><th>Creativo (C)</th></tr>
+                <tr><th>Transformación (T)</th><td>PT</td><td>IT</td><td class="picrat-highlight">CT (Ideal)</td></tr>
+                <tr><th>Amplificación (A)</th><td>PA</td><td>IA</td><td>CA</td></tr>
+                <tr><th>Reemplazo (R)</th><td style="background:rgba(191,54,12,0.5); font-weight:bold;">PR</td><td>IR</td><td>CR</td></tr>
+              </table>
+            </div>
+            
+            <p style="font-size:13.5px; color:#E6F7F8;"><strong>El cruce con la Privacidad:</strong> Si el niño solo mira un video (Pasivo), hay poco riesgo. Pero si le pedimos que sea Creativo (C) y grabe un video o se saque una foto para jugar, el riesgo de exponer su Huella Digital es altísimo. El docente debe usar su TPACK para diseñar un entorno seguro.</p>
+          </div>
+        </div>
+
+        <!-- 4. VISIBLE PARA TODOS -->
         <h4 style="margin-top:25px;">4. La IA y la nueva Huella Biométrica</h4>
-        <p class="theory-intro">Con la irrupción de la Inteligencia Artificial Generativa, la huella digital sumó un riesgo inédito: el robo biométrico.</p>
         <div class="tc-box" style="border-left-color: var(--amb);">
-          <p><strong>De la foto al Deepfake:</strong> Las fotos de menores publicadas públicamente (Sharenting) hoy pueden ser extraídas (scraped) para entrenar modelos de IA sin consentimiento, o peor aún, para crear <em>Deepfakes</em> (imágenes o videos falsos hiperrealistas) usados en redes de ciberacoso. Ser ciudadanos digitales hoy exige entender que subir una foto ya no es solo "compartir un recuerdo", es entregar datos biométricos a una base de datos global.</p>
+          <p><strong>De la foto al Deepfake:</strong> Las imágenes publicadas hoy pueden ser usadas para entrenar modelos de IA o crear identidades falsas. La imagen ya no es solo visual, es un dato biométrico global entregado sin control.</p>
         </div>
 
         <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.2); padding-top:15px;">
             <p style="font-size:12px; color:var(--cl); font-style:italic;">"Fuentes consultadas y enlaces para profundizar:"<br>
-                • <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/norma.htm" target="_blank" style="color:var(--cl); text-decoration:underline;">Ley 25.326: Protección de los Datos Personales (InfoLEG).</a><br>
-                • <a href="https://www.argentina.gob.ar/justicia/convosenlaweb/situaciones/riesgos-de-subir-fotos-de-mis-hijos-e-hijas-a-las-redes-sociales" target="_blank" style="color:var(--cl); text-decoration:underline;">Con Vos en la Web: Riesgos del Sharenting (Min. Justicia).</a><br>
-                • <a href="https://www.argentina.gob.ar/justicia/convosenlaweb/situaciones/guia-para-padres-familias-y-docentes-grooming" target="_blank" style="color:var(--cl); text-decoration:underline;">Con Vos en la Web: Guía sobre Grooming (Min. Justicia).</a><br>
-                • <a href="https://citejournal.org/volume-20/issue-1-20/general/the-picrat-model-for-technology-integration-in-teacher-preparation/" target="_blank" style="color:var(--cl); text-decoration:underline;">Kimmons, R. et al. (2020). The PICRAT model for technology integration.</a><br>
-                • <a href="https://www.ted.com/talks/eli_pariser_beware_online_filter_bubbles?language=es" target="_blank" style="color:var(--cl); text-decoration:underline;">Pariser, E. (2011). Cuidado con la "Burbuja de Filtros" en la red (Charla TED).</a>
+                • <a href="https://servicios.infoleg.gob.ar/infolegInternet/anexos/60000-64999/64790/norma.htm" target="_blank" style="color:var(--cl); text-decoration:underline;">Ley 25.326: Protección de Datos (InfoLEG).</a><br>
+                • <a href="https://www.argentina.gob.ar/justicia/convosenlaweb/situaciones/riesgos-de-subir-fotos-de-mis-hijos-e-hijas-a-las-redes-sociales" target="_blank" style="color:var(--cl); text-decoration:underline;">Riesgos del Sharenting (Min. Justicia).</a><br>
+                • <a href="https://www.argentina.gob.ar/justicia/convosenlaweb/situaciones/guia-para-padres-familias-y-docentes-grooming" target="_blank" style="color:var(--cl); text-decoration:underline;">Guía sobre Grooming (Min. Justicia).</a><br>
+                • <a href="https://citejournal.org/volume-20/issue-1-20/general/the-picrat-model-for-technology-integration-in-teacher-preparation/" target="_blank" style="color:var(--cl); text-decoration:underline;">Kimmons, R. et al. (2020). Modelo PICRAT.</a><br>
+                • <a href="https://www.ted.com/talks/eli_pariser_beware_online_filter_bubbles?language=es" target="_blank" style="color:var(--cl); text-decoration:underline;">Pariser, E. (2011). La Burbuja de Filtros (TED).</a>
             </p>
         </div>
 
         <div class="tc-box" style="background:var(--pale); color:var(--nav); border-left-color: var(--teal); margin-top:30px;">
-          <strong style="color:var(--nav)">Análisis de Riesgo por Profesorado</strong>
-          <div class="c-block c-ini">
-            <p><strong style="color:var(--nav);">Nivel Inicial:</strong> El "sharenting" es crítico aquí. Los jardines suelen tener la presión de "mostrar" lo que hacen mediante fotos de las infancias en Facebook o WhatsApp. Hay que proponer protocolos donde se muestren los procesos (las manos pintando, los bloques, los trabajos) sin exponer los rostros identificables de los niños.</p>
-          </div>
-          <div class="c-block c-his">
-            <p><strong style="color:var(--nav);">Historia:</strong> ¿Qué pasará cuando los historiadores del futuro investiguen nuestra época? Nuestra Huella Digital masiva es el archivo histórico del siglo XXI. Reflexionar sobre qué rastro dejamos es clave para entender cómo se construye la memoria en plataformas corporativas.</p>
-          </div>
-          <div class="c-block c-geo">
-            <p><strong style="color:var(--nav);">Geografía:</strong> La geolocalización de las fotos publicadas en redes revela trayectorias, rutinas y domicilios. Enseñar a "apagar la ubicación" en las cámaras es alfabetización espacial aplicada a la seguridad personal.</p>
-          </div>
-          <div class="c-block c-ing">
-            <p><strong style="color:var(--nav);">Inglés:</strong> La ciudadanía digital trasciende fronteras. Muchas de las plataformas (y los juegos con chat integrado donde ocurre el grooming) operan en inglés. Entender esa jerga ("grooming", "phishing", "scam") es vital para alertar a los estudiantes.</p>
-          </div>
+          <strong style="color:var(--nav)">Análisis por Profesorado</strong>
+          <div class="c-block c-ini"><p><strong style="color:var(--nav);">Educación Inicial:</strong> Priorizar la protección contra el sharenting institucional. Mostrar procesos del aula, no rostros identificables.</p></div>
+          <div class="c-block c-his"><p><strong style="color:var(--nav);">Historia:</strong> La huella digital masiva como el archivo histórico y memoria del siglo XXI.</p></div>
+          <div class="c-block c-geo"><p><strong style="color:var(--nav);">Geografía:</strong> Alfabetización espacial: apagar la geolocalización de las cámaras para proteger domicilios.</p></div>
+          <div class="c-block c-ing"><p><strong style="color:var(--nav);">Inglés:</strong> Terminología internacional del riesgo (phishing, scam) en plataformas y juegos globales.</p></div>
         </div>
       </div>
     </div>
 
-    <!-- PANE: ACTIVIDADES (LABORATORIO DE CASOS) -->
+    <!-- PANE: ACTIVIDADES -->
     <div id="pane-actividades" class="pane">
       <div class="act" id="a0">
         <div class="ach" onclick="toggleAct('a0')">
@@ -275,7 +371,7 @@
           <div class="step">
             <strong>Dinámica de Trabajo (Producción Visual):</strong>
             <p>1. Trabajen en grupos según su profesorado.</p>
-            <p>2. Lean el caso que corresponde a su carrera. Luego abran una herramienta de diseño visual (<strong>Canva, Genially o Visme</strong>) y prepárense para construir una <strong>Infografía de Protocolo</strong> que pueda circular entre familias y docentes de la institución.</p>
+            <p>2. Lean el caso que corresponde a su carrera. Luego abran una herramienta de diseño visual (<strong>Canva, Genially o Visme</strong>) y prepárense para construir una producción que pueda ser compartida con la comunidad escolar.</p>
           </div>
 
           <div class="step" style="border-left-color: var(--amb);">
@@ -283,9 +379,9 @@
 
             <div class="c-block c-ini" style="margin-top:10px;">
               <div style="background:rgba(255,255,255,0.6);padding:12px 14px;border-left:3px solid var(--amb);border-radius:6px;font-style:italic;font-size:14px;">
-                "En el jardín, la maestra de sala de 5 tiene la costumbre de subir fotos de las actividades del día a su Instagram personal para que las familias puedan ver qué hacen sus hijos. Las fotos son públicas, muestran los rostros de los niños y etiquetan al jardín. Algunas familias le agradecen la iniciativa; otras nunca supieron que sus hijos aparecían allí."
+                "Queremos empezar a trabajar la 'identidad digital' y el derecho a la propia imagen con los nenes y nenas de sala de 5. Como el eje central en el nivel es el cuerpo, la expresión y el juego, el equipo docente decide armar un material interactivo para la sala (un juego o un cuento digital) donde los chicos, a través de un personaje ficticio, jueguen a decidir qué fotos o cosas de su intimidad corporal se pueden 'compartir' y cuáles son 'solo para ellos'."
               </div>
-              <p style="margin-top:10px;font-size:13.5px;"><strong>Tu foco:</strong> Los niños de nivel inicial no pueden dar consentimiento sobre su imagen. ¿Qué protocolo debería tener el jardín para que los docentes puedan mostrar su trabajo sin vulnerar los derechos de las infancias?</p>
+              <p style="margin-top:10px;font-size:13.5px;"><strong>Tu foco:</strong> En Educación Inicial no alcanza con prohibirle a los adultos, hay que educar a las infancias desde la ESI y el cuerpo. El diseño debe estar 100% enfocado en que los niños interactúen, jueguen y aprendan límites de cuidado personal en la red.</p>
             </div>
 
             <div class="c-block c-his" style="margin-top:10px;">
@@ -310,7 +406,8 @@
             </div>
           </div>
           
-          <div class="step" style="border-left-color: var(--vio);">
+          <!-- CONSIGNA PARA HISTORIA, GEO, INGLÉS -->
+          <div class="step c-block c-his c-geo c-ing" style="border-left-color: var(--vio);">
             <strong>La Consigna paso a paso:</strong>
             <p><strong>Paso 1: Ingeniería de Prompts (El arte de dar instrucciones)</strong><br>Abran una IA generativa de la caja de herramientas (ej. ChatGPT, Claude o DeepSeek). En lugar de copiar una orden prearmada, <strong>ustedes van a diseñar el "prompt"</strong> (la instrucción) para la máquina. Para que la IA no responda con generalidades, armen y envíen un texto que incluya estos 4 elementos:</p>
             <ul style="margin-top:8px;">
@@ -326,37 +423,67 @@
               <div>
                 <strong style="color:var(--nav); display:block; margin-bottom:4px;">Mini-Guía: La fórmula del Prompt Docente</strong>
                 Para sacarle el máximo jugo a la Inteligencia Artificial y no recibir respuestas "enlatadas", el secreto está en la estructura. A mayor precisión en tu pedido, mayor calidad pedagógica en la respuesta.
-                <br><a href="https://www.educaciontrespuntocero.com/tecnologia/prompts-de-ia-para-docentes/" target="_blank" style="color:var(--teal); font-weight:700; text-decoration:none; display:inline-block; margin-top:6px;">→ Leer Guía de Ingeniería de Prompts</a>
+                <br><a href="https://www.educaciontrespuntocero.com/tecnologia/prompts-de-ia-para-docentes/" target="_blank" style="color:var(--teal); font-weight:700; text-decoration:none; display:inline-block; margin-top:6px;">→ Leer Guía de Prompts para Docentes (Educación 3.0)</a>
               </div>
             </div>
 
-            <p style="margin-top:16px;"><strong>Paso 2: La auditoría humana</strong><br>Lean la respuesta de la IA, pero <strong>no la copien tal cual</strong>. Utilicen ese texto como un primer borrador para auditarlo en grupo:</p>
+            <p style="margin-top:12px;"><strong>Paso 2: La auditoría humana</strong><br>Lean la respuesta de la IA, pero <strong>no la copien tal cual</strong>. Utilicen ese texto como un primer borrador para auditarlo en grupo:</p>
             <ul style="margin-top:8px;">
               <li style="margin-bottom:8px;"><strong>El filtro legal:</strong> Asegúrense de que aparezca la Ley Argentina 25.326 de Protección de Datos Personales como fundamento del protocolo.</li>
               <li><strong>El filtro pedagógico:</strong> Corrijan cualquier frase que suene demasiado "robótica" o distante. Aporten el tacto, la empatía y el "calor humano" docente.</li>
             </ul>
 
-            <div class="step" style="border-left-color: var(--teal); background: var(--pale); margin-top:16px;">
-              <strong>Puesta en común entre carreras</strong>
-              <p>Antes de pasar al diseño visual, compartan con el grupo de la otra carrera (que está en el aula con ustedes) <strong>la regla que consideran más importante</strong> del protocolo que construyeron.</p>
-              <p style="margin-top:8px;">Discutan: <strong>¿Los dos casos violan la Ley 25.326 de la misma manera? ¿Qué tienen en común los dos protocolos a pesar de venir de disciplinas distintas?</strong></p>
-
-            </div>
-
-            <p style="margin-top:16px; padding-top:12px; border-top: 1px dashed var(--bd);"><strong>Paso 3: El Diseño de la Infografía con Magic Design (Canva)</strong><br>
-            Con el texto ya auditado, pasen a Canva for Education y sigan estos pasos:</p>
-            <ol style="margin: 10px 0 12px 20px; font-size: 14px; line-height: 1.9;">
-              <li>Abran <strong>Canva</strong> → "Crear un diseño" → escriban <strong>"infografía"</strong> en el buscador.</li>
-              <li>Hagan clic en <strong>"Usar Magic Design"</strong> (el ícono de varita).</li>
-              <li>Peguen el texto de las 3 reglas ya auditadas y seleccionen el formato <strong>Infografía</strong>.</li>
-              <li>Pídanle un estilo, por ejemplo: <em>"moderno y educativo, para familias de una escuela pública"</em>.</li>
-              <li>Canva genera varias opciones completas. Eligen una y solo ajustan colores e íconos.</li>
-              <li><strong>Agreguen un código QR:</strong> en el panel de elementos de Canva busquen <em>"código QR"</em>, insértenlo y peguen la URL de uno de los dos recursos de referencia que usaron en la auditoría. Ese QR va al pie de la infografía para que las familias puedan consultar la fuente legal directamente desde el papel o desde el mensaje de WhatsApp.</li>
-            </ol>
-            <p style="font-size:13px; color:var(--txt);">Usaron IA para escribir el protocolo, lo auditaron ustedes, y ahora IA para diseñarlo. El rol docente en los dos momentos fue el mismo: decidir, corregir y aprobar. Si no alcanza el tiempo en clase, se termina en casa.</p>
+            <p style="margin-top:16px; padding-top:12px; border-top: 1px dashed var(--bd);"><strong>Paso 3: El Diseño de la Infografía</strong><br>Lleven ese texto ya curado a su lienzo de Canva o Genially. Agreguen íconos, usen colores institucionales y armen una pieza gráfica clara, pensada para ser enviada por WhatsApp o impresa para el cuaderno de comunicados.</p>
           </div>
 
-          <div class="step" style="border-left-color: var(--nav); background: #f0f4ff;">
+          <!-- CONSIGNA EXCLUSIVA PARA INICIAL -->
+          <div class="step c-block c-ini" style="border-left-color: var(--vio);">
+            <strong>La Consigna paso a paso (Exclusiva Inicial):</strong>
+            <p><strong>Paso 1: Ingeniería de Prompts (El diseño de la propuesta lúdica)</strong><br>Abran una IA generativa de la caja de herramientas. Van a diseñar el "prompt" para que la máquina los ayude a estructurar la narrativa. Armen un texto que incluya:</p>
+            <ul style="margin-top:8px;">
+              <li><strong>El Rol:</strong> Docente de Nivel Inicial especialista en ludificación y ESI.</li>
+              <li><strong>El Contexto:</strong> Sala de 5 en Tierra del Fuego. Queremos introducir el concepto de huella digital y el derecho a la propia imagen desde el cuidado del cuerpo.</li>
+              <li><strong>La Tarea:</strong> Escribir el guion para un juego interactivo o cuento corto sobre un personaje (ej: un animalito) que aprende qué cosas de su cuerpo puede compartir y cuáles debe guardar para sí.</li>
+              <li><strong>El Tono:</strong> Lúdico, tierno, con un vocabulario súper accesible y dinámico.</li>
+            </ul>
+            <p style="margin-top:8px; font-style:italic; font-weight:600; color:var(--vio);">Redacten su propio prompt con estos ingredientes y evalúen qué les devuelve la IA.</p>
+            
+            <div class="note nb" style="margin-top:15px; border-left-color: var(--amb); background: var(--acl);">
+              <span style="font-size: 16px;">💡</span>
+              <div>
+                <strong style="color:var(--nav); display:block; margin-bottom:4px;">Mini-Guía: La fórmula del Prompt Docente</strong>
+                Para sacarle el máximo jugo a la Inteligencia Artificial y no recibir respuestas "enlatadas", el secreto está en la estructura. A mayor precisión en tu pedido, mayor calidad pedagógica en la respuesta.
+                <br><a href="https://www.educaciontrespuntocero.com/tecnologia/prompts-de-ia-para-docentes/" target="_blank" style="color:var(--teal); font-weight:700; text-decoration:none; display:inline-block; margin-top:6px;">→ Leer Guía de Prompts para Docentes (Educación 3.0)</a>
+              </div>
+            </div>
+
+            <p style="margin-top:12px;"><strong>Paso 2: La auditoría humana</strong><br>Lean el guion que generó la IA, pero <strong>no lo copien tal cual</strong>. Audítenlo en grupo:</p>
+            <ul style="margin-top:8px;">
+              <li style="margin-bottom:8px;"><strong>El filtro ESI/Legal:</strong> ¿Respeta los lineamientos del cuidado del cuerpo? ¿Transmite bien la idea del consentimiento y la privacidad?</li>
+              <li><strong>El filtro Pedagógico:</strong> ¿Es realmente lúdico o quedó como un "reto" adulto aburrido? Aporten la magia y el dinamismo del nivel inicial.</li>
+            </ul>
+
+            <p style="margin-top:16px; padding-top:12px; border-top: 1px dashed var(--bd);"><strong>Paso 3: El Diseño del Material Interactivo</strong><br>Lleven ese guion curado a Genially o Canva. No necesitan terminarlo todo hoy; el objetivo es que diseñen el "prototipo" o las primeras pantallas visuales de este juego o cuento, usando colores, botones interactivos y personajes atractivos para la sala de 5.</p>
+          </div>
+
+          <!-- PUESTA EN COMÚN: HISTORIA, GEO, INGLÉS -->
+          <div class="step c-block c-his c-geo c-ing" style="border-left-color: var(--teal); background: var(--pale); margin-top:16px;">
+            <strong>Puesta en común entre carreras</strong>
+            <p>Antes de pasar al diseño visual, compartan con el grupo de la otra carrera (que está en el aula con ustedes) <strong>su producción o regla más importante</strong>.</p>
+            <p style="margin-top:8px;">Discutan: <strong>¿Qué tienen en común los protocolos y las propuestas a pesar de venir de disciplinas y niveles distintos?</strong></p>
+            <p style="font-size:13px;margin-top:6px;color:var(--txt);">Esta conversación corta es parte del aprendizaje — no un cierre decorativo.</p>
+          </div>
+
+          <!-- PUESTA EN COMÚN: INICIAL -->
+          <div class="step c-block c-ini" style="border-left-color: var(--teal); background: var(--pale); margin-top:16px;">
+            <strong>Puesta en común e ideación visual</strong>
+            <p>Antes de pasar al diseño en pantallas, compartan con el resto de las compañeras de Inicial <strong>la narrativa o dinámica principal</strong> que armaron con la IA.</p>
+            <p style="margin-top:8px;">Tiren ideas para Canva o Genially: <strong>¿Podemos usar botones interactivos que revelen si una acción es segura? ¿O hacer que los nenes arrastren objetos privados a un "baúl" secreto?</strong></p>
+            <p style="font-size:13px;margin-top:6px;color:var(--txt);">Aprovechen este ratito de intercambio para potenciar la creatividad; planificar la interacción antes de abrir la compu hace la diferencia en el diseño lúdico.</p>
+          </div>
+
+          <!-- ENTREGA PARA HISTORIA, GEO, INGLÉS -->
+          <div class="step c-block c-his c-geo c-ing" style="border-left-color: var(--nav); background: #f0f4ff;">
             <strong>¿Cómo se entrega esta actividad?</strong>
             <p>Cada integrante sube al Aula Virtual <strong>dos cosas juntas</strong>:</p>
             <ol style="margin: 10px 0 12px 20px; font-size: 14px; line-height: 1.8;">
@@ -364,10 +491,25 @@
               <li><strong>Un párrafo individual</strong> respondiendo a la siguiente pregunta de análisis teórico:</li>
             </ol>
             <div style="font-style: italic; padding: 14px 16px; background: rgba(255,255,255,0.85); border-left: 4px solid var(--nav); border-radius: 6px; font-size: 14px; line-height: 1.7; color: var(--neg);">
-              "Si la actividad de la muestra buscaba la <em>Redefinición</em> (SAMR) —forzando a los estudiantes a exponer su imagen para ser <em>Creativos</em> (PICRAT)—, ¿qué falló en el Conocimiento Tecnológico y Pedagógico (TPACK) de los docentes que organizaron el evento al no prever este riesgo a la privacidad?"
+              "Si la actividad de la cátedra buscaba la <em>Redefinición</em> (SAMR) —forzando a los estudiantes a exponer su imagen para ser <em>Creativos</em> (PICRAT)—, ¿qué falló en el Conocimiento Tecnológico y Pedagógico (TPACK) de los docentes que organizaron el proyecto al no prever este riesgo a la privacidad?"
             </div>
             <p style="margin-top: 10px; font-size: 13px; color: var(--txt);">No hay extensión mínima: importa la calidad del argumento, no la cantidad de palabras. La respuesta debe citar al menos uno de los tres modelos por nombre.</p>
           </div>
+
+          <!-- ENTREGA EXCLUSIVA PARA INICIAL -->
+          <div class="step c-block c-ini" style="border-left-color: var(--nav); background: #f0f4ff;">
+            <strong>¿Cómo se entrega esta actividad?</strong>
+            <p>Cada integrante sube al Aula Virtual <strong>dos cosas juntas</strong>:</p>
+            <ol style="margin: 10px 0 12px 20px; font-size: 14px; line-height: 1.8;">
+              <li><strong>El enlace público</strong> al prototipo de su juego/cuento en Canva o Genially.</li>
+              <li><strong>Un párrafo individual</strong> respondiendo a la siguiente pregunta de análisis teórico:</li>
+            </ol>
+            <div style="font-style: italic; padding: 14px 16px; background: rgba(255,255,255,0.85); border-left: 4px solid var(--nav); border-radius: 6px; font-size: 14px; line-height: 1.7; color: var(--neg);">
+              "Si esta propuesta lúdica busca que los niños pasen de un rol Pasivo a uno <em>Interactivo o Creativo</em> (PICRAT) para comprender el cuidado de su imagen, ¿por qué fue indispensable aplicar tu Conocimiento Tecnológico y Pedagógico (TPACK) para que el juego diseñado en Canva/Genially logre una verdadera <em>Modificación o Redefinición</em> (SAMR) y no sea un simple PDF en pantalla?"
+            </div>
+            <p style="margin-top: 10px; font-size: 13px; color: var(--txt);">No hay extensión mínima: importa la calidad del argumento, no la cantidad de palabras. La respuesta debe citar al menos uno de los tres modelos por nombre.</p>
+          </div>
+
         </div>
       </div>
     </div>
@@ -397,7 +539,7 @@
         <div class="tool-card"><strong>Quizizz</strong><p>Alternativa a Kahoot con ritmos controlados por el estudiante. Plan Gratis: Ilimitado en tiempo y cuestionarios públicos.</p><a href="https://quizizz.com/" class="tool-link" target="_blank">Visitar</a></div>
         <div class="tool-card"><strong>Educaplay</strong><p>Sopas de letras, crucigramas y mapas interactivos. Excelente para misiones de reconocimiento espacial o conceptual.</p><a href="https://es.educaplay.com/" class="tool-link" target="_blank">Visitar</a></div>
         <div class="tool-card"><strong>Cerebriti</strong><p>Portal para crear juegos educativos o usar miles ya creados sobre cualquier materia. Totalmente gratuito.</p><a href="https://www.cerebriti.com/" class="tool-link" target="_blank">Visitar</a></div>
-        <div class="tool-card"><strong>Wordwall</strong><p>Crea actividades rápidas como "abre la caja" o "rueda del azar". Perfecto para postas en vivo.</p><a href="https://wordwall.net/es" class="tool-link" target="_blank">Visitar</a></div>
+        <div class="tool-card"><strong>Wordwall</strong><p>Crea actividades rápidas como "abre la caja" o "rueda del azar" o "cuestionario". Perfecto para postas en vivo.</p><a href="https://wordwall.net/es" class="tool-link" target="_blank">Visitar</a></div>
         <div class="tool-card"><strong>Socrative</strong><p>Más formal, ideal para feedback rápido y "tickets de salida" al final de la clase.</p><a href="https://www.socrative.com/" class="tool-link" target="_blank">Visitar</a></div>
         <div class="tool-card"><strong>Kahoot!</strong><p>Plataforma pionera para juegos de preguntas en tiempo real, ideal para encender el aula.</p><a href="https://kahoot.com/es/" class="tool-link" target="_blank">Visitar</a></div>
         <div class="tool-card"><strong>Blooket</strong><p>Juegos tipo "Tower Defense" o "Robar oro". Transforma un cuestionario en una misión estratégica. Interfaz intuitiva.</p><a href="https://www.blooket.com/" class="tool-link" target="_blank">Visitar</a></div>
