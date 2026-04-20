@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 4 · Gamificación Crítica y Efemérides</title>
+<style>
+  :root {
+    --nav:   #1D3461; --teal:  #00949A; --cl:   #B2E8EA; --pale: #E6F7F8;
+    --grn:   #2A6049; --gcl:  #DFF0E9;
+    --amb:   #D4873A; --acl:  #FDF0E4;
+    --vio:   #3D5A99; --vcl:  #E4EAF7;
+    --slate: #4A6080;
+    --gris:  #F3F6F9; --bd:   #C5D2DC; --txt:  #4A5E70;
+    --neg:   #1A2C3A; --bco:  #FFFFFF;
+    --r: 8px; --sh: 0 2px 8px rgba(0,0,0,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65; overflow-x: hidden;}
+
+  /* TOP BAR */
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.65;text-align:right}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
+  .btn-back:hover{background:rgba(255,255,255,0.25)}
+  .btn-reset { display: none; color:var(--cl); margin-right:12px; text-decoration:none; border-bottom: 1px dotted var(--cl); cursor:pointer; }
+  body.career-selected .btn-reset { display: inline-block; }
+
+  /* SELECTOR DE CARRERA */
+  #welcome-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; padding: 20px; text-align: center; }
+  #welcome-screen h2 { font-size: 24px; color: var(--nav); margin-bottom: 10px; }
+  #welcome-screen p { font-size: 16px; color: var(--txt); margin-bottom: 30px; font-weight: 600; }
+  .btn-career { background: var(--bco); border: 2px solid var(--teal); color: var(--teal); font-size: 16px; font-weight: 700; padding: 16px 28px; border-radius: 8px; cursor: pointer; transition: all 0.2s; min-width: 220px; }
+  .btn-career:hover { background: var(--teal); color: white; transform: translateY(-3px); box-shadow: 0 6px 15px rgba(0, 148, 154, 0.25); }
+  .career-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; width: 100%; max-width: 900px; }
+
+  /* LÓGICA DE FILTRADO */
+  #main-app { display: none; }
+  body.career-selected #welcome-screen { display: none; }
+  body.career-selected #main-app { display: block; }
+  .c-block { display: none; }
+  body.show-ini .c-ini { display: block; }
+  body.show-his .c-his { display: block; }
+  body.show-geo .c-geo { display: block; }
+  body.show-ing .c-ing { display: block; }
+
+  /* TÍTULO Y TABS */
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px; position: sticky; top: 0; z-index: 100;}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+
+  /* CONTENIDO ADAPTABLE */
+  .wrap{max-width:1200px; width: 95%; margin: 0 auto; padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden; width: 100%;}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd); text-transform:uppercase; letter-spacing:0.5px; color:var(--nav);}
+  .cb{padding:18px 25px}
+  .card-b .ch{background:var(--pale);color:var(--nav)}
+  .card-g .ch{background:var(--gcl);color:var(--grn)}
+  .card-v .ch{background:var(--vcl);color:var(--vio)}
+  .note{border-radius:var(--r);padding:14px 18px;font-size:13px;margin:10px 0;display:flex;gap:9px;align-items:flex-start}
+  .nb{background:var(--pale);border-left:4px solid var(--teal)}
+
+  /* TEORÍA ESTILOS */
+  .theory{background:var(--slate);padding:25px;border-bottom:3px solid var(--teal); border-radius:var(--r); margin-bottom: 18px;}
+  .theory h4{font-size:18px;color:#fff;margin-bottom:14px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:8px}
+  .theory h5{font-size:15px;color:var(--cl);margin-bottom:10px;text-transform:uppercase;letter-spacing:1px;}
+  .theory-intro{font-size:14.5px;color:#E6F7F8;line-height:1.6;margin-bottom:20px}
+  
+  .tc-box{background:rgba(255,255,255,.12);border-left:4px solid var(--cl);border-radius:4px;padding:18px;color:#E6F7F8;font-size:14px; margin-top:15px;}
+  .tc-box strong{display:block;font-size:12.5px;color:var(--cl);margin-bottom:8px; text-transform:uppercase; letter-spacing:0.8px;}
+
+  /* ACTIVIDADES */
+  .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden; width: 100%;}
+  .ach{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;background:var(--bco)}
+  .an{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .at{flex:1}.at strong{display:block;font-size:15px; color:var(--nav);}
+  .acb{display:none;padding:20px 25px}
+  .act.open .acb{display:block}
+  .step{background:var(--gris);border-radius:var(--r);padding:16px 22px;margin-bottom:15px;font-size:14px;border-left:4px solid var(--bd)}
+  .step strong{display:block;color:var(--nav);margin-bottom:10px;text-transform:uppercase;font-size:12px;letter-spacing:0.8px}
+  .step ul{margin-left:18px;margin-top:10px}.step li{margin-bottom:8px}
+
+  /* REPOSITORIO RESPONSIVO */
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px; }
+  .tool-card { border: 1px solid var(--bd); border-left: 5px solid var(--teal); border-radius: var(--r); padding: 18px; background: #fff; transition: all 0.2s; }
+  .tool-card:hover { transform: translateY(-3px); border-color: var(--nav); box-shadow: var(--sh); }
+  .tool-card strong { display: block; font-size: 15px; color: var(--nav); margin-bottom: 6px; }
+  .tool-card p { font-size: 13px; color: var(--txt); line-height: 1.4; margin-bottom: 15px; }
+  .tool-link { font-size: 11px; color: var(--teal); text-decoration: none; font-weight: 700; text-transform: uppercase; border: 1px solid var(--teal); padding: 5px 10px; border-radius: 4px; display: inline-block; }
+
+  /* FOOTER COLABORATIVO */
+  .colab-box { margin-top: 25px; background: linear-gradient(135deg, var(--nav), var(--teal)); padding: 30px; border-radius: var(--r); text-align: center; color: #fff; box-shadow: var(--sh); width: 100%; }
+  .colab-box h3 { margin-bottom: 12px; font-size: 20px; color: var(--cl); }
+  .colab-box p { font-size: 15px; opacity: 0.9; max-width: 800px; margin: 0 auto 20px; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-info">
+    <a href="index.html" class="btn-back">← Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
+  </div>
+  <div class="top-r">Ciclo Lectivo 2026</div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Elegí tu Profesorado</h2>
+  <p>Hacé clic según tu área específica para ver los ejes situados.</p>
+  <div class="career-grid">
+    <button class="btn-career" onclick="selectCareer('ini', '· Inicial')">Educación Inicial</button>
+    <button class="btn-career" onclick="selectCareer('his', '· Historia')">Historia</button>
+    <button class="btn-career" onclick="selectCareer('geo', '· Geografía')">Geografía</button>
+    <button class="btn-career" onclick="selectCareer('ing', '· Inglés')">Inglés</button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 4 · 17 de abril</p>
+    <h2>Gamificación Crítica: <span>Más allá de los puntos y las insignias</span></h2>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
+    <button class="tab-btn" onclick="showTab('teoria',this)">Marco Teórico Ancla</button>
+    <button class="tab-btn" onclick="showTab('actividades',this)">Laboratorio de Producción</button>
+    <a href="repositorio_herramientas.html" target="_blank" class="tab-btn" style="text-decoration:none; color:var(--teal);">Caja de Herramientas ↗</a>
+  </div>
+
+  <div class="wrap">
+    
+    <!-- PANE: INICIO -->
+    <div id="pane-inicio" class="pane on">
+      <div class="card card-b">
+        <div class="ch">El peligro del conductismo digital</div>
+        <div class="cb">
+          <p style="font-size:17px;font-weight:600;color:var(--nav);">¿Por qué los actos escolares o las clases especiales a veces fallan incluso usando tecnología?</p>
+          <p style="margin-top:10px; font-size:15px;">En las clases anteriores analizamos la integración tecnológica con los modelos TPACK, SAMR y PICRAT, y reflexionamos sobre la huella y la ciudadanía digital. Hoy damos un paso hacia el diseño activo, abordando una de las tendencias más fuertes y peor comprendidas en la educación actual: la <strong>Gamificación</strong>.</p>
+          <p style="margin-top:10px; font-size:15px;">A menudo, en el afán de "innovar" en efemérides (como el 25 de Mayo o el Día de Tierra del Fuego), caemos en lo que los teóricos llaman "conductismo digital": disfrazar una prueba de <em>multiple choice</em> con colores fluór, un temporizador y puntajes en una pantalla. En términos del modelo <strong>PICRAT</strong>, seguimos manteniendo al estudiante en un rol <em>Pasivo</em>, solo que ahora está anestesiado por estímulos visuales.</p>
+          
+          <div class="note nb" style="margin-top:14px; background:var(--vcl); border-left-color:var(--vio);">
+            <span><strong>El desafío de hoy:</strong> Evitar la trampa estética. Utilizaremos la Inteligencia Artificial como asistente para diseñar narrativas y mecánicas lúdicas, construyendo un prototipo interactivo que realmente posicione al estudiante en un rol creador y crítico frente a una efeméride de su disciplina.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: MARCO TEÓRICO -->
+    <div id="pane-teoria" class="pane">
+      <div class="theory">
+        <h4>1. La trampa del "Brócoli bañado en chocolate"</h4>
+        <p class="theory-intro">El diseñador de videojuegos Ian Bogost advierte que muchas propuestas educativas intentan ocultar contenido aburrido bajo mecánicas superficiales de juego (puntos, medallas, ránkings). A esto lo llama "brócoli bañado en chocolate". Gamificar no es hacer que lo aburrido parezca divertido de manera artificial, sino aplicar <strong>narrativas, agencia y resolución de problemas</strong> al proceso de aprendizaje.</p>
+        
+        <div class="tc-box" style="border-left-color: var(--amb);">
+          <strong>Motivación Extrínseca vs. Intrínseca (Teoría de la Autodeterminación)</strong>
+          <p style="margin-bottom: 8px;">Según Deci y Ryan (2000), si tu juego educativo solo funciona porque hay "puntos para aprobar" o "premios", estás usando motivación extrínseca. A largo plazo, esto destruye el deseo de aprender.</p>
+          <p>Una gamificación pedagógica profunda se basa en la motivación intrínseca, asegurando tres necesidades psicológicas básicas en el alumno:</p>
+          <ul style="margin-left:20px; margin-top:5px; font-size: 13.5px;">
+            <li><strong>Autonomía:</strong> El estudiante siente que sus decisiones alteran el rumbo del juego/actividad.</li>
+            <li><strong>Competencia:</strong> El desafío no es ni muy fácil (aburre) ni muy difícil (frustra).</li>
+            <li><strong>Relación:</strong> Fomenta la interacción social y el trabajo en equipo (no solo competir contra una pantalla).</li>
+          </ul>
+        </div>
+
+        <h4 style="margin-top:25px;">2. Teoría Cognitiva del Aprendizaje Multimedia (Richard Mayer)</h4>
+        <p class="theory-intro">El Conocimiento Pedagógico (PK) y Tecnológico (TK) del modelo TPACK exigen que sepamos cómo procesa el cerebro la información en las pantallas. Richard Mayer demuestra que el ser humano tiene canales limitados de procesamiento visual y auditivo.</p>
+        
+        <div class="tc-box" style="border-left-color: var(--teal);">
+          <p style="margin-bottom: 12px;"><strong>Carga Cognitiva Ajena:</strong> Es todo el esfuerzo mental que el alumno gasta en procesar adornos inútiles. Para evitarla al diseñar en plataformas (como Genially o Canva), debemos aplicar estos principios:</p>
+          <ul style="margin-left:20px; font-size: 13.5px;">
+            <li style="margin-bottom: 6px;"><strong>Principio de Coherencia:</strong> Los estudiantes aprenden mejor cuando se excluyen palabras, imágenes y sonidos extraños. (Si un gif de un gatito bailando no explica el 25 de Mayo, sacalo).</li>
+            <li style="margin-bottom: 6px;"><strong>Principio de Señalización:</strong> Los estudiantes aprenden mejor cuando se agregan señales que dirigen su atención a lo importante (flechas, contrastes de color).</li>
+            <li><strong>Principio de Contigüidad Espacial:</strong> Textos e imágenes correspondientes deben estar cerca unos de otros en la pantalla, no separados o en pestañas distintas.</li>
+          </ul>
+        </div>
+
+        <div class="tc-box" style="background:var(--pale); color:var(--nav); border-left-color: var(--vio); margin-top:30px;">
+          <strong style="color:var(--nav)">Anclaje Disciplinar: ¿Qué efeméride problematizamos hoy?</strong>
+          <p style="font-size:13.5px; margin-bottom: 10px;">Su tarea será elegir una efeméride y transformar el abordaje tradicional (glosa/cartulina) en una experiencia mediada por TIC que exija pensamiento crítico.</p>
+          <div class="c-block c-ini">
+            <p><strong style="color:var(--nav);">Nivel Inicial:</strong> El <strong>25 de Mayo</strong>. En lugar de vestir a los niños "de época" sin contexto, ¿cómo podemos diseñar un relato interactivo donde ellos exploren cómo era la vida cotidiana, los sonidos y los trabajos, decidiendo qué camino toma el personaje en la pantalla?</p>
+          </div>
+          <div class="c-block c-his">
+            <p><strong style="color:var(--nav);">Historia:</strong> El <strong>25 de Mayo</strong> o el <strong>2 de Abril (Malvinas)</strong>. En lugar de un cuestionario de fechas, diseñar un <em>Escape Room</em> de análisis de fuentes. Que el alumno deba contrastar un documento histórico para destrabar un candado digital.</p>
+          </div>
+          <div class="c-block c-geo">
+            <p><strong style="color:var(--nav);">Geografía:</strong> El <strong>1 de Junio (Día de la Provincia)</strong>. Dejar el mapa mudo impreso, para crear un <em>Mapa Interactivo</em> o <em>Geocaching</em> donde los estudiantes asuman el rol de investigadores territoriales, descubriendo conflictos espaciales o económicos de Tierra del Fuego a través de pistas.</p>
+          </div>
+          <div class="c-block c-ing">
+            <p><strong style="color:var(--nav);">Inglés:</strong> Una efeméride cultural (ej. <strong>St. Patrick's Day</strong>) o explicar el <strong>25 de Mayo</strong> a un turista. Dejar el "fill in the blanks" para diseñar un <em>Roleplay Interactivo</em> en Blooket o Genially, donde la toma de decisiones en inglés altere la recompensa del grupo.</p>
+          </div>
+        </div>
+
+        <div style="margin-top:30px; border-top:1px solid rgba(255,255,255,0.2); padding-top:15px;">
+            <p style="font-size:12px; color:var(--cl); font-style:italic;">"Fuentes Bibliográficas de la Clase:"<br>
+                • <a href="https://www.theatlantic.com/technology/archive/2011/08/gamification-is-bullshit/243338/" target="_blank" style="color:var(--cl); text-decoration:underline;">BOGOST, I. (2011). "Gamification is Bullshit". The Atlantic.</a><br>
+                • <a href="https://doi.org/10.1207/S15327965PLI1104_01" target="_blank" style="color:var(--cl); text-decoration:underline;">DECI, E. L., & RYAN, R. M. (2000). The "what" and "why" of goal pursuits (Teoría de la Autodeterminación).</a><br>
+                • <a href="https://doi.org/10.1017/CBO9781139547369" target="_blank" style="color:var(--cl); text-decoration:underline;">MAYER, R. E. (2014). The Cambridge Handbook of Multimedia Learning.</a><br>
+            </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- PANE: ACTIVIDADES (LABORATORIO DE PRODUCCIÓN) -->
+    <div id="pane-actividades" class="pane">
+      
+      <div class="act" id="a1">
+        <div class="ach" onclick="toggleAct('a1')">
+          <div class="an" style="background:var(--amb)">1</div>
+          <div class="at"><strong>Fase 1: Deconstruir la herramienta (Crítica TPACK)</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step">
+            <strong>No toda "app" educa:</strong>
+            <p>En sus grupos, elijan una plataforma de la Caja de Herramientas (Kahoot, Wordwall, Genially, Blooket). Antes de producir, apliquen su Conocimiento Tecnológico y Pedagógico (TPK) para analizarla críticamente:</p>
+            <ul style="margin-left: 20px; margin-top:8px;">
+              <li>¿Esta herramienta fomenta la <strong>motivación intrínseca</strong> (exploración, autonomía) o puramente <strong>extrínseca</strong> (puntos por responder rápido)?</li>
+              <li>¿En qué nivel del modelo <strong>PICRAT</strong> suele ubicar al alumno cuando es mal utilizada? (Ej: Si es un Kahoot donde solo presionan un color por memorización, es Pasivo/Interactivo de bajo nivel cognitivo).</li>
+            </ul>
+            <p style="margin-top:10px; font-style:italic;">Discutan 5 minutos cómo evitar caer en el "conductismo digital" con la herramienta que eligieron para su efeméride.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="act" id="a2">
+        <div class="ach" onclick="toggleAct('a2')">
+          <div class="an" style="background:var(--vio)">2</div>
+          <div class="at"><strong>Fase 2: La IA como Arquitecta (Ingeniería de Prompts)</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step">
+            <strong>Diseño de la Experiencia:</strong>
+            <p>Abran <strong>ChatGPT, Claude o DeepSeek</strong>. No le pidan a la IA que "haga preguntas de opción múltiple" (eso es sustitución). Vamos a exigirle diseño narrativo y mecánicas lúdicas.</p>
+            <p style="margin-top:10px;">Armen un <strong>Prompt Docente</strong> con esta estructura:</p>
+            <ul style="margin-left: 20px; margin-top:8px;">
+              <li><strong>Rol y Tarea:</strong> "Actuá como un diseñador de juegos educativos y un docente de [tu disciplina]..."</li>
+              <li><strong>Contexto y Público:</strong> "...necesito armar una experiencia sobre [la efeméride] para estudiantes de Tierra del Fuego que no se centre en memorizar fechas, sino en analizar el contexto histórico/geográfico."</li>
+              <li><strong>Mecánica (El requerimiento clave):</strong> "...redactame una narrativa de misterio y 4 pistas encadenadas (o 4 dilemas de rol). Cada pista debe exigir pensamiento crítico para ser resuelta."</li>
+            </ul>
+          </div>
+          <div class="step" style="border-left-color: var(--teal);">
+            <strong>Auditoría Humana:</strong>
+            <p>Filtren la respuesta. ¿La IA alucinó datos? ¿La narrativa respeta el diseño curricular? Ajusten el texto resultante.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="act" id="a3">
+        <div class="ach" onclick="toggleAct('a3')">
+          <div class="an" style="background:var(--nav)">3</div>
+          <div class="at"><strong>Fase 3: Prototipado y Entrega Formal</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step">
+            <strong>Ensamblaje aplicando a Richard Mayer:</strong>
+            <p>Cuentan con el resto de la clase para trasladar ese guion a la plataforma elegida (Genially, Wordwall, etc.). Es obligatorio aplicar el <strong>Principio de Coherencia</strong> de Mayer: pantalla limpia, sin elementos distractores que saturen la memoria de trabajo de sus futuros alumnos. Diseñen al menos 3 o 4 "pantallas" o instancias del juego funcional.</p>
+          </div>
+          
+          <div class="step" style="border-left-color: var(--nav); background: #f0f4ff;">
+            <strong>Entrega en el Aula Virtual (Obligatoria):</strong>
+            <p>Un integrante del grupo debe subir al buzón de la Semana 4 <strong>dos componentes</strong>:</p>
+            <ol style="margin: 10px 0 12px 20px; font-size: 14px; line-height: 1.8;">
+              <li><strong>El enlace público</strong> a la producción terminada (prototipo interactivo).</li>
+              <li><strong>La Justificación Pedagógica (El anclaje teórico):</strong> Redacten un párrafo profundo respondiendo a lo siguiente:</li>
+            </ol>
+            <div style="font-style: italic; padding: 14px 16px; background: rgba(255,255,255,0.85); border-left: 4px solid var(--nav); border-radius: 6px; font-size: 14px; line-height: 1.7; color: var(--neg);">
+              "¿Por qué su diseño logra el nivel de 'Modificación' o 'Redefinición' en el modelo <strong>SAMR</strong> en lugar de ser un simple 'brócoli bañado en chocolate' conductista? Expliquen cómo las decisiones estéticas que tomaron respetan la Teoría Cognitiva del Aprendizaje Multimedia (Mayer)."
+            </div>
+            <p style="margin-top: 10px; font-size: 13px; color: var(--txt);">Esta reflexión es la evidencia de que hubo apropiación teórica del diseño y no solo uso instrumental de la herramienta.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+function selectCareer(code, name) {
+  document.body.className = '';
+  document.body.classList.add('show-' + code);
+  document.body.classList.add('career-selected');
+  document.getElementById('lbl-career').innerText = name;
+  document.querySelectorAll('.tab-btn')[0].click();
+}
+function resetCareer() { 
+  document.body.classList.remove('career-selected'); 
+  document.getElementById('lbl-career').innerText = '';
+}
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('active');
+}
+function toggleAct(id){ document.getElementById(id).classList.toggle('open'); }
+
+window.onload = function() {
+  document.querySelectorAll('.act').forEach(a => a.classList.remove('open'));
+}
+</script>
+</body>
+</html>
