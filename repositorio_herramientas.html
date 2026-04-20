@@ -3,142 +3,502 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caja de Herramientas TIC | Proyectos Educativos con TIC</title>
+<title>Caja de Herramientas TIC | IPESfa</title>
 <style>
   :root {
-    --nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;
-    --grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;
-    --vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;
-    --gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFFFFF;
-    --r:8px;--sh:0 2px 8px rgba(0,0,0,.09);
+    --nav:   #1D3461; --teal:  #00949A; --cl:   #B2E8EA; --pale: #E6F7F8;
+    --grn:   #2A6049; --gcl:  #DFF0E9;
+    --amb:   #D4873A; --acl:  #FDF0E4;
+    --vio:   #3D5A99; --vcl:  #E4EAF7;
+    --slate: #4A6080;
+    --gris:  #F3F6F9; --bd:   #C5D2DC; --txt:  #4A5E70;
+    --neg:   #1A2C3A; --bco:  #FFFFFF;
+    --r: 10px; --sh: 0 4px 12px rgba(0,0,0,.08);
   }
+  
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65}
-  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
-  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
-  .top-r{font-size:11px;opacity:.65;text-align:right}
-  .top-info{display:flex;align-items:center;gap:20px}
-  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
-  .btn-back:hover{background:rgba(255,255,255,0.25)}
-  .wrap{max-width:1200px;width:95%;margin:0 auto;padding:24px 0 60px}
-  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
-  .ch{padding:13px 20px;font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.5px;color:var(--nav)}
-  .cb{padding:18px 25px}
-  .card-b .ch{background:var(--pale);color:var(--nav)}
-  .sec-h3{font-size:14px;color:var(--nav);margin:25px 0 15px;border-left:4px solid var(--teal);padding-left:12px;text-transform:uppercase;letter-spacing:0.5px}
-  .sec-h3.amb{border-left-color:var(--amb)}
-  .sec-h3.vio{border-left-color:var(--vio);color:var(--vio)}
-  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:15px;margin-top:15px}
-  .tool-card{border:1px solid var(--bd);border-left:5px solid var(--teal);border-radius:var(--r);padding:18px;background:#fff;transition:all 0.2s}
-  .tool-card:hover{transform:translateY(-3px);border-color:var(--nav);box-shadow:var(--sh)}
-  .tool-card strong{display:block;font-size:15px;color:var(--nav);margin-bottom:6px}
-  .tool-card p{font-size:13px;color:var(--txt);line-height:1.4;margin-bottom:15px}
-  .tool-link{font-size:11px;color:var(--teal);text-decoration:none;font-weight:700;text-transform:uppercase;border:1px solid var(--teal);padding:5px 10px;border-radius:4px;display:inline-block}
-  .colab-box{margin-top:25px;background:linear-gradient(135deg,var(--nav),var(--teal));padding:30px;border-radius:var(--r);text-align:center;color:#fff;box-shadow:var(--sh)}
-  .colab-box h3{margin-bottom:12px;font-size:20px;color:var(--cl)}
-  .colab-box p{font-size:15px;opacity:0.9;max-width:800px;margin:0 auto;line-height:1.6}
+  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.6; overflow-x: hidden;}
+
+  /* HEADER */
+  .top { background: var(--nav); color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--teal); flex-wrap: wrap; gap: 10px; }
+  .top-info strong { display: block; font-size: 16px; }
+  .top-info small { font-size: 12px; opacity: 0.8; }
+  .btn-back { background: rgba(255,255,255,0.15); color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 13px; transition: background 0.2s; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.3); }
+  .btn-back:hover { background: rgba(255,255,255,0.25); }
+
+  /* HERO SECTION */
+  .hero { background: var(--bco); padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--bd); }
+  .hero h1 { color: var(--nav); font-size: 28px; margin-bottom: 10px; }
+  .hero p { color: var(--txt); max-width: 700px; margin: 0 auto; font-size: 16px; }
+  .update-badge { display: inline-block; background: var(--amb); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;}
+
+  /* LAYOUT CAJA */
+  .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+  .category-title { font-size: 20px; color: var(--nav); border-bottom: 2px solid var(--bd); padding-bottom: 10px; margin: 40px 0 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
+  
+  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  
+  /* CARDS */
+  .tool-card { background: var(--bco); border: 1px solid var(--bd); border-radius: var(--r); padding: 22px; box-shadow: var(--sh); transition: transform 0.2s, box-shadow 0.2s; position: relative; display: flex; flex-direction: column; }
+  .tool-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,.12); border-color: var(--teal); }
+  
+  .tool-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .tool-title { font-size: 18px; color: var(--nav); font-weight: 700; }
+  
+  .badge-new { background: var(--teal); color: white; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+  
+  .tool-desc { font-size: 14px; color: var(--txt); margin-bottom: 15px; flex-grow: 1; }
+  
+  .tool-footer { display: flex; justify-content: flex-end; }
+  .btn-visit { background: var(--nav); color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
+  .btn-visit:hover { background: var(--teal); }
+
+  /* COLORES POR CATEGORÍA */
+  .cat-gamification { border-left-color: var(--teal); border-left-width: 5px; }
+  .cat-ai { border-left-color: var(--vio); border-left-width: 5px; }
+  .cat-citizen { border-left-color: var(--amb); border-left-width: 5px; }
+  .cat-visual { border-left-color: var(--grn); border-left-width: 5px; }
+  .cat-collab { border-left-color: var(--slate); border-left-width: 5px; }
+  .cat-manage { border-left-color: #e91e63; border-left-width: 5px; }
+
 </style>
 </head>
 <body>
 
 <div class="top">
   <div class="top-info">
-    <a href="index.html" class="btn-back">← Volver al Índice</a>
-    <div>
-      <strong>Proyectos Educativos con TIC</strong>
-      <small>IPES "Florentino Ameghino" · 4.° Año · Prof. Gustavo Iturriz</small>
-    </div>
+    <strong>Proyectos Educativos con TIC</strong>
+    <small>Repositorio Vivo · 4.° Año Profesorados (IPESfa)</small>
   </div>
-  <div class="top-r">Ciclo Lectivo 2026</div>
+  <a href="index.html" class="btn-back">← Volver al Aula</a>
 </div>
 
-<div class="wrap">
+<div class="hero">
+  <span class="update-badge">Actualizado: Semana 4</span>
+  <h1>Caja de Herramientas Docentes</h1>
+  <p>Este repositorio crece clase a clase. Aquí curamos aplicaciones, plataformas y motores de Inteligencia Artificial evaluados bajo los modelos TPACK y PICRAT, garantizando que su uso en el aula fueguina tenga verdadero sentido pedagógico.</p>
+</div>
 
-  <div class="card card-b">
-    <div class="ch">🧰 Caja de Herramientas</div>
-    <div class="cb">
-      <p style="font-size:15px;font-weight:600;color:var(--nav);">Biblioteca curada de aplicaciones tradicionales y de IA para el diseño de propuestas innovadoras, gestión de la ciudadanía digital y producción de recursos pedagógicos situados.</p>
+<div class="container">
+
+  <!-- CATEGORÍA 1: INTELIGENCIA ARTIFICIAL -->
+  <h2 class="category-title" style="border-bottom-color: var(--vio);">
+    <span style="color:var(--vio)">🤖</span> Inteligencia Artificial: Asistentes y Copilotos
+  </h2>
+  <div class="tool-grid">
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">Claude (Anthropic)</div>
+        <div class="badge-new">Clase 4</div>
+      </div>
+      <div class="tool-desc">Redacción excelente y tono humano. Tu mejor aliado para inventar la historia de fondo o el "misterio" para contextualizar tu juego o Escape Room.</div>
+      <div class="tool-footer"><a href="https://claude.ai/" target="_blank" class="btn-visit">Probar Claude</a></div>
+    </div>
+
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">ChatGPT (OpenAI)</div>
+      </div>
+      <div class="tool-desc">Ideales para hacer lluvia de ideas rápida de desafíos, pistas o acertijos adaptados a la edad de tus estudiantes.</div>
+      <div class="tool-footer"><a href="https://chatgpt.com" target="_blank" class="btn-visit">Probar ChatGPT</a></div>
+    </div>
+
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">DeepSeek</div>
+        <div class="badge-new">Clase 4</div>
+      </div>
+      <div class="tool-desc">Asistente de IA destacado por su altísima capacidad de razonamiento lógico y estructuración de proyectos paso a paso.</div>
+      <div class="tool-footer"><a href="https://chat.deepseek.com/" target="_blank" class="btn-visit">Probar DeepSeek</a></div>
+    </div>
+    
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">NotebookLM</div>
+      </div>
+      <div class="tool-desc">Subile tu material provincial en PDF y pedile que extraiga conceptos clave para convertirlos en preguntas para el juego.</div>
+      <div class="tool-footer"><a href="https://notebooklm.google.com/" target="_blank" class="btn-visit">Probar NotebookLM</a></div>
+    </div>
+
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">Microsoft Copilot</div>
+      </div>
+      <div class="tool-desc">Asistente con acceso a internet en tiempo real y creación de imágenes integrada (muy útil para generar fondos de juegos).</div>
+      <div class="tool-footer"><a href="https://copilot.microsoft.com/" target="_blank" class="btn-visit">Probar Copilot</a></div>
+    </div>
+
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">Perplexity AI</div>
+      </div>
+      <div class="tool-desc">Buscador impulsado por IA que cita las fuentes reales de donde saca la información. Excelente para investigar datos históricos.</div>
+      <div class="tool-footer"><a href="https://www.perplexity.ai/" target="_blank" class="btn-visit">Probar Perplexity</a></div>
+    </div>
+
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">MagicSchool.ai</div>
+      </div>
+      <div class="tool-desc">Plataforma con decenas de herramientas específicas para docentes, desde generadores de rúbricas hasta adaptadores de nivel de lectura.</div>
+      <div class="tool-footer"><a href="https://www.magicschool.ai" target="_blank" class="btn-visit">Probar MagicSchool</a></div>
+    </div>
+
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">Curipod</div>
+      </div>
+      <div class="tool-desc">Genera lecciones interactivas completas con IA (encuestas, nubes de palabras, preguntas abiertas) a partir de un simple tema.</div>
+      <div class="tool-footer"><a href="https://curipod.com/" target="_blank" class="btn-visit">Probar Curipod</a></div>
+    </div>
+
+    <div class="tool-card cat-ai">
+      <div class="tool-header">
+        <div class="tool-title">QuestionWell</div>
+      </div>
+      <div class="tool-desc">Ingresás un texto y la IA te devuelve múltiples preguntas de opción múltiple listas para exportar a Kahoot, Quizizz o Blooket.</div>
+      <div class="tool-footer"><a href="https://www.questionwell.org/" target="_blank" class="btn-visit">Probar QuestionWell</a></div>
     </div>
   </div>
 
-  <h3 class="sec-h3 amb">Ciudadanía Digital y Seguridad</h3>
+  <!-- CATEGORÍA 2: GAMIFICACIÓN Y CUESTIONARIOS -->
+  <h2 class="category-title" style="border-bottom-color: var(--teal); margin-top: 50px;">
+    <span style="color:var(--teal)">🎮</span> Gamificación, Minijuegos y Cuestionarios
+  </h2>
   <div class="tool-grid">
-    <div class="tool-card" style="border-left-color:var(--amb);"><strong>DuckDuckGo</strong><p>Buscador alternativo a Google que prioriza la privacidad. No rastrea tu información, no guarda tu historial ni crea burbujas de filtros algorítmicos.</p><a href="https://duckduckgo.com/" class="tool-link" target="_blank" style="border-color:var(--amb);color:var(--amb);">Visitar</a></div>
-    <div class="tool-card" style="border-left-color:var(--amb);"><strong>Google Interland</strong><p>Juego interactivo y gratuito diseñado para que los estudiantes aprendan a cuidarse de hackers, phishing y ciberacoso de forma lúdica.</p><a href="https://beinternetawesome.withgoogle.com/es-419_all/interland" class="tool-link" target="_blank" style="border-color:var(--amb);color:var(--amb);">Visitar</a></div>
-    <div class="tool-card" style="border-left-color:var(--amb);"><strong>PantallasAmigas</strong><p>Repositorio de recursos didácticos y audiovisuales orientados a la educación para la ciberciudadanía, prevención del grooming y sexting seguro.</p><a href="https://www.pantallasamigas.net/" class="tool-link" target="_blank" style="border-color:var(--amb);color:var(--amb);">Visitar</a></div>
-    <div class="tool-card" style="border-left-color:var(--amb);"><strong>Faro Digital</strong><p>ONG argentina con guías docentes descargables, marcos legales y talleres sobre construcción de identidad digital y convivencia web.</p><a href="https://farodigital.org/" class="tool-link" target="_blank" style="border-color:var(--amb);color:var(--amb);">Visitar</a></div>
-    <div class="tool-card" style="border-left-color:var(--amb);"><strong>Kialo Edu</strong><p>Plataforma para debates argumentativos visuales. Excelente para discutir dilemas éticos sobre el uso de redes y huella digital con los estudiantes.</p><a href="https://www.kialo-edu.com/" class="tool-link" target="_blank" style="border-color:var(--amb);color:var(--amb);">Visitar</a></div>
-    <div class="tool-card" style="border-left-color:var(--amb);"><strong>Common Sense Education</strong><p>Enorme biblioteca de planes de clase, lecciones y videos sobre ciudadanía digital, huella digital y alfabetización mediática.</p><a href="https://www.commonsense.org/education" class="tool-link" target="_blank" style="border-color:var(--amb);color:var(--amb);">Visitar</a></div>
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Wordwall</div>
+        <div class="badge-new">Clase 4</div>
+      </div>
+      <div class="tool-desc">Crea actividades rápidas como "abre la caja", "rueda del azar", unir flechas o cuestionarios. Perfecto para postas interactivas o Inicial.</div>
+      <div class="tool-footer"><a href="https://wordwall.net/es" target="_blank" class="btn-visit">Visitar Wordwall</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Blooket</div>
+        <div class="badge-new">Clase 4</div>
+      </div>
+      <div class="tool-desc">Juegos tipo "Tower Defense" o "Robar oro". Transforma un cuestionario en una misión estratégica. Altamente adictivos para Secundaria.</div>
+      <div class="tool-footer"><a href="https://www.blooket.com/" target="_blank" class="btn-visit">Visitar Blooket</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Quizizz</div>
+        <div class="badge-new">Clase 4</div>
+      </div>
+      <div class="tool-desc">Alternativa robusta a Kahoot con ritmos controlados por el estudiante. Ilimitado en tiempo y con miles de cuestionarios públicos editables.</div>
+      <div class="tool-footer"><a href="https://quizizz.com/" target="_blank" class="btn-visit">Visitar Quizizz</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">ThingLink</div>
+        <div class="badge-new">Clase 4</div>
+      </div>
+      <div class="tool-desc">Permite tomar cualquier imagen estática (mapas, cuadros) y agregarle "puntos calientes" interactivos con audio, video y texto.</div>
+      <div class="tool-footer"><a href="https://www.thinglink.com/es/" target="_blank" class="btn-visit">Visitar ThingLink</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Kahoot!</div>
+      </div>
+      <div class="tool-desc">Plataforma pionera para juegos de preguntas en tiempo real, ideal para encender el aula y evaluar conocimientos previos.</div>
+      <div class="tool-footer"><a href="https://kahoot.com/es/" target="_blank" class="btn-visit">Visitar Kahoot</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Educaplay</div>
+      </div>
+      <div class="tool-desc">Sopas de letras, crucigramas y mapas interactivos. Excelente para misiones de reconocimiento espacial (Geografía) o conceptual.</div>
+      <div class="tool-footer"><a href="https://es.educaplay.com/" target="_blank" class="btn-visit">Visitar Educaplay</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Cerebriti</div>
+      </div>
+      <div class="tool-desc">Portal para crear juegos educativos o usar miles ya creados sobre cualquier materia. Totalmente gratuito.</div>
+      <div class="tool-footer"><a href="https://www.cerebriti.com/" target="_blank" class="btn-visit">Visitar Cerebriti</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Socrative</div>
+      </div>
+      <div class="tool-desc">Plataforma más formal de cuestionarios, ideal para feedback rápido, evaluación formativa y "tickets de salida" al final de la clase.</div>
+      <div class="tool-footer"><a href="https://www.socrative.com/" target="_blank" class="btn-visit">Visitar Socrative</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Gimkit</div>
+      </div>
+      <div class="tool-desc">Plataforma de juegos en vivo tipo "arcade", muy dinámica y altamente competitiva, creada por estudiantes.</div>
+      <div class="tool-footer"><a href="https://www.gimkit.com/" target="_blank" class="btn-visit">Visitar Gimkit</a></div>
+    </div>
+
+    <div class="tool-card cat-gamification">
+      <div class="tool-header">
+        <div class="tool-title">Classcraft</div>
+      </div>
+      <div class="tool-desc">Gamificación de rol (RPG) donde los estudiantes son personajes (magos, guerreros) y ganan puntos por actitudes positivas o logros académicos.</div>
+      <div class="tool-footer"><a href="https://www.classcraft.com/" target="_blank" class="btn-visit">Visitar Classcraft</a></div>
+    </div>
   </div>
 
-  <h3 class="sec-h3">Colaboración y Murales Digitales</h3>
+  <!-- CATEGORÍA 3: CIUDADANÍA Y SEGURIDAD -->
+  <h2 class="category-title" style="border-bottom-color: var(--amb); margin-top: 50px;">
+    <span style="color:var(--amb)">🛡️</span> Ciudadanía Digital y Seguridad
+  </h2>
   <div class="tool-grid">
-    <div class="tool-card"><strong>Padlet</strong><p>El estándar para muros colaborativos. Ideal para curaduría colectiva, centro de mando de un Escape Room o tablero de evidencias.</p><a href="https://padlet.com" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Miro</strong><p>Pizarra infinita profesional. Excelente para planificar el recorrido o mapa mental del juego en equipo docente.</p><a href="https://miro.com/es/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Wakelet</strong><p>Permite curar contenido web (enlaces, videos) y organizarlo en colecciones visuales atractivas. 100% gratis.</p><a href="https://wakelet.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Symbaloo</strong><p>Organizador visual de enlaces en bloques, muy usado para armar Entornos Personales de Aprendizaje (PLE).</p><a href="https://www.symbaloo.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Stormboard</strong><p>Pizarra digital colaborativa enfocada en lluvia de ideas con plantillas ágiles prearmadas.</p><a href="https://stormboard.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Lino (Linoit)</strong><p>Corcho virtual alternativo a Padlet para post-its, imágenes y videos.</p><a href="http://en.linoit.com/" class="tool-link" target="_blank">Visitar</a></div>
+    <div class="tool-card cat-citizen">
+      <div class="tool-header">
+        <div class="tool-title">DuckDuckGo</div>
+      </div>
+      <div class="tool-desc">Buscador alternativo a Google que prioriza la privacidad. No rastrea información ni crea burbujas de filtros algorítmicos. Ideal para OSINT.</div>
+      <div class="tool-footer"><a href="https://duckduckgo.com/" target="_blank" class="btn-visit">Usar DuckDuckGo</a></div>
+    </div>
+
+    <div class="tool-card cat-citizen">
+      <div class="tool-header">
+        <div class="tool-title">Google Interland</div>
+      </div>
+      <div class="tool-desc">Juego interactivo y gratuito diseñado para que los estudiantes aprendan a cuidarse de hackers, phishing y ciberacoso de forma lúdica.</div>
+      <div class="tool-footer"><a href="https://beinternetawesome.withgoogle.com/es-419_all/interland" target="_blank" class="btn-visit">Jugar Interland</a></div>
+    </div>
+
+    <div class="tool-card cat-citizen">
+      <div class="tool-header">
+        <div class="tool-title">Faro Digital</div>
+      </div>
+      <div class="tool-desc">ONG argentina con guías docentes descargables, marcos legales y talleres sobre construcción de identidad digital y convivencia web.</div>
+      <div class="tool-footer"><a href="https://farodigital.org/" target="_blank" class="btn-visit">Ir a Faro Digital</a></div>
+    </div>
+
+    <div class="tool-card cat-citizen">
+      <div class="tool-header">
+        <div class="tool-title">PantallasAmigas</div>
+      </div>
+      <div class="tool-desc">Repositorio de recursos didácticos y audiovisuales orientados a la educación para la ciberciudadanía, prevención del grooming y sexting seguro.</div>
+      <div class="tool-footer"><a href="https://www.pantallasamigas.net/" target="_blank" class="btn-visit">Ir a PantallasAmigas</a></div>
+    </div>
+
+    <div class="tool-card cat-citizen">
+      <div class="tool-header">
+        <div class="tool-title">Kialo Edu</div>
+      </div>
+      <div class="tool-desc">Plataforma para debates argumentativos visuales. Excelente para discutir dilemas éticos sobre el uso de redes y huella digital.</div>
+      <div class="tool-footer"><a href="https://www.kialo-edu.com/" target="_blank" class="btn-visit">Visitar Kialo Edu</a></div>
+    </div>
+
+    <div class="tool-card cat-citizen">
+      <div class="tool-header">
+        <div class="tool-title">Common Sense Education</div>
+      </div>
+      <div class="tool-desc">Enorme biblioteca de planes de clase, lecciones y videos sobre ciudadanía digital, huella digital y alfabetización mediática.</div>
+      <div class="tool-footer"><a href="https://www.commonsense.org/education" target="_blank" class="btn-visit">Visitar Common Sense</a></div>
+    </div>
   </div>
 
-  <h3 class="sec-h3">Gamificación y Cuestionarios</h3>
+  <!-- CATEGORÍA 4: PRESENTACIONES Y VISUALES -->
+  <h2 class="category-title" style="border-bottom-color: var(--grn); margin-top: 50px;">
+    <span style="color:var(--grn)">🎨</span> Presentaciones y Contenido Visual
+  </h2>
   <div class="tool-grid">
-    <div class="tool-card"><strong>Kahoot!</strong><p>Plataforma pionera para juegos de preguntas en tiempo real, ideal para encender el aula.</p><a href="https://kahoot.com/es/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Quizizz</strong><p>Alternativa a Kahoot con ritmos controlados por el estudiante. Plan Gratis: ilimitado en tiempo y cuestionarios públicos.</p><a href="https://quizizz.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Blooket</strong><p>Juegos tipo "Tower Defense" o "Robar oro". Transforma un cuestionario en una misión estratégica. Interfaz intuitiva.</p><a href="https://www.blooket.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Gimkit</strong><p>Plataforma de juegos en vivo tipo "arcade", muy dinámica y altamente competitiva.</p><a href="https://www.gimkit.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Wordwall</strong><p>Crea actividades rápidas como "abre la caja" o "rueda del azar". Perfecto para postas en vivo.</p><a href="https://wordwall.net/es" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Educaplay</strong><p>Sopas de letras, crucigramas y mapas interactivos. Excelente para misiones de reconocimiento espacial o conceptual.</p><a href="https://es.educaplay.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Cerebriti</strong><p>Portal para crear juegos educativos o usar miles ya creados sobre cualquier materia. Totalmente gratuito.</p><a href="https://www.cerebriti.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Socrative</strong><p>Más formal, ideal para feedback rápido y "tickets de salida" al final de la clase.</p><a href="https://www.socrative.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Classcraft</strong><p>Gamificación de rol (RPG) donde los estudiantes son personajes y ganan puntos por actitudes positivas o logros académicos.</p><a href="https://www.classcraft.com/" class="tool-link" target="_blank">Visitar</a></div>
+    <div class="tool-card cat-visual">
+      <div class="tool-header">
+        <div class="tool-title">Genially</div>
+        <div class="badge-new">Clase 4</div>
+      </div>
+      <div class="tool-desc">La herramienta reina para crear contenidos dinámicos, "Escape Rooms" educativos, infografías y experiencias visuales inmersivas.</div>
+      <div class="tool-footer"><a href="https://genial.ly/es/" target="_blank" class="btn-visit">Abrir Genially</a></div>
+    </div>
+
+    <div class="tool-card cat-visual">
+      <div class="tool-header">
+        <div class="tool-title">Canva para Educación</div>
+      </div>
+      <div class="tool-desc">Estudio gráfico simplificado para crear recursos visuales impecables. Versión "Pro" 100% gratuita para docentes acreditados.</div>
+      <div class="tool-footer"><a href="https://www.canva.com/es_es/educacion/" target="_blank" class="btn-visit">Abrir Canva</a></div>
+    </div>
+
+    <div class="tool-card cat-visual">
+      <div class="tool-header">
+        <div class="tool-title">Nearpod</div>
+      </div>
+      <div class="tool-desc">Convierte diapositivas en lecciones interactivas donde los estudiantes participan desde sus móviles (dibujan, responden, exploran en 3D).</div>
+      <div class="tool-footer"><a href="https://nearpod.com/" target="_blank" class="btn-visit">Abrir Nearpod</a></div>
+    </div>
+
+    <div class="tool-card cat-visual">
+      <div class="tool-header">
+        <div class="tool-title">Pear Deck</div>
+      </div>
+      <div class="tool-desc">Complemento de Google Slides para añadir preguntas interactivas y formativas directamente a tus presentaciones existentes.</div>
+      <div class="tool-footer"><a href="https://www.peardeck.com/" target="_blank" class="btn-visit">Abrir Pear Deck</a></div>
+    </div>
+
+    <div class="tool-card cat-visual">
+      <div class="tool-header">
+        <div class="tool-title">Prezi</div>
+      </div>
+      <div class="tool-desc">Famoso por su "zoom" dinámico y narración no lineal. Incluye Prezi Video para aparecer vos mismo junto a tu contenido en pantalla.</div>
+      <div class="tool-footer"><a href="https://prezi.com/es/" target="_blank" class="btn-visit">Abrir Prezi</a></div>
+    </div>
+
+    <div class="tool-card cat-visual">
+      <div class="tool-header">
+        <div class="tool-title">Visme</div>
+      </div>
+      <div class="tool-desc">Excelente alternativa para infografías dinámicas, presentaciones interactivas y visualización de datos geográficos o históricos complejos.</div>
+      <div class="tool-footer"><a href="https://www.visme.co/es/" target="_blank" class="btn-visit">Abrir Visme</a></div>
+    </div>
   </div>
 
-  <h3 class="sec-h3">Presentaciones y Diseño Visual</h3>
+  <!-- CATEGORÍA 5: MURALES Y COLABORACIÓN -->
+  <h2 class="category-title" style="border-bottom-color: var(--slate); margin-top: 50px;">
+    <span style="color:var(--slate)">📌</span> Murales y Colaboración Visual
+  </h2>
   <div class="tool-grid">
-    <div class="tool-card"><strong>Canva para Educación</strong><p>Crea recursos gráficos impecables (cartas, pistas, mapas, infografías). Versión "Pro" 100% gratuita si sos docente acreditado.</p><a href="https://www.canva.com/es_es/educacion/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Genially</strong><p>La herramienta reina para crear Escape Rooms educativos, infografías y experiencias gamificadas visuales.</p><a href="https://genial.ly/es/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Nearpod</strong><p>Convierte diapositivas en lecciones interactivas donde los estudiantes participan desde sus móviles.</p><a href="https://nearpod.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Pear Deck</strong><p>Complemento de Google Slides para añadir preguntas interactivas a tus presentaciones.</p><a href="https://www.peardeck.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Prezi</strong><p>Famoso por su "zoom" dinámico; incluye Prezi Video para aparecer junto a tu contenido.</p><a href="https://prezi.com/es/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Visme</strong><p>Excelente alternativa para infografías dinámicas, presentaciones interactivas y visualización de datos complejos.</p><a href="https://www.visme.co/es/" class="tool-link" target="_blank">Visitar</a></div>
+    <div class="tool-card cat-collab">
+      <div class="tool-header">
+        <div class="tool-title">Padlet</div>
+      </div>
+      <div class="tool-desc">El estándar para muros colaborativos. Útil como "centro de mando" o portafolio donde los estudiantes suben sus producciones.</div>
+      <div class="tool-footer"><a href="https://padlet.com" target="_blank" class="btn-visit">Visitar Padlet</a></div>
+    </div>
+
+    <div class="tool-card cat-collab">
+      <div class="tool-header">
+        <div class="tool-title">Miro</div>
+      </div>
+      <div class="tool-desc">Pizarra infinita profesional. Excelente para que el equipo docente planifique el recorrido o diagrama de flujo de un escape room.</div>
+      <div class="tool-footer"><a href="https://miro.com/es/" target="_blank" class="btn-visit">Visitar Miro</a></div>
+    </div>
+
+    <div class="tool-card cat-collab">
+      <div class="tool-header">
+        <div class="tool-title">Wakelet</div>
+      </div>
+      <div class="tool-desc">Permite curar contenido web (enlaces, videos, tuits) y organizarlo en colecciones visuales atractivas. 100% gratis.</div>
+      <div class="tool-footer"><a href="https://wakelet.com/" target="_blank" class="btn-visit">Visitar Wakelet</a></div>
+    </div>
+
+    <div class="tool-card cat-collab">
+      <div class="tool-header">
+        <div class="tool-title">Lino (Linoit)</div>
+      </div>
+      <div class="tool-desc">Corcho virtual alternativo a Padlet para pegar post-its, imágenes y videos de manera colaborativa y gratuita.</div>
+      <div class="tool-footer"><a href="http://en.linoit.com/" target="_blank" class="btn-visit">Visitar Lino</a></div>
+    </div>
+
+    <div class="tool-card cat-collab">
+      <div class="tool-header">
+        <div class="tool-title">Symbaloo</div>
+      </div>
+      <div class="tool-desc">Organizador visual de enlaces en bloques (tiles), muy usado para armar Entornos Personales de Aprendizaje (PLE) para los alumnos.</div>
+      <div class="tool-footer"><a href="https://www.symbaloo.com/" target="_blank" class="btn-visit">Visitar Symbaloo</a></div>
+    </div>
+
+    <div class="tool-card cat-collab">
+      <div class="tool-header">
+        <div class="tool-title">Stormboard</div>
+      </div>
+      <div class="tool-desc">Pizarra digital colaborativa enfocada en lluvia de ideas estructurada, con muchísimas plantillas ágiles prearmadas.</div>
+      <div class="tool-footer"><a href="https://stormboard.com/" target="_blank" class="btn-visit">Visitar Stormboard</a></div>
+    </div>
   </div>
 
-  <h3 class="sec-h3">Video, Encuestas y Fichas Interactivas</h3>
+  <!-- CATEGORÍA 6: VIDEO, FICHAS E INTERACCIÓN -->
+  <h2 class="category-title" style="border-bottom-color: #e91e63; margin-top: 50px;">
+    <span style="color:#e91e63">📹</span> Video, Fichas e Interacción Rápida
+  </h2>
   <div class="tool-grid">
-    <div class="tool-card"><strong>AnswerGarden</strong><p>Nube de palabras colaborativa en tiempo real. Sin registro, sin datos guardados, sin modelo comercial. Ideal para mapeos emocionales anónimos coherentes con la filosofía de privacidad del taller.</p><a href="https://answergarden.ch/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Mentimeter</strong><p>Rey de las encuestas en tiempo real y nubes de palabras. Audiencia ilimitada.</p><a href="https://www.mentimeter.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Edpuzzle</strong><p>Convierte cualquier video en una lección interactiva insertando preguntas que pausan la reproducción.</p><a href="https://edpuzzle.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Flip (Flipgrid)</strong><p>Plataforma de debate en video donde lanzás una pregunta y responden con videos cortos. 100% gratuito.</p><a href="https://info.flip.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>LiveWorksheets</strong><p>Transforma fichas tradicionales en ejercicios interactivos autocorregibles online.</p><a href="https://www.liveworksheets.com/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Wizer.me</strong><p>Crea hojas de trabajo (worksheets) interactivas increíblemente visuales, sumando audios, videos y gamificación.</p><a href="https://wizer.me/" class="tool-link" target="_blank">Visitar</a></div>
+    <div class="tool-card cat-manage">
+      <div class="tool-header">
+        <div class="tool-title">Edpuzzle</div>
+      </div>
+      <div class="tool-desc">Convierte cualquier video en una lección interactiva insertando preguntas y notas que pausan la reproducción automáticamente.</div>
+      <div class="tool-footer"><a href="https://edpuzzle.com/" target="_blank" class="btn-visit">Probar Edpuzzle</a></div>
+    </div>
+
+    <div class="tool-card cat-manage">
+      <div class="tool-header">
+        <div class="tool-title">Flip (Flipgrid)</div>
+      </div>
+      <div class="tool-desc">Plataforma de debate asincrónico en video donde lanzás una consigna y los alumnos responden con videos cortos. 100% gratuito.</div>
+      <div class="tool-footer"><a href="https://info.flip.com/" target="_blank" class="btn-visit">Probar Flip</a></div>
+    </div>
+
+    <div class="tool-card cat-manage">
+      <div class="tool-header">
+        <div class="tool-title">LiveWorksheets</div>
+      </div>
+      <div class="tool-desc">Transforma fichas tradicionales en PDF o Word en ejercicios interactivos autocorregibles online.</div>
+      <div class="tool-footer"><a href="https://www.liveworksheets.com/" target="_blank" class="btn-visit">Visitar LiveWorksheets</a></div>
+    </div>
+
+    <div class="tool-card cat-manage">
+      <div class="tool-header">
+        <div class="tool-title">AnswerGarden</div>
+      </div>
+      <div class="tool-desc">Nube de palabras colaborativa en tiempo real. Sin registro, sin datos guardados. Ideal para mapeos emocionales anónimos.</div>
+      <div class="tool-footer"><a href="https://answergarden.ch/" target="_blank" class="btn-visit">Visitar AnswerGarden</a></div>
+    </div>
+
+    <div class="tool-card cat-manage">
+      <div class="tool-header">
+        <div class="tool-title">Mentimeter</div>
+      </div>
+      <div class="tool-desc">El rey de las encuestas en tiempo real y nubes de palabras dinámicas. Permite que toda la audiencia participe desde sus celulares.</div>
+      <div class="tool-footer"><a href="https://www.mentimeter.com/" target="_blank" class="btn-visit">Visitar Mentimeter</a></div>
+    </div>
+
+    <div class="tool-card cat-manage">
+      <div class="tool-header">
+        <div class="tool-title">Wizer.me</div>
+      </div>
+      <div class="tool-desc">Crea hojas de trabajo (worksheets) interactivas visualmente hermosas, sumando audios, videos y opciones de gamificación.</div>
+      <div class="tool-footer"><a href="https://wizer.me/" target="_blank" class="btn-visit">Visitar Wizer.me</a></div>
+    </div>
   </div>
 
-  <h3 class="sec-h3">Gestión de Aula y Repaso</h3>
+  <!-- CATEGORÍA 7: GESTIÓN Y REPASO -->
+  <h2 class="category-title" style="border-bottom-color: #00bcd4; margin-top: 50px;">
+    <span style="color:#00bcd4">📊</span> Gestión de Aula y Repaso
+  </h2>
   <div class="tool-grid">
-    <div class="tool-card"><strong>ClassDojo</strong><p>Gestión de aula gamificada, portafolios digitales y comunicación directa con familias.</p><a href="https://www.classdojo.com/es-es/" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Quizlet</strong><p>Líder para tarjetas de memoria (flashcards). Incluye "Quizlet Live" para repaso colaborativo y competitivo en equipos.</p><a href="https://quizlet.com/es" class="tool-link" target="_blank">Visitar</a></div>
-    <div class="tool-card"><strong>Plickers</strong><p>Ideal si no hay internet en el aula: los estudiantes responden usando tarjetas impresas que el docente escanea con su celular.</p><a href="https://get.plickers.com/" class="tool-link" target="_blank">Visitar</a></div>
-  </div>
+    <div class="tool-card" style="border-left: 5px solid #00bcd4;">
+      <div class="tool-header">
+        <div class="tool-title">ClassDojo</div>
+      </div>
+      <div class="tool-desc">Gestión de aula gamificada, creación de portafolios digitales para los alumnos y canal de comunicación directa con las familias.</div>
+      <div class="tool-footer"><a href="https://www.classdojo.com/es-es/" target="_blank" class="btn-visit">Visitar ClassDojo</a></div>
+    </div>
 
-  <h3 class="sec-h3 vio">IA: Asistentes de Narrativa, Diseño e Investigación</h3>
-  <div class="tool-grid">
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>Claude</strong><p>Redacción excelente. Pedile que te invente la historia de fondo o el "misterio" para contextualizar tu juego o recurso pedagógico.</p><a href="https://claude.ai/" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>ChatGPT / Gemini</strong><p>Ideales para hacer lluvia de ideas rápida de desafíos, pistas o acertijos adaptados a la edad de tus estudiantes.</p><a href="https://chatgpt.com" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>Perplexity AI</strong><p>Buscador con IA que cita fuentes académicas reales. Muy útil para fundamentar propuestas con bibliografía verificable.</p><a href="https://www.perplexity.ai" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>NotebookLM</strong><p>Subile tu material provincial en PDF y pedile que extraiga conceptos clave para convertirlos en preguntas para el juego.</p><a href="https://notebooklm.google.com/" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>DeepSeek</strong><p>Asistente de IA destacado por su alta capacidad de razonamiento lógico y estructuración de proyectos.</p><a href="https://chat.deepseek.com/" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>Microsoft Copilot</strong><p>Asistente con acceso a internet en tiempo real y creación de imágenes integrada (útil para fondos de juegos).</p><a href="https://copilot.microsoft.com/" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>MagicSchool.ai</strong><p>Plataforma con decenas de herramientas específicas para docentes, desde rúbricas hasta generadores de consignas.</p><a href="https://www.magicschool.ai" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>Curipod</strong><p>Genera lecciones interactivas completas con IA (encuestas, nubes de palabras, preguntas abiertas) a partir de un simple tema.</p><a href="https://curipod.com/" class="tool-link" target="_blank">Probar</a></div>
-    <div class="tool-card" style="border-left-color:var(--vio);"><strong>QuestionWell</strong><p>Ingresás un texto y la IA te devuelve múltiples preguntas de opción múltiple listas para exportar a Kahoot, Quizizz o Blooket.</p><a href="https://www.questionwell.org/" class="tool-link" target="_blank">Probar</a></div>
-  </div>
+    <div class="tool-card" style="border-left: 5px solid #00bcd4;">
+      <div class="tool-header">
+        <div class="tool-title">Quizlet</div>
+      </div>
+      <div class="tool-desc">La mejor opción para tarjetas de memoria (flashcards). Incluye "Quizlet Live" para repaso colaborativo por equipos en el aula.</div>
+      <div class="tool-footer"><a href="https://quizlet.com/es" target="_blank" class="btn-visit">Visitar Quizlet</a></div>
+    </div>
 
-  <div class="colab-box">
-    <h3>Repositorio vivo</h3>
-    <p>Esta caja se actualiza a lo largo del año. Si usaste una herramienta en TDF que no está acá y te pareció valiosa pedagógicamente, proponé agregarla en el foro del AVT.</p>
+    <div class="tool-card" style="border-left: 5px solid #00bcd4;">
+      <div class="tool-header">
+        <div class="tool-title">Plickers</div>
+      </div>
+      <div class="tool-desc">Solución ideal sin internet: los estudiantes responden opciones múltiples girando tarjetas de papel que el docente escanea con la cámara de su celular.</div>
+      <div class="tool-footer"><a href="https://get.plickers.com/" target="_blank" class="btn-visit">Visitar Plickers</a></div>
+    </div>
   </div>
 
 </div>
+
 </body>
 </html>
