@@ -65,6 +65,10 @@
   .c-actual { border-top-color: var(--teal); background: #faffff; }
   .c-recurso { border-top-color: var(--amb); }
   
+  /* ESTILOS DE BLOQUEO DE CLASE */
+  .locked { opacity: 0.75; filter: grayscale(0.6); cursor: not-allowed; }
+  .locked:hover { transform: none; box-shadow: 0 4px 15px rgba(0,0,0,.06); border-top-color: var(--bd); }
+  
   .clase-num { 
     font-size: 13px; 
     font-weight: 800; 
@@ -114,6 +118,9 @@
   .c-actual:hover .btn { background: #007a7e; }
   .c-recurso:hover .btn { background: #b06f2e; }
 
+  .locked .btn { background: var(--slate); color: white; }
+  .locked:hover .btn { background: var(--slate); color: white; }
+
   .section-title {
     font-size: 22px;
     color: var(--nav);
@@ -132,6 +139,17 @@
     vertical-align: middle;
     margin-left: 8px;
   }
+  
+  .badge-warn {
+    display: inline-block;
+    background: var(--amb);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+  }
 
 </style>
 </head>
@@ -147,11 +165,12 @@
   <h2 class="section-title">Semana Actual</h2>
   <div class="grid">
     
-    <a href="clase_3_estudiantes.html" class="card c-actual">
-      <div class="clase-num">Semana 3 <span class="badge-new">NUEVA</span></div>
-      <h2>Huellas y Sombras</h2>
-      <p>Ciudadanía e Identidad Digital Docente. Huella biométrica, perfilado algorítmico, OSINT básico y el marco ético-legal en las escuelas de Tierra del Fuego.</p>
-      <div class="btn">Acceder a la Clase</div>
+    <!-- CLASE 4: BLOQUEADA POR DEFECTO -->
+    <a id="clase4-card" class="card c-actual locked">
+      <div class="clase-num">Semana 4 · 17 de Abril <span class="badge-new">NUEVA</span></div>
+      <h2>Gamificación Crítica</h2>
+      <p>Diseño de Efemérides Interactivas. El peligro del conductismo digital, aprendizaje multimedia (Mayer) y uso de IA como copiloto creativo.</p>
+      <div class="btn" id="btn-clase-4">Disponible Miércoles 20:00 hs</div>
     </a>
 
   </div>
@@ -159,8 +178,15 @@
   <h2 class="section-title">Clases Anteriores y Recursos</h2>
   <div class="grid">
 
+    <a href="clase_3_estudiantes.html" class="card c-pasada">
+      <div class="clase-num">Semana 3 · 10 de Abril</div>
+      <h2>Huellas y Sombras</h2>
+      <p>Ciudadanía e Identidad Digital Docente. Huella biométrica, burbujas de filtros, prevención de sharenting y el marco legal (Ley 25.326).</p>
+      <div class="btn">Repasar Clase 3</div>
+    </a>
+
     <a href="clase_2_estudiantes.html" class="card c-pasada">
-      <div class="clase-num">Semana 2</div>
+      <div class="clase-num">Semana 2 · 3 de Abril <span class="badge-warn">NO APLICA A INICIAL (VIERNES 8 a 10)</span></div>
       <h2>¿Sustituir o transformar?</h2>
       <p>Análisis de prácticas docentes mediante los modelos TPACK, SAMR y PICRAT. El salto de la mejora funcional a la transformación educativa.</p>
       <div class="btn">Repasar Clase 2</div>
@@ -174,7 +200,7 @@
     </a>
 
     <a href="clase_1_estudiantes.html" class="card c-pasada">
-      <div class="clase-num">Semana 1</div>
+      <div class="clase-num">Semana 1 · 27 de Marzo</div>
       <h2>Brecha y Sensibilización</h2>
       <p>Debate sobre el "Aula Tecnológica vs. Aula Rural". Problematización de la incorporación de dispositivos y el derecho a la inclusión digital.</p>
       <div class="btn">Repasar Clase 1</div>
@@ -183,6 +209,53 @@
   </div>
 
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const clase4Card = document.getElementById("clase4-card");
+  const btn4 = document.getElementById("btn-clase-4");
+  
+  // Fecha exacta de habilitación: Miércoles de la Semana 4 a las 20:00 hs (-03:00 Argentina)
+  const unlockTime = new Date("2026-04-22T20:00:00-03:00").getTime();
+  let isUnlocked = false;
+
+  function unlock() {
+    isUnlocked = true;
+    clase4Card.classList.remove("locked");
+    clase4Card.href = "clase_4_estudiantes.html";
+    btn4.innerText = "Acceder a la Clase";
+    btn4.style.background = "var(--teal)";
+  }
+
+  function checkTime() {
+    if (!isUnlocked && new Date().getTime() >= unlockTime) {
+      unlock();
+    }
+  }
+
+  // Si hacen clic cuando está bloqueada, les avisa
+  clase4Card.addEventListener("click", (e) => {
+    if (!isUnlocked) {
+      e.preventDefault();
+      alert("¡Pará la moto! Esta clase recién se habilita el miércoles a las 20:00 hs.");
+    }
+  });
+
+  // Atajo secreto: Ctrl + Shift + U
+  document.addEventListener("keydown", (e) => {
+    if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === "u") {
+      e.preventDefault();
+      if (!isUnlocked) {
+        unlock();
+      }
+    }
+  });
+
+  // Verifica el reloj ni bien abre la página, y después cada un minuto por si la dejan abierta
+  checkTime();
+  setInterval(checkTime, 60000);
+});
+</script>
 
 </body>
 </html>
