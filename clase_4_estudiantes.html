@@ -133,19 +133,20 @@
 
   <div class="tab-bar">
     <button class="tab-btn active" onclick="showTab('inicio',this)">Puesta en Común</button>
-    <button class="tab-btn" onclick="showTab('teoria',this)">Marco Pedagógico y Fuentes</button>
+    <button class="tab-btn" onclick="showTab('teoria',this)">Marco Pedagógico</button>
     <button class="tab-btn" onclick="showTab('actividades',this)">Laboratorio de Diseño</button>
     <a href="repositorio_herramientas.html" target="_blank" class="tab-btn" style="text-decoration:none;color:var(--teal);">Caja de Herramientas ↗</a>
   </div>
 
   <div class="wrap">
 
+    <!-- PANE: INICIO -->
     <div id="pane-inicio" class="pane on">
       <div class="card card-b">
         <div class="ch">¿Socio o Autor?</div>
         <div class="cb">
           <p style="font-size:17px;font-weight:600;color:var(--nav); margin-bottom: 12px;">¿Logramos transformar a la IA en un asistente o le delegamos nuestra voz docente?</p>
-          <p style="margin-top:10px;font-size:15px;">En el encuentro anterior propusimos una práctica de diseño: le pedimos a la IA la redacción de un protocolo de privacidad para familias. Vamos a analizar esos resultados en clave crítica: ¿Lograron detectar si la IA alucinó leyes que no existen? ¿Pudieron evidenciar el contexto de la escuela fueguina o se quedaron con una respuesta genérica? Este ejercicio de auditoría es, valga la redundancia, el ejercicio de nuestra autonomía pedagógica frente a las sugerencias de una herramienta tecnológica que simula respuestas humanas.</p>
+          <p style="margin-top:10px;font-size:15px;">En el encuentro anterior propusimos la redacción de un protocolo de privacidad para familias. Quienes hayan logrado llegar al diseño del prompt o al menos debatirlo, vamos a analizar esos primeros resultados en clave crítica: ¿Lograron detectar si la IA alucinó leyes que no existen? ¿Pudieron evidenciar el contexto de la escuela fueguina o se quedaron con una respuesta genérica? Este ejercicio de auditoría es el núcleo de nuestra autonomía pedagógica frente a las sugerencias de una herramienta tecnológica que simula respuestas humanas.</p>
           
           <p style="margin-top:15px;font-size:15px; font-weight: 700; color: var(--nav); border-left: 4px solid var(--teal); padding-left: 15px;">La pregunta que tenemos que hacernos hoy es si la IA puede ayudarnos a proyectar experiencias situadas sin perder el capital cultural ni caer en desafíos cognitivos nulos. Para esto, necesitamos profundizar en lo que la IA hace realmente cuando genera sus respuestas.</p>
 
@@ -153,7 +154,7 @@
             <span>🚀</span>
             <div>
               <strong style="display:block;color:var(--nav);margin-bottom:4px;">Delineando la propuesta integradora del Trabajo Final Integrador (TFI)</strong>
-              A partir de lo conversado hoy, comenzaremos a delinear el enfoque de integración tecnológica y el tema de su propuesta integradora. Estableceremos la estructura didáctica de base, que iremos refinando y poniendo a prueba en las próximas clases cruzándola con nuevos marcos teóricos que nos permitan dar cuenta de nuestra autoría docente.
+              A partir de lo conversado hoy, daremos el paso inicial y oficial del Trabajo Final. Estableceremos la línea de producción y la estructura didáctica de base mediante un ejercicio guiado de Ingeniería de Prompts.
             </div>
           </div>
         </div>
@@ -201,82 +202,47 @@
               <span class="linea-tag" style="background:var(--gcl);color:var(--grn);">GENIALLY · SLIDES · TWINE</span>
             </div>
           </div>
-
-          <div class="c-block c-ini" style="margin-top:24px;">
-            <div class="note nb" style="background:var(--acl);border-left-color:var(--amb);">
-              <strong>Propuesta para Inicial:</strong> El enfoque DUA es central para garantizar el acceso desde la primera infancia. La narrativa sonora o táctil permite que el niño o la niña descubra sonidos y texturas de su entorno a través de la mediación tecnológica.
-            </div>
-          </div>
-          <div class="c-block c-his" style="margin-top:24px;">
-            <div class="note nb" style="background:var(--vcl);border-left-color:var(--vio);">
-              <strong>Propuesta para Historia:</strong> La narrativa combinada con la gamificación permite transformar el análisis de fuentes en un dispositivo de indagación activa. Las y los estudiantes se convierten en investigadores frente a documentos digitalizados.
-            </div>
-          </div>
-          <div class="c-block c-geo" style="margin-top:24px;">
-            <div class="note nb" style="background:var(--gcl);border-left-color:var(--grn);">
-              <strong>Propuesta para Geografía:</strong> La Hibridación es la clave para el análisis territorial. Capas de información digital sobre el espacio físico permiten que las y los estudiantes descubran los conflictos latentes de nuestra provincia in situ.
-            </div>
-          </div>
-          <div class="c-block c-ing" style="margin-top:24px;">
-            <div class="note nb" style="background:var(--pale);border-left-color:var(--teal);">
-              <strong>Propuesta para Inglés:</strong> El roleplay narrativo promueve producción oral auténtica. La lengua extranjera deja de ser el objeto de estudio gramatical para ser el andamiaje necesario para avanzar en la búsqueda por descubrimiento.
-            </div>
-          </div>
         </div>
       </div>
     </div>
 
+    <!-- PANE: MARCO PEDAGÓGICO -->
     <div id="pane-teoria" class="pane">
       <div class="theory">
         <h4>1. La IA como Socio Cognitivo</h4>
-        <p>Gavriel Salomon planteó que existen "efectos con" la tecnología (cuando la usamos como andamiaje) y "efectos de" la tecnología (el residuo cognitivo que queda en nosotros tras el uso). Basándose en esto, en la era de la IA Generativa, Carina Lion propone pensar a estas herramientas como <strong>socios cognitivos</strong>. La IA no reemplaza la autoría docente, sino que funciona como un andamiaje que nos permite modelar problemas complejos y exteriorizar procesos mentales para desafiar a las y los estudiantes.</p>
+        <p>Gavriel Salomon (1992) planteó tempranamente que existen "efectos <em>con</em>" la tecnología (cuando la usamos como andamiaje para lograr algo que no podríamos solos) y "efectos <em>de</em>" la tecnología (el residuo cognitivo que nos queda tras el uso). </p>
+        <p>Basándose en estos principios, en la era de la Inteligencia Artificial Generativa, la investigadora argentina Carina Lion (2006, 2023) propone pensar a estas herramientas como <strong>socios cognitivos</strong>. La IA no reemplaza la autoría docente, sino que funciona como un andamiaje que nos permite modelar problemas complejos, estructurar narrativas y exteriorizar procesos mentales para desafiar a las y los estudiantes. Usamos la máquina para potenciar la enseñanza, no para automatizarla ciegamente.</p>
         
         <div class="theory-quote">
             "La inclusión genuina de tecnologías requiere que las actividades formen parte de una Enseñanza Poderosa que sea original, que esté en tiempo presente, que ofrezca una mirada en perspectiva y que sea conmoviente."
             <span>— Maggio, M. (2012). Enriquecer la enseñanza.</span>
         </div>
+        <p style="font-size: 13px; color: var(--cl); font-style: italic; margin-top: -10px;">(Esta será nuestra vara de calidad para evaluar los Trabajos Finales Integradores).</p>
 
-        <h4>2. Diseño Universal para el Aprendizaje (DUA)</h4>
-        <p>El DUA es un marco basado en las ciencias del aprendizaje que propone flexibilizar el diseño curricular inicial para asumir la variabilidad de las y los estudiantes como la norma. El foco no es la adaptación técnica a posteriori, sino la creación de entornos accesibles desde su origen pedagógico.</p>
-        
-        <div class="tc-box" style="border-left-color: var(--teal);">
-          <strong>Principios del DUA para el diseño de recursos:</strong>
-          <p>• Proporcionar múltiples medios de Representación (el qué del aprendizaje): Variar los formatos de la información (audio, visual, texto) para asegurar la comprensión.</p>
-          <p>• Proporcionar múltiples medios de Acción y Expresión (el cómo del aprendizaje): Permitir diferentes formas de demostrar el conocimiento.</p>
-        </div>
-
-        <h4>3. Soportes Teóricos de los Enfoques de Indagación</h4>
-        <p>Para fundamentar nuestras decisiones didácticas, nos apoyamos en marcos de investigación específicos que delimitan cada una de las perspectivas de diseño:</p>
+        <h4 style="margin-top: 35px;">2. Mapa Bibliográfico del Proyecto Final</h4>
+        <p class="theory-intro">A medida que avancemos en las próximas semanas del cuatrimestre, profundizaremos teóricamente en los marcos específicos que sostienen cada línea de diseño. Hoy dejamos trazada la "brújula bibliográfica" que guiará y fundamentará las decisiones de sus proyectos según el enfoque que elijan:</p>
 
         <div class="tc-box" style="background:rgba(255,255,255,0.08); border-left-color: var(--amb);">
-          <p><strong>Gamificación Pedagógica:</strong> Karl Kapp (2012) la define como el uso de mecánicas, estética y pensamiento de juego para involucrar a las personas, motivar la acción y promover el aprendizaje. Ian Bogost advierte sobre el peligro de la "gamificación cosmética" (otorgar puntos vacíos de sentido), sugiriendo en cambio el diseño de sistemas complejos orientados a la resolución de problemas.</p>
-          <p style="margin-top:12px;"><strong>Hibridación Físico-Digital:</strong> Carlos Scolari (2018) analiza cómo las interfaces educativas han mutado. La hibridación en el aula permite que el territorio (el mapa físico, la maqueta, el patio escolar) se convierta en una interfaz de aprendizaje expandida donde lo analógico y lo digital dialogan permanentemente.</p>
-          <p style="margin-top:12px;"><strong>Narrativas Ramificadas:</strong> Siguiendo los aportes de Henry Jenkins sobre las narrativas transmedia, el relato educativo deja de ser lineal. Esto permite que las y los estudiantes asuman roles protagónicos en historias que exigen tomar decisiones informadas, generando una experiencia de inmersión cognitiva.</p>
+          <ul class="biblio-list" style="margin-bottom: 0;">
+            <li><strong>Para Línea A (Gamificación):</strong> Bogost (2011) y Kapp (2012). Nos servirán para distinguir la verdadera ludificación de la mera "gamificación cosmética" de puntos y medallas.</li>
+            <li><strong>Para Línea B (Perspectiva DUA):</strong> Pautas CAST (2018). Serán la base para flexibilizar la representación de la información y la expresión en sus recursos digitales.</li>
+            <li><strong>Para Línea C (Hibridación Físico-Digital):</strong> Scolari (2018). Analizaremos cómo el territorio y el aula se convierten en una interfaz interactiva.</li>
+            <li><strong>Para Línea D (Narrativas Ramificadas):</strong> Jenkins (2008). Nos apoyaremos en la cultura de la convergencia y las narrativas no lineales transmedia.</li>
+          </ul>
         </div>
 
         <div style="margin-top:35px;border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;">
-          
-          <h5 class="biblio-section-title">Eje 1: Fundamentos Pedagógicos y Didácticos</h5>
+          <h5 class="biblio-section-title">Fuentes del encuentro de hoy:</h5>
           <ul class="biblio-list">
-            <li><strong>CAST (2018).</strong> <a href="https://www.educadua.es/doc/dua/CAST-Pautas-Traduccio%CC%81n-Versio%CC%81n-2018_Rev2023.pdf" target="_blank">Pautas del Diseño Universal para el Aprendizaje (DUA) versión 2.2. EducaDUA.</a></li>
-            <li><strong>Dussel, I. y Quevedo, L. (2010).</strong> <a href="https://web.seducoahuila.gob.mx/biblioweb/upload/Aprender-y-ensenar-en-la-Cultura-Digital.pdf" target="_blank">Aprender y enseñar en la cultura digital. Fundación Santillana.</a></li>
             <li><strong>Lion, C. (2006).</strong> <a href="https://scholar.google.com.ar/scholar?q=Imaginar+con+tecnologias+Carina+Lion" target="_blank">Imaginar con tecnologías. Relaciones entre tecnologías y conocimiento. La Crujía.</a></li>
             <li><strong>Maggio, M. (2012).</strong> <a href="https://iespoman-cat.infd.edu.ar/sitio/wp-content/uploads/2020/03/MAGGIO-Enriquecer-la-Ense%C3%B1anza-cap-2-parte1.pdf" target="_blank">Enriquecer la enseñanza: los ambientes con alta disposición tecnológica como oportunidad. Paidós.</a></li>
             <li><strong>Salomon, G. et al. (1992).</strong> <a href="https://scholar.google.com.ar/scholar?q=Coparticipando+en+el+conocimiento+Salomon" target="_blank">Coparticipando en el conocimiento: la ampliación de la inteligencia humana con las tecnologías inteligentes.</a></li>
           </ul>
-
-          <h5 class="biblio-section-title">Eje 2: Arquitectura Técnica, Interfaces y Medios</h5>
-          <ul class="biblio-list">
-            <li><strong>Bogost, I. (2011).</strong> <a href="https://www.theatlantic.com/technology/archive/2011/08/gamification-is-bullshit/243338/" target="_blank">Gamification is Bullshit. The Atlantic.</a></li>
-            <li><strong>Jenkins, H. (2008).</strong> <a href="https://scholar.google.com.ar/scholar?q=Convergence+Culture+Jenkins+Henry" target="_blank">Convergence Culture: La cultura de la convergencia de los medios. Paidós.</a></li>
-            <li><strong>Kapp, K. M. (2012).</strong> <a href="https://scholar.google.com.ar/scholar?q=The+gamification+of+learning+and+instruction+Kapp" target="_blank">The gamification of learning and instruction. Pfeiffer.</a></li>
-            <li><strong>Scolari, C. A. (2018).</strong> <a href="https://scholar.google.com.ar/scholar?q=Las+leyes+de+la+interfaz+Scolari" target="_blank">Las leyes de la interfaz: diseño, ecología, evolución, tecnología. Gedisa.</a></li>
-          </ul>
-
         </div>
       </div>
     </div>
 
+    <!-- PANE: LABORATORIO -->
     <div id="pane-actividades" class="pane">
 
       <div class="act" id="a0">
@@ -320,7 +286,7 @@
       <div class="act" id="a1">
         <div class="ach" onclick="toggleAct('a1')">
           <div class="an">⚡</div>
-          <div class="at"><strong>Actividad 2: Ingeniería de Prompts para el Diseño (Inicio del TFI)</strong></div>
+          <div class="at"><strong>Actividad 2: Ingeniería de Prompts para el Diseño</strong></div>
         </div>
         <div class="acb">
           <div class="step">
@@ -331,10 +297,23 @@
               <li><strong>Tema o efeméride:</strong> ¿Sobre qué contenido disciplinar va a trabajar el recurso?</li>
               <li><strong>Destinatarios reales:</strong> Año, nivel y contexto aproximado (no "estudiantes en general" — una sala de 3, un 4.° año de secundaria de Río Grande, etc.).</li>
             </ul>
-            <div class="c-block c-ing" style="margin-top: 8px;">
-              <ul style="margin-top:0;">
-                <li><strong>Anclaje Inglés:</strong> Una unidad del Diseño Curricular de Inglés secundaria (vocabulario, función comunicativa, contexto cultural). La línea A (roleplay con decisiones en inglés en Blooket o Genially) o D (conversación no lineal con consecuencias) generan producción oral auténtica.</li>
-              </ul>
+            
+            <!-- ANCLAJES POR CARRERA (Guías situadas) -->
+            <div style="margin-top: 15px; border-left: 3px solid var(--teal); padding-left: 12px; background: rgba(255,255,255,0.6); padding: 10px; border-radius: 4px;">
+              <strong style="font-size: 13px; color: var(--nav); display:block; margin-bottom: 5px;">Notas orientadoras según tu carrera:</strong>
+              
+              <div class="c-block c-ini">
+                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Inicial:</strong> Elegir un tema vinculado a nociones espaciales, ESI o rutinas de sala (ej. 4 o 5 años). Las líneas B (DUA sonoro) o D (Cuento interactivo) son ideales para esta edad.</p>
+              </div>
+              <div class="c-block c-his">
+                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Historia:</strong> Pensar en efemérides locales o nacionales que generen empatía histórica (ej. provincialización de TDF). Las líneas A (Gamificación de fuentes) o D (Narrativa asumiendo roles de la época) funcionan perfecto.</p>
+              </div>
+              <div class="c-block c-geo">
+                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Geografía:</strong> Ideal abordar un conflicto territorial o circuito productivo fueguino. Las líneas C (Hibridación con mapas del aula) o A (Resolución de problemas espaciales) son muy pertinentes.</p>
+              </div>
+              <div class="c-block c-ing">
+                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Inglés:</strong> Elegir una unidad del Diseño Curricular (vocabulario, función comunicativa). Las líneas A (roleplay con decisiones en inglés en Blooket) o D (conversación no lineal) generan producción oral auténtica.</p>
+              </div>
             </div>
           </div>
           
@@ -359,6 +338,25 @@
               <li><strong>Filtro PICRAT:</strong> ¿El estudiante que recibe esta propuesta está en rol Pasivo, Interactivo o Creativo? Si está Pasivo, hay que reescribir el prompt o ajustar la mecánica.</li>
             </ul>
             <p style="margin-top:10px;font-weight:600;color:var(--nav);">Anoten en una oración qué corrigieron y por qué. Eso es la evidencia de que hubo apropiación crítica y no solo uso instrumental.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="act" id="a2">
+        <div class="ach" onclick="toggleAct('a2')">
+          <div class="an" style="background:var(--nav)">💾</div>
+          <div class="at"><strong>Entrega: El Hito 0 del Proyecto Final</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step" style="border-left-color:var(--nav);background:#f0f4ff;">
+            <p>Para oficializar el inicio de su Trabajo Final Integrador, cada grupo debe subir al <strong>Aula Virtual</strong> un documento (o texto en el foro, según indique la cátedra) con los siguientes 4 elementos:</p>
+            <ol style="margin:12px 0 14px 20px;font-size:14px;line-height:2.2;">
+              <li><strong>Línea y Tema:</strong> ¿Qué enfoque eligieron (A, B, C o D) y qué contenido disciplinar o efeméride van a trabajar?</li>
+              <li><strong>Destinatarios Reales:</strong> Año, nivel y contexto escolar fueguino específico.</li>
+              <li><strong>El Prompt Exacto:</strong> Copien y peguen la instrucción CRTF que le diseñaron a la IA en el Paso 2.</li>
+              <li><strong>Auditoría Docente:</strong> Una oración final explicando qué le corrigieron o recortaron a la respuesta de la IA (aplicando el filtro de alucinación o PICRAT).</li>
+            </ol>
+            <p style="font-size:13px; margin-top:10px; font-weight:700; color:var(--amb);">Importante: Registrar este Hito 0 es fundamental, ya que será el cimiento sobre el cual iremos construyendo con claridad las próximas fases del proyecto.</p>
           </div>
         </div>
       </div>
