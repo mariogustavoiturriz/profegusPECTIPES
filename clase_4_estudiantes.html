@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Caja de Herramientas TIC | IPESfa</title>
+<title>Clase 4 · IA, Autoría y Propuestas de Enseñanza por Indagación</title>
 <style>
   :root {
     --nav:   #1D3461; --teal:  #00949A; --cl:   #B2E8EA; --pale: #E6F7F8;
@@ -13,272 +13,380 @@
     --slate: #4A6080;
     --gris:  #F3F6F9; --bd:   #C5D2DC; --txt:  #4A5E70;
     --neg:   #1A2C3A; --bco:  #FFFFFF;
-    --r: 10px; --sh: 0 4px 12px rgba(0,0,0,.08);
+    --r: 8px; --sh: 0 2px 8px rgba(0,0,0,.09);
   }
-  
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.6; overflow-x: hidden;}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
 
-  /* HEADER */
-  .top { background: var(--nav); color: #fff; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; border-bottom: 4px solid var(--teal); flex-wrap: wrap; gap: 10px; }
-  .top-info strong { display: block; font-size: 16px; }
-  .top-info small { font-size: 12px; opacity: 0.8; }
-  .btn-back { background: rgba(255,255,255,0.15); color: #fff; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-weight: bold; font-size: 13px; transition: background 0.2s; display: inline-flex; align-items: center; border: 1px solid rgba(255,255,255,0.3); }
-  .btn-back:hover { background: rgba(255,255,255,0.25); }
+  /* TOP BAR */
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.65;text-align:right}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
+  .btn-back:hover{background:rgba(255,255,255,0.25)}
+  .btn-reset{display:none;color:var(--cl);margin-right:12px;text-decoration:none;border-bottom:1px dotted var(--cl);cursor:pointer}
+  body.career-selected .btn-reset{display:inline-block}
 
-  /* HERO SECTION */
-  .hero { background: var(--bco); padding: 40px 20px; text-align: center; border-bottom: 1px solid var(--bd); }
-  .hero h1 { color: var(--nav); font-size: 28px; margin-bottom: 10px; }
-  .hero p { color: var(--txt); max-width: 800px; margin: 0 auto; font-size: 16px; }
-  .update-badge { display: inline-block; background: var(--amb); color: white; padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px;}
+  /* WELCOME */
+  #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
+  #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
+  #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
+  .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all 0.2s;min-width:220px}
+  .btn-career:hover{background:var(--teal);color:white;transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,148,154,.25)}
+  .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;width:100%;max-width:900px}
 
-  /* LAYOUT CAJA */
-  .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
-  .category-title { font-size: 20px; color: var(--nav); border-bottom: 2px solid var(--bd); padding-bottom: 10px; margin: 40px 0 20px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-  
-  .tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-  
-  /* CARDS */
-  .tool-card { background: var(--bco); border: 1px solid var(--bd); border-radius: var(--r); padding: 22px; box-shadow: var(--sh); transition: transform 0.2s, box-shadow 0.2s; position: relative; display: flex; flex-direction: column; }
-  .tool-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,.12); border-color: var(--teal); }
-  
-  .tool-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
-  .tool-title { font-size: 18px; color: var(--nav); font-weight: 700; }
-  
-  .badge-new { background: var(--teal); color: white; font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
-  
-  .tool-desc { font-size: 14px; color: var(--txt); margin-bottom: 15px; flex-grow: 1; }
-  
-  .tool-footer { display: flex; justify-content: flex-end; }
-  .btn-visit { background: var(--nav); color: white; text-decoration: none; padding: 8px 16px; border-radius: 6px; font-size: 13px; font-weight: 600; transition: background 0.2s; }
-  .btn-visit:hover { background: var(--teal); }
+  /* MAIN APP LOGIC */
+  #main-app{display:none}
+  body.career-selected #welcome-screen{display:none}
+  body.career-selected #main-app{display:block}
+  .c-block{display:none}
+  body.show-ini .c-ini{display:block}
+  body.show-his .c-his{display:block}
+  body.show-geo .c-geo{display:block}
+  body.show-ing .c-ing{display:block}
 
-  /* COLORES POR CATEGORÍA */
-  .cat-ai { border-left-color: var(--vio); border-left-width: 5px; }
-  .cat-gamification { border-left-color: var(--teal); border-left-width: 5px; }
-  .cat-narrative { border-left-color: var(--grn); border-left-width: 5px; }
-  .cat-hybrid { border-left-color: var(--slate); border-left-width: 5px; }
-  .cat-citizen { border-left-color: var(--amb); border-left-width: 5px; }
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
 
+  .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden;width:100%}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:0.5px;color:var(--nav)}
+  .cb{padding:18px 25px}
+  .card-b .ch{background:var(--pale);color:var(--nav)}
+  .note{border-radius:var(--r);padding:14px 18px;font-size:13px;margin:10px 0;display:flex;gap:9px;align-items:flex-start}
+  .nb{background:var(--pale);border-left:4px solid var(--teal)}
+
+  /* TARJETAS DE ENFOQUE */
+  .linea-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
+  .linea-card{border:1px solid var(--bd);border-radius:var(--r);padding:20px;background:#fff;transition:all .2s; display: flex; flex-direction: column; justify-content: space-between; position: relative;}
+  .linea-card:hover{border-color:var(--teal);box-shadow:0 4px 14px rgba(0,148,154,.15);transform:translateY(-2px)}
+  .linea-letra{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;margin-bottom:12px}
+  .linea-card strong{display:block;font-size:15px;color:var(--nav);margin-bottom:8px}
+  .linea-card p{font-size:13.5px;color:var(--txt);line-height:1.45; flex-grow: 1;}
+  .linea-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:14px; align-self: flex-start;}
+
+  /* THEORY SPECIAL */
+  .theory{background:var(--slate);padding:30px;border-bottom:3px solid var(--teal);border-radius:var(--r);margin-bottom:18px; color:#E6F7F8;}
+  .theory h4{font-size:19px;color:#fff;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:10px; font-weight: 700;}
+  .theory p{font-size:14.5px; margin-bottom: 15px; line-height: 1.7;}
+  .theory-quote { border-left: 3px solid var(--cl); padding-left: 20px; font-style: italic; color: #fff; margin: 20px 0; background: rgba(255,255,255,0.05); padding: 15px 20px; }
+  .theory-quote span { display: block; margin-top: 8px; font-weight: bold; color: var(--cl); font-size: 13px; }
+
+  .tc-box{background:rgba(255,255,255,.12);border-left:4px solid var(--cl);border-radius:4px;padding:18px;color:#E6F7F8;font-size:14px;margin-top:15px}
+  .tc-box strong{display:block;font-size:12.5px;color:var(--cl);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.8px}
+  
+  /* BIBLIOGRAFÍA EN CASCADA */
+  .biblio-section-title { font-size: 15px; color: var(--pale); font-weight: 700; margin: 20px 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 5px; }
+  .biblio-list { list-style: none; margin-top: 10px; margin-bottom: 25px; }
+  .biblio-list li { font-size: 13.5px; margin-bottom: 12px; padding-left: 15px; border-left: 2px solid var(--teal); line-height: 1.5; }
+  .biblio-list li strong { color: var(--cl); font-weight: 700; }
+  .biblio-list li a { color: #fff; text-decoration: none; border-bottom: 1px dotted rgba(255,255,255,0.4); transition: all 0.2s; }
+  .biblio-list li a:hover { color: var(--cl); border-bottom-color: var(--cl); }
+
+  /* ACTIVIDADES */
+  .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden;width:100%}
+  .ach{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;background:var(--bco)}
+  .an{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .at{flex:1}.at strong{display:block;font-size:15px;color:var(--nav)}
+  .acb{display:none;padding:20px 25px}
+  .act.open .acb{display:block}
+  .step{background:var(--gris);border-radius:var(--r);padding:16px 22px;margin-bottom:15px;font-size:14px;border-left:4px solid var(--bd)}
+  .step strong{display:block;color:var(--nav);margin-bottom:10px;text-transform:uppercase;font-size:12px;letter-spacing:0.8px}
 </style>
 </head>
 <body>
 
 <div class="top">
   <div class="top-info">
-    <strong>Proyectos Educativos con TIC</strong>
-    <small>Repositorio Pedagógico · 4.° Año Profesorados (IPESfa)</small>
+    <a href="index.html" class="btn-back">← Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
   </div>
-  <a href="index.html" class="btn-back">← Volver al Aula</a>
+  <div class="top-r"><a href="#" class="btn-reset" onclick="event.preventDefault();resetCareer()">Cambiar disciplina</a> 2026</div>
 </div>
 
-<div class="hero">
-  <span class="update-badge">Actualizado: Semana 4</span>
-  <h1>Caja de Herramientas Docentes</h1>
-  <p>Este repositorio crece clase a clase. Aquí curamos aplicaciones, plataformas y motores de Inteligencia Artificial evaluados bajo los modelos TPACK y PICRAT, garantizando que su integración en el diseño didáctico responda a las necesidades del territorio fueguino y fomente la agencia de las y los estudiantes.</p>
+<div id="welcome-screen">
+  <h2>Elegí tu Profesorado</h2>
+  <p>Hacé clic según tu área específica para acceder al material situado.</p>
+  <div class="career-grid">
+    <button class="btn-career" onclick="selectCareer('ini','· Inicial')">Ed. Inicial</button>
+    <button class="btn-career" onclick="selectCareer('his','· Historia')">Historia</button>
+    <button class="btn-career" onclick="selectCareer('geo','· Geografía')">Geografía</button>
+    <button class="btn-career" onclick="selectCareer('ing','· Inglés')">Inglés</button>
+  </div>
 </div>
 
-<div class="container">
-
-  <!-- CATEGORÍA 1: INTELIGENCIA ARTIFICIAL -->
-  <h2 class="category-title" style="border-bottom-color: var(--vio);">
-    <span style="color:var(--vio)">🤖</span> Inteligencia Artificial: Socios Cognitivos
-  </h2>
-  <div class="tool-grid">
-    <div class="tool-card cat-ai">
-      <div class="tool-header">
-        <div class="tool-title">Claude (Anthropic)</div>
-        <div class="badge-new">Clase 4</div>
-      </div>
-      <div class="tool-desc">Modelo con excelente redacción y tono pedagógico. Tu mejor aliado como socio cognitivo para estructurar secuencias narrativas, historias de fondo o acertijos encadenados para la búsqueda por indagación.</div>
-      <div class="tool-footer"><a href="https://claude.ai/" target="_blank" class="btn-visit">Probar Claude</a></div>
-    </div>
-
-    <div class="tool-card cat-ai">
-      <div class="tool-header">
-        <div class="tool-title">ChatGPT (OpenAI)</div>
-      </div>
-      <div class="tool-desc">Ideal para lluvia de ideas estructuradas y diseño rápido de dinámicas lúdicas. Fundamental aplicar una auditoría docente estricta para evitar respuestas descontextualizadas (alucinaciones).</div>
-      <div class="tool-footer"><a href="https://chatgpt.com" target="_blank" class="btn-visit">Probar ChatGPT</a></div>
-    </div>
-
-    <div class="tool-card cat-ai">
-      <div class="tool-header">
-        <div class="tool-title">DeepSeek</div>
-        <div class="badge-new">Clase 4</div>
-      </div>
-      <div class="tool-desc">Asistente destacado por su altísima capacidad de razonamiento lógico. Útil para que los docentes planifiquen el árbol de decisiones y las mecánicas complejas de un Escape Room.</div>
-      <div class="tool-footer"><a href="https://chat.deepseek.com/" target="_blank" class="btn-visit">Probar DeepSeek</a></div>
-    </div>
-    
-    <div class="tool-card cat-ai">
-      <div class="tool-header">
-        <div class="tool-title">NotebookLM (Google)</div>
-      </div>
-      <div class="tool-desc">Herramienta de curación cerrada. Permite subir documentos curriculares provinciales o fuentes primarias en PDF para que la IA trabaje exclusivamente sobre ese material situado, evitando invenciones.</div>
-      <div class="tool-footer"><a href="https://notebooklm.google.com/" target="_blank" class="btn-visit">Probar NotebookLM</a></div>
-    </div>
-
-    <div class="tool-card cat-ai">
-      <div class="tool-header">
-        <div class="tool-title">Perplexity AI</div>
-      </div>
-      <div class="tool-desc">Buscador impulsado por IA que cita las fuentes académicas reales en sus respuestas. Excelente para que las y los estudiantes investiguen y triangulen datos históricos o geográficos.</div>
-      <div class="tool-footer"><a href="https://www.perplexity.ai/" target="_blank" class="btn-visit">Probar Perplexity</a></div>
-    </div>
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 4 · 17 de abril</p>
+    <h2>La Inteligencia Artificial en el Diseño Didáctico: <span>Autoría Pedagógica y Punto de Partida del Proyecto</span></h2>
   </div>
 
-  <!-- CATEGORÍA 2: GAMIFICACIÓN PEDAGÓGICA -->
-  <h2 class="category-title" style="border-bottom-color: var(--teal); margin-top: 50px;">
-    <span style="color:var(--teal)">🎮</span> Gamificación Pedagógica
-  </h2>
-  <div class="tool-grid">
-    <div class="tool-card cat-gamification">
-      <div class="tool-header">
-        <div class="tool-title">Blooket</div>
-        <div class="badge-new">Clase 4</div>
-      </div>
-      <div class="tool-desc">Transforma la resolución de problemas en misiones estratégicas (ej. "Tower Defense"). Fomenta la participación activa y rompe con la monotonía de la evaluación tradicional.</div>
-      <div class="tool-footer"><a href="https://www.blooket.com/" target="_blank" class="btn-visit">Visitar Blooket</a></div>
-    </div>
-
-    <div class="tool-card cat-gamification">
-      <div class="tool-header">
-        <div class="tool-title">Wordwall</div>
-        <div class="badge-new">Clase 4</div>
-      </div>
-      <div class="tool-desc">Permite crear tableros interactivos, ruletas y diagramas. Ideal para dinámicas iniciales de reconocimiento de conceptos o estaciones de juego en el aula (postas).</div>
-      <div class="tool-footer"><a href="https://wordwall.net/es" target="_blank" class="btn-visit">Visitar Wordwall</a></div>
-    </div>
-
-    <div class="tool-card cat-gamification">
-      <div class="tool-header">
-        <div class="tool-title">Genially (Gamificación)</div>
-      </div>
-      <div class="tool-desc">Plataforma integral para diseñar Escape Rooms y tableros interactivos inmersivos. Permite ocultar pistas y diseñar misiones que exigen altos niveles cognitivos (Modificación en SAMR).</div>
-      <div class="tool-footer"><a href="https://genial.ly/es/" target="_blank" class="btn-visit">Visitar Genially</a></div>
-    </div>
-
-    <div class="tool-card cat-gamification">
-      <div class="tool-header">
-        <div class="tool-title">Educaplay</div>
-      </div>
-      <div class="tool-desc">Herramienta sólida para crear mapas interactivos y misiones de reconocimiento espacial. Muy pertinente para el abordaje de problemáticas territoriales en Geografía.</div>
-      <div class="tool-footer"><a href="https://es.educaplay.com/" target="_blank" class="btn-visit">Visitar Educaplay</a></div>
-    </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('inicio',this)">Puesta en Común</button>
+    <button class="tab-btn" onclick="showTab('teoria',this)">Marco Pedagógico y Fuentes</button>
+    <button class="tab-btn" onclick="showTab('actividades',this)">Laboratorio de Diseño</button>
+    <a href="repositorio_herramientas.html" target="_blank" class="tab-btn" style="text-decoration:none;color:var(--teal);">Caja de Herramientas ↗</a>
   </div>
 
-  <!-- CATEGORÍA 3: NARRATIVAS Y DUA -->
-  <h2 class="category-title" style="border-bottom-color: var(--grn); margin-top: 50px;">
-    <span style="color:var(--grn)">🛤️</span> Narrativas Ramificadas y Perspectiva DUA
-  </h2>
-  <div class="tool-grid">
-    <div class="tool-card cat-narrative">
-      <div class="tool-header">
-        <div class="tool-title">Twine</div>
-        <div class="badge-new">Clase 4</div>
+  <div class="wrap">
+
+    <div id="pane-inicio" class="pane on">
+      <div class="card card-b">
+        <div class="ch">¿Socio o Autor?</div>
+        <div class="cb">
+          <p style="font-size:17px;font-weight:600;color:var(--nav); margin-bottom: 12px;">¿Logramos transformar a la IA en un asistente o le delegamos nuestra voz docente?</p>
+          <p style="margin-top:10px;font-size:15px;">En el encuentro anterior propusimos una práctica de diseño: le pedimos a la IA la redacción de un protocolo de privacidad para familias. Vamos a analizar esos resultados en clave crítica: ¿Lograron detectar si la IA alucinó leyes que no existen? ¿Pudieron evidenciar el contexto de la escuela fueguina o se quedaron con una respuesta genérica? Este ejercicio de auditoría es, valga la redundancia, el ejercicio de nuestra autonomía pedagógica frente a las sugerencias de una herramienta tecnológica que simula respuestas humanas.</p>
+          
+          <p style="margin-top:15px;font-size:15px; font-weight: 700; color: var(--nav); border-left: 4px solid var(--teal); padding-left: 15px;">La pregunta que tenemos que hacernos hoy es si la IA puede ayudarnos a proyectar experiencias situadas sin perder el capital cultural ni caer en desafíos cognitivos nulos. Para esto, necesitamos profundizar en lo que la IA hace realmente cuando genera sus respuestas.</p>
+
+          <div class="note nb" style="margin-top:20px;">
+            <span>🚀</span>
+            <div>
+              <strong style="display:block;color:var(--nav);margin-bottom:4px;">Delineando la propuesta integradora del Trabajo Final Integrador (TFI)</strong>
+              A partir de lo conversado hoy, comenzaremos a delinear el enfoque de integración tecnológica y el tema de su propuesta integradora. Estableceremos la estructura didáctica de base, que iremos refinando y poniendo a prueba en las próximas clases cruzándola con nuevos marcos teóricos que nos permitan dar cuenta de nuestra autoría docente.
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="tool-desc">Herramienta de código abierto para crear historias interactivas no lineales. Ideal para que las y los estudiantes diseñen dilemas éticos o históricos donde sus decisiones cambian el relato.</div>
-      <div class="tool-footer"><a href="https://twinery.org/es" target="_blank" class="btn-visit">Visitar Twine</a></div>
+
+      <div class="card card-g">
+        <div class="ch">Enfoques de Integración Tecnológica (Articulables)</div>
+        <div class="cb">
+          <p style="font-size:14.5px;margin-bottom:16px;">Para el Trabajo Final, no buscamos el uso instrumental de una aplicación, sino el despliegue de la autoría docente en el diseño de propuestas. Estos enfoques pueden cruzarse, especialmente si optan por estrategias de <strong>indagación mediada por tecnologías</strong>:</p>
+
+          <div class="linea-grid">
+            <div class="linea-card">
+              <div>
+                <div class="linea-letra" style="background:var(--teal)">A</div>
+                <strong>Gamificación Pedagógica</strong>
+                <p>Uso de mecánicas de juego para sostener la atención y promover la agencia. El foco es la resolución de problemas en entornos lúdicos para superar la mera trivia.</p>
+              </div>
+              <span class="linea-tag" style="background:var(--pale);color:var(--teal);">GENIALLY · WORDWALL · BLOOKET</span>
+            </div>
+
+            <div class="linea-card">
+              <div>
+                <div class="linea-letra" style="background:var(--vio)">B</div>
+                <strong>Perspectiva DUA</strong>
+                <p>Planificación bajo el marco del Diseño Universal para el Aprendizaje, garantizando flexibilidad en la representación y expresión para toda la variabilidad del aula.</p>
+              </div>
+              <span class="linea-tag" style="background:var(--vcl);color:var(--vio);">CANVA · AUDACITY · GENIALLY</span>
+            </div>
+
+            <div class="linea-card">
+              <div>
+                <div class="linea-letra" style="background:var(--amb)">C</div>
+                <strong>Hibridación Físico-Digital</strong>
+                <p>Intervención del aula física con disparadores (QR, Realidad Aumentada) que conectan materiales analógicos con expansión digital. El territorio como interfaz.</p>
+              </div>
+              <span class="linea-tag" style="background:var(--acl);color:var(--amb);">QR + DRIVE · ASSEMBLR · CANVA</span>
+            </div>
+
+            <div class="linea-card">
+              <div>
+                <div class="linea-letra" style="background:var(--grn)">D</div>
+                <strong>Narrativas Ramificadas</strong>
+                <p>Situaciones-problema donde las y los estudiantes asumen un rol y eligen caminos divergentes con consecuencias pedagógicas reales y situadas.</p>
+              </div>
+              <span class="linea-tag" style="background:var(--gcl);color:var(--grn);">GENIALLY · SLIDES · TWINE</span>
+            </div>
+          </div>
+
+          <div class="c-block c-ini" style="margin-top:24px;">
+            <div class="note nb" style="background:var(--acl);border-left-color:var(--amb);">
+              <strong>Propuesta para Inicial:</strong> El enfoque DUA es central para garantizar el acceso desde la primera infancia. La narrativa sonora o táctil permite que el niño o la niña descubra sonidos y texturas de su entorno a través de la mediación tecnológica.
+            </div>
+          </div>
+          <div class="c-block c-his" style="margin-top:24px;">
+            <div class="note nb" style="background:var(--vcl);border-left-color:var(--vio);">
+              <strong>Propuesta para Historia:</strong> La narrativa combinada con la gamificación permite transformar el análisis de fuentes en un dispositivo de indagación activa. Las y los estudiantes se convierten en investigadores frente a documentos digitalizados.
+            </div>
+          </div>
+          <div class="c-block c-geo" style="margin-top:24px;">
+            <div class="note nb" style="background:var(--gcl);border-left-color:var(--grn);">
+              <strong>Propuesta para Geografía:</strong> La Hibridación es la clave para el análisis territorial. Capas de información digital sobre el espacio físico permiten que las y los estudiantes descubran los conflictos latentes de nuestra provincia in situ.
+            </div>
+          </div>
+          <div class="c-block c-ing" style="margin-top:24px;">
+            <div class="note nb" style="background:var(--pale);border-left-color:var(--teal);">
+              <strong>Propuesta para Inglés:</strong> El roleplay narrativo promueve producción oral auténtica. La lengua extranjera deja de ser el objeto de estudio gramatical para ser el andamiaje necesario para avanzar en la búsqueda por descubrimiento.
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div class="tool-card cat-narrative">
-      <div class="tool-header">
-        <div class="tool-title">Audacity</div>
-        <div class="badge-new">Clase 4</div>
+    <div id="pane-teoria" class="pane">
+      <div class="theory">
+        <h4>1. La IA como Socio Cognitivo</h4>
+        <p>Gavriel Salomon planteó que existen "efectos con" la tecnología (cuando la usamos como andamiaje) y "efectos de" la tecnología (el residuo cognitivo que queda en nosotros tras el uso). Basándose en esto, en la era de la IA Generativa, Carina Lion propone pensar a estas herramientas como <strong>socios cognitivos</strong>. La IA no reemplaza la autoría docente, sino que funciona como un andamiaje que nos permite modelar problemas complejos y exteriorizar procesos mentales para desafiar a las y los estudiantes.</p>
+        
+        <div class="theory-quote">
+            "La inclusión genuina de tecnologías requiere que las actividades formen parte de una Enseñanza Poderosa que sea original, que esté en tiempo presente, que ofrezca una mirada en perspectiva y que sea conmoviente."
+            <span>— Maggio, M. (2012). Enriquecer la enseñanza.</span>
+        </div>
+
+        <h4>2. Diseño Universal para el Aprendizaje (DUA)</h4>
+        <p>El DUA es un marco basado en las ciencias del aprendizaje que propone flexibilizar el diseño curricular inicial para asumir la variabilidad de las y los estudiantes como la norma. El foco no es la adaptación técnica a posteriori, sino la creación de entornos accesibles desde su origen pedagógico.</p>
+        
+        <div class="tc-box" style="border-left-color: var(--teal);">
+          <strong>Principios del DUA para el diseño de recursos:</strong>
+          <p>• Proporcionar múltiples medios de Representación (el qué del aprendizaje): Variar los formatos de la información (audio, visual, texto) para asegurar la comprensión.</p>
+          <p>• Proporcionar múltiples medios de Acción y Expresión (el cómo del aprendizaje): Permitir diferentes formas de demostrar el conocimiento.</p>
+        </div>
+
+        <h4>3. Soportes Teóricos de los Enfoques de Indagación</h4>
+        <p>Para fundamentar nuestras decisiones didácticas, nos apoyamos en marcos de investigación específicos que delimitan cada una de las perspectivas de diseño:</p>
+
+        <div class="tc-box" style="background:rgba(255,255,255,0.08); border-left-color: var(--amb);">
+          <p><strong>Gamificación Pedagógica:</strong> Karl Kapp (2012) la define como el uso de mecánicas, estética y pensamiento de juego para involucrar a las personas, motivar la acción y promover el aprendizaje. Ian Bogost advierte sobre el peligro de la "gamificación cosmética" (otorgar puntos vacíos de sentido), sugiriendo en cambio el diseño de sistemas complejos orientados a la resolución de problemas.</p>
+          <p style="margin-top:12px;"><strong>Hibridación Físico-Digital:</strong> Carlos Scolari (2018) analiza cómo las interfaces educativas han mutado. La hibridación en el aula permite que el territorio (el mapa físico, la maqueta, el patio escolar) se convierta en una interfaz de aprendizaje expandida donde lo analógico y lo digital dialogan permanentemente.</p>
+          <p style="margin-top:12px;"><strong>Narrativas Ramificadas:</strong> Siguiendo los aportes de Henry Jenkins sobre las narrativas transmedia, el relato educativo deja de ser lineal. Esto permite que las y los estudiantes asuman roles protagónicos en historias que exigen tomar decisiones informadas, generando una experiencia de inmersión cognitiva.</p>
+        </div>
+
+        <div style="margin-top:35px;border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;">
+          
+          <h5 class="biblio-section-title">Eje 1: Fundamentos Pedagógicos y Didácticos</h5>
+          <ul class="biblio-list">
+            <li><strong>CAST (2018).</strong> <a href="https://www.educadua.es/doc/dua/CAST-Pautas-Traduccio%CC%81n-Versio%CC%81n-2018_Rev2023.pdf" target="_blank">Pautas del Diseño Universal para el Aprendizaje (DUA) versión 2.2. EducaDUA.</a></li>
+            <li><strong>Dussel, I. y Quevedo, L. (2010).</strong> <a href="https://web.seducoahuila.gob.mx/biblioweb/upload/Aprender-y-ensenar-en-la-Cultura-Digital.pdf" target="_blank">Aprender y enseñar en la cultura digital. Fundación Santillana.</a></li>
+            <li><strong>Lion, C. (2006).</strong> <a href="https://scholar.google.com.ar/scholar?q=Imaginar+con+tecnologias+Carina+Lion" target="_blank">Imaginar con tecnologías. Relaciones entre tecnologías y conocimiento. La Crujía.</a></li>
+            <li><strong>Maggio, M. (2012).</strong> <a href="https://iespoman-cat.infd.edu.ar/sitio/wp-content/uploads/2020/03/MAGGIO-Enriquecer-la-Ense%C3%B1anza-cap-2-parte1.pdf" target="_blank">Enriquecer la enseñanza: los ambientes con alta disposición tecnológica como oportunidad. Paidós.</a></li>
+            <li><strong>Salomon, G. et al. (1992).</strong> <a href="https://scholar.google.com.ar/scholar?q=Coparticipando+en+el+conocimiento+Salomon" target="_blank">Coparticipando en el conocimiento: la ampliación de la inteligencia humana con las tecnologías inteligentes.</a></li>
+          </ul>
+
+          <h5 class="biblio-section-title">Eje 2: Arquitectura Técnica, Interfaces y Medios</h5>
+          <ul class="biblio-list">
+            <li><strong>Bogost, I. (2011).</strong> <a href="https://www.theatlantic.com/technology/archive/2011/08/gamification-is-bullshit/243338/" target="_blank">Gamification is Bullshit. The Atlantic.</a></li>
+            <li><strong>Jenkins, H. (2008).</strong> <a href="https://scholar.google.com.ar/scholar?q=Convergence+Culture+Jenkins+Henry" target="_blank">Convergence Culture: La cultura de la convergencia de los medios. Paidós.</a></li>
+            <li><strong>Kapp, K. M. (2012).</strong> <a href="https://scholar.google.com.ar/scholar?q=The+gamification+of+learning+and+instruction+Kapp" target="_blank">The gamification of learning and instruction. Pfeiffer.</a></li>
+            <li><strong>Scolari, C. A. (2018).</strong> <a href="https://scholar.google.com.ar/scholar?q=Las+leyes+de+la+interfaz+Scolari" target="_blank">Las leyes de la interfaz: diseño, ecología, evolución, tecnología. Gedisa.</a></li>
+          </ul>
+
+        </div>
       </div>
-      <div class="tool-desc">Software libre de edición de audio. Fundamental para la Perspectiva DUA: permite diseñar paisajes sonoros, audiocuentos y brindar alternativas de representación accesibles.</div>
-      <div class="tool-footer"><a href="https://www.audacityteam.org/" target="_blank" class="btn-visit">Visitar Audacity</a></div>
     </div>
 
-    <div class="tool-card cat-narrative">
-      <div class="tool-header">
-        <div class="tool-title">Canva para Educación</div>
+    <div id="pane-actividades" class="pane">
+
+      <div class="act" id="a0">
+        <div class="ach" onclick="toggleAct('a0')">
+          <div class="an" style="background:var(--amb)">🔍</div>
+          <div class="at"><strong>Actividad 1: El Test de Turing Docente (Análisis Comparativo)</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step">
+            <strong>La consigna</strong>
+            <p>A continuación hay tres propuestas pedagógicas sobre una efeméride. Una fue diseñada por el docente con criterio situado. Las otras dos fueron generadas por IA con prompts vagos y sin contexto de TDF. Identifiquen cuál es cuál y argumenten.</p>
+            
+            <div style="display:flex; flex-direction:column; gap:15px; margin-top:15px;">
+              <div style="padding:15px; background:#fff; border:1px solid var(--bd); border-left: 4px solid var(--teal); border-radius:4px; font-size:13.5px;">
+                <strong>Propuesta 1</strong><br>
+                "Para el 25 de Mayo, los estudiantes completarán una actividad interactiva en Kahoot con 15 preguntas sobre los hechos de Mayo de 1810. Las preguntas incluyen: ¿En qué año ocurrió la Revolución de Mayo? ¿Quién fue el primer presidente del Primer Gobierno Patrio? Los estudiantes compiten en tiempo real y el ganador recibe una estrella digital."
+              </div>
+              <div style="padding:15px; background:#fff; border:1px solid var(--bd); border-left: 4px solid var(--vio); border-radius:4px; font-size:13.5px;">
+                <strong>Propuesta 2</strong><br>
+                "Los estudiantes asumen el rol de corresponsales del periódico fueguino 'La Voz del Sur' en mayo de 1810. Reciben tres fuentes primarias digitalizadas con versiones contradictorias de los hechos — una realista del Cabildo, una carta de un comerciante criollo y un parte militar. Su tarea: redactar una nota periodística de época que tome posición y la argumente con las fuentes. La entrega es un documento colaborativo en Drive con comentarios cruzados entre grupos."
+              </div>
+              <div style="padding:15px; background:#fff; border:1px solid var(--bd); border-left: 4px solid var(--amb); border-radius:4px; font-size:13.5px;">
+                <strong>Propuesta 3</strong><br>
+                "Para celebrar el 25 de Mayo, las y los estudiantes crearán una presentación en PowerPoint o Canva con imágenes de la época y datos curiosos sobre la Revolución. Se les pide que incluyan al menos 5 datos históricos, una imagen representativa y un párrafo de reflexión personal sobre la importancia de la fecha. La presentación se comparte en el aula virtual."
+              </div>
+            </div>
+            
+            <div style="margin-top:20px;">
+              <strong style="color: var(--nav); display:block; margin-bottom: 8px; font-size: 14px;">Preguntas para el debate grupal</strong>
+              <ul style="margin-left: 20px; font-size: 14px;">
+                <li style="margin-bottom: 6px;">¿Cuál de las tres ubica al estudiante en un rol Pasivo, Interactivo o Creativo según PICRAT?</li>
+                <li style="margin-bottom: 6px;">¿Cuál llega a Modificación o Redefinición en el modelo SAMR? ¿Por qué?</li>
+                <li style="margin-bottom: 6px;">¿Cuál tiene señales de alucinación o descontextualización? ¿Qué elemento lo delata?</li>
+                <li>¿Cuál podría funcionar en una escuela de Tierra del Fuego tal como está, y cuál necesitaría adaptación?</li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="tool-desc">Estudio gráfico simplificado. Facilita la creación de recursos visuales limpios, apoyando el principio de coherencia de Mayer para evitar la sobrecarga cognitiva en el material didáctico.</div>
-      <div class="tool-footer"><a href="https://www.canva.com/es_es/educacion/" target="_blank" class="btn-visit">Visitar Canva</a></div>
+
+      <div class="act" id="a1">
+        <div class="ach" onclick="toggleAct('a1')">
+          <div class="an">⚡</div>
+          <div class="at"><strong>Actividad 2: Ingeniería de Prompts para el Diseño (Inicio del TFI)</strong></div>
+        </div>
+        <div class="acb">
+          <div class="step">
+            <strong>Paso 1: Definir el proyecto</strong>
+            <p>Esta actividad marca el inicio oficial de su Trabajo Final Integrador. Antes de abrir la IA, tomen tres decisiones que orientarán todo el trabajo hasta el cierre del taller:</p>
+            <ul style="margin-top:8px;">
+              <li><strong>Línea de producción:</strong> ¿A (Gamificación), B (DUA), C (Hibridación/RA) o D (Narrativa no lineal)? Ver la descripción de cada una en la pestaña Inicio.</li>
+              <li><strong>Tema o efeméride:</strong> ¿Sobre qué contenido disciplinar va a trabajar el recurso?</li>
+              <li><strong>Destinatarios reales:</strong> Año, nivel y contexto aproximado (no "estudiantes en general" — una sala de 3, un 4.° año de secundaria de Río Grande, etc.).</li>
+            </ul>
+            <div class="c-block c-ing" style="margin-top: 8px;">
+              <ul style="margin-top:0;">
+                <li><strong>Anclaje Inglés:</strong> Una unidad del Diseño Curricular de Inglés secundaria (vocabulario, función comunicativa, contexto cultural). La línea A (roleplay con decisiones en inglés en Blooket o Genially) o D (conversación no lineal con consecuencias) generan producción oral auténtica.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="step" style="border-left-color:var(--vio);">
+            <strong>Paso 2: El primer prompt (CRTF aplicado a diseño pedagógico)</strong>
+            <p>Con las tres decisiones tomadas, abran Claude, ChatGPT o DeepSeek y construyan un prompt usando la estructura CRTF que ya conocen — ahora aplicada a diseño de experiencias, no a textos informativos:</p>
+            <ul style="margin-top:8px;">
+              <li><strong>Contexto:</strong> Quiénes son las y los estudiantes, en qué institución, en qué provincia, qué contenido aborda.</li>
+              <li><strong>Rol:</strong> Que la IA actúe como diseñador de experiencias educativas para ese nivel y disciplina.</li>
+              <li><strong>Tarea:</strong> Pedirle la línea que eligieron — narrativa de misterio, secuencia de decisiones, mecánica de juego, recurso accesible. <em>No pedirle "preguntas de opción múltiple": eso es sustitución.</em></li>
+              <li><strong>Formato:</strong> Especificar cuántas instancias o pantallas necesitan, en qué plataforma van a implementarlo y qué nivel de pensamiento crítico exige cada paso.</li>
+            </ul>
+            <p style="margin-top:10px;font-style:italic;color:var(--vio);">Guarden el prompt exacto que usaron — lo van a necesitar para la entrega.</p>
+          </div>
+
+          <div class="step" style="border-left-color:var(--teal);">
+            <strong>Paso 3: Auditoría crítica de la respuesta</strong>
+            <p>Antes de usar lo que devolvió la IA, apliquen los mismos filtros que la clase pasada — ahora sobre diseño pedagógico:</p>
+            <ul style="margin-top:8px;">
+              <li><strong>Filtro de contextualización:</strong> ¿La propuesta podría ser de cualquier país, o está situada en TDF y en el Diseño Curricular jurisdiccional? Si es genérica, el prompt fue demasiado vago.</li>
+              <li><strong>Filtro de alucinación:</strong> ¿Hay fechas, nombres o datos que no pueden verificarse? ¿La IA "inventó" algún recurso, plataforma o ley que no existe?</li>
+              <li><strong>Filtro PICRAT:</strong> ¿El estudiante que recibe esta propuesta está en rol Pasivo, Interactivo o Creativo? Si está Pasivo, hay que reescribir el prompt o ajustar la mecánica.</li>
+            </ul>
+            <p style="margin-top:10px;font-weight:600;color:var(--nav);">Anoten en una oración qué corrigieron y por qué. Eso es la evidencia de que hubo apropiación crítica y no solo uso instrumental.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
 
-    <div class="tool-card cat-narrative">
-      <div class="tool-header">
-        <div class="tool-title">Google Slides (Interactivo)</div>
-      </div>
-      <div class="tool-desc">Utilizado mediante hipervínculos internos, permite construir presentaciones que funcionan como historias ramificadas tipo "elige tu propia aventura" de manera colaborativa.</div>
-      <div class="tool-footer"><a href="https://docs.google.com/presentation" target="_blank" class="btn-visit">Abrir Slides</a></div>
-    </div>
   </div>
-
-  <!-- CATEGORÍA 4: HIBRIDACIÓN FÍSICO-DIGITAL -->
-  <h2 class="category-title" style="border-bottom-color: var(--slate); margin-top: 50px;">
-    <span style="color:var(--slate)">📱</span> Hibridación Físico-Digital y Colaboración
-  </h2>
-  <div class="tool-grid">
-    <div class="tool-card cat-hybrid">
-      <div class="tool-header">
-        <div class="tool-title">Assemblr EDU</div>
-        <div class="badge-new">Clase 4</div>
-      </div>
-      <div class="tool-desc">Plataforma de Realidad Aumentada. Permite anclar modelos 3D o capas de información digital sobre mapas impresos o láminas físicas del aula, expandiendo el territorio.</div>
-      <div class="tool-footer"><a href="https://edu.assemblrworld.com/" target="_blank" class="btn-visit">Visitar Assemblr</a></div>
-    </div>
-
-    <div class="tool-card cat-hybrid">
-      <div class="tool-header">
-        <div class="tool-title">QR Code Monkey + Drive</div>
-        <div class="badge-new">Clase 4</div>
-      </div>
-      <div class="tool-desc">Generador de códigos QR gratuito. Excelente para intervenir espacios físicos (el patio, el pasillo, un mapa mural) con audios y documentos alojados de forma segura en Google Drive.</div>
-      <div class="tool-footer"><a href="https://www.qrcode-monkey.com/es/" target="_blank" class="btn-visit">Visitar QR Monkey</a></div>
-    </div>
-
-    <div class="tool-card cat-hybrid">
-      <div class="tool-header">
-        <div class="tool-title">Padlet</div>
-      </div>
-      <div class="tool-desc">El estándar para muros colaborativos. Funciona como un "territorio digital" o centro de mando donde las y los estudiantes vuelcan los resultados de su indagación física.</div>
-      <div class="tool-footer"><a href="https://padlet.com" target="_blank" class="btn-visit">Visitar Padlet</a></div>
-    </div>
-
-    <div class="tool-card cat-hybrid">
-      <div class="tool-header">
-        <div class="tool-title">Miro</div>
-      </div>
-      <div class="tool-desc">Pizarra infinita profesional. Indispensable para que el equipo docente planifique colaborativamente el recorrido, los dilemas y el diagrama de flujo del Proyecto Final.</div>
-      <div class="tool-footer"><a href="https://miro.com/es/" target="_blank" class="btn-visit">Visitar Miro</a></div>
-    </div>
-  </div>
-
-  <!-- CATEGORÍA 5: CIUDADANÍA DIGITAL Y SEGURIDAD -->
-  <h2 class="category-title" style="border-bottom-color: var(--amb); margin-top: 50px;">
-    <span style="color:var(--amb)">🛡️</span> Ciudadanía Digital y Seguridad
-  </h2>
-  <div class="tool-grid">
-    <div class="tool-card cat-citizen">
-      <div class="tool-header">
-        <div class="tool-title">DuckDuckGo</div>
-      </div>
-      <div class="tool-desc">Buscador que prioriza la privacidad. No rastrea información ni crea burbujas algorítmicas. Herramienta esencial para enseñar a auditar la propia huella digital de forma objetiva.</div>
-      <div class="tool-footer"><a href="https://duckduckgo.com/" target="_blank" class="btn-visit">Usar DuckDuckGo</a></div>
-    </div>
-
-    <div class="tool-card cat-citizen">
-      <div class="tool-header">
-        <div class="tool-title">Google Interland</div>
-      </div>
-      <div class="tool-desc">Propuesta lúdica para que las y los estudiantes más chicos aprendan a cuidarse del phishing, gestionar contraseñas y combatir el ciberacoso mediante la gamificación.</div>
-      <div class="tool-footer"><a href="https://beinternetawesome.withgoogle.com/es-419_all/interland" target="_blank" class="btn-visit">Jugar Interland</a></div>
-    </div>
-
-    <div class="tool-card cat-citizen">
-      <div class="tool-header">
-        <div class="tool-title">Faro Digital</div>
-      </div>
-      <div class="tool-desc">ONG nacional con recursos, marcos legales y talleres específicos sobre construcción de identidad digital, prevención del Grooming y convivencia en la web para escuelas argentinas.</div>
-      <div class="tool-footer"><a href="https://farodigital.org/" target="_blank" class="btn-visit">Ir a Faro Digital</a></div>
-    </div>
-  </div>
-
 </div>
 
+<script>
+function selectCareer(code, name) {
+  document.body.className = '';
+  document.body.classList.add('show-' + code);
+  document.body.classList.add('career-selected');
+  document.getElementById('lbl-career').innerText = name;
+  document.querySelectorAll('.tab-btn')[0].click();
+}
+function resetCareer() {
+  document.body.classList.remove('career-selected');
+  document.getElementById('lbl-career').innerText = '';
+}
+function showTab(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('pane-' + id).classList.add('on');
+  btn.classList.add('active');
+}
+function toggleAct(id) { document.getElementById(id).classList.toggle('open'); }
+</script>
 </body>
 </html>
