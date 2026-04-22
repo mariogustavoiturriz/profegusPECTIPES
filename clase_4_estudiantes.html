@@ -72,6 +72,17 @@
   .linea-card p{font-size:13.5px;color:var(--txt);line-height:1.45; flex-grow: 1;}
   .linea-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:14px; align-self: flex-start;}
 
+  /* NUEVO CSS PARA EXPANSIÓN DE TARJETAS */
+  .linea-card { cursor: pointer; }
+  .linea-extra { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--bd); font-size: 13.5px; }
+  .linea-card.expanded .linea-extra { display: block; animation: fadeIn 0.3s ease; }
+  .linea-extra strong { color: var(--teal); font-size: 12px; text-transform: uppercase; margin-bottom: 6px; display: block; }
+  .linea-extra a { color: var(--teal); font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 12.5px; border: 1px solid var(--teal); padding: 4px 10px; border-radius: 4px;}
+  .linea-extra a:hover { background: var(--pale); }
+  .expand-icon { position: absolute; right: 20px; top: 20px; font-size: 14px; color: var(--bd); transition: transform 0.3s; font-family: sans-serif; font-weight: bold;}
+  .linea-card.expanded .expand-icon { transform: rotate(180deg); color: var(--teal); }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
+
   /* THEORY SPECIAL */
   .theory{background:var(--slate);padding:30px;border-bottom:3px solid var(--teal);border-radius:var(--r);margin-bottom:18px; color:#E6F7F8;}
   .theory h4{font-size:19px;color:#fff;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:10px; font-weight: 700;}
@@ -132,7 +143,7 @@
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="showTab('inicio',this)">Puesta en Común</button>
+    <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
     <button class="tab-btn" onclick="showTab('teoria',this)">Marco Pedagógico</button>
     <button class="tab-btn" onclick="showTab('actividades',this)">Laboratorio de Diseño</button>
     <a href="repositorio_herramientas.html" target="_blank" class="tab-btn" style="text-decoration:none;color:var(--teal);">Caja de Herramientas ↗</a>
@@ -154,7 +165,7 @@
             <span>🚀</span>
             <div>
               <strong style="display:block;color:var(--nav);margin-bottom:4px;">Delineando la propuesta integradora del Trabajo Final Integrador (TFI)</strong>
-              A partir de lo conversado hoy, daremos el paso inicial y oficial del Trabajo Final. Estableceremos la línea de producción y la estructura didáctica de base mediante un ejercicio guiado de Ingeniería de Prompts.
+              A partir de lo conversado hoy, comenzaremos a delinear el enfoque de integración tecnológica y el tema de su propuesta integradora. Estableceremos la estructura didáctica de base, que iremos refinando y poniendo a prueba en las próximas clases cruzándola con nuevos marcos teóricos que nos permitan dar cuenta de nuestra autoría docente.
             </div>
           </div>
         </div>
@@ -163,43 +174,67 @@
       <div class="card card-g">
         <div class="ch">Enfoques de Integración Tecnológica (Articulables)</div>
         <div class="cb">
-          <p style="font-size:14.5px;margin-bottom:16px;">Para el Trabajo Final, no buscamos el uso instrumental de una aplicación, sino el despliegue de la autoría docente en el diseño de propuestas. Estos enfoques pueden cruzarse, especialmente si optan por estrategias de <strong>indagación mediada por tecnologías</strong>:</p>
+          <p style="font-size:14.5px;margin-bottom:16px;">Para el Trabajo Final, no buscamos el uso instrumental de una aplicación, sino el despliegue de la autoría docente en el diseño de propuestas. Estos enfoques pueden cruzarse, especialmente si optan por estrategias de <strong>indagación mediada por tecnologías</strong> (Hacé clic en cada uno para ver un ejemplo):</p>
 
           <div class="linea-grid">
-            <div class="linea-card">
+            <div class="linea-card" onclick="this.classList.toggle('expanded')">
+              <div class="expand-icon">▼</div>
               <div>
                 <div class="linea-letra" style="background:var(--teal)">A</div>
                 <strong>Gamificación Pedagógica</strong>
                 <p>Uso de mecánicas de juego para sostener la atención y promover la agencia. El foco es la resolución de problemas en entornos lúdicos para superar la mera trivia.</p>
               </div>
               <span class="linea-tag" style="background:var(--pale);color:var(--teal);">GENIALLY · WORDWALL · BLOOKET</span>
+              <div class="linea-extra">
+                <strong>Ejemplo Inspirador:</strong>
+                <p>"Escape Room: El misterio del Presidio". Las y los estudiantes deben resolver acertijos matemáticos e históricos sobre el fin del mundo para descifrar códigos y lograr abrir candados digitales.</p>
+                <a href="https://genial.ly/es/plantillas/gamificacion/" target="_blank">Ver plantillas en Genially ↗</a>
+              </div>
             </div>
 
-            <div class="linea-card">
+            <div class="linea-card" onclick="this.classList.toggle('expanded')">
+              <div class="expand-icon">▼</div>
               <div>
                 <div class="linea-letra" style="background:var(--vio)">B</div>
                 <strong>Perspectiva DUA</strong>
                 <p>Planificación bajo el marco del Diseño Universal para el Aprendizaje, garantizando flexibilidad en la representación y expresión para toda la variabilidad del aula.</p>
               </div>
               <span class="linea-tag" style="background:var(--vcl);color:var(--vio);">CANVA · AUDACITY · GENIALLY</span>
+              <div class="linea-extra">
+                <strong>Ejemplo Inspirador:</strong>
+                <p>"Línea de tiempo multisensorial". Una infografía sobre pueblos originarios fueguinos donde cada imagen incluye un audio grabado por ellos mismos describiendo la escena, y opciones de alto contraste visual.</p>
+                <a href="https://www.canva.com/es_es/educacion/" target="_blank">Explorar Canva Educación ↗</a>
+              </div>
             </div>
 
-            <div class="linea-card">
+            <div class="linea-card" onclick="this.classList.toggle('expanded')">
+              <div class="expand-icon">▼</div>
               <div>
                 <div class="linea-letra" style="background:var(--amb)">C</div>
                 <strong>Hibridación Físico-Digital</strong>
                 <p>Intervención del aula física con disparadores (QR, Realidad Aumentada) que conectan materiales analógicos con expansión digital. El territorio como interfaz.</p>
               </div>
               <span class="linea-tag" style="background:var(--acl);color:var(--amb);">QR + DRIVE · ASSEMBLR · CANVA</span>
+              <div class="linea-extra">
+                <strong>Ejemplo Inspirador:</strong>
+                <p>"Mapeo sonoro del barrio". Imprimen un mapa gigante de Ushuaia o Río Grande en el aula y le pegan códigos QR. Al escanearlos, se reproducen audios de entrevistas que hicieron a los vecinos.</p>
+                <a href="https://www.qrcode-monkey.com/es/" target="_blank">Crear con QR Monkey ↗</a>
+              </div>
             </div>
 
-            <div class="linea-card">
+            <div class="linea-card" onclick="this.classList.toggle('expanded')">
+              <div class="expand-icon">▼</div>
               <div>
                 <div class="linea-letra" style="background:var(--grn)">D</div>
                 <strong>Narrativas Ramificadas</strong>
                 <p>Situaciones-problema donde las y los estudiantes asumen un rol y eligen caminos divergentes con consecuencias pedagógicas reales y situadas.</p>
               </div>
               <span class="linea-tag" style="background:var(--gcl);color:var(--grn);">GENIALLY · SLIDES · TWINE</span>
+              <div class="linea-extra">
+                <strong>Ejemplo Inspirador:</strong>
+                <p>"Ley 19.640: Elige tu propia aventura". En formato cuento interactivo, asumen el rol de un inmigrante llegando a la isla en los años 80. Cada decisión que toman los lleva a un final socioeconómico distinto.</p>
+                <a href="https://twinery.org/es" target="_blank">Conocer Twine ↗</a>
+              </div>
             </div>
           </div>
         </div>
@@ -210,7 +245,7 @@
     <div id="pane-teoria" class="pane">
       <div class="theory">
         <h4>1. La IA como Socio Cognitivo</h4>
-        <p>Gavriel Salomon (1992) planteó tempranamente que existen "efectos <em>con</em>" la tecnología (cuando la usamos como andamiaje para lograr algo que no podríamos solos) y "efectos <em>de</em>" la tecnología (el residuo cognitivo que nos queda tras el uso). </p>
+        <p>Gavriel Salomon (1992) planteó tempranamente que existen "efectos con" la tecnología (cuando la usamos como andamiaje para lograr algo que no podríamos solos) y "efectos de" la tecnología (el residuo cognitivo que nos queda tras el uso).</p>
         <p>Basándose en estos principios, en la era de la Inteligencia Artificial Generativa, la investigadora argentina Carina Lion (2006, 2023) propone pensar a estas herramientas como <strong>socios cognitivos</strong>. La IA no reemplaza la autoría docente, sino que funciona como un andamiaje que nos permite modelar problemas complejos, estructurar narrativas y exteriorizar procesos mentales para desafiar a las y los estudiantes. Usamos la máquina para potenciar la enseñanza, no para automatizarla ciegamente.</p>
         
         <div class="theory-quote">
@@ -223,12 +258,17 @@
         <p class="theory-intro">A medida que avancemos en las próximas semanas del cuatrimestre, profundizaremos teóricamente en los marcos específicos que sostienen cada línea de diseño. Hoy dejamos trazada la "brújula bibliográfica" que guiará y fundamentará las decisiones de sus proyectos según el enfoque que elijan:</p>
 
         <div class="tc-box" style="background:rgba(255,255,255,0.08); border-left-color: var(--amb);">
-          <ul class="biblio-list" style="margin-bottom: 0;">
-            <li><strong>Para Línea A (Gamificación):</strong> Bogost (2011) y Kapp (2012). Nos servirán para distinguir la verdadera ludificación de la mera "gamificación cosmética" de puntos y medallas.</li>
-            <li><strong>Para Línea B (Perspectiva DUA):</strong> Pautas CAST (2018). Serán la base para flexibilizar la representación de la información y la expresión en sus recursos digitales.</li>
-            <li><strong>Para Línea C (Hibridación Físico-Digital):</strong> Scolari (2018). Analizaremos cómo el territorio y el aula se convierten en una interfaz interactiva.</li>
-            <li><strong>Para Línea D (Narrativas Ramificadas):</strong> Jenkins (2008). Nos apoyaremos en la cultura de la convergencia y las narrativas no lineales transmedia.</li>
-          </ul>
+          <p style="margin-bottom: 10px;"><strong>Para Línea A (Gamificación):</strong><br>
+          Bogost (2011) y Kapp (2012). Nos servirán para distinguir la verdadera ludificación de la mera "gamificación cosmética" de puntos y medallas.</p>
+          
+          <p style="margin-bottom: 10px;"><strong>Para Línea B (Perspectiva DUA):</strong><br>
+          Pautas CAST (2018). Serán la base para flexibilizar la representación de la información y la expresión en sus recursos digitales.</p>
+          
+          <p style="margin-bottom: 10px;"><strong>Para Línea C (Hibridación Físico-Digital):</strong><br>
+          Scolari (2018). Analizaremos cómo el territorio y el aula se convierten en una interfaz interactiva.</p>
+          
+          <p><strong>Para Línea D (Narrativas Ramificadas):</strong><br>
+          Jenkins (2008). Nos apoyaremos en la cultura de la convergencia y las narrativas no lineales transmedia.</p>
         </div>
 
         <div style="margin-top:35px;border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;">
@@ -298,7 +338,6 @@
               <li><strong>Destinatarios reales:</strong> Año, nivel y contexto aproximado (no "estudiantes en general" — una sala de 3, un 4.° año de secundaria de Río Grande, etc.).</li>
             </ul>
             
-            <!-- ANCLAJES POR CARRERA (Guías situadas) -->
             <div style="margin-top: 15px; border-left: 3px solid var(--teal); padding-left: 12px; background: rgba(255,255,255,0.6); padding: 10px; border-radius: 4px;">
               <strong style="font-size: 13px; color: var(--nav); display:block; margin-bottom: 5px;">Notas orientadoras según tu carrera:</strong>
               
@@ -312,7 +351,7 @@
                 <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Geografía:</strong> Ideal abordar un conflicto territorial o circuito productivo fueguino. Las líneas C (Hibridación con mapas del aula) o A (Resolución de problemas espaciales) son muy pertinentes.</p>
               </div>
               <div class="c-block c-ing">
-                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Inglés:</strong> Elegir una unidad del Diseño Curricular (vocabulario, función comunicativa). Las líneas A (roleplay con decisiones en inglés en Blooket) o D (conversación no lineal) generan producción oral auténtica.</p>
+                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Inglés:</strong> Elegir una unidad del Diseño Curricular (vocabulario, función comunicativa). Las líneas A (roleplay con decisiones en inglés en Blooket o Genially) o D (conversación no lineal con consecuencias) generan producción oral auténtica.</p>
               </div>
             </div>
           </div>
