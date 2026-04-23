@@ -6,19 +6,14 @@
 <title>Clase 4 · IA, Autoría y Propuestas de Enseñanza por Indagación</title>
 <style>
   :root {
-    --nav:   #1D3461; --teal:  #00949A; --cl:   #B2E8EA; --pale: #E6F7F8;
-    --grn:   #2A6049; --gcl:  #DFF0E9;
-    --amb:   #D4873A; --acl:  #FDF0E4;
-    --vio:   #3D5A99; --vcl:  #E4EAF7;
-    --slate: #4A6080;
-    --gris:  #F3F6F9; --bd:   #C5D2DC; --txt:  #4A5E70;
-    --neg:   #1A2C3A; --bco:  #FFFFFF;
-    --r: 8px; --sh: 0 2px 8px rgba(0,0,0,.09);
+    --nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;
+    --grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;
+    --vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;
+    --gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFFFFF;
+    --r:8px;--sh:0 2px 8px rgba(0,0,0,.09);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
-
-  /* TOP BAR */
   .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
   .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
   .top-r{font-size:11px;opacity:.65;text-align:right}
@@ -27,16 +22,12 @@
   .btn-back:hover{background:rgba(255,255,255,0.25)}
   .btn-reset{display:none;color:var(--cl);margin-right:12px;text-decoration:none;border-bottom:1px dotted var(--cl);cursor:pointer}
   body.career-selected .btn-reset{display:inline-block}
-
-  /* WELCOME */
   #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
   #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
   #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
   .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all 0.2s;min-width:220px}
   .btn-career:hover{background:var(--teal);color:white;transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,148,154,.25)}
   .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;width:100%;max-width:900px}
-
-  /* MAIN APP LOGIC */
   #main-app{display:none}
   body.career-selected #welcome-screen{display:none}
   body.career-selected #main-app{display:block}
@@ -45,7 +36,6 @@
   body.show-his .c-his{display:block}
   body.show-geo .c-geo{display:block}
   body.show-ing .c-ing{display:block}
-
   .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
   .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
   .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
@@ -53,54 +43,45 @@
   .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
   .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
   .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
-
   .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
   .pane{display:none}.pane.on{display:block}
   .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden;width:100%}
   .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:0.5px;color:var(--nav)}
   .cb{padding:18px 25px}
   .card-b .ch{background:var(--pale);color:var(--nav)}
+  .card-g .ch{background:var(--gcl);color:var(--grn)}
   .note{border-radius:var(--r);padding:14px 18px;font-size:13px;margin:10px 0;display:flex;gap:9px;align-items:flex-start}
   .nb{background:var(--pale);border-left:4px solid var(--teal)}
-
-  /* TARJETAS DE ENFOQUE */
+  /* LINEA CARDS CON ACCORDION */
   .linea-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:18px}
-  .linea-card{border:1px solid var(--bd);border-radius:var(--r);padding:20px;background:#fff;transition:all .2s; display: flex; flex-direction: column; justify-content: space-between; position: relative;}
+  .linea-card{border:1px solid var(--bd);border-radius:var(--r);padding:20px;background:#fff;transition:all .2s;display:flex;flex-direction:column;justify-content:space-between;position:relative;cursor:pointer}
   .linea-card:hover{border-color:var(--teal);box-shadow:0 4px 14px rgba(0,148,154,.15);transform:translateY(-2px)}
   .linea-letra{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;color:#fff;margin-bottom:12px}
   .linea-card strong{display:block;font-size:15px;color:var(--nav);margin-bottom:8px}
-  .linea-card p{font-size:13.5px;color:var(--txt);line-height:1.45; flex-grow: 1;}
-  .linea-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:14px; align-self: flex-start;}
-
-  /* NUEVO CSS PARA EXPANSIÓN DE TARJETAS */
-  .linea-card { cursor: pointer; }
-  .linea-extra { display: none; margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--bd); font-size: 13.5px; }
-  .linea-card.expanded .linea-extra { display: block; animation: fadeIn 0.3s ease; }
-  .linea-extra strong { color: var(--teal); font-size: 12px; text-transform: uppercase; margin-bottom: 6px; display: block; }
-  .linea-extra a { color: var(--teal); font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; margin-top: 10px; font-size: 12.5px; border: 1px solid var(--teal); padding: 4px 10px; border-radius: 4px;}
-  .linea-extra a:hover { background: var(--pale); }
-  .expand-icon { position: absolute; right: 20px; top: 20px; font-size: 14px; color: var(--bd); transition: transform 0.3s; font-family: sans-serif; font-weight: bold;}
-  .linea-card.expanded .expand-icon { transform: rotate(180deg); color: var(--teal); }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(-5px); } to { opacity: 1; transform: translateY(0); } }
-
-  /* THEORY SPECIAL */
-  .theory{background:var(--slate);padding:30px;border-bottom:3px solid var(--teal);border-radius:var(--r);margin-bottom:18px; color:#E6F7F8;}
-  .theory h4{font-size:19px;color:#fff;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,0.1);padding-bottom:10px; font-weight: 700;}
-  .theory p{font-size:14.5px; margin-bottom: 15px; line-height: 1.7;}
-  .theory-quote { border-left: 3px solid var(--cl); padding-left: 20px; font-style: italic; color: #fff; margin: 20px 0; background: rgba(255,255,255,0.05); padding: 15px 20px; }
-  .theory-quote span { display: block; margin-top: 8px; font-weight: bold; color: var(--cl); font-size: 13px; }
-
+  .linea-card p{font-size:13.5px;color:var(--txt);line-height:1.45;flex-grow:1}
+  .linea-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;padding:3px 8px;border-radius:4px;display:inline-block;margin-top:14px;align-self:flex-start}
+  .linea-extra{display:none;margin-top:15px;padding-top:15px;border-top:1px dashed var(--bd);font-size:13.5px}
+  .linea-card.expanded .linea-extra{display:block;animation:fadeIn .3s ease}
+  .linea-extra strong{color:var(--teal);font-size:12px;text-transform:uppercase;margin-bottom:6px;display:block}
+  .linea-extra a{color:var(--teal);font-weight:bold;text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-top:10px;font-size:12.5px;border:1px solid var(--teal);padding:4px 10px;border-radius:4px}
+  .linea-extra a:hover{background:var(--pale)}
+  .expand-icon{position:absolute;right:20px;top:20px;font-size:14px;color:var(--bd);transition:transform .3s;font-weight:bold}
+  .linea-card.expanded .expand-icon{transform:rotate(180deg);color:var(--teal)}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+  /* THEORY */
+  .theory{background:var(--slate);padding:30px;border-bottom:3px solid var(--teal);border-radius:var(--r);margin-bottom:18px;color:#E6F7F8}
+  .theory h4{font-size:19px;color:#fff;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px;font-weight:700}
+  .theory p{font-size:14.5px;margin-bottom:15px;line-height:1.7}
+  .theory-quote{border-left:3px solid var(--cl);padding:15px 20px;font-style:italic;color:#fff;margin:20px 0;background:rgba(255,255,255,.05)}
+  .theory-quote span{display:block;margin-top:8px;font-weight:bold;color:var(--cl);font-size:13px}
   .tc-box{background:rgba(255,255,255,.12);border-left:4px solid var(--cl);border-radius:4px;padding:18px;color:#E6F7F8;font-size:14px;margin-top:15px}
-  .tc-box strong{display:block;font-size:12.5px;color:var(--cl);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.8px}
-  
-  /* BIBLIOGRAFÍA EN CASCADA */
-  .biblio-section-title { font-size: 15px; color: var(--pale); font-weight: 700; margin: 20px 0 10px 0; text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 1px dashed rgba(255,255,255,0.2); padding-bottom: 5px; }
-  .biblio-list { list-style: none; margin-top: 10px; margin-bottom: 25px; }
-  .biblio-list li { font-size: 13.5px; margin-bottom: 12px; padding-left: 15px; border-left: 2px solid var(--teal); line-height: 1.5; }
-  .biblio-list li strong { color: var(--cl); font-weight: 700; }
-  .biblio-list li a { color: #fff; text-decoration: none; border-bottom: 1px dotted rgba(255,255,255,0.4); transition: all 0.2s; }
-  .biblio-list li a:hover { color: var(--cl); border-bottom-color: var(--cl); }
-
+  .tc-box strong{display:block;font-size:12.5px;color:var(--cl);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px}
+  .biblio-section-title{font-size:15px;color:var(--pale);font-weight:700;margin:20px 0 10px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px dashed rgba(255,255,255,.2);padding-bottom:5px}
+  .biblio-list{list-style:none;margin-top:10px;margin-bottom:25px}
+  .biblio-list li{font-size:13.5px;margin-bottom:12px;padding-left:15px;border-left:2px solid var(--teal);line-height:1.5}
+  .biblio-list li strong{color:var(--cl);font-weight:700}
+  .biblio-list li a{color:#fff;text-decoration:none;border-bottom:1px dotted rgba(255,255,255,.4)}
+  .biblio-list li a:hover{color:var(--cl)}
   /* ACTIVIDADES */
   .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden;width:100%}
   .ach{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;background:var(--bco)}
@@ -109,7 +90,7 @@
   .acb{display:none;padding:20px 25px}
   .act.open .acb{display:block}
   .step{background:var(--gris);border-radius:var(--r);padding:16px 22px;margin-bottom:15px;font-size:14px;border-left:4px solid var(--bd)}
-  .step strong{display:block;color:var(--nav);margin-bottom:10px;text-transform:uppercase;font-size:12px;letter-spacing:0.8px}
+  .step strong{display:block;color:var(--nav);margin-bottom:10px;text-transform:uppercase;font-size:12px;letter-spacing:.8px}
 </style>
 </head>
 <body>
@@ -151,21 +132,31 @@
 
   <div class="wrap">
 
-    <!-- PANE: INICIO -->
+    <!-- INICIO -->
     <div id="pane-inicio" class="pane on">
       <div class="card card-b">
         <div class="ch">¿Socio o Autor?</div>
         <div class="cb">
-          <p style="font-size:17px;font-weight:600;color:var(--nav); margin-bottom: 12px;">¿Logramos transformar a la IA en un asistente o le delegamos nuestra voz docente?</p>
+          <p style="font-size:17px;font-weight:600;color:var(--nav);margin-bottom:12px;">¿Logramos transformar a la IA en un asistente o le delegamos nuestra voz docente?</p>
           <p style="margin-top:10px;font-size:15px;">En el encuentro anterior propusimos el diseño de un protocolo de privacidad para familias. Es importante recordar que esta actividad conlleva dos etapas clave: primero, la <strong>ingeniería del prompt y auditoría</strong> de la IA, y luego, la <strong>elaboración del documento visual final</strong> (la infografía). Quienes hayan logrado llegar al diseño del prompt o al menos debatirlo, vamos a analizar esos primeros resultados en clave crítica: ¿Lograron detectar si la IA alucinó leyes que no existen? ¿Pudieron evidenciar el contexto de la escuela fueguina o se quedaron con una respuesta genérica? Este ejercicio de auditoría es el núcleo de nuestra autonomía pedagógica frente a las sugerencias de una herramienta tecnológica que simula respuestas humanas.</p>
-          
-          <p style="margin-top:15px;font-size:15px; font-weight: 700; color: var(--nav); border-left: 4px solid var(--teal); padding-left: 15px;">La pregunta que tenemos que hacernos hoy es si la IA puede ayudarnos a proyectar experiencias situadas sin perder el capital cultural ni caer en desafíos cognitivos nulos. Para esto, necesitamos profundizar en lo que la IA hace realmente cuando genera sus respuestas.</p>
-
+          <p style="margin-top:15px;font-size:15px;font-weight:700;color:var(--nav);border-left:4px solid var(--teal);padding-left:15px;">La pregunta que tenemos que hacernos hoy es si la IA puede ayudarnos a proyectar experiencias situadas sin perder el capital cultural ni caer en desafíos cognitivos nulos.</p>
           <div class="note nb" style="margin-top:20px;">
             <span>🚀</span>
             <div>
               <strong style="display:block;color:var(--nav);margin-bottom:4px;">Delineando la propuesta integradora del Trabajo Final Integrador (TFI)</strong>
-              A partir de lo conversado hoy, comenzaremos a delinear el enfoque de integración tecnológica y el tema de su propuesta integradora. Estableceremos la estructura didáctica de base, que iremos refinando y poniendo a prueba en las próximas clases cruzándola con nuevos marcos teóricos que nos permitan dar cuenta de nuestra autoría docente.
+              A partir de lo conversado hoy, comenzaremos a delinear el enfoque de integración tecnológica y el tema de su propuesta integradora. Estableceremos la estructura didáctica de base, que iremos refinando y poniendo a prueba en las próximas clases.
+            </div>
+          </div>
+
+          <!-- PUENTE INICIAL (solo visible para Inicial) -->
+          <div class="c-block c-ini">
+            <div class="note nb" style="margin-top:14px;background:var(--acl);border-left-color:var(--amb);">
+              <span>🧩</span>
+              <div>
+                <strong style="display:block;color:var(--amb);margin-bottom:6px;">Para Inicial: el punto de partida ya está construido</strong>
+                <p style="font-size:13.5px;">En la clase anterior comenzaron a pensar un recurso lúdico o narrativo sobre el cuidado de la imagen y el cuerpo en entornos digitales para sala de 4 o 5 — articulando ESI, privacidad y tecnología. Ese boceto no se descarta: <strong>es el punto de partida del Trabajo Final Integrador</strong>.</p>
+                <p style="font-size:13.5px;margin-top:8px;">Hoy la tarea es doble: revisar ese borrador con nuevas herramientas conceptuales (la IA como socio cognitivo, los límites de la generación automática) y formalizarlo con una estructura pedagógica que justifique cada decisión de diseño. La pregunta ya no es <em>qué hacer</em> sino <em>cómo fundamentar lo que ya empezaron a imaginar</em>.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -175,8 +166,8 @@
         <div class="ch">Enfoques de Integración Tecnológica (Articulables)</div>
         <div class="cb">
           <p style="font-size:14.5px;margin-bottom:16px;">Para el Trabajo Final, no buscamos el uso instrumental de una aplicación, sino el despliegue de la autoría docente en el diseño de propuestas. Estos enfoques pueden cruzarse, especialmente si optan por estrategias de <strong>indagación mediada por tecnologías</strong> (Hacé clic en cada uno para ver un ejemplo):</p>
-
           <div class="linea-grid">
+
             <div class="linea-card" onclick="this.classList.toggle('expanded')">
               <div class="expand-icon">▼</div>
               <div>
@@ -236,42 +227,32 @@
                 <a href="https://twinery.org/es" target="_blank">Conocer Twine ↗</a>
               </div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
 
-    <!-- PANE: MARCO PEDAGÓGICO -->
+    <!-- MARCO PEDAGÓGICO — igual que la versión viva -->
     <div id="pane-teoria" class="pane">
       <div class="theory">
         <h4>1. La IA como Socio Cognitivo</h4>
         <p>Gavriel Salomon (1992) planteó tempranamente que existen "efectos con" la tecnología (cuando la usamos como andamiaje para lograr algo que no podríamos solos) y "efectos de" la tecnología (el residuo cognitivo que nos queda tras el uso).</p>
         <p>Basándose en estos principios, en la era de la Inteligencia Artificial Generativa, la investigadora argentina Carina Lion (2006, 2023) propone pensar a estas herramientas como <strong>socios cognitivos</strong>. La IA no reemplaza la autoría docente, sino que funciona como un andamiaje que nos permite modelar problemas complejos, estructurar narrativas y exteriorizar procesos mentales para desafiar a las y los estudiantes. Usamos la máquina para potenciar la enseñanza, no para automatizarla ciegamente.</p>
-        
         <div class="theory-quote">
-            "La inclusión genuina de tecnologías requiere que las actividades formen parte de una Enseñanza Poderosa que sea original, que esté en tiempo presente, que ofrezca una mirada en perspectiva y que sea conmoviente."
-            <span>— Maggio, M. (2012). Enriquecer la enseñanza.</span>
+          "La inclusión genuina de tecnologías requiere que las actividades formen parte de una Enseñanza Poderosa que sea original, que esté en tiempo presente, que ofrezca una mirada en perspectiva y que sea conmoviente."
+          <span>— Maggio, M. (2012). Enriquecer la enseñanza.</span>
         </div>
-        <p style="font-size: 13px; color: var(--cl); font-style: italic; margin-top: -10px;">(Esta será nuestra vara de calidad para evaluar los Trabajos Finales Integradores).</p>
-
-        <h4 style="margin-top: 35px;">2. Mapa Bibliográfico del Proyecto Final</h4>
-        <p class="theory-intro">A medida que avancemos en las próximas semanas del cuatrimestre, profundizaremos teóricamente en los marcos específicos que sostienen cada línea de diseño. Hoy dejamos trazada la "brújula bibliográfica" que guiará y fundamentará las decisiones de sus proyectos según el enfoque que elijan:</p>
-
-        <div class="tc-box" style="background:rgba(255,255,255,0.08); border-left-color: var(--amb);">
-          <p style="margin-bottom: 10px;"><strong>Para Línea A (Gamificación):</strong><br>
-          Bogost (2011) y Kapp (2012). Nos servirán para distinguir la verdadera ludificación de la mera "gamificación cosmética" de puntos y medallas.</p>
-          
-          <p style="margin-bottom: 10px;"><strong>Para Línea B (Perspectiva DUA):</strong><br>
-          Pautas CAST (2018). Serán la base para flexibilizar la representación de la información y la expresión en sus recursos digitales.</p>
-          
-          <p style="margin-bottom: 10px;"><strong>Para Línea C (Hibridación Físico-Digital):</strong><br>
-          Scolari (2018). Analizaremos cómo el territorio y el aula se convierten en una interfaz interactiva.</p>
-          
-          <p><strong>Para Línea D (Narrativas Ramificadas):</strong><br>
-          Jenkins (2008). Nos apoyaremos en la cultura de la convergencia y las narrativas no lineales transmedia.</p>
+        <p style="font-size:13px;color:var(--cl);font-style:italic;margin-top:-10px;">(Esta será nuestra vara de calidad para evaluar los Trabajos Finales Integradores).</p>
+        <h4 style="margin-top:35px;">2. Mapa Bibliográfico del Proyecto Final</h4>
+        <p>A medida que avancemos en las próximas semanas del cuatrimestre, profundizaremos teóricamente en los marcos específicos que sostienen cada línea de diseño. Hoy dejamos trazada la "brújula bibliográfica" que guiará y fundamentará las decisiones de sus proyectos según el enfoque que elijan:</p>
+        <div class="tc-box" style="background:rgba(255,255,255,0.08);border-left-color:var(--amb);">
+          <p style="margin-bottom:10px;"><strong>Para Línea A (Gamificación):</strong><br>Bogost (2011) y Kapp (2012). Nos servirán para distinguir la verdadera ludificación de la mera "gamificación cosmética" de puntos y medallas.</p>
+          <p style="margin-bottom:10px;"><strong>Para Línea B (Perspectiva DUA):</strong><br>Pautas CAST (2018). Serán la base para flexibilizar la representación de la información y la expresión en sus recursos digitales.</p>
+          <p style="margin-bottom:10px;"><strong>Para Línea C (Hibridación Físico-Digital):</strong><br>Scolari (2018). Analizaremos cómo el territorio y el aula se convierten en una interfaz interactiva.</p>
+          <p><strong>Para Línea D (Narrativas Ramificadas):</strong><br>Jenkins (2008). Nos apoyaremos en la cultura de la convergencia y las narrativas no lineales transmedia.</p>
         </div>
-
-        <div style="margin-top:35px;border-top:1px solid rgba(255,255,255,0.2);padding-top:20px;">
+        <div style="margin-top:35px;border-top:1px solid rgba(255,255,255,.2);padding-top:20px;">
           <h5 class="biblio-section-title">Fuentes del encuentro de hoy:</h5>
           <ul class="biblio-list">
             <li><strong>Lion, C. (2006).</strong> <a href="https://scholar.google.com.ar/scholar?q=Imaginar+con+tecnologias+Carina+Lion" target="_blank">Imaginar con tecnologías. Relaciones entre tecnologías y conocimiento. La Crujía.</a></li>
@@ -282,7 +263,7 @@
       </div>
     </div>
 
-    <!-- PANE: LABORATORIO -->
+    <!-- LABORATORIO -->
     <div id="pane-actividades" class="pane">
 
       <div class="act" id="a0">
@@ -291,35 +272,102 @@
           <div class="at"><strong>Actividad 1: El Test de Turing Docente</strong></div>
         </div>
         <div class="acb">
-          <div class="step">
-            <strong>La consigna</strong>
-            <p>A continuación hay tres propuestas pedagógicas sobre una efeméride. Una fue diseñada por el docente con criterio situado. Las otras dos fueron generadas por IA con prompts vagos y sin contexto de TDF.Identifiquen cuál es cuál y argumenten.</p>
-            
-            <div style="display:flex; flex-direction:column; gap:15px; margin-top:15px;">
-              <div style="padding:15px; background:#fff; border:1px solid var(--bd); border-left: 4px solid var(--teal); border-radius:4px; font-size:13.5px;">
-                <strong>Propuesta 1</strong><br>
-                "Para el 25 de Mayo, los estudiantes completarán una actividad interactiva en Kahoot con 15 preguntas sobre los hechos de Mayo de 1810. Las preguntas incluyen: ¿En qué año ocurrió la Revolución de Mayo? ¿Quién fue el primer presidente del Primer Gobierno Patrio? Los estudiantes compiten en tiempo real y el ganador recibe una estrella digital."
+
+          <!-- INICIAL: propuestas sobre ESI y primera infancia -->
+          <div class="c-block c-ini">
+            <div class="step">
+              <strong>La consigna</strong>
+              <p>A continuación hay tres propuestas para trabajar con niños de sala de 5. Una fue diseñada con criterio situado y fundamentación pedagógica. Las otras dos fueron generadas por IA con prompts vagos. <strong>Identifiquen cuál es cuál y argumenten.</strong></p>
+              <div style="display:flex;flex-direction:column;gap:15px;margin-top:15px;">
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--teal);border-radius:4px;font-size:13.5px;">
+                  <strong>Propuesta 1</strong><br>
+                  "Para trabajar el cuidado del cuerpo con niños de sala de 5, la docente prepara un Kahoot con 10 preguntas de verdadero o falso: '¿Está bien que un adulto te saque fotos sin pedirte permiso? FALSO'. Los niños responden con el celular de la docente rotativo y el que más acierta gana un sticker."
+                </div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--vio);border-radius:4px;font-size:13.5px;">
+                  <strong>Propuesta 2</strong><br>
+                  "Teo y la cámara mágica es un cuento interactivo en Genially para sala de 5. Teo encuentra una cámara que toma fotos solas. En cada pantalla, los niños deciden qué hace Teo: ¿comparte la foto de su amiga durmiendo en la siesta o la guarda? Cada decisión lleva a una pantalla diferente con consecuencias narradas por un personaje. La docente proyecta en la pared y los niños votan en voz alta. Al final, el grupo construye oralmente 'las reglas de Teo' sobre qué imágenes se pueden compartir y cuáles no."
+                </div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--amb);border-radius:4px;font-size:13.5px;">
+                  <strong>Propuesta 3</strong><br>
+                  "La docente arma con Canva una lámina digital con ilustraciones sobre 'partes privadas del cuerpo' y 'partes que podemos mostrar'. La lámina se proyecta y la docente explica cada imagen. Al final, los niños dibujan en papel lo que aprendieron y la docente saca una foto de los dibujos para el grupo de WhatsApp de las familias."
+                </div>
               </div>
-              <div style="padding:15px; background:#fff; border:1px solid var(--bd); border-left: 4px solid var(--vio); border-radius:4px; font-size:13.5px;">
-                <strong>Propuesta 2</strong><br>
-                "Los estudiantes asumen el rol de corresponsales del periódico fueguino 'La Voz del Sur' en mayo de 1810. Reciben tres fuentes primarias digitalizadas con versiones contradictorias de los hechos — una realista del Cabildo, una carta de un comerciante criollo y un parte militar. Su tarea: redactar una nota periodística de época que tome posición y la argumente con las fuentes. La entrega es un documento colaborativo en Drive con comentarios cruzados entre grupos."
+              <div style="margin-top:20px;">
+                <strong style="color:var(--nav);display:block;margin-bottom:8px;font-size:14px;">Preguntas para el debate:</strong>
+                <ul style="margin-left:20px;font-size:14px;">
+                  <li style="margin-bottom:6px;">¿Cuál ubica a los niños en un rol <strong>Pasivo, Interactivo o Creativo</strong> según PICRAT?</li>
+                  <li style="margin-bottom:6px;">¿Cuál llega a <strong>Modificación o Redefinición</strong> en SAMR? ¿Por qué?</li>
+                  <li style="margin-bottom:6px;">¿Cuál contiene una <strong>contradicción ética</strong> con el contenido que enseña?</li>
+                  <li>¿Cuál podría implementarse en un jardín de Ushuaia tal como está?</li>
+                </ul>
               </div>
-              <div style="padding:15px; background:#fff; border:1px solid var(--bd); border-left: 4px solid var(--amb); border-radius:4px; font-size:13.5px;">
-                <strong>Propuesta 3</strong><br>
-                "Para celebrar el 25 de Mayo, las y los estudiantes crearán una presentación en PowerPoint o Canva con imágenes de la época y datos curiosos sobre la Revolución. Se les pide que incluyan al menos 5 datos históricos, una imagen representativa y un párrafo de reflexión personal sobre la importancia de la fecha. La presentación se comparte en el aula virtual."
-              </div>
-            </div>
-            
-            <div style="margin-top:20px;">
-              <strong style="color: var(--nav); display:block; margin-bottom: 8px; font-size: 14px;">Responder a las siguientes preguntas:</strong>
-              <ul style="margin-left: 20px; font-size: 14px;">
-                <li style="margin-bottom: 6px;">¿Cuál de las tres ubica al estudiante en un rolPasivo, Interactivo o Creativo según PICRAT?</li>
-                <li style="margin-bottom: 6px;">¿Cuál llega aModificación o Redefinición en el modelo SAMR? ¿Por qué?</li>
-                <li style="margin-bottom: 6px;">¿Cuál tiene señales de alucinación o descontextualización? ¿Qué elemento lo delata?</li>
-                <li>¿Cuál podría funcionar en una escuela de Tierra del Fuego tal como está, y cuál necesitaría adaptación?</li>
-              </ul>
             </div>
           </div>
+
+          <!-- HISTORIA / GEO / INGLÉS: propuestas sobre el 25 de Mayo (igual que la versión viva) -->
+          <div class="c-block c-his">
+            <div class="step">
+              <strong>La consigna</strong>
+              <p>A continuación hay tres propuestas pedagógicas sobre una efeméride. Una fue diseñada por el docente con criterio situado. Las otras dos fueron generadas por IA con prompts vagos y sin contexto de TDF. <strong>Identifiquen cuál es cuál y argumenten.</strong></p>
+              <div style="display:flex;flex-direction:column;gap:15px;margin-top:15px;">
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--teal);border-radius:4px;font-size:13.5px;"><strong>Propuesta 1</strong><br>"Para el 25 de Mayo, los estudiantes completarán una actividad interactiva en Kahoot con 15 preguntas sobre los hechos de Mayo de 1810. Las preguntas incluyen: ¿En qué año ocurrió la Revolución de Mayo? ¿Quién fue el primer presidente del Primer Gobierno Patrio? Los estudiantes compiten en tiempo real y el ganador recibe una estrella digital."</div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--vio);border-radius:4px;font-size:13.5px;"><strong>Propuesta 2</strong><br>"Los estudiantes asumen el rol de corresponsales del periódico fueguino 'La Voz del Sur' en mayo de 1810. Reciben tres fuentes primarias digitalizadas con versiones contradictorias de los hechos — una realista del Cabildo, una carta de un comerciante criollo y un parte militar. Su tarea: redactar una nota periodística de época que tome posición y la argumente con las fuentes. La entrega es un documento colaborativo en Drive con comentarios cruzados entre grupos."</div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--amb);border-radius:4px;font-size:13.5px;"><strong>Propuesta 3</strong><br>"Para celebrar el 25 de Mayo, las y los estudiantes crearán una presentación en PowerPoint o Canva con imágenes de la época y datos curiosos sobre la Revolución. Se les pide que incluyan al menos 5 datos históricos, una imagen representativa y un párrafo de reflexión personal sobre la importancia de la fecha. La presentación se comparte en el aula virtual."</div>
+              </div>
+              <div style="margin-top:20px;">
+                <strong style="color:var(--nav);display:block;margin-bottom:8px;font-size:14px;">Responder a las siguientes preguntas:</strong>
+                <ul style="margin-left:20px;font-size:14px;">
+                  <li style="margin-bottom:6px;">¿Cuál de las tres ubica al estudiante en un rol <strong>Pasivo, Interactivo o Creativo</strong> según PICRAT?</li>
+                  <li style="margin-bottom:6px;">¿Cuál llega a <strong>Modificación o Redefinición</strong> en el modelo SAMR? ¿Por qué?</li>
+                  <li style="margin-bottom:6px;">¿Cuál tiene señales de <strong>alucinación o descontextualización</strong>? ¿Qué elemento lo delata?</li>
+                  <li>¿Cuál podría funcionar en una escuela de Tierra del Fuego tal como está, y cuál necesitaría adaptación?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="c-block c-geo">
+            <div class="step">
+              <strong>La consigna</strong>
+              <p>A continuación hay tres propuestas pedagógicas sobre una efeméride. Una fue diseñada por el docente con criterio situado. Las otras dos fueron generadas por IA con prompts vagos y sin contexto de TDF. <strong>Identifiquen cuál es cuál y argumenten.</strong></p>
+              <div style="display:flex;flex-direction:column;gap:15px;margin-top:15px;">
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--teal);border-radius:4px;font-size:13.5px;"><strong>Propuesta 1</strong><br>"Para el 25 de Mayo, los estudiantes completarán una actividad interactiva en Kahoot con 15 preguntas sobre los hechos de Mayo de 1810. Las preguntas incluyen: ¿En qué año ocurrió la Revolución de Mayo? ¿Quién fue el primer presidente del Primer Gobierno Patrio? Los estudiantes compiten en tiempo real y el ganador recibe una estrella digital."</div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--vio);border-radius:4px;font-size:13.5px;"><strong>Propuesta 2</strong><br>"Los estudiantes asumen el rol de corresponsales del periódico fueguino 'La Voz del Sur' en mayo de 1810. Reciben tres fuentes primarias digitalizadas con versiones contradictorias de los hechos — una realista del Cabildo, una carta de un comerciante criollo y un parte militar. Su tarea: redactar una nota periodística de época que tome posición y la argumente con las fuentes. La entrega es un documento colaborativo en Drive con comentarios cruzados entre grupos."</div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--amb);border-radius:4px;font-size:13.5px;"><strong>Propuesta 3</strong><br>"Para celebrar el 25 de Mayo, las y los estudiantes crearán una presentación en PowerPoint o Canva con imágenes de la época y datos curiosos sobre la Revolución. Se les pide que incluyan al menos 5 datos históricos, una imagen representativa y un párrafo de reflexión personal sobre la importancia de la fecha. La presentación se comparte en el aula virtual."</div>
+              </div>
+              <div style="margin-top:20px;">
+                <strong style="color:var(--nav);display:block;margin-bottom:8px;font-size:14px;">Responder a las siguientes preguntas:</strong>
+                <ul style="margin-left:20px;font-size:14px;">
+                  <li style="margin-bottom:6px;">¿Cuál de las tres ubica al estudiante en un rol <strong>Pasivo, Interactivo o Creativo</strong> según PICRAT?</li>
+                  <li style="margin-bottom:6px;">¿Cuál llega a <strong>Modificación o Redefinición</strong> en el modelo SAMR? ¿Por qué?</li>
+                  <li style="margin-bottom:6px;">¿Cuál tiene señales de <strong>alucinación o descontextualización</strong>? ¿Qué elemento lo delata?</li>
+                  <li>¿Cuál podría funcionar en una escuela de Tierra del Fuego tal como está, y cuál necesitaría adaptación?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="c-block c-ing">
+            <div class="step">
+              <strong>La consigna</strong>
+              <p>A continuación hay tres propuestas pedagógicas sobre una efeméride. Una fue diseñada por el docente con criterio situado. Las otras dos fueron generadas por IA con prompts vagos y sin contexto de TDF. <strong>Identifiquen cuál es cuál y argumenten.</strong></p>
+              <div style="display:flex;flex-direction:column;gap:15px;margin-top:15px;">
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--teal);border-radius:4px;font-size:13.5px;"><strong>Propuesta 1</strong><br>"Para el 25 de Mayo, los estudiantes completarán una actividad interactiva en Kahoot con 15 preguntas sobre los hechos de Mayo de 1810. Las preguntas incluyen: ¿En qué año ocurrió la Revolución de Mayo? ¿Quién fue el primer presidente del Primer Gobierno Patrio? Los estudiantes compiten en tiempo real y el ganador recibe una estrella digital."</div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--vio);border-radius:4px;font-size:13.5px;"><strong>Propuesta 2</strong><br>"Los estudiantes asumen el rol de corresponsales del periódico fueguino 'La Voz del Sur' en mayo de 1810. Reciben tres fuentes primarias digitalizadas con versiones contradictorias de los hechos — una realista del Cabildo, una carta de un comerciante criollo y un parte militar. Su tarea: redactar una nota periodística de época que tome posición y la argumente con las fuentes. La entrega es un documento colaborativo en Drive con comentarios cruzados entre grupos."</div>
+                <div style="padding:15px;background:#fff;border:1px solid var(--bd);border-left:4px solid var(--amb);border-radius:4px;font-size:13.5px;"><strong>Propuesta 3</strong><br>"Para celebrar el 25 de Mayo, las y los estudiantes crearán una presentación en PowerPoint o Canva con imágenes de la época y datos curiosos sobre la Revolución. Se les pide que incluyan al menos 5 datos históricos, una imagen representativa y un párrafo de reflexión personal sobre la importancia de la fecha. La presentación se comparte en el aula virtual."</div>
+              </div>
+              <div style="margin-top:20px;">
+                <strong style="color:var(--nav);display:block;margin-bottom:8px;font-size:14px;">Responder a las siguientes preguntas:</strong>
+                <ul style="margin-left:20px;font-size:14px;">
+                  <li style="margin-bottom:6px;">¿Cuál de las tres ubica al estudiante en un rol <strong>Pasivo, Interactivo o Creativo</strong> según PICRAT?</li>
+                  <li style="margin-bottom:6px;">¿Cuál llega a <strong>Modificación o Redefinición</strong> en el modelo SAMR? ¿Por qué?</li>
+                  <li style="margin-bottom:6px;">¿Cuál tiene señales de <strong>alucinación o descontextualización</strong>? ¿Qué elemento lo delata?</li>
+                  <li>¿Cuál podría funcionar en una escuela de Tierra del Fuego tal como está, y cuál necesitaría adaptación?</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -333,29 +381,30 @@
             <strong>Paso 1: Agrupamiento y definición del proyecto</strong>
             <p>Esta actividad marca el inicio oficial de su Trabajo Final Integrador. <strong>Primero, agrúpense en equipos de 3 o 4 personas (idealmente cruzando distintos profesorados)</strong> para garantizar que la propuesta sea verdaderamente integral y se nutra de miradas interdisciplinarias. Luego, antes de abrir la IA, tomen tres decisiones en equipo que orientarán todo el trabajo hasta el cierre del taller:</p>
             <ul style="margin-top:8px;">
-              <li><strong>Línea de producción:</strong> ¿A (Gamificación), B (DUA), C (Hibridación/RA) o D (Narrativa no lineal)? Ver la descripción de cada una en la pestaña Inicio.</li>
+              <li><strong>Línea de producción:</strong> ¿A (Gamificación), B (DUA), C (Hibridación/RA) o D (Narrativa no lineal)?</li>
               <li><strong>Tema o efeméride:</strong> ¿Sobre qué contenido disciplinar va a trabajar el recurso?</li>
-              <li><strong>Destinatarios reales:</strong> Año, nivel y contexto aproximado (no "estudiantes en general" — una sala de 3, un 4.° año de secundaria de Río Grande, etc.).</li>
+              <li><strong>Destinatarios reales:</strong> Año, nivel y contexto aproximado (no "estudiantes en general").</li>
             </ul>
-            
-            <div style="margin-top: 15px; border-left: 3px solid var(--teal); padding-left: 12px; background: rgba(255,255,255,0.6); padding: 10px; border-radius: 4px;">
-              <strong style="font-size: 13px; color: var(--nav); display:block; margin-bottom: 5px;">Notas orientadoras según tu carrera:</strong>
-              
+            <div style="margin-top:15px;border-left:3px solid var(--teal);background:rgba(255,255,255,0.6);padding:10px;border-radius:4px;">
+              <strong style="font-size:13px;color:var(--nav);display:block;margin-bottom:5px;">Notas orientadoras según tu carrera:</strong>
+
+              <!-- INICIAL: proyecto ya definido -->
               <div class="c-block c-ini">
-                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Inicial:</strong> Elegir un tema vinculado a nociones espaciales, ESI o rutinas de sala (ej. 4 o 5 años). Las líneas B (DUA sonoro) o D (Cuento interactivo) son ideales para esta edad.</p>
+                <div style="background:rgba(255,255,255,0.7);padding:12px 14px;border-left:3px solid var(--amb);border-radius:6px;font-size:13.5px;margin-bottom:4px;">
+                  <strong style="color:var(--amb);display:block;margin-bottom:6px;">Inicial — el proyecto ya tiene forma: hoy lo formalizamos</strong>
+                  <p style="margin-bottom:6px;">En la clase anterior empezaron a imaginar un recurso lúdico o narrativo sobre el cuidado de la imagen y el cuerpo en entornos digitales para sala de 4 o 5. Ese trabajo es el punto de partida del TFI.</p>
+                  <p style="margin-bottom:6px;"><strong>Línea:</strong> Eligen entre <strong>Línea B</strong> (recurso multimedial accesible — cuento con audio, lámina interactiva) o <strong>Línea D</strong> (narrativa con decisiones — cuento donde el personaje elige y cada elección lleva a una pantalla diferente).</p>
+                  <p style="margin-bottom:6px;"><strong>Tema:</strong> El cuidado del cuerpo y la imagen propia en entornos digitales, articulado con los lineamientos ESI del nivel inicial.</p>
+                  <p><strong>Destinatarios:</strong> Niños y niñas de sala de 4 o sala de 5 del jardín donde van a hacer práctica. Especifiquen el jardín real.</p>
+                </div>
               </div>
-              <div class="c-block c-his">
-                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Historia:</strong> Pensar en efemérides locales o nacionales que generen empatía histórica (ej. provincialización de TDF). Las líneas A (Gamificación de fuentes) o D (Narrativa asumiendo roles de la época) funcionan perfecto.</p>
-              </div>
-              <div class="c-block c-geo">
-                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Geografía:</strong> Ideal abordar un conflicto territorial o circuito productivo fueguino. Las líneas C (Hibridación con mapas del aula) o A (Resolución de problemas espaciales) son muy pertinentes.</p>
-              </div>
-              <div class="c-block c-ing">
-                <p style="font-size: 13.5px; margin-bottom: 0;"><strong>Inglés:</strong> Elegir una unidad del Diseño Curricular (vocabulario, función comunicativa). Las líneas A (roleplay con decisiones en inglés en Blooket o Genially) o D (conversación no lineal con consecuencias) generan producción oral auténtica.</p>
-              </div>
+
+              <div class="c-block c-his"><p style="font-size:13.5px;margin-bottom:0;"><strong>Historia:</strong> Pensar en efemérides locales o nacionales que generen empatía histórica (ej. provincialización de TDF). Las líneas A (Gamificación de fuentes) o D (Narrativa asumiendo roles de la época) funcionan perfecto.</p></div>
+              <div class="c-block c-geo"><p style="font-size:13.5px;margin-bottom:0;"><strong>Geografía:</strong> Ideal abordar un conflicto territorial o circuito productivo fueguino. Las líneas C (Hibridación con mapas del aula) o A (Resolución de problemas espaciales) son muy pertinentes.</p></div>
+              <div class="c-block c-ing"><p style="font-size:13.5px;margin-bottom:0;"><strong>Inglés:</strong> Elegir una unidad del Diseño Curricular (vocabulario, función comunicativa). Las líneas A (roleplay con decisiones en inglés en Blooket o Genially) o D (conversación no lineal con consecuencias) generan producción oral auténtica.</p></div>
             </div>
           </div>
-          
+
           <div class="step" style="border-left-color:var(--vio);">
             <strong>Paso 2: El primer prompt de diseño pedagógico</strong>
             <p>Con las tres decisiones tomadas en grupo, abran Claude, ChatGPT o DeepSeek y construyan un prompt (instrucción) aplicado a diseño de experiencias, no a textos informativos. Asegúrense de incluir estos elementos clave:</p>
@@ -366,57 +415,75 @@
               <li><strong>Formato:</strong> Especificar cuántas instancias o pantallas necesitan, en qué plataforma van a implementarlo y qué nivel de pensamiento crítico exige cada paso.</li>
             </ul>
             <p style="margin-top:10px;font-style:italic;color:var(--vio);">Guarden el prompt exacto que usaron — lo van a necesitar para la entrega.</p>
+
+            <!-- ANDAMIAJE CRTF PARA INICIAL -->
+            <div class="c-block c-ini">
+              <div style="background:rgba(255,255,255,0.6);padding:14px 16px;border-left:3px solid var(--amb);border-radius:6px;font-size:13.5px;margin-top:12px;">
+                <strong style="color:var(--amb);display:block;margin-bottom:8px;">Andamiaje CRTF para Inicial — ajusten los corchetes con sus decisiones</strong>
+                <ul style="margin-left:16px;">
+                  <li style="margin-bottom:6px;"><strong>Contexto:</strong> Sala de [4 / 5] de un jardín de infantes en [nombre del jardín], Ushuaia / Río Grande, TDF. Los niños tienen entre 4 y 5 años. La propuesta articula ESI con ciudadanía digital.</li>
+                  <li style="margin-bottom:6px;"><strong>Rol:</strong> Actuá como diseñadora de experiencias lúdicas para primera infancia, especializada en ESI y narrativa interactiva para niños pequeños.</li>
+                  <li style="margin-bottom:6px;"><strong>Tarea:</strong> Redactá el guion completo de un [cuento interactivo con decisiones / recurso con audio y texto] donde un personaje aprende qué imágenes de su cuerpo puede compartir y cuáles no. Incluí al menos 3 momentos de decisión o interacción con consecuencias diferentes.</li>
+                  <li><strong>Formato:</strong> El recurso se implementa en [Genially / Google Slides / Canva]. Lenguaje accesible para niños de 4-5 años. Sin texto extenso — las instrucciones deben poder leerse en voz alta por la docente mientras los niños interactúan.</li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <div class="step" style="border-left-color:var(--teal);">
             <strong>Paso 3: Auditoría crítica de la respuesta</strong>
             <p>Antes de usar lo que devolvió la IA, apliquen los mismos filtros que la clase pasada — ahora sobre diseño pedagógico:</p>
             <ul style="margin-top:8px;">
-              <li><strong>Filtro de contextualización:</strong> ¿La propuesta podría ser de cualquier país, o está situada en TDF y en el Diseño Curricular jurisdiccional? Si es genérica, el prompt fue demasiado vago.</li>
+              <li><strong>Filtro de contextualización:</strong> ¿La propuesta podría ser de cualquier país, o está situada en TDF y en el Diseño Curricular jurisdiccional?</li>
               <li><strong>Filtro de alucinación:</strong> ¿Hay fechas, nombres o datos que no pueden verificarse? ¿La IA "inventó" algún recurso, plataforma o ley que no existe?</li>
               <li><strong>Filtro PICRAT:</strong> ¿El estudiante que recibe esta propuesta está en rol Pasivo, Interactivo o Creativo? Si está Pasivo, hay que reescribir el prompt o ajustar la mecánica.</li>
             </ul>
             <p style="margin-top:10px;font-weight:600;color:var(--nav);">Anoten en una oración qué corrigieron y por qué. Eso es la evidencia de que hubo apropiación crítica y no solo uso instrumental.</p>
+
+            <!-- FILTROS ADICIONALES PARA INICIAL -->
+            <div class="c-block c-ini">
+              <div style="background:rgba(255,255,255,0.6);padding:12px 16px;border-left:3px solid var(--amb);border-radius:6px;font-size:13.5px;margin-top:12px;">
+                <strong style="color:var(--amb);display:block;margin-bottom:6px;">Filtros adicionales para Inicial</strong>
+                <ul style="margin-left:16px;">
+                  <li style="margin-bottom:6px;"><strong>Filtro de edad:</strong> ¿El lenguaje y los conceptos son realmente accesibles para niños de 4-5 años? La IA tiende a subestimar o sobreestimar la comprensión en primera infancia.</li>
+                  <li style="margin-bottom:6px;"><strong>Filtro ESI:</strong> ¿El recurso trabaja el cuerpo y la imagen desde un enfoque de derechos y cuidado, o reproduce un enfoque prohibicionista sin agencia? Los lineamientos ESI priorizan que los niños construyan criterios propios.</li>
+                  <li><strong>Filtro de implementación:</strong> ¿Puede proyectarse sin que los niños creen cuentas? ¿Hay un momento de participación corporal — voto en voz alta, señalar, moverse — o solo miran?</li>
+                </ul>
+              </div>
+            </div>
           </div>
-          
-          <div class="step" style="border-left-color:var(--nav);background:#f0f4ff; margin-top:20px;">
+
+          <div class="step" style="border-left-color:var(--nav);background:#f0f4ff;margin-top:20px;">
             <strong>Entrega en el Aula Virtual (Hito 0 del Proyecto)</strong>
-            <p>Para oficializar el inicio de su Trabajo Final Integrador, cada grupo debe subir a la tarea correspondiente en el <strong>Aula Virtual</strong> los siguientes 4 elementos:</p>
+            <p>Para oficializar el inicio de su Trabajo Final Integrador, cada integrante sube a la tarea correspondiente en el <strong>Aula Virtual</strong> los siguientes 4 elementos:</p>
             <ol style="margin:12px 0 14px 20px;font-size:14px;line-height:2.2;">
               <li><strong>Línea y Tema:</strong> ¿Qué enfoque eligieron (A, B, C o D) y qué contenido disciplinar o efeméride van a trabajar?</li>
               <li><strong>Destinatarios Reales:</strong> Año, nivel y contexto escolar fueguino específico.</li>
               <li><strong>El Prompt Exacto:</strong> Copien y peguen el texto de la instrucción completa que le enviaron a la IA en el Paso 2.</li>
-              <li><strong>Auditoría Docente:</strong> Una oración final explicando qué le corrigieron o recortaron a la respuesta de la IA (aplicando el filtro de alucinación o PICRAT).</li>
+              <li><strong>Auditoría Docente:</strong> Una oración final explicando qué le corrigieron o recortaron a la respuesta de la IA.</li>
             </ol>
-            <p style="font-size:13px; margin-top:10px; font-weight:700; color:var(--amb);">Importante: Registrar este Hito 0 es fundamental, ya que será el cimiento sobre el cual el grupo irá construyendo con claridad las próximas fases del proyecto.</p>
+            <p style="font-size:13px;margin-top:10px;font-weight:700;color:var(--amb);">Importante: Registrar este Hito 0 es fundamental, ya que será el cimiento sobre el cual el grupo irá construyendo con claridad las próximas fases del proyecto.</p>
+
+            <!-- NOTA HITO 0 PARA INICIAL -->
+            <div class="c-block c-ini">
+              <div style="background:rgba(255,255,255,0.6);padding:12px 14px;border-left:3px solid var(--amb);border-radius:6px;font-size:13.5px;margin-top:12px;">
+                <strong style="color:var(--amb);display:block;margin-bottom:5px;">Para Inicial — lo que debe mostrar el Hito 0</strong>
+                <p>En el ítem <em>Línea y Tema</em>: Línea B o D, cuento/recurso sobre cuidado de la imagen y ESI para sala de [4/5], en el jardín [nombre]. En el ítem <em>Auditoría</em>: señalar si la IA respetó el nivel etario y el enfoque ESI desde derechos — o qué tuvieron que corregir.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
-
   </div>
 </div>
 
 <script>
-function selectCareer(code, name) {
-  document.body.className = '';
-  document.body.classList.add('show-' + code);
-  document.body.classList.add('career-selected');
-  document.getElementById('lbl-career').innerText = name;
-  document.querySelectorAll('.tab-btn')[0].click();
-}
-function resetCareer() {
-  document.body.classList.remove('career-selected');
-  document.getElementById('lbl-career').innerText = '';
-}
-function showTab(id, btn) {
-  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('pane-' + id).classList.add('on');
-  btn.classList.add('active');
-}
-function toggleAct(id) { document.getElementById(id).classList.toggle('open'); }
+function selectCareer(code,name){document.body.className='';document.body.classList.add('show-'+code);document.body.classList.add('career-selected');document.getElementById('lbl-career').innerText=name;document.querySelectorAll('.tab-btn')[0].click();}
+function resetCareer(){document.body.classList.remove('career-selected');document.getElementById('lbl-career').innerText='';}
+function showTab(id,btn){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('pane-'+id).classList.add('on');btn.classList.add('active');}
+function toggleAct(id){document.getElementById(id).classList.toggle('open');}
 </script>
 </body>
 </html>
