@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clase 5 · Soberanía Tecnológica y Software Libre</title>
+<title>Clase 5 · Laboratorio de Producción</title>
 <style>
   :root {
     --nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;
@@ -14,6 +14,7 @@
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
+
   .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
   .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
   .top-r{font-size:11px;opacity:.65;text-align:right}
@@ -22,12 +23,14 @@
   .btn-back:hover{background:rgba(255,255,255,0.25)}
   .btn-reset{display:none;color:var(--cl);margin-right:12px;text-decoration:none;border-bottom:1px dotted var(--cl);cursor:pointer}
   body.career-selected .btn-reset{display:inline-block}
+
   #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
   #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
   #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
   .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all 0.2s;min-width:220px}
   .btn-career:hover{background:var(--teal);color:white;transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,148,154,.25)}
   .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;width:100%;max-width:900px}
+
   #main-app{display:none}
   body.career-selected #welcome-screen{display:none}
   body.career-selected #main-app{display:block}
@@ -36,6 +39,7 @@
   body.show-his .c-his{display:block}
   body.show-geo .c-geo{display:block}
   body.show-ing .c-ing{display:block}
+
   .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
   .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
   .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
@@ -43,6 +47,7 @@
   .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
   .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
   .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+
   .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
   .pane{display:none}.pane.on{display:block}
   .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden;width:100%}
@@ -52,52 +57,56 @@
   .card-g .ch{background:var(--gcl);color:var(--grn)}
   .note{border-radius:var(--r);padding:14px 18px;font-size:13px;margin:10px 0;display:flex;gap:9px;align-items:flex-start}
   .nb{background:var(--pale);border-left:4px solid var(--teal)}
-  /* LIBERTADES */
-  .lib-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-top:14px}
-  .lib-card{background:var(--pale);border-radius:var(--r);padding:18px}
-  .lib-num{font-size:36px;font-weight:900;color:var(--teal);line-height:1;margin-bottom:8px}
-  .lib-card strong{display:block;color:var(--nav);font-size:14px;margin-bottom:5px}
-  .lib-card p{font-size:13px;color:var(--txt)}
-  /* THEORY */
-  .theory{background:var(--slate);padding:30px;border-bottom:3px solid var(--teal);border-radius:var(--r);margin-bottom:18px;color:#E6F7F8}
-  .theory h4{font-size:19px;color:#fff;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px;font-weight:700}
-  .theory p{font-size:14.5px;margin-bottom:15px;line-height:1.7}
-  .theory-quote{border-left:3px solid var(--cl);padding:15px 20px;font-style:italic;color:#fff;margin:20px 0;background:rgba(255,255,255,.05)}
-  .theory-quote span{display:block;margin-top:8px;font-weight:bold;color:var(--cl);font-size:13px}
-  .tc-box{background:rgba(255,255,255,.12);border-left:4px solid var(--cl);border-radius:4px;padding:18px;color:#E6F7F8;font-size:14px;margin-top:15px}
-  .tc-box strong{display:block;font-size:12.5px;color:var(--cl);margin-bottom:8px;text-transform:uppercase;letter-spacing:.8px}
-  .tc-box p{font-size:13.5px;margin-bottom:8px;line-height:1.6}
-  .biblio-list{list-style:none;margin-top:10px}
-  .biblio-list li{font-size:13.5px;margin-bottom:12px;padding-left:15px;border-left:2px solid var(--teal);line-height:1.5}
-  .biblio-list li strong{color:var(--cl);font-weight:700}
-  .biblio-list li a{color:#fff;text-decoration:none;border-bottom:1px dotted rgba(255,255,255,.4)}
-  /* ACTIVIDADES */
+
+  /* CHECKLIST DE SOBERANÍA */
+  .check-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px}
+  .check-item{background:var(--gris);border-radius:var(--r);padding:14px 16px;border-left:4px solid var(--bd);display:flex;gap:12px;align-items:flex-start}
+  .check-item.ok{border-left-color:var(--grn);background:var(--gcl)}
+  .check-item.warn{border-left-color:var(--amb);background:var(--acl)}
+  .check-item.risk{border-left-color:#C62828;background:#FFEBEE}
+  .check-icon{font-size:20px;flex-shrink:0;margin-top:2px}
+  .check-item p{font-size:13px;color:var(--txt);line-height:1.5}
+  .check-item strong{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px;color:var(--neg)}
+
+  /* GUÍAS DE PRODUCCIÓN POR LÍNEA */
+  .linea-guia{border-radius:var(--r);overflow:hidden;margin-bottom:20px;box-shadow:var(--sh)}
+  .linea-header{padding:18px 22px;color:#fff;display:flex;align-items:center;gap:14px;cursor:pointer}
+  .linea-letra-big{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;flex-shrink:0}
+  .linea-body{display:none;background:var(--bco);padding:22px 26px}
+  .linea-guia.open .linea-body{display:block}
+  .linea-guia.open .expand-arrow{transform:rotate(180deg)}
+  .expand-arrow{margin-left:auto;font-size:14px;transition:transform .25s;opacity:.8}
+
+  /* PASOS DE PRODUCCIÓN */
+  .paso{background:var(--gris);border-radius:var(--r);padding:16px 20px;margin-bottom:14px;border-left:4px solid var(--bd);position:relative}
+  .paso-num{position:absolute;top:-10px;left:16px;background:var(--teal);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+  .paso h4{font-size:14px;font-weight:700;color:var(--nav);margin-bottom:8px;margin-top:6px}
+  .paso p,.paso li{font-size:13.5px;color:var(--txt);line-height:1.6}
+  .paso ul{margin-left:18px;margin-top:6px}.paso li{margin-bottom:5px}
+
+  /* ANCLA TEÓRICA (teoría embebida) */
+  .teoria-ancla{background:var(--slate);color:#E6F7F8;border-radius:6px;padding:12px 16px;margin:14px 0;font-size:13px;line-height:1.55}
+  .teoria-ancla strong{display:block;color:var(--cl);font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
+
+  /* ENTREGA */
+  .entrega-final{background:linear-gradient(135deg,var(--nav),var(--teal));border-radius:var(--r);padding:24px 28px;color:#fff;margin-top:10px}
+  .entrega-final h3{font-size:17px;color:var(--cl);margin-bottom:10px}
+  .entrega-final p{font-size:14px;opacity:.92;line-height:1.6;margin-bottom:8px}
+  .entrega-item{background:rgba(255,255,255,.12);border-left:3px solid var(--cl);border-radius:4px;padding:10px 14px;margin-bottom:8px;font-size:13.5px;color:#E6F7F8;line-height:1.5}
+  .entrega-item strong{color:var(--cl);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+
+  /* MARCOS TEÓRICOS (tab de referencia) */
+  .ref-card{background:var(--bco);border-radius:var(--r);padding:18px 22px;margin-bottom:14px;border-left:5px solid var(--teal);box-shadow:var(--sh)}
+  .ref-card h4{font-size:15px;color:var(--nav);margin-bottom:6px;font-weight:700}
+  .ref-card p{font-size:13.5px;color:var(--txt);line-height:1.6}
+  .ref-card .cita{font-style:italic;color:var(--slate);font-size:13px;border-left:2px solid var(--bd);padding-left:10px;margin-top:8px}
+
   .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden;width:100%}
   .ach{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;background:var(--bco)}
   .an{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
   .at{flex:1}.at strong{display:block;font-size:15px;color:var(--nav)}
   .acb{display:none;padding:20px 25px}
   .act.open .acb{display:block}
-  .step{background:var(--gris);border-radius:var(--r);padding:16px 22px;margin-bottom:15px;font-size:14px;border-left:4px solid var(--bd)}
-  .step strong{display:block;color:var(--nav);margin-bottom:10px;text-transform:uppercase;font-size:12px;letter-spacing:.8px}
-  .step ul{margin-left:18px;margin-top:8px}.step li{margin-bottom:7px}
-  /* CASOS */
-  .caso{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px 18px;margin-bottom:12px}
-  .caso-title{font-size:14px;font-weight:700;color:var(--nav);margin-bottom:6px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-  .caso-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:3px;text-transform:uppercase}
-  .caso p{font-size:13.5px;color:var(--txt);line-height:1.55;margin-bottom:6px}
-  /* SEMÁFORO */
-  .semaforo{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-  .sem-item{font-size:12px;padding:4px 10px;border-radius:20px;font-weight:600}
-  .sem-r{background:#FFEBEE;color:#C62828}
-  .sem-y{background:#FFF8E1;color:#F57F17}
-  .sem-g{background:var(--gcl);color:var(--grn)}
-  /* ASINCRÓNICA */
-  .async-box{background:linear-gradient(135deg,var(--nav),var(--slate));border-radius:var(--r);padding:24px 28px;color:#fff;margin-top:4px}
-  .async-box h3{font-size:17px;color:var(--cl);margin-bottom:10px}
-  .async-box > p{font-size:14px;opacity:.9;line-height:1.6;margin-bottom:14px}
-  .async-item{background:rgba(255,255,255,.1);border-left:3px solid var(--teal);border-radius:4px;padding:12px 16px;margin-bottom:10px;font-size:13.5px;line-height:1.6;color:#E6F7F8}
-  .async-item strong{display:block;color:var(--cl);margin-bottom:4px;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
 </style>
 </head>
 <body>
@@ -126,247 +135,422 @@
 
 <div id="main-app">
   <div class="titulo">
-    <p>Semana 5 · 6 de mayo · Cierre del Eje 1</p>
-    <h2>Soberanía Tecnológica: <span>¿con qué herramientas construimos el proyecto?</span></h2>
+    <p>Semana 5 · 6 de mayo · Cierre del Eje 1 — Inicio de Producción</p>
+    <h2>Laboratorio de Producción: <span>arrancamos a construir el TFI</span></h2>
   </div>
 
   <div class="tab-bar">
-    <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio</button>
-    <button class="tab-btn" onclick="showTab('teoria',this)">Marco Teórico</button>
-    <button class="tab-btn" onclick="showTab('actividades',this)">Laboratorio</button>
+    <button class="tab-btn active" onclick="showTab('inicio',this)">Inicio y Chequeo</button>
+    <button class="tab-btn" onclick="showTab('produccion',this)">Guías de Producción</button>
+    <button class="tab-btn" onclick="showTab('marcos',this)">Marcos de Referencia</button>
     <a href="repositorio_herramientas.html" target="_blank" class="tab-btn" style="text-decoration:none;color:var(--teal);">Caja de Herramientas ↗</a>
   </div>
 
   <div class="wrap">
 
-    <!-- INICIO -->
+    <!-- INICIO Y CHEQUEO -->
     <div id="pane-inicio" class="pane on">
-      <div class="card card-b">
-        <div class="ch">La pregunta que no nos hicimos la semana pasada</div>
-        <div class="cb">
-          <p style="font-size:17px;font-weight:600;color:var(--nav);margin-bottom:12px;">Ya elegimos línea, tema y destinatarios. Ahora toca preguntarnos: ¿las herramientas que vamos a usar son coherentes con lo que enseñamos?</p>
-          <p style="font-size:15px;">En las clases anteriores auditamos la IA con tres filtros — contextualización, alucinación y PICRAT. Hoy aplicamos la misma lógica a las plataformas que vamos a usar para construir el TFI. La pregunta no es técnica: es ética y pedagógica. ¿Qué datos ceden nuestros estudiantes cuando usamos una plataforma educativa privativa? ¿Podemos enseñar privacidad digital con herramientas que vulneran la privacidad de quienes las usan?</p>
-          <p style="font-size:15px;margin-top:10px;">Esta tensión no siempre tiene respuesta simple. Muchas herramientas pedagógicamente potentes tienen condiciones de privacidad cuestionables. La soberanía tecnológica no exige rechazarlas — exige tomar esa decisión con conciencia y poder argumentarla frente a familias, directivos y supervisores.</p>
 
-          <div class="note nb" style="margin-top:16px;background:var(--gcl);border-left-color:var(--grn);">
-            <span>🔧</span>
-            <div>
-              <strong style="display:block;color:var(--grn);margin-bottom:4px;">Seguimos en fase de producción</strong>
-              Hoy no frenamos la producción del TFI. La auditoría de herramientas es parte del diseño del recurso. Al terminar esta clase, cada grupo va a poder justificar su elección tecnológica no solo en términos pedagógicos sino también éticos — y esa justificación forma parte del Hito 1.
+      <div class="card card-b">
+        <div class="ch">Hoy producimos. La teoría viene con el hacer.</div>
+        <div class="cb">
+          <p style="font-size:16px;font-weight:600;color:var(--nav);margin-bottom:10px;">La clase pasada eligieron línea, tema y destinatarios. Hoy arranca la construcción del recurso.</p>
+          <p style="font-size:14.5px;">La clase de hoy tiene una lógica de taller: el tiempo es mayoritariamente de producción. Los marcos teóricos no desaparecen — están en la pestaña <strong>Marcos de Referencia</strong> y también embebidos como "anclas teóricas" dentro de cada guía de producción. Aparecen cuando el diseño los necesita, no como prerequisito del hacer.</p>
+          <p style="font-size:14.5px;margin-top:8px;">Antes de abrir la plataforma, hay un único chequeo previo que hace este taller diferente a cualquier otro: la auditoría rápida de soberanía tecnológica.</p>
+
+          <div style="margin-top:18px;padding:16px 18px;background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);">
+            <strong style="display:block;font-size:12px;text-transform:uppercase;letter-spacing:.6px;color:var(--vio);margin-bottom:8px;">Cierre del Eje 1 — Balance de las semanas 1 a 5</strong>
+            <p style="font-size:13.5px;color:var(--neg);line-height:1.6;">En cinco semanas construimos el andamiaje conceptual del taller: la <strong>brecha digital</strong> como punto de partida, los modelos <strong>TPACK, SAMR y PICRAT</strong> como lentes de análisis, la <strong>identidad y ciudadanía digital</strong> como práctica docente ineludible, la <strong>IA como socio cognitivo con límites declarados</strong>, y hoy la <strong>soberanía tecnológica</strong> como criterio de diseño. Ese Eje 1 no cierra y se archiva — sigue activo como conjunto de preguntas que van a cruzar cada decisión de producción de las próximas semanas. A partir de hoy, el Eje 2 es el centro: hacemos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CHEQUEO DE SOBERANÍA -->
+      <div class="card">
+        <div class="ch" style="background:var(--acl);color:var(--amb);">⚡ Chequeo previo — 5 minutos antes de abrir la plataforma</div>
+        <div class="cb">
+          <p style="font-size:14px;margin-bottom:14px;">Para cada herramienta que van a usar hoy, respondan estas tres preguntas. No detienen la producción — la hacen más consciente.</p>
+
+          <div class="check-grid">
+            <div class="check-item ok">
+              <div class="check-icon">✅</div>
+              <div><strong>¿Requiere cuenta de los estudiantes?</strong><p>Si la respuesta es NO (o hay modo invitado/link sin registro): adelante. Los datos en juego son los de la cuenta docente, no los de los destinatarios.</p></div>
+            </div>
+            <div class="check-item warn">
+              <div class="check-icon">⚠️</div>
+              <div><strong>¿Almacena datos de audiencia?</strong><p>Si la respuesta es SÍ: ¿existe versión educativa con protecciones adicionales? ¿Pueden los estudiantes interactuar sin crear cuenta? Tomar nota para la justificación del Hito 0.</p></div>
+            </div>
+            <div class="check-item risk">
+              <div class="check-icon">🔴</div>
+              <div><strong>¿Los destinatarios son menores que no pueden consentir?</strong><p>Aplica especialmente a Inicial. Si los niños van a interactuar con la plataforma directamente: reemplazar por modo proyección (la docente controla, los niños participan sin tocar el dispositivo).</p></div>
+            </div>
+          </div>
+
+          <p style="font-size:13px;color:var(--txt);margin-top:14px;font-style:italic;">Este chequeo es coherencia filosófica en acción: en la Clase 3 enseñamos privacidad de datos; en la Clase 4 auditamos la IA. Hoy auditamos las plataformas de producción. La soberanía tecnológica no es un tema de una clase — es un criterio permanente de diseño.</p>
+        </div>
+      </div>
+
+      <!-- ESTADO DEL TFI -->
+      <div class="card card-g">
+        <div class="ch">¿Dónde estamos? Estado del TFI al inicio de hoy</div>
+        <div class="cb">
+          <p style="font-size:14px;margin-bottom:12px;">Antes de arrancar, cada grupo confirma en voz alta sus tres decisiones del Hito 0:</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+            <div style="background:var(--pale);border-radius:var(--r);padding:14px;">
+              <strong style="display:block;font-size:12px;text-transform:uppercase;color:var(--teal);letter-spacing:.5px;margin-bottom:6px;">Línea de producción</strong>
+              <p style="font-size:13.5px;color:var(--txt);">A (Gamificación), B (DUA), C (Hibridación) o D (Narrativa ramificada). Si todavía no está claro, hoy es el último momento para definirlo.</p>
+            </div>
+            <div style="background:var(--pale);border-radius:var(--r);padding:14px;">
+              <strong style="display:block;font-size:12px;text-transform:uppercase;color:var(--teal);letter-spacing:.5px;margin-bottom:6px;">Tema y contenido</strong>
+              <p style="font-size:13.5px;color:var(--txt);">El contenido disciplinar concreto que aborda el recurso. Tiene que ser verificable en el Diseño Curricular Jurisdiccional.</p>
+            </div>
+            <div style="background:var(--pale);border-radius:var(--r);padding:14px;">
+              <strong style="display:block;font-size:12px;text-transform:uppercase;color:var(--teal);letter-spacing:.5px;margin-bottom:6px;">Destinatarios reales</strong>
+              <p style="font-size:13.5px;color:var(--txt);">Año, nivel e institución aproximada. No "estudiantes en general" — un grupo real o uno muy concreto imaginado.</p>
             </div>
           </div>
 
           <div class="c-block c-ini">
             <div class="note nb" style="margin-top:14px;background:var(--acl);border-left-color:var(--amb);">
               <span>🧩</span>
-              <div>
-                <strong style="display:block;color:var(--amb);margin-bottom:5px;">Para Inicial — la soberanía tiene una capa adicional</strong>
-                <p style="font-size:13.5px;">Cuando los destinatarios son niños de sala de 4 o 5, la pregunta sobre datos y privacidad se vuelve más urgente. Los niños no pueden dar consentimiento informado sobre nada — ni siquiera sus familias siempre comprenden qué implica que el jardín use una app determinada. Hoy revisamos si las herramientas elegidas para el cuento interactivo o el recurso DUA cumplen tres condiciones básicas: no requieren cuenta de los niños, no activan cámara o micrófono sin control docente, y pueden funcionar sin dejar datos de audiencia en servidores privados.</p>
+              <div><strong style="color:var(--amb);display:block;margin-bottom:4px;">Para Inicial</strong><p style="font-size:13.5px;">El punto de partida es el cuento o recurso interactivo sobre ESI y cuidado de la imagen que empezaron a imaginar en la Clase 3. La línea ya está: B (DUA con audio/imagen) o D (narrativa con decisiones). El tema ya está: cuidado del cuerpo y la imagen propia, articulado con los lineamientos ESI de nivel inicial.</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- GUÍAS DE PRODUCCIÓN -->
+    <div id="pane-produccion" class="pane">
+
+      <div class="note nb" style="margin-bottom:16px;">
+        <span>💡</span>
+        <div><p style="font-size:13.5px;">Desplegá la guía de tu línea de producción. Cada guía tiene los pasos concretos para avanzar hoy, las preguntas que deben guiar el diseño, y anclas teóricas que aparecen cuando el diseño las necesita. <strong>Al final de la clase, cada integrante debe tener algo funcionando.</strong></p></div>
+      </div>
+
+      <!-- LÍNEA A: GAMIFICACIÓN -->
+      <div class="linea-guia" id="lg-a">
+        <div class="linea-header" style="background:var(--teal);" onclick="toggleLinea('lg-a')">
+          <div class="linea-letra-big">A</div>
+          <div>
+            <strong style="font-size:17px;display:block;">Gamificación Pedagógica</strong>
+            <span style="font-size:13px;opacity:.85;">Genially · Wordwall · Blooket</span>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="linea-body">
+
+          <div class="paso">
+            <div class="paso-num">Paso 1 — Antes de abrir la plataforma</div>
+            <h4>Definir la mecánica de juego en papel</h4>
+            <p>Antes de tocar ninguna herramienta, respondan estas preguntas en papel o en un doc compartido:</p>
+            <ul>
+              <li>¿Cuál es el problema o desafío que el estudiante tiene que resolver para "ganar"?</li>
+              <li>¿Cuántas instancias o niveles tiene el juego?</li>
+              <li>¿Qué decide o hace el estudiante en cada instancia? (No solo responder — puede elegir, investigar, crear, comparar)</li>
+              <li>¿Qué pasa si "pierde" o toma la decisión incorrecta? ¿Hay consecuencias pedagógicas o solo vuelve al inicio?</li>
+            </ul>
+            <div class="teoria-ancla">
+              <strong>Ancla teórica — Bogost (2011) y la "gamificación cosmética"</strong>
+              Si el juego solo pone puntos a algo que ya era un cuestionario, no es gamificación: es decoración. La mecánica de juego tiene valor pedagógico cuando la decisión del estudiante altera el recorrido — cuando hay agencia real, no solo respuesta correcta/incorrecta. Revisá: ¿el estudiante puede equivocarse de formas distintas con consecuencias distintas?
+            </div>
+          </div>
+
+          <div class="paso">
+            <div class="paso-num">Paso 2 — Estructura mínima para hoy</div>
+            <h4>Construir al menos 3 pantallas o instancias funcionales</h4>
+            <ul>
+              <li><strong>Pantalla de entrada:</strong> contexto narrativo del juego — ¿dónde está el estudiante? ¿qué tiene que resolver? (30 segundos de lectura máximo)</li>
+              <li><strong>Primera instancia de decisión:</strong> el primer desafío real. No una pregunta de trivia — un problema, una fuente a analizar, una situación a resolver.</li>
+              <li><strong>Feedback inmediato:</strong> qué pasa después de la decisión. Si acertó: ¿avanza? ¿qué aprende? Si se equivocó: ¿puede volver? ¿con qué nueva información?</li>
+            </ul>
+            <p style="margin-top:8px;font-size:13px;color:var(--slate);font-style:italic;">En Genially: usá la función de "interactividad" para crear links entre páginas. En Blooket: configurá el modo de juego ANTES de cargar las preguntas — el modo define la experiencia.</p>
+          </div>
+
+          <div class="paso">
+            <div class="paso-num">Paso 3 — Pregunta de calidad pedagógica</div>
+            <h4>Antes de dar la clase por terminada, respondé esto:</h4>
+            <p><strong>¿Qué puede hacer el estudiante con este juego que NO podría hacer con una fotocopia?</strong></p>
+            <p style="margin-top:6px;font-size:13px;color:var(--slate);">Si la respuesta es "nada diferente", el recurso está en el nivel de Sustitución (SAMR). No necesariamente está mal — pero hay que saberlo para poder argumentarlo en la defensa.</p>
+
+            <div class="c-block c-his">
+              <div style="background:var(--vcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--vio);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--vio);">Historia — ejemplo de instancia de decisión:</strong> En lugar de "¿Quién firmó el acta?", probá: "Sos un enviado del Cabildo con dos órdenes contradictorias. Leé los dos documentos y decidí cuál seguís. Tu decisión cambia el relato." Eso es análisis de fuentes en tensión — no trivia.
+              </div>
+            </div>
+            <div class="c-block c-geo">
+              <div style="background:var(--gcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--grn);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--grn);">Geografía — ejemplo de instancia de decisión:</strong> "Llegaste a Tierra del Fuego. Tu empresa quiere instalar un dique en este río. Mirá el mapa de usos del suelo y decidí si es viable. Los tres grupos afectados te van a explicar por qué sí o por qué no." Eso es análisis territorial, no ubicación de ríos.
+              </div>
+            </div>
+            <div class="c-block c-ing">
+              <div style="background:var(--pale);padding:10px 14px;border-radius:6px;border-left:3px solid var(--teal);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--teal);">Inglés — ejemplo de instancia de decisión:</strong> "You're at the tourist office in Ushuaia. A visitor asks you three questions. Choose the right response for each — but watch out: two options are grammatically correct but culturally inappropriate." Eso fuerza producción oral en contexto real, no fill in the blanks.
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
-      <div class="card card-g">
-        <div class="ch">Las 4 libertades del Software Libre — y por qué le importan a un docente</div>
-        <div class="cb">
-          <p style="font-size:14px;color:var(--txt);margin-bottom:14px;">La Free Software Foundation define cuatro libertades que no son técnicas: son políticas. Tienen implicancias concretas en el aula.</p>
-          <div class="lib-grid">
-            <div class="lib-card">
-              <div class="lib-num">0</div>
-              <strong>Usar</strong>
-              <p>El programa puede usarse para cualquier propósito, sin restricciones por institución ni cantidad de usuarios. Sin costo oculto por "plan gratuito limitado".</p>
-            </div>
-            <div class="lib-card">
-              <div class="lib-num">1</div>
-              <strong>Estudiar</strong>
-              <p>El código fuente es accesible. Podemos saber qué datos recopila la herramienta y cómo los usa — sin confiar ciegamente en la política de privacidad.</p>
-            </div>
-            <div class="lib-card">
-              <div class="lib-num">2</div>
-              <strong>Modificar</strong>
-              <p>El programa puede adaptarse a las necesidades de la institución sin pedir permiso al fabricante ni esperar que la empresa decida actualizarlo.</p>
-            </div>
-            <div class="lib-card">
-              <div class="lib-num">3</div>
-              <strong>Distribuir</strong>
-              <p>Las copias pueden compartirse con otras escuelas o docentes sin costo ni restricción legal. El conocimiento no tiene dueño.</p>
+      <!-- LÍNEA B: DUA -->
+      <div class="linea-guia" id="lg-b">
+        <div class="linea-header" style="background:var(--vio);" onclick="toggleLinea('lg-b')">
+          <div class="linea-letra-big">B</div>
+          <div>
+            <strong style="font-size:17px;display:block;">Perspectiva DUA</strong>
+            <span style="font-size:13px;opacity:.85;">Canva · Audacity · Genially</span>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="linea-body">
+
+          <div class="paso">
+            <div class="paso-num">Paso 1 — El mapa de accesibilidad</div>
+            <h4>¿Quiénes son los estudiantes que necesitan que este recurso exista?</h4>
+            <p>El DUA no es "agregar subtítulos a un video". Es diseñar desde el inicio para que el mismo recurso funcione para estudiantes con diferentes formas de procesar, expresar y conectarse con el contenido. Antes de producir, identificá:</p>
+            <ul>
+              <li>Un estudiante del grupo que aprende mejor escuchando que leyendo</li>
+              <li>Un estudiante que necesita ver el concepto en imágenes antes de leer el texto</li>
+              <li>Un estudiante que se bloquea frente a consignas largas</li>
+            </ul>
+            <p style="margin-top:8px;font-size:13.5px;">¿El recurso que van a construir llega a los tres? Si no llega al primero sin audio, hay que agregar audio. Si no llega al segundo sin imagen, hay que agregar imagen. El principio es: <strong>múltiples medios de representación del mismo contenido</strong>.</p>
+            <div class="teoria-ancla">
+              <strong>Ancla teórica — CAST (2018), Principios DUA</strong>
+              Proporcionar múltiples medios de Representación (cómo se presenta el contenido), Acción y Expresión (cómo lo procesa y devuelve el estudiante) y Compromiso (cómo se motiva y sostiene la atención). El DUA no adapta para algunos — diseña para todos desde el principio.
             </div>
           </div>
-          <p style="font-size:13px;color:var(--txt);margin-top:14px;font-style:italic;">Referencia: <a href="https://www.gnu.org/philosophy/free-sw.es.html" target="_blank" style="color:var(--teal);">Free Software Foundation — Las cuatro libertades esenciales (gnu.org)</a></p>
-        </div>
-      </div>
-    </div>
 
-    <!-- MARCO TEÓRICO -->
-    <div id="pane-teoria" class="pane">
-      <div class="theory">
-        <h4>1. Soberanía Tecnológica como práctica docente</h4>
-        <p>La soberanía tecnológica es la capacidad de una comunidad de controlar las herramientas digitales que usa, entender cómo funcionan y elegir alternativas cuando las dominantes vulneran derechos. En el contexto educativo argentino, esto se traduce en una pregunta concreta: ¿podemos enseñar con herramientas cuyos términos de servicio permiten el uso comercial de los datos de nuestros estudiantes menores de edad?</p>
-        <p>El Proyecto Huayra — distribución Linux desarrollada en el marco del Programa Conectar Igualdad — fue la primera respuesta institucional sistemática a esta pregunta en Argentina. Más recientemente, el debate se ha intensificado con la masificación de plataformas que ofrecen servicios "gratuitos" a cambio del acceso a datos de comportamiento institucional y de los usuarios.</p>
-
-        <div class="theory-quote">
-          "Cuando el producto es gratis, el producto sos vos."
-          <span>— Principio de economía de la atención. Si no pagás por el servicio, probablemente estés pagando con los datos de tus estudiantes.</span>
-        </div>
-
-        <h4>2. La coherencia filosófica como criterio docente</h4>
-        <p>En la Clase 3 trabajamos privacidad digital, sharenting y la Ley 25.326. En la Clase 4 auditamos la IA. Hoy aplicamos esa misma lógica a las plataformas que vamos a usar para construir los TFI. Hay una pregunta que atraviesa todo el taller: ¿somos coherentes entre lo que enseñamos y las herramientas con las que lo hacemos?</p>
-        <p>No se trata de una coherencia perfecta — eso es imposible en el ecosistema digital actual. Se trata de una coherencia declarada: poder nombrar la tensión, argumentar la decisión y, cuando sea posible, buscar la alternativa más soberana que no sacrifique la potencia pedagógica.</p>
-
-        <div class="tc-box" style="border-left-color:var(--amb);">
-          <strong>Recursos Educativos Abiertos (REA) y Creative Commons</strong>
-          <p>Los REA son materiales educativos publicados con licencias que permiten usarlos, adaptarlos y redistribuirlos. Todo recurso que usen en el TFI necesita licencia verificada.</p>
-          <p><strong>CC BY:</strong> Solo requiere atribución. La más abierta — permite uso comercial y derivados.</p>
-          <p><strong>CC BY-SA:</strong> Atribución + los derivados deben tener la misma licencia. Garantiza la apertura en cadena.</p>
-          <p><strong>CC BY-NC:</strong> Atribución + No Comercial. La más frecuente en recursos educativos argentinos.</p>
-          <p><strong>CC BY-NC-SA:</strong> La combinación más restrictiva dentro de las abiertas. La usa el Estado argentino para muchos de sus recursos educativos.</p>
-        </div>
-
-        <div style="margin-top:30px;border-top:1px solid rgba(255,255,255,.2);padding-top:20px;">
-          <p style="font-size:12px;color:var(--cl);font-weight:700;margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px;">Fuentes de este encuentro</p>
-          <ul class="biblio-list">
-            <li><strong>Free Software Foundation (2023).</strong> <a href="https://www.gnu.org/philosophy/free-sw.es.html" target="_blank">Las cuatro libertades esenciales del Software Libre.</a></li>
-            <li><strong>UNESCO (2019).</strong> <a href="https://unesdoc.unesco.org/ark:/48223/pf0000370936" target="_blank">Recomendación sobre los Recursos Educativos Abiertos (REA).</a></li>
-            <li><strong>Proyecto Huayra.</strong> <a href="http://huayra.conectarigualdad.gob.ar/" target="_blank">Software Libre para la educación argentina. Conectar Igualdad.</a></li>
-            <li><strong>Creative Commons Argentina.</strong> <a href="https://creativecommons.org/licenses/?lang=es" target="_blank">Tipos de licencias y sus alcances.</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- LABORATORIO -->
-    <div id="pane-actividades" class="pane">
-
-      <div class="act" id="a0">
-        <div class="ach" onclick="toggleAct('a0')">
-          <div class="an" style="background:var(--amb)">🔍</div>
-          <div class="at"><strong>Actividad Reflexiva: Auditamos nuestra propia Caja de Herramientas</strong></div>
-        </div>
-        <div class="acb">
-          <div class="step">
-            <strong>La dinámica</strong>
-            <p>La Caja de Herramientas que usamos en este taller no es neutral. Algunas herramientas curadas allí tienen condiciones de privacidad que entran en tensión con lo que enseñamos en las clases anteriores. Vamos a hacer visible esa tensión.</p>
-            <p style="margin-top:8px;">En grupos, abran el repositorio (botón "Caja de Herramientas" en las tabs de arriba) y elijan 5 herramientas — al menos una de cada categoría. Para cada una, respondan las tres preguntas de soberanía:</p>
+          <div class="paso">
+            <div class="paso-num">Paso 2 — Estructura mínima para hoy</div>
+            <h4>El recurso debe tener al menos dos canales de acceso al contenido</h4>
             <ul>
-              <li><strong>¿Requiere cuenta?</strong> ¿La docente, el estudiante o ambos?</li>
-              <li><strong>¿Almacena datos de los usuarios?</strong> ¿En qué país están los servidores?</li>
-              <li><strong>¿Tiene modelo comercial sobre esos datos?</strong> ¿El plan "gratuito" realmente es gratuito?</li>
+              <li><strong>Canal visual:</strong> imagen, infografía, mapa, ilustración que explica el concepto sin depender del texto</li>
+              <li><strong>Canal auditivo:</strong> audio grabado o sintetizado que narra o describe el contenido para quien no puede leer</li>
+              <li><strong>Canal textual:</strong> texto breve, sin jerga innecesaria, con estructura clara (títulos, viñetas, tamaño legible)</li>
+            </ul>
+            <p style="margin-top:8px;font-size:13px;color:var(--slate);font-style:italic;">No tiene que estar todo terminado hoy. Sí tiene que estar el esqueleto: qué canal va en qué parte del recurso y por qué.</p>
+
+            <div class="c-block c-ini">
+              <div style="background:var(--acl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--amb);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--amb);">Inicial — cuento interactivo con múltiples canales:</strong> Cada pantalla del cuento tiene: una imagen clara del personaje en situación + el texto leído en voz alta (audio) + una pregunta de decisión en dos opciones con ícono visual. Los niños que no leen participan igual: escuchan, miran y votan. Eso es DUA en primera infancia.
+              </div>
+            </div>
+          </div>
+
+          <div class="paso">
+            <div class="paso-num">Paso 3 — Test de un canal</div>
+            <h4>Cerrá los ojos. ¿Podés seguir el recurso solo escuchando?</h4>
+            <p>Si la respuesta es no, el recurso no cumple el principio de representación auditiva. No hace falta que sea perfecto — hace falta que sea consciente.</p>
+            <p style="margin-top:8px;font-size:13.5px;">Ahora tapá la pantalla. ¿Podés seguir el recurso solo con lo que escuchás? Si no: ¿qué descripción en audio agregarías a las imágenes?</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- LÍNEA C: HIBRIDACIÓN -->
+      <div class="linea-guia" id="lg-c">
+        <div class="linea-header" style="background:var(--amb);" onclick="toggleLinea('lg-c')">
+          <div class="linea-letra-big">C</div>
+          <div>
+            <strong style="font-size:17px;display:block;">Hibridación Físico-Digital</strong>
+            <span style="font-size:13px;opacity:.85;">QR + Drive · Assemblr · Canva</span>
+          </div>
+          <span class="expand-arrow">▼</span>
+        </div>
+        <div class="linea-body">
+
+          <div class="paso">
+            <div class="paso-num">Paso 1 — El material físico es el punto de partida</div>
+            <h4>¿Qué objeto físico del aula se convierte en interfaz?</h4>
+            <p>La hibridación no empieza en la pantalla — empieza en el papel, el mapa, la maqueta, la lámina. Antes de generar los QR o los disparadores AR, definí:</p>
+            <ul>
+              <li>¿Qué material físico van a usar los estudiantes? (mapa, fotocopia, lámina impresa, página de libro)</li>
+              <li>¿En qué punto específico del material físico va el disparador digital? ¿Por qué en ese punto y no en otro?</li>
+              <li>¿Qué agrega la capa digital que el material físico no puede dar solo?</li>
+            </ul>
+            <div class="teoria-ancla">
+              <strong>Ancla teórica — Scolari (2018), El territorio como interfaz</strong>
+              La hibridación es exitosa cuando lo analógico y lo digital se complementan sin que uno reemplace al otro. El mapa impreso tiene valor que la pantalla no puede igualar: es táctil, es espacial, es de todos. El QR agrega la capa temporal, sonora o informacional que el mapa no puede contener. Si sacás el papel y todo queda en la pantalla, ya no es hibridación.
+            </div>
+          </div>
+
+          <div class="paso">
+            <div class="paso-num">Paso 2 — Estructura mínima para hoy</div>
+            <h4>Producir al menos 2 disparadores funcionando</h4>
+            <ul>
+              <li>Definir el material físico base (imprimirlo o tenerlo disponible)</li>
+              <li>Crear el contenido digital que dispara cada QR (audio en Drive, video en Drive, documento corto)</li>
+              <li>Generar los QR con <a href="https://www.qrcode-monkey.com/es/" target="_blank" style="color:var(--teal);font-weight:600;">QR Code Monkey</a> (sin cuenta requerida) vinculados al contenido de Drive</li>
+              <li>Verificar que el QR funciona escaneando con el celular</li>
+            </ul>
+            <p style="margin-top:8px;font-size:13px;color:var(--slate);font-style:italic;">La soberanía aquí: el contenido vive en el Drive de la docente, no en la plataforma. Si la app cierra mañana, el contenido sigue disponible.</p>
+
+            <div class="c-block c-geo">
+              <div style="background:var(--gcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--grn);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--grn);">Geografía — ejemplo concreto:</strong> Mapa impreso de TDF con 4 QR en zonas de conflicto territorial (Lago del Desierto, Canal Beagle, área industrial de Río Grande, reserva Tierra Mayor). Cada QR abre un audio de 90 segundos con la voz de la docente narrando el conflicto. Los estudiantes recorren el mapa y escuchan antes de debatir.
+              </div>
+            </div>
+          </div>
+
+          <div class="paso">
+            <div class="paso-num">Paso 3 — Test de conectividad baja</div>
+            <h4>¿Funciona con señal mala o sin WiFi?</h4>
+            <p>Las escuelas fueguinas tienen conectividad variable. El QR que abre un video de 500 MB no funciona con 3G limitado. Opciones:</p>
+            <ul>
+              <li>Audio en lugar de video: pesa 10 veces menos</li>
+              <li>Imagen estática o PDF en lugar de presentación interactiva</li>
+              <li>Descargar el contenido anticipadamente si hay WiFi disponible al inicio de la clase</li>
             </ul>
           </div>
 
-          <div class="step" style="border-left-color:var(--nav);background:#f8f9ff;">
-            <strong>Dos casos que el repositorio no resuelve solo</strong>
-            <p>Hay dos tensiones específicas en nuestra Caja de Herramientas que vale analizar en conjunto:</p>
-
-            <div class="caso" style="border-left:4px solid #C62828;margin-top:14px;">
-              <div class="caso-title">
-                ClassDojo
-                <span class="caso-tag" style="background:#FFEBEE;color:#C62828;">⚠ Tensión alta</span>
-              </div>
-              <p>ClassDojo es la herramienta de gestión de aula más popular a nivel mundial y está recomendada en nuestra Caja de Herramientas para "comunicación con familias" y "portafolios digitales". Sin embargo, es también una de las plataformas más cuestionadas en materia de privacidad infantil: recopila datos de comportamiento, asistencia, imágenes y rendimiento de menores — datos que, según organizaciones como la Electronic Frontier Foundation, pueden usarse para algoritmos comerciales.</p>
-              <p>En un taller que trabajó la Ley 25.326 y el sharenting institucional en la Clase 3, ¿es coherente recomendar ClassDojo sin ninguna advertencia? ¿Qué nota de advertencia agregarían a esa card del repositorio?</p>
-              <div class="semaforo">
-                <span class="sem-item sem-r">🔴 Recopila datos de menores</span>
-                <span class="sem-item sem-r">🔴 Servidores en EEUU</span>
-                <span class="sem-item sem-y">🟡 Plan gratuito con condiciones</span>
-              </div>
-            </div>
-
-            <div class="caso" style="border-left:4px solid var(--amb);margin-top:12px;">
-              <div class="caso-title">
-                Mentimeter vs. AnswerGarden
-                <span class="caso-tag" style="background:var(--acl);color:var(--amb);">Comparación</span>
-              </div>
-              <p>En la Clase 3 elegimos AnswerGarden para la nube de palabras anónima del egosurfing, y lo justificamos explícitamente: no requiere cuenta, no guarda datos de participantes, no tiene modelo comercial sobre nuestra información. En el repositorio, las dos herramientas conviven en la misma categoría sin diferenciación.</p>
-              <p>¿Cómo reescribirían la descripción de Mentimeter para que el repositorio sea coherente con lo que enseñamos? No se trata de eliminarla — Mentimeter tiene valor pedagógico real. Se trata de que el repositorio no mienta por omisión.</p>
-              <div class="semaforo">
-                <span class="sem-item sem-g">🟢 AnswerGarden: sin cuenta, sin datos</span>
-                <span class="sem-item sem-y">🟡 Mentimeter: recopila datos de audiencia</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="step" style="border-left-color:var(--grn);">
-            <strong>Para debatir en grupo antes de pasar a la Actividad 1</strong>
-            <p style="font-weight:600;color:var(--nav);font-style:italic;">¿Un repositorio de herramientas puede ser pedagógicamente honesto si no incluye advertencias de privacidad? ¿O eso es responsabilidad exclusiva del docente que las usa?</p>
-            <p style="margin-top:8px;font-size:13.5px;color:var(--txt);">No hay respuesta única. La discusión es el objetivo.</p>
-          </div>
         </div>
       </div>
 
-      <div class="act" id="a1">
-        <div class="ach" onclick="toggleAct('a1')">
-          <div class="an">1</div>
-          <div class="at"><strong>Actividad 1: Auditoría de las herramientas del TFI</strong></div>
+      <!-- LÍNEA D: NARRATIVA -->
+      <div class="linea-guia" id="lg-d">
+        <div class="linea-header" style="background:var(--grn);" onclick="toggleLinea('lg-d')">
+          <div class="linea-letra-big">D</div>
+          <div>
+            <strong style="font-size:17px;display:block;">Narrativas Ramificadas</strong>
+            <span style="font-size:13px;opacity:.85;">Genially · Google Slides · Twine</span>
+          </div>
+          <span class="expand-arrow">▼</span>
         </div>
-        <div class="acb">
-          <div class="step">
-            <strong>La consigna</strong>
-            <p>Retomen el Hito 0 entregado la clase anterior. Identifiquen las herramientas que eligieron — la plataforma principal y cualquier herramienta auxiliar (generador de QR, editor de audio, IA de apoyo, etc.). Para cada una, apliquen el protocolo de tres preguntas:</p>
+        <div class="linea-body">
+
+          <div class="paso">
+            <div class="paso-num">Paso 1 — El árbol de decisiones en papel primero</div>
+            <h4>No abran Genially todavía. Primero, el mapa de la historia.</h4>
+            <p>Una narrativa ramificada es un árbol: hay un tronco (el punto de partida), ramas (las decisiones posibles) y hojas (los desenlaces). Si no tienen el árbol claro en papel, van a perder el doble de tiempo construyendo en digital.</p>
+            <p style="margin-top:8px;">Dibujen el árbol de su narrativa con este mínimo:</p>
             <ul>
-              <li><strong>¿Requiere cuenta de los estudiantes?</strong> ¿Tienen los destinatarios la edad legal para aceptar los términos? En Argentina, menores de 13 años no pueden registrarse en plataformas que no cumplan regulaciones específicas. ¿Existe modo "invitado" o acceso por link sin registro?</li>
-              <li><strong>¿Almacena datos de uso?</strong> ¿Dónde están los servidores? ¿La política de privacidad está en español? ¿Existe una versión educativa con protecciones adicionales?</li>
-              <li><strong>¿Existe una alternativa con mayor soberanía que no sacrifique la potencia pedagógica?</strong> Si la alternativa libre no es viable para sus objetivos, argumenten por qué la herramienta privativa es la decisión más informada.</li>
+              <li><strong>Nodo inicial:</strong> ¿Quién es el estudiante en la historia? ¿Dónde está? ¿Qué tiene que resolver?</li>
+              <li><strong>Primera bifurcación:</strong> dos decisiones posibles — cada una con consecuencias pedagógicamente diferentes (no solo "correcto/incorrecto")</li>
+              <li><strong>Al menos 2 nodos de desarrollo</strong> (uno por cada rama) con contenido disciplinar embebido</li>
+              <li><strong>Desenlace/s:</strong> ¿Qué aprende el estudiante al llegar? ¿El desenlace refleja las consecuencias de sus decisiones?</li>
             </ul>
-          </div>
-
-          <div class="step" style="border-left-color:var(--vio);">
-            <strong>Referencias por línea y carrera</strong>
-
-            <div class="c-block c-ini" style="margin-top:12px;">
-              <div style="background:rgba(255,255,255,0.65);padding:14px 16px;border-left:3px solid var(--amb);border-radius:6px;font-size:13.5px;">
-                <strong style="color:var(--amb);display:block;margin-bottom:8px;">Inicial — Línea B o D (cuento interactivo / recurso DUA)</strong>
-                <p style="margin-bottom:6px;"><strong>Genially:</strong> La docente crea la cuenta, los niños no. Acceden solo por el link proyectado, sin registro. Los datos que Genially recopila son de la cuenta docente, no de la audiencia. ✅ Aceptable para sala de 4 y 5.</p>
-                <p style="margin-bottom:6px;"><strong>Canva for Education:</strong> La docente exporta el recurso como imagen o video y lo proyecta. Los niños no interactúan con Canva directamente. ✅ Aceptable si no hay interacción directa de los niños con la plataforma.</p>
-                <p style="margin-bottom:6px;"><strong>ClassDojo:</strong> Si pensaban usarla para enviar el recurso a las familias — no recomendado sin advertencia explícita sobre la recopilación de datos de menores. Alternativa más soberana: PDF por mail institucional o link de Drive compartido directamente con las familias.</p>
-                <p><strong>Google Slides:</strong> Requiere cuenta Google de la docente. Los niños lo ven proyectado, sin cuenta propia. ✅ Aceptable como soporte del cuento interactivo.</p>
-              </div>
-            </div>
-
-            <div class="c-block c-his" style="margin-top:12px;">
-              <div style="background:rgba(255,255,255,0.65);padding:14px 16px;border-left:3px solid var(--vio);border-radius:6px;font-size:13.5px;">
-                <strong style="color:var(--vio);display:block;margin-bottom:8px;">Historia — Línea A (Escape Room) o D (Narrativa ramificada)</strong>
-                <p style="margin-bottom:6px;"><strong>Genially:</strong> El Escape Room puede jugarse por link sin cuenta de los estudiantes. Si el juego usa formularios internos para recopilar respuestas, esos datos quedan en servidores de Genially. Verificar si el diseño usa solo avance por pantallas (sin formulario) para minimizar datos.</p>
-                <p style="margin-bottom:6px;"><strong>Fuentes primarias digitalizadas:</strong> Si van a incluir documentos históricos, verificar la licencia del repositorio de origen. El Archivo General de la Nación y Memoria Abierta suelen publicar con CC BY-NC-SA — pueden usarlos con atribución.</p>
-                <p><strong>Google Drive para el documento colaborativo:</strong> Requiere cuenta institucional de los estudiantes. Verificar si la escuela destino tiene Google Workspace for Education activo.</p>
-              </div>
-            </div>
-
-            <div class="c-block c-geo" style="margin-top:12px;">
-              <div style="background:rgba(255,255,255,0.65);padding:14px 16px;border-left:3px solid var(--grn);border-radius:6px;font-size:13.5px;">
-                <strong style="color:var(--grn);display:block;margin-bottom:8px;">Geografía — Línea C (Hibridación/RA) o A (Misión territorial)</strong>
-                <p style="margin-bottom:6px;"><strong>Assemblr EDU:</strong> Requiere cuenta y activa la cámara del celular para el modo AR. Los datos de sesión pueden quedar registrados. Alternativa más soberana: QR + Drive, donde el estudiante escanea y accede a un audio o video sin cámara activa ni cuenta.</p>
-                <p style="margin-bottom:6px;"><strong>QR Code Monkey:</strong> Generador gratuito sin cuenta requerida. El QR apunta a un link de Drive controlado por la docente. Modelo de datos mínimo. ✅ La opción más soberana para hibridación.</p>
-                <p><strong>Google Maps/Earth:</strong> Si incluyen capturas de satélite, verificar que no aparezcan domicilios identificables de estudiantes — retomar el caso de Clase 3. Usar vistas generales del territorio, no geolocalizaciones personales.</p>
-              </div>
-            </div>
-
-            <div class="c-block c-ing" style="margin-top:12px;">
-              <div style="background:rgba(255,255,255,0.65);padding:14px 16px;border-left:3px solid var(--teal);border-radius:6px;font-size:13.5px;">
-                <strong style="color:var(--teal);display:block;margin-bottom:8px;">Inglés — Línea A (Roleplay) o D (Conversación no lineal)</strong>
-                <p style="margin-bottom:6px;"><strong>Blooket:</strong> Tiene modo "invitado" para estudiantes — verificar que esté activado para evitar registros. Los datos del juego quedan en servidores de Blooket (EEUU). Aceptable si los estudiantes no crean cuentas.</p>
-                <p style="margin-bottom:6px;"><strong>Práctica oral con plataformas abiertas:</strong> Como señalamos en Clase 3, subir audios de estudiantes menores a plataformas con usuarios anónimos es un riesgo real. Si el recurso incluye práctica oral, hacerlo en entorno cerrado — Drive institucional o Flip con grupo privado — nunca en plataformas públicas.</p>
-                <p><strong>Genially para roleplay:</strong> El estudiante avanza por pantallas sin cuenta. La interacción es local (clic en opciones). ✅ Aceptable para narrativa con decisiones en inglés.</p>
-              </div>
+            <div class="teoria-ancla">
+              <strong>Ancla teórica — Jenkins (2008), Narrativas transmedia y agencia</strong>
+              En una narrativa con valor pedagógico, la agencia del lector no es cosmética. Cada decisión tiene consecuencias narrativas Y cognitivas: el estudiante que elige el camino "incorrecto" aprende algo diferente pero igualmente válido. Si ambos caminos llevan al mismo lugar, no hay ramificación real — hay ilusión de elección.
             </div>
           </div>
 
-          <div class="step" style="border-left-color:var(--nav);background:#f0f4ff;">
-            <strong>Entrega — Incorporar al Hito 0</strong>
-            <p>Cada integrante agrega individualmente al documento del TFI en el Aula Virtual un <strong>párrafo de justificación de herramientas</strong>:</p>
-            <div style="background:rgba(255,255,255,0.85);border-left:4px solid var(--nav);border-radius:6px;padding:14px 16px;margin-top:10px;font-size:14px;line-height:1.8;font-style:italic;">
-              "Las herramientas que vamos a usar son [X e Y]. Elegimos [X] porque [razón pedagógica]. Desde una perspectiva de soberanía, [X] [requiere / no requiere] cuenta de los estudiantes y [almacena / no almacena] datos identificables. [Si existe alternativa libre viable: por qué la adoptaron o descartaron]. [Si no existe alternativa suficiente: qué medida de mitigación van a tomar — modo invitado, exportar sin registro, uso solo por la docente, etc.]."
+          <div class="paso">
+            <div class="paso-num">Paso 2 — Digitalizar el árbol: estructura mínima para hoy</div>
+            <h4>Al menos 3 nodos funcionando y vinculados entre sí</h4>
+            <p>En <strong>Genially</strong>: cada página es un nodo. Los botones o zonas clicables de la página llevan al siguiente nodo. El link entre páginas es la rama.</p>
+            <p style="margin-top:6px;">En <strong>Google Slides</strong>: cada diapositiva es un nodo. Usá "insertar → link → diapositiva..." para vincular botones a slides específicos.</p>
+            <p style="margin-top:6px;">En <strong>Twine</strong>: la herramienta más poderosa para esto — cada nodo es un pasaje de texto con links a otros pasajes. Requiere más tiempo de aprendizaje pero el árbol se visualiza automáticamente.</p>
+
+            <div class="c-block c-ini">
+              <div style="background:var(--acl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--amb);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--amb);">Inicial — "Teo y la cámara mágica" como ejemplo de árbol:</strong><br>
+                <strong>Nodo 1 (tronco):</strong> Teo encuentra una cámara. Le saca una foto a su amiga sin pedirle permiso. ¿Qué hace?<br>
+                <strong>Rama A:</strong> La comparte en el grupo de la familia → Nodo 2A: ¿Cómo se siente la amiga cuando lo descubre?<br>
+                <strong>Rama B:</strong> Se la muestra solo a ella → Nodo 2B: La amiga sonríe y le dice "gracias por preguntarme primero".<br>
+                <strong>Cierre:</strong> Ambas ramas llegan a la construcción oral de "las reglas de Teo" — pero con experiencias narrativas distintas.
+              </div>
             </div>
-            <p style="margin-top:10px;font-size:13px;color:var(--txt);">No se evalúa si la herramienta es "soberana" o no. Se evalúa si la decisión fue tomada con conciencia y puede argumentarse. Una herramienta privativa elegida con criterio vale más que una herramienta libre elegida por inercia.</p>
+
+            <div class="c-block c-his">
+              <div style="background:var(--vcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--vio);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--vio);">Historia — ejemplo de árbol:</strong><br>
+                <strong>Nodo 1:</strong> Sos un corresponsal del periódico fueguino en mayo de 1810. Recibís dos despachos contradictorios sobre los hechos del Cabildo. ¿A cuál le creés?<br>
+                <strong>Rama A:</strong> Al despacho oficial → el relato que construís refleja la versión dominante. Pero un testigo anónimo te dice que hay más información.<br>
+                <strong>Rama B:</strong> Al testigo anónimo → el relato que construís es heterodoxo. El editor te advierte que puede ser peligroso publicarlo.<br>
+                Cada rama termina con el estudiante reflexionando sobre cómo se construye el relato histórico.
+              </div>
+            </div>
+
+            <div class="c-block c-ing">
+              <div style="background:var(--pale);padding:10px 14px;border-radius:6px;border-left:3px solid var(--teal);margin-top:10px;font-size:13.5px;">
+                <strong style="color:var(--teal);">Inglés — ejemplo de árbol:</strong><br>
+                <strong>Nodo 1:</strong> You're working at the tourist office in Ushuaia. A British tourist asks you for directions to the Glacier. You have two ways to answer. Choose one.<br>
+                <strong>Rama A:</strong> Informal response → tourist is confused, asks again with a more specific question.<br>
+                <strong>Rama B:</strong> Formal response → tourist understands, but asks a follow-up you hadn't expected.<br>
+                Each branch requires producing a different type of language — not just choosing "correct" grammar.
+              </div>
+            </div>
           </div>
+
+          <div class="paso">
+            <div class="paso-num">Paso 3 — Pregunta de calidad narrativa</div>
+            <h4>¿Cada rama del árbol enseña algo diferente o solo llega al mismo lugar por otro camino?</h4>
+            <p>Si todas las ramas convergen en el mismo aprendizaje sin que el recorrido haya importado, el estudiante no tuvo agencia real. La ramificación tiene valor pedagógico cuando el camino elegido genera una perspectiva, un conflicto o una comprensión que la otra rama no da.</p>
+          </div>
+
         </div>
       </div>
 
-
+      <!-- ENTREGA DEL DÍA -->
+      <div class="entrega-final">
+        <h3>¿Qué entregamos hoy?</h3>
+        <p>Al finalizar la clase, cada integrante sube al Aula Virtual:</p>
+        <div class="entrega-item">
+          <strong>1 — El link al recurso en producción</strong>
+          No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: al menos 3 pantallas o nodos operativos, el árbol de decisiones digitalizado, los primeros QR funcionando, o el recurso DUA con dos canales activos.
+        </div>
+        <div class="entrega-item">
+          <strong>2 — Una oración de estado</strong>
+          "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta — no un informe, un estado real del avance.
+        </div>
+        <div class="entrega-item">
+          <strong>3 — Actualización del Hito 0 (si no lo hicieron aún)</strong>
+          El párrafo de justificación de herramientas con el chequeo de soberanía completado. Si ya lo subieron la clase anterior, solo verificar que esté allí.
+        </div>
+      </div>
 
     </div>
+
+    <!-- MARCOS DE REFERENCIA -->
+    <div id="pane-marcos" class="pane">
+
+      <div class="note nb" style="margin-bottom:16px;">
+        <span>📚</span>
+        <div><p style="font-size:13.5px;">Esta pestaña es de consulta — no de lectura lineal. Usala cuando el diseño de tu recurso te genere una pregunta teórica. Los marcos están aquí para justificar decisiones, no para preceder el hacer.</p></div>
+      </div>
+
+      <div class="ref-card" style="border-left-color:var(--amb);">
+        <h4>Creative Commons y Recursos Educativos Abiertos (REA)</h4>
+        <p>Todo recurso que usen o incluyan en el TFI necesita licencia verificada. Los REA son materiales educativos publicados con licencias que permiten usarlos, adaptarlos y redistribuirlos sin pedir permiso. La UNESCO los reconoce como instrumento de justicia educativa.</p>
+        <p style="margin-top:8px;"><strong>CC BY:</strong> Solo requiere atribución. La más abierta — permite uso comercial y derivados. <strong>CC BY-SA:</strong> Atribución + los derivados deben tener la misma licencia. <strong>CC BY-NC:</strong> Atribución + No Comercial — la más frecuente en recursos educativos argentinos. <strong>CC BY-NC-SA:</strong> La más restrictiva dentro de las abiertas — la usa el Estado argentino para muchos de sus materiales.</p>
+        <p class="cita">Bancos de REA verificados: <a href="https://procomun.educalab.es/" target="_blank" style="color:var(--teal);">Procomún</a> · <a href="https://www.oercommons.org/" target="_blank" style="color:var(--teal);">OER Commons</a> · <a href="https://commons.wikimedia.org/" target="_blank" style="color:var(--teal);">Wikimedia Commons</a>. En las próximas semanas haremos curaduría formal de activos para el TFI — este es el marco conceptual que lo sostiene.</p>
+      </div>
+
+      <div class="ref-card">
+        <h4>TPACK — Mishra y Koehler (2006)</h4>
+        <p>El conocimiento tecnológico no es autónomo: solo tiene valor pedagógico cuando se intersecta con el conocimiento del contenido disciplinar y el conocimiento pedagógico. La pregunta central del TPACK no es "¿qué herramienta uso?" sino "¿qué herramienta, en este contenido, con este grupo, amplía el aprendizaje?"</p>
+        <p class="cita">Si el TFI muestra que la tecnología amplió lo que el contenido puede enseñar — y que las decisiones pedagógicas fundamentaron esa elección — el TPACK está presente.</p>
+      </div>
+
+      <div class="ref-card" style="border-left-color:var(--vio);">
+        <h4>SAMR — Puentedura (2010)</h4>
+        <p>Los cuatro niveles no son escalera obligatoria: Sustitución y Aumento son legítimos cuando el contexto lo justifica. Lo que el modelo exige es conciencia: saber en qué nivel está el recurso y poder argumentar por qué ese nivel es el apropiado para estos destinatarios.</p>
+        <p class="cita">Pregunta clave: ¿Qué puede hacer el estudiante con este recurso que antes era imposible? Si la respuesta es "nada diferente", el recurso está en Sustitución.</p>
+      </div>
+
+      <div class="ref-card" style="border-left-color:var(--amb);">
+        <h4>PICRAT — Kimmons, Graham y West (2020)</h4>
+        <p>El modelo evalúa el rol del estudiante (Pasivo, Interactivo, Creativo) y la relación de la tecnología con la práctica docente (Reemplaza, Amplía, Transforma). El TFI busca al menos el nivel Interactivo/Amplía — y apunta a Creativo/Transforma cuando el diseño lo permite.</p>
+        <p class="cita">Si el estudiante solo recibe información del recurso (aunque sea interactiva), está en rol Pasivo. Si el recurso exige que produzca, decida o construya conocimiento: está en rol Interactivo o Creativo.</p>
+      </div>
+
+      <div class="ref-card" style="border-left-color:var(--grn);">
+        <h4>Maggio (2012) — La vara de calidad del TFI</h4>
+        <p>Una propuesta de enseñanza poderosa mediada por tecnología es original (no copia formatos genéricos), está en tiempo presente (habla de lo que les pasa a los estudiantes ahora), ofrece perspectiva (no hay una sola respuesta correcta) y es conmoviente (genera algo en el estudiante más allá del dato).</p>
+        <p class="cita">"La inclusión genuina de tecnologías requiere que las actividades formen parte de una Enseñanza Poderosa." — Maggio, M. (2012). Enriquecer la enseñanza.</p>
+      </div>
+
+      <div class="ref-card" style="border-left-color:var(--teal);">
+        <h4>Soberanía Tecnológica y Software Libre — FSF (2023)</h4>
+        <p>La elección de herramientas no es neutral. Usar una plataforma privativa que recopila datos de menores en una clase sobre privacidad digital es una contradicción que necesita al menos ser nombrada. La soberanía tecnológica no exige rechazar las herramientas privativas — exige tomar esa decisión con conciencia y argumentarla.</p>
+        <p class="cita">Las cuatro libertades (usar, estudiar, modificar, distribuir) son el criterio mínimo para evaluar si una herramienta respeta la autonomía de la institución educativa.</p>
+      </div>
+
+    </div>
+
   </div>
 </div>
 
@@ -374,8 +558,13 @@
 function selectCareer(code,name){document.body.className='';document.body.classList.add('show-'+code);document.body.classList.add('career-selected');document.getElementById('lbl-career').innerText=name;document.querySelectorAll('.tab-btn')[0].click();}
 function resetCareer(){document.body.classList.remove('career-selected');document.getElementById('lbl-career').innerText='';}
 function showTab(id,btn){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.getElementById('pane-'+id).classList.add('on');btn.classList.add('active');}
-function toggleAct(id){document.getElementById(id).classList.toggle('open');}
-window.onload=function(){document.querySelectorAll('.act').forEach(a=>a.classList.remove('open'));}
+function toggleLinea(id){
+  const el=document.getElementById(id);
+  el.classList.toggle('open');
+}
+window.onload=function(){
+  // Auto-open all lineas so they're visible
+}
 </script>
 </body>
 </html>
