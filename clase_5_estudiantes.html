@@ -17,7 +17,7 @@
 
   .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
   .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
-  .top-r{font-size:11px;opacity:.65;text-align:right}
+  .top-r{font-size:11px;opacity:.65;text-align:right; display:flex; align-items:center;}
   .top-info{display:flex;align-items:center;gap:20px}
   .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
   .btn-back:hover{background:rgba(255,255,255,0.25)}
@@ -78,9 +78,13 @@
   .expand-arrow{margin-left:auto;font-size:14px;transition:transform .25s;opacity:.8}
 
   /* PASOS DE PRODUCCIÓN */
-  .paso{background:var(--gris);border-radius:var(--r);padding:16px 20px;margin-bottom:14px;border-left:4px solid var(--bd);position:relative}
+  .paso{background:var(--gris);border-radius:var(--r);padding:16px 20px;margin-bottom:14px;border-left:4px solid var(--bd);position:relative;transition:all 0.3s ease;}
+  .paso.done{background:var(--gcl);border-left-color:var(--grn);}
   .paso-num{position:absolute;top:-10px;left:16px;background:var(--teal);color:#fff;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
-  .paso h4{font-size:14px;font-weight:700;color:var(--nav);margin-bottom:8px;margin-top:6px}
+  .paso-check{position:absolute;top:16px;right:20px;font-size:13px;font-weight:700;color:var(--teal);display:flex;align-items:center;gap:6px;cursor:pointer;}
+  .paso.done .paso-check{color:var(--grn);}
+  .paso-check input{width:16px;height:16px;cursor:pointer;accent-color:var(--grn);}
+  .paso h4{font-size:14px;font-weight:700;color:var(--nav);margin-bottom:8px;margin-top:6px;padding-right:70px;}
   .paso p,.paso li{font-size:13.5px;color:var(--txt);line-height:1.6}
   .paso ul{margin-left:18px;margin-top:6px}.paso li{margin-bottom:5px}
 
@@ -89,7 +93,7 @@
   .teoria-ancla strong{display:block;color:var(--cl);font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
 
   /* ENTREGA */
-  .entrega-final{background:linear-gradient(135deg,var(--nav),var(--teal));border-radius:var(--r);padding:24px 28px;color:#fff;margin-top:10px}
+  .entrega-final{background:linear-gradient(135deg,var(--nav),var(--teal));border-radius:var(--r);padding:24px 28px;color:#fff;margin-bottom:24px;}
   .entrega-final h3{font-size:17px;color:var(--cl);margin-bottom:10px}
   .entrega-final p{font-size:14px;opacity:.92;line-height:1.6;margin-bottom:8px}
   .entrega-item{background:rgba(255,255,255,.12);border-left:3px solid var(--cl);border-radius:4px;padding:10px 14px;margin-bottom:8px;font-size:13.5px;color:#E6F7F8;line-height:1.5}
@@ -119,15 +123,19 @@
       <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
     </div>
   </div>
-  <div class="top-r"><a href="#" class="btn-reset" onclick="event.preventDefault();resetCareer()">Cambiar disciplina</a> 2026</div>
+  <div class="top-r">
+    <span id="timer-display" style="font-weight:bold; background:rgba(0,0,0,0.2); padding:4px 8px; border-radius:4px; margin-right:12px; font-size:13px; letter-spacing:0.5px;">⏳ 120:00</span>
+    <a href="#" class="btn-reset" onclick="event.preventDefault();resetCareer()">Cambiar disciplina</a> 
+    <span>2026</span>
+  </div>
 </div>
 
 <div id="welcome-screen">
   <h2>Elegí tu Profesorado</h2>
   <p>Hacé clic según tu área para acceder al material situado.</p>
-  <div class="career-grid">
+  <div class="career-grid" style="justify-content: center;">
     <button class="btn-career" onclick="selectCareer('ini','· Inicial')">Ed. Inicial</button>
-    <button class="btn-career" onclick="selectCareer('his','· Historia')">Historia</button>
+    <!-- Botón de Historia oculto a pedido -->
     <button class="btn-career" onclick="selectCareer('geo','· Geografía')">Geografía</button>
     <button class="btn-career" onclick="selectCareer('ing','· Inglés')">Inglés</button>
   </div>
@@ -224,6 +232,24 @@
     <!-- GUÍAS DE PRODUCCIÓN -->
     <div id="pane-produccion" class="pane">
 
+      <!-- ENTREGA DEL DÍA (Destacada arriba) -->
+      <div class="entrega-final">
+        <h3>¿Qué entregamos hoy?</h3>
+        <p>Al finalizar la clase, cada integrante sube al Aula Virtual:</p>
+        <div class="entrega-item">
+          <strong>1 — El link al recurso en producción</strong>
+          No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: al menos 3 pantallas o nodos operativos, el árbol de decisiones digitalizado, los primeros QR funcionando, o el recurso DUA con dos canales activos.
+        </div>
+        <div class="entrega-item">
+          <strong>2 — Una oración de estado</strong>
+          "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta — no un informe, un estado real del avance.
+        </div>
+        <div class="entrega-item">
+          <strong>3 — Actualización del Hito 0 (si no lo hicieron aún)</strong>
+          El párrafo de justificación de herramientas con el chequeo de soberanía completado. Si ya lo subieron la clase anterior, solo verificar que esté allí.
+        </div>
+      </div>
+
       <div class="note nb" style="margin-bottom:16px;">
         <span>💡</span>
         <div><p style="font-size:13.5px;">Desplegá la guía de tu línea de producción. Cada guía tiene los pasos concretos para avanzar hoy, las preguntas que deben guiar el diseño, y anclas teóricas que aparecen cuando el diseño las necesita. <strong>Al final de la clase, cada integrante debe tener algo funcionando.</strong></p></div>
@@ -243,6 +269,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 1 — Antes de abrir la plataforma</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Definir la mecánica de juego en papel</h4>
             <p>Antes de tocar ninguna herramienta, respondan estas preguntas en papel o en un doc compartido:</p>
             <ul>
@@ -259,6 +286,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 2 — Estructura mínima para hoy</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Construir al menos 3 pantallas o instancias funcionales</h4>
             <ul>
               <li><strong>Pantalla de entrada:</strong> contexto narrativo del juego — ¿dónde está el estudiante? ¿qué tiene que resolver? (30 segundos de lectura máximo)</li>
@@ -270,6 +298,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 3 — Pregunta de calidad pedagógica</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Antes de dar la clase por terminada, respondé esto:</h4>
             <p><strong>¿Qué puede hacer el estudiante con este juego que NO podría hacer con una fotocopia?</strong></p>
             <p style="margin-top:6px;font-size:13px;color:var(--slate);">Si la respuesta es "nada diferente", el recurso está en el nivel de Sustitución (SAMR). No necesariamente está mal — pero hay que saberlo para poder argumentarlo en la defensa.</p>
@@ -338,6 +367,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 1 — El mapa de accesibilidad</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Quiénes son los estudiantes que necesitan que este recurso exista?</h4>
             <p>El DUA no es "agregar subtítulos a un video". Es diseñar desde el inicio para que el mismo recurso funcione para estudiantes con diferentes formas de procesar, expresar y conectarse con el contenido. Antes de producir, identificá:</p>
             <ul>
@@ -354,6 +384,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 2 — Estructura mínima para hoy</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>El recurso debe tener al menos dos canales de acceso al contenido</h4>
             <ul>
               <li><strong>Canal visual:</strong> imagen, infografía, mapa, ilustración que explica el concepto sin depender del texto</li>
@@ -371,6 +402,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 3 — Test de un canal</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Cerrá los ojos. ¿Podés seguir el recurso solo escuchando?</h4>
             <p>Si la respuesta es no, el recurso no cumple el principio de representación auditiva. No hace falta que sea perfecto — hace falta que sea consciente.</p>
             <p style="margin-top:8px;font-size:13.5px;">Ahora tapá la pantalla. ¿Podés seguir el recurso solo con lo que escuchás? Si no: ¿qué descripción en audio agregarías a las imágenes?</p>
@@ -393,6 +425,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 1 — El material físico es el punto de partida</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Qué objeto físico del aula se convierte en interfaz?</h4>
             <p>La hibridación no empieza en la pantalla — empieza en el papel, el mapa, la maqueta, la lámina. Antes de generar los QR o los disparadores AR, definí:</p>
             <ul>
@@ -408,6 +441,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 2 — Estructura mínima para hoy</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Producir al menos 2 disparadores funcionando</h4>
             <ul>
               <li>Definir el material físico base (imprimirlo o tenerlo disponible)</li>
@@ -426,6 +460,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 3 — Test de conectividad baja</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Funciona con señal mala o sin WiFi?</h4>
             <p>Las escuelas fueguinas tienen conectividad variable. El QR que abre un video de 500 MB no funciona con 3G limitado. Opciones:</p>
             <ul>
@@ -452,6 +487,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 1 — El árbol de decisiones en papel primero</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>No abran Genially todavía. Primero, el mapa de la historia.</h4>
             <p>Una narrativa ramificada es un árbol: hay un tronco (el punto de partida), ramas (las decisiones posibles) y hojas (los desenlaces). Si no tienen el árbol claro en papel, van a perder el doble de tiempo construyendo en digital.</p>
             <p style="margin-top:8px;">Dibujen el árbol de su narrativa con este mínimo:</p>
@@ -469,6 +505,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 2 — Digitalizar el árbol: estructura mínima para hoy</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Al menos 3 nodos funcionando y vinculados entre sí</h4>
             <p>En <strong>Genially</strong>: cada página es un nodo. Los botones o zonas clicables de la página llevan al siguiente nodo. El link entre páginas es la rama.</p>
             <p style="margin-top:6px;">En <strong>Google Slides</strong>: cada diapositiva es un nodo. Usá "insertar → link → diapositiva..." para vincular botones a slides específicos.</p>
@@ -507,6 +544,7 @@
 
           <div class="paso">
             <div class="paso-num">Paso 3 — Pregunta de calidad narrativa</div>
+            <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Cada rama del árbol enseña algo diferente o solo llega al mismo lugar por otro camino?</h4>
             <p>Si todas las ramas convergen en el mismo aprendizaje sin que el recorrido haya importado, el estudiante no tuvo agencia real. La ramificación tiene valor pedagógico cuando el camino elegido genera una perspectiva, un conflicto o una comprensión que la otra rama no da.</p>
           </div>
@@ -541,24 +579,6 @@
             </div>
           </div>
 
-        </div>
-      </div>
-
-      <!-- ENTREGA DEL DÍA -->
-      <div class="entrega-final">
-        <h3>¿Qué entregamos hoy?</h3>
-        <p>Al finalizar la clase, cada integrante sube al Aula Virtual:</p>
-        <div class="entrega-item">
-          <strong>1 — El link al recurso en producción</strong>
-          No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: al menos 3 pantallas o nodos operativos, el árbol de decisiones digitalizado, los primeros QR funcionando, o el recurso DUA con dos canales activos.
-        </div>
-        <div class="entrega-item">
-          <strong>2 — Una oración de estado</strong>
-          "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta — no un informe, un estado real del avance.
-        </div>
-        <div class="entrega-item">
-          <strong>3 — Actualización del Hito 0 (si no lo hicieron aún)</strong>
-          El párrafo de justificación de herramientas con el chequeo de soberanía completado. Si ya lo subieron la clase anterior, solo verificar que esté allí.
         </div>
       </div>
 
@@ -622,8 +642,24 @@ function toggleLinea(id){
   const el=document.getElementById(id);
   el.classList.toggle('open');
 }
+
+let timerInterval;
+function startTimer(minutes) {
+  let time = minutes * 60;
+  const display = document.getElementById('timer-display');
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    let m = Math.floor(time / 60);
+    let s = time % 60;
+    display.innerText = `⏳ ${m}:${s < 10 ? '0' : ''}${s}`;
+    if (time <= 0) clearInterval(timerInterval);
+    time--;
+  }, 1000);
+}
+
 window.onload=function(){
   // Auto-open all lineas so they're visible
+  startTimer(120);
 }
 </script>
 </body>
