@@ -88,7 +88,7 @@
   .paso p,.paso li{font-size:13.5px;color:var(--txt);line-height:1.6}
   .paso ul{margin-left:18px;margin-top:6px}.paso li{margin-bottom:5px}
 
-  /* ANCLA TEÓRICA (teoría embebida) */
+  /* ANCLA TEÓRICA */
   .teoria-ancla{background:var(--slate);color:#E6F7F8;border-radius:6px;padding:12px 16px;margin:14px 0;font-size:13px;line-height:1.55}
   .teoria-ancla strong{display:block;color:var(--cl);font-size:11px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}
 
@@ -99,18 +99,12 @@
   .entrega-item{background:rgba(255,255,255,.12);border-left:3px solid var(--cl);border-radius:4px;padding:10px 14px;margin-bottom:8px;font-size:13.5px;color:#E6F7F8;line-height:1.5}
   .entrega-item strong{color:var(--cl);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
 
-  /* MARCOS TEÓRICOS (tab de referencia) */
+  /* MARCOS TEÓRICOS */
   .ref-card{background:var(--bco);border-radius:var(--r);padding:18px 22px;margin-bottom:14px;border-left:5px solid var(--teal);box-shadow:var(--sh)}
   .ref-card h4{font-size:15px;color:var(--nav);margin-bottom:6px;font-weight:700}
   .ref-card p{font-size:13.5px;color:var(--txt);line-height:1.6}
   .ref-card .cita{font-style:italic;color:var(--slate);font-size:13px;border-left:2px solid var(--bd);padding-left:10px;margin-top:8px}
 
-  .act{border:1px solid var(--bd);border-radius:var(--r);margin-bottom:14px;overflow:hidden;width:100%}
-  .ach{display:flex;align-items:center;gap:11px;padding:12px 15px;cursor:pointer;background:var(--bco)}
-  .an{width:36px;height:36px;border-radius:50%;background:var(--teal);color:#fff;font-weight:700;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-  .at{flex:1}.at strong{display:block;font-size:15px;color:var(--nav)}
-  .acb{display:none;padding:20px 25px}
-  .act.open .acb{display:block}
 </style>
 </head>
 <body>
@@ -135,7 +129,6 @@
   <p>Hacé clic según tu área para acceder al material situado.</p>
   <div class="career-grid" style="justify-content: center;">
     <button class="btn-career" onclick="selectCareer('ini','· Inicial')">Ed. Inicial</button>
-    <!-- Botón de Historia oculto a pedido -->
     <button class="btn-career" onclick="selectCareer('geo','· Geografía')">Geografía</button>
     <button class="btn-career" onclick="selectCareer('ing','· Inglés')">Inglés</button>
   </div>
@@ -156,7 +149,6 @@
 
   <div class="wrap">
 
-    <!-- INICIO Y CHEQUEO -->
     <div id="pane-inicio" class="pane on">
 
       <div class="card card-b">
@@ -173,7 +165,6 @@
         </div>
       </div>
 
-      <!-- CHEQUEO DE SOBERANÍA -->
       <div class="card">
         <div class="ch" style="background:var(--acl);color:var(--amb);">⚡ Chequeo previo — 5 minutos antes de abrir la plataforma</div>
         <div class="cb">
@@ -193,16 +184,13 @@
               <div><strong>¿Los destinatarios son menores que no pueden consentir?</strong><p>Aplica especialmente a Inicial. Si los niños van a interactuar con la plataforma directamente: reemplazar por modo proyección (la docente controla, los niños participan sin tocar el dispositivo).</p></div>
             </div>
           </div>
-
-          <p style="font-size:13px;color:var(--txt);margin-top:14px;font-style:italic;">Este chequeo es coherencia filosófica en acción: en la Clase 3 enseñamos privacidad de datos; en la Clase 4 auditamos la IA. Hoy auditamos las plataformas de producción. La soberanía tecnológica no es un tema de una clase — es un criterio permanente de diseño.</p>
         </div>
       </div>
 
-      <!-- ESTADO DEL TFI -->
       <div class="card card-g">
         <div class="ch">¿Dónde estamos? Estado del TFI al inicio de hoy</div>
         <div class="cb">
-          <p style="font-size:14px;margin-bottom:12px;">Antes de arrancar, cada grupo confirma sus decisiones del Hito 0:</p>
+          <p style="font-size:14px;margin-bottom:12px;">Antes de arrancar, cada grupo confirma en voz alta sus tres decisiones del Hito 0:</p>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
             <div style="background:var(--pale);border-radius:var(--r);padding:14px;">
               <strong style="display:block;font-size:12px;text-transform:uppercase;color:var(--teal);letter-spacing:.5px;margin-bottom:6px;">Línea de producción</strong>
@@ -221,41 +209,44 @@
           <div class="c-block c-ini">
             <div class="note nb" style="margin-top:14px;background:var(--acl);border-left-color:var(--amb);">
               <span>🧩</span>
-              <div><strong style="color:var(--amb);display:block;margin-bottom:4px;">Para Inicial</strong><p style="font-size:13.5px;">El punto de partida es el cuento o recurso interactivo sobre ESI y cuidado de la imagen que empezaron a imaginar en la Clase 3. La línea ya está: B (DUA con audio/imagen) o D (narrativa con decisiones). El tema ya está: cuidado del cuerpo y la imagen propia, articulado con los lineamientos ESI de nivel inicial.</p></div>
+              <div>
+                <strong style="color:var(--amb);display:block;margin-bottom:4px;font-size:14px;">Para Inicial (¡Atención: Estrategia para el equipo grande!)</strong>
+                <p style="font-size:13.5px; margin-bottom:8px;">Como son un grupo numeroso (19) + la compañera de Geografía, trabajar todas en un mismo archivo es imposible. Vamos a armar un <strong>Proyecto Modular</strong>. Se van a dividir en <strong>micro-equipos de 3 o 4</strong> y cada equipo diseñará un "Nivel" o "Mundo" diferente (la sala, el patio, la plaza) sobre ESI y cuidado de la imagen.</p>
+                <p style="font-size:13.5px; margin-bottom:8px;"><strong>1. Roles sugeridos por micro-equipo:</strong> Guionistas (piensan la historia), Grabadoras de audio (vital para DUA en sala de 4/5), y Diseñadoras visuales. <br><strong>2. ¿Y Geografía?</strong> Ella será la <em>Directora de Escenarios e Hibridación</em>: define dónde pasan las cosas, mapea el jardín físico si usan códigos QR, y diseña los mapas espaciales que los niños mirarán.</p>
+                <p style="font-size:13.5px; margin-bottom:8px;"><strong>3. Nodos en Inicial:</strong> Los nodos no se leen, se experimentan. Las opciones (ramas) deben ser acciones físicas o visuales (Ej: Botón verde / Botón rojo), nunca más de dos. Si eligen mal, no hay "Game Over", hay un bucle que les enseña y les deja volver a intentar.</p>
+                <p style="font-size:13.5px; font-weight:600; color:var(--nav);">El objetivo número 1 de hoy: Armen un Documento Compartido (GDD) con el nombre del proyecto, quién está en cada micro-equipo, qué rol tiene cada una, y dibujen el árbol de decisiones en texto ANTES de abrir cualquier app o herramienta.</p>
+              </div>
             </div>
           </div>
-        </div>
+          </div>
       </div>
 
     </div>
 
-    <!-- GUÍAS DE PRODUCCIÓN -->
     <div id="pane-produccion" class="pane">
 
-      <!-- ENTREGA DEL DÍA (Destacada arriba) -->
       <div class="entrega-final">
         <h3>¿Qué entregamos hoy?</h3>
         <p>Al finalizar la clase, cada integrante sube al Aula Virtual:</p>
         <div class="entrega-item">
-          <strong>1 — El link al recurso en producción</strong>
-          No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: al menos 3 pantallas o nodos operativos, el árbol de decisiones digitalizado, los primeros QR funcionando, o el recurso DUA con dos canales activos.
+          <strong>1 — El link al recurso en producción / Documento GDD</strong>
+          No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: el Documento de Diseño compartido, el árbol de decisiones, o los primeros nodos operativos.
         </div>
         <div class="entrega-item">
           <strong>2 — Una oración de estado</strong>
-          "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta — no un informe, un estado real del avance.
+          "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta.
         </div>
         <div class="entrega-item">
           <strong>3 — Actualización del Hito 0 (si no lo hicieron aún)</strong>
-          El párrafo de justificación de herramientas con el chequeo de soberanía completado. Si ya lo subieron la clase anterior, solo verificar que esté allí.
+          El párrafo de justificación de herramientas con el chequeo de soberanía completado.
         </div>
       </div>
 
       <div class="note nb" style="margin-bottom:16px;">
         <span>💡</span>
-        <div><p style="font-size:13.5px;">Desplegá la guía de tu línea de producción. Cada guía tiene los pasos concretos para avanzar hoy, las preguntas que deben guiar el diseño, y anclas teóricas que aparecen cuando el diseño las necesita. <strong>Al final de la clase, cada integrante debe tener algo funcionando.</strong></p></div>
+        <div><p style="font-size:13.5px;">Desplegá la guía de tu línea de producción. Cada guía tiene los pasos concretos para avanzar hoy, las preguntas que deben guiar el diseño, y anclas teóricas que aparecen cuando el diseño las necesita.</p></div>
       </div>
 
-      <!-- LÍNEA A: GAMIFICACIÓN -->
       <div class="linea-guia" id="lg-a">
         <div class="linea-header" style="background:var(--teal);" onclick="toggleLinea('lg-a')">
           <div class="linea-letra-big">A</div>
@@ -275,12 +266,12 @@
             <ul>
               <li>¿Cuál es el problema o desafío que el estudiante tiene que resolver para "ganar"?</li>
               <li>¿Cuántas instancias o niveles tiene el juego?</li>
-              <li>¿Qué decide o hace el estudiante en cada instancia? (No solo responder — puede elegir, investigar, crear, comparar)</li>
+              <li>¿Qué decide o hace el estudiante en cada instancia?</li>
               <li>¿Qué pasa si "pierde" o toma la decisión incorrecta? ¿Hay consecuencias pedagógicas o solo vuelve al inicio?</li>
             </ul>
             <div class="teoria-ancla">
               <strong>Ancla teórica — Bogost (2011) y la "gamificación cosmética"</strong>
-              Si el juego solo pone puntos a algo que ya era un cuestionario, no es gamificación: es decoración. La mecánica de juego tiene valor pedagógico cuando la decisión del estudiante altera el recorrido — cuando hay agencia real, no solo respuesta correcta/incorrecta. Revisá: ¿el estudiante puede equivocarse de formas distintas con consecuencias distintas?
+              Si el juego solo pone puntos a algo que ya era un cuestionario, no es gamificación: es decoración. La mecánica de juego tiene valor pedagógico cuando la decisión del estudiante altera el recorrido.
             </div>
           </div>
 
@@ -289,11 +280,10 @@
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Construir al menos 3 pantallas o instancias funcionales</h4>
             <ul>
-              <li><strong>Pantalla de entrada:</strong> contexto narrativo del juego — ¿dónde está el estudiante? ¿qué tiene que resolver? (30 segundos de lectura máximo)</li>
-              <li><strong>Primera instancia de decisión:</strong> el primer desafío real. No una pregunta de trivia — un problema, una fuente a analizar, una situación a resolver.</li>
-              <li><strong>Feedback inmediato:</strong> qué pasa después de la decisión. Si acertó: ¿avanza? ¿qué aprende? Si se equivocó: ¿puede volver? ¿con qué nueva información?</li>
+              <li><strong>Pantalla de entrada:</strong> contexto narrativo del juego.</li>
+              <li><strong>Primera instancia de decisión:</strong> el primer desafío real.</li>
+              <li><strong>Feedback inmediato:</strong> qué pasa después de la decisión.</li>
             </ul>
-            <p style="margin-top:8px;font-size:13px;color:var(--slate);font-style:italic;">En Genially: usá la función de "interactividad" para crear links entre páginas. En Blooket: configurá el modo de juego ANTES de cargar las preguntas — el modo define la experiencia.</p>
           </div>
 
           <div class="paso">
@@ -301,21 +291,16 @@
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Antes de dar la clase por terminada, respondé esto:</h4>
             <p><strong>¿Qué puede hacer el estudiante con este juego que NO podría hacer con una fotocopia?</strong></p>
-            <p style="margin-top:6px;font-size:13px;color:var(--slate);">Si la respuesta es "nada diferente", el recurso está en el nivel de Sustitución (SAMR). No necesariamente está mal — pero hay que saberlo para poder argumentarlo en la defensa.</p>
+            <p style="margin-top:6px;font-size:13px;color:var(--slate);">Si la respuesta es "nada diferente", el recurso está en el nivel de Sustitución (SAMR).</p>
 
-            <div class="c-block c-his">
-              <div style="background:var(--vcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--vio);margin-top:10px;font-size:13.5px;">
-                <strong style="color:var(--vio);">Historia — ejemplo de instancia de decisión:</strong> En lugar de "¿Quién firmó el acta?", probá: "Sos un enviado del Cabildo con dos órdenes contradictorias. Leé los dos documentos y decidí cuál seguís. Tu decisión cambia el relato." Eso es análisis de fuentes en tensión — no trivia.
-              </div>
-            </div>
             <div class="c-block c-geo">
               <div style="background:var(--gcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--grn);margin-top:10px;font-size:13.5px;">
-                <strong style="color:var(--grn);">Geografía — ejemplo de instancia de decisión:</strong> "Llegaste a Tierra del Fuego. Tu empresa quiere instalar un dique en este río. Mirá el mapa de usos del suelo y decidí si es viable. Los tres grupos afectados te van a explicar por qué sí o por qué no." Eso es análisis territorial, no ubicación de ríos.
+                <strong style="color:var(--grn);">Geografía — ejemplo de instancia de decisión:</strong> "Llegaste a Tierra del Fuego. Tu empresa quiere instalar un dique en este río. Mirá el mapa de usos del suelo y decidí si es viable. Los tres grupos afectados te van a explicar por qué sí o por qué no."
               </div>
             </div>
             <div class="c-block c-ing">
               <div style="background:var(--pale);padding:10px 14px;border-radius:6px;border-left:3px solid var(--teal);margin-top:10px;font-size:13.5px;">
-                <strong style="color:var(--teal);">Inglés — ejemplo de instancia de decisión:</strong> "You're at the tourist office in Ushuaia. A visitor asks you three questions. Choose the right response for each — but watch out: two options are grammatically correct but culturally inappropriate." Eso fuerza producción oral en contexto real, no fill in the blanks.
+                <strong style="color:var(--teal);">Inglés — ejemplo de instancia de decisión:</strong> "You're at the tourist office in Ushuaia. A visitor asks you three questions. Choose the right response for each — but watch out: two options are grammatically correct but culturally inappropriate."
               </div>
             </div>
           </div>
@@ -325,7 +310,7 @@
               <span style="font-size: 20px;">💡</span>
               <div>
                 <strong style="color:var(--amb); display:block; margin-bottom:4px;">APORTE: ¿Y SI HIBRIDAMOS LA HISTORIA O EL JUEGO? (ESPECIAL INICIAL)</strong>
-                <p style="font-size:14px; margin-bottom:0;">La narrativa ramificada o la gamificación no tienen que estar atadas a la pantalla. Lleven la historia o el juego al espacio físico (la sala, el patio). La pantalla puede ser solo el "tablero de control", mientras que las misiones o decisiones se resuelven buscando pistas y códigos QR escondidos en el entorno escolar.</p>
+                <p style="font-size:14px; margin-bottom:0;">La narrativa o la gamificación no tienen que estar atadas a la pantalla. Lleven el juego al espacio físico. La pantalla puede ser el "tablero de control", mientras que las misiones se resuelven buscando pistas en el entorno escolar. La compañera de Geografía es clave para diseñar este recorrido espacial.</p>
               </div>
             </div>
           </div>
@@ -335,7 +320,7 @@
               <span style="font-size: 20px;">💡</span>
               <div>
                 <strong style="color:var(--grn); display:block; margin-bottom:4px;">APORTE: ¿Y SI HIBRIDAMOS LA HISTORIA O EL JUEGO?</strong>
-                <p style="font-size:14px; margin-bottom:0;">Como las narrativas y la gamificación también fueron elegidas por Geografía, las decisiones espaciales de la historia o las misiones pueden requerir que el estudiante vaya a un mapa mural físico y escanee un QR en una zona específica para destrabar el siguiente nivel. ¡Aprovechen el territorio!</p>
+                <p style="font-size:14px; margin-bottom:0;">Las decisiones espaciales de la historia pueden requerir que el estudiante vaya a un mapa mural físico y escanee un QR en una zona específica para destrabar el siguiente nivel. ¡Aprovechen el territorio!</p>
               </div>
             </div>
           </div>
@@ -345,7 +330,7 @@
               <span style="font-size: 20px;">💡</span>
               <div>
                 <strong style="color:var(--teal); display:block; margin-bottom:4px;">APORTE: ¿Y SI HIBRIDAMOS LA HISTORIA O EL JUEGO?</strong>
-                <p style="font-size:14px; margin-bottom:0;">Dado que las narrativas y juegos también son sus líneas, el "Choose your own adventure" o la misión pueden tener postas físicas. Si eligen abrir una puerta en la historia digital, deben ir a la puerta real del aula para encontrar el QR con el diálogo siguiente en inglés.</p>
+                <p style="font-size:14px; margin-bottom:0;">El "Choose your own adventure" puede tener postas físicas. Si eligen abrir una puerta en la historia digital, deben ir a la puerta real del aula para encontrar el QR con el diálogo en inglés.</p>
               </div>
             </div>
           </div>
@@ -353,7 +338,6 @@
         </div>
       </div>
 
-      <!-- LÍNEA B: DUA -->
       <div class="linea-guia" id="lg-b">
         <div class="linea-header" style="background:var(--vio);" onclick="toggleLinea('lg-b')">
           <div class="linea-letra-big">B</div>
@@ -369,16 +353,10 @@
             <div class="paso-num">Paso 1 — El mapa de accesibilidad</div>
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Quiénes son los estudiantes que necesitan que este recurso exista?</h4>
-            <p>El DUA no es "agregar subtítulos a un video". Es diseñar desde el inicio para que el mismo recurso funcione para estudiantes con diferentes formas de procesar, expresar y conectarse con el contenido. Antes de producir, identificá:</p>
-            <ul>
-              <li>Un estudiante del grupo que aprende mejor escuchando que leyendo</li>
-              <li>Un estudiante que necesita ver el concepto en imágenes antes de leer el texto</li>
-              <li>Un estudiante que se bloquea frente a consignas largas</li>
-            </ul>
-            <p style="margin-top:8px;font-size:13.5px;">¿El recurso que van a construir llega a los tres? Si no llega al primero sin audio, hay que agregar audio. Si no llega al segundo sin imagen, hay que agregar imagen. El principio es: <strong>múltiples medios de representación del mismo contenido</strong>.</p>
+            <p>El DUA no es "agregar subtítulos". Es diseñar desde el inicio para que el mismo recurso funcione para estudiantes con diferentes formas de procesar la información. El principio es: <strong>múltiples medios de representación del mismo contenido</strong>.</p>
             <div class="teoria-ancla">
               <strong>Ancla teórica — CAST (2018), Principios DUA</strong>
-              Proporcionar múltiples medios de Representación (cómo se presenta el contenido), Acción y Expresión (cómo lo procesa y devuelve el estudiante) y Compromiso (cómo se motiva y sostiene la atención). El DUA no adapta para algunos — diseña para todos desde el principio.
+              Proporcionar múltiples medios de Representación, Acción y Expresión y Compromiso. El DUA no adapta para algunos — diseña para todos desde el principio.
             </div>
           </div>
 
@@ -387,15 +365,14 @@
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>El recurso debe tener al menos dos canales de acceso al contenido</h4>
             <ul>
-              <li><strong>Canal visual:</strong> imagen, infografía, mapa, ilustración que explica el concepto sin depender del texto</li>
-              <li><strong>Canal auditivo:</strong> audio grabado o sintetizado que narra o describe el contenido para quien no puede leer</li>
-              <li><strong>Canal textual:</strong> texto breve, sin jerga innecesaria, con estructura clara (títulos, viñetas, tamaño legible)</li>
+              <li><strong>Canal visual:</strong> imagen, infografía, mapa.</li>
+              <li><strong>Canal auditivo:</strong> audio grabado o sintetizado.</li>
+              <li><strong>Canal textual:</strong> texto breve, legible.</li>
             </ul>
-            <p style="margin-top:8px;font-size:13px;color:var(--slate);font-style:italic;">No tiene que estar todo terminado hoy. Sí tiene que estar el esqueleto: qué canal va en qué parte del recurso y por qué.</p>
 
             <div class="c-block c-ini">
               <div style="background:var(--acl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--amb);margin-top:10px;font-size:13.5px;">
-                <strong style="color:var(--amb);">Inicial — cuento interactivo con múltiples canales:</strong> Cada pantalla del cuento tiene: una imagen clara del personaje en situación + el texto leído en voz alta (audio) + una pregunta de decisión en dos opciones con ícono visual. Los niños que no leen participan igual: escuchan, miran y votan. Eso es DUA en primera infancia.
+                <strong style="color:var(--amb);">Inicial — cuento interactivo con múltiples canales:</strong> Cada pantalla del cuento tiene: una imagen clara del personaje + el texto leído en voz alta (audio) + una pregunta de decisión en dos opciones con ícono visual. Los niños que no leen participan igual.
               </div>
             </div>
           </div>
@@ -404,14 +381,12 @@
             <div class="paso-num">Paso 3 — Test de un canal</div>
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Cerrá los ojos. ¿Podés seguir el recurso solo escuchando?</h4>
-            <p>Si la respuesta es no, el recurso no cumple el principio de representación auditiva. No hace falta que sea perfecto — hace falta que sea consciente.</p>
-            <p style="margin-top:8px;font-size:13.5px;">Ahora tapá la pantalla. ¿Podés seguir el recurso solo con lo que escuchás? Si no: ¿qué descripción en audio agregarías a las imágenes?</p>
+            <p>Si la respuesta es no, el recurso no cumple el principio de representación auditiva.</p>
           </div>
 
         </div>
       </div>
 
-      <!-- LÍNEA C: HIBRIDACIÓN -->
       <div class="linea-guia" id="lg-c">
         <div class="linea-header" style="background:var(--amb);" onclick="toggleLinea('lg-c')">
           <div class="linea-letra-big">C</div>
@@ -427,15 +402,15 @@
             <div class="paso-num">Paso 1 — El material físico es el punto de partida</div>
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Qué objeto físico del aula se convierte en interfaz?</h4>
-            <p>La hibridación no empieza en la pantalla — empieza en el papel, el mapa, la maqueta, la lámina. Antes de generar los QR o los disparadores AR, definí:</p>
+            <p>Antes de generar los QR o los disparadores AR, definí:</p>
             <ul>
-              <li>¿Qué material físico van a usar los estudiantes? (mapa, fotocopia, lámina impresa, página de libro)</li>
-              <li>¿En qué punto específico del material físico va el disparador digital? ¿Por qué en ese punto y no en otro?</li>
+              <li>¿Qué material físico van a usar los estudiantes?</li>
+              <li>¿En qué punto específico del material físico va el disparador digital?</li>
               <li>¿Qué agrega la capa digital que el material físico no puede dar solo?</li>
             </ul>
             <div class="teoria-ancla">
               <strong>Ancla teórica — Scolari (2018), El territorio como interfaz</strong>
-              La hibridación es exitosa cuando lo analógico y lo digital se complementan sin que uno reemplace al otro. El mapa impreso tiene valor que la pantalla no puede igualar: es táctil, es espacial, es de todos. El QR agrega la capa temporal, sonora o informacional que el mapa no puede contener. Si sacás el papel y todo queda en la pantalla, ya no es hibridación.
+              La hibridación es exitosa cuando lo analógico y lo digital se complementan sin que uno reemplace al otro. Si sacás el papel y todo queda en la pantalla, ya no es hibridación.
             </div>
           </div>
 
@@ -444,16 +419,15 @@
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Producir al menos 2 disparadores funcionando</h4>
             <ul>
-              <li>Definir el material físico base (imprimirlo o tenerlo disponible)</li>
-              <li>Crear el contenido digital que dispara cada QR (audio en Drive, video en Drive, documento corto)</li>
-              <li>Generar los QR con <a href="https://www.qrcode-monkey.com/es/" target="_blank" style="color:var(--teal);font-weight:600;">QR Code Monkey</a> (sin cuenta requerida) vinculados al contenido de Drive</li>
-              <li>Verificar que el QR funciona escaneando con el celular</li>
+              <li>Definir el material físico base.</li>
+              <li>Crear el contenido digital que dispara cada QR en Drive.</li>
+              <li>Generar los QR con QR Code Monkey vinculados al contenido de Drive.</li>
+              <li>Verificar que el QR funciona.</li>
             </ul>
-            <p style="margin-top:8px;font-size:13px;color:var(--slate);font-style:italic;">La soberanía aquí: el contenido vive en el Drive de la docente, no en la plataforma. Si la app cierra mañana, el contenido sigue disponible.</p>
 
             <div class="c-block c-geo">
               <div style="background:var(--gcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--grn);margin-top:10px;font-size:13.5px;">
-                <strong style="color:var(--grn);">Geografía — ejemplo concreto:</strong> Mapa impreso de TDF con 4 QR en zonas de conflicto territorial (Lago del Desierto, Canal Beagle, área industrial de Río Grande, reserva Tierra Mayor). Cada QR abre un audio de 90 segundos con la voz de la docente narrando el conflicto. Los estudiantes recorren el mapa y escuchan antes de debatir.
+                <strong style="color:var(--grn);">Geografía — ejemplo concreto:</strong> Mapa impreso de TDF con 4 QR en zonas de conflicto territorial. Cada QR abre un audio narrando el conflicto.
               </div>
             </div>
           </div>
@@ -462,18 +436,12 @@
             <div class="paso-num">Paso 3 — Test de conectividad baja</div>
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Funciona con señal mala o sin WiFi?</h4>
-            <p>Las escuelas fueguinas tienen conectividad variable. El QR que abre un video de 500 MB no funciona con 3G limitado. Opciones:</p>
-            <ul>
-              <li>Audio en lugar de video: pesa 10 veces menos</li>
-              <li>Imagen estática o PDF en lugar de presentación interactiva</li>
-              <li>Descargar el contenido anticipadamente si hay WiFi disponible al inicio de la clase</li>
-            </ul>
+            <p>Las escuelas fueguinas tienen conectividad variable. Usen audios o PDF en lugar de videos pesados.</p>
           </div>
 
         </div>
       </div>
 
-      <!-- LÍNEA D: NARRATIVA -->
       <div class="linea-guia" id="lg-d">
         <div class="linea-header" style="background:var(--grn);" onclick="toggleLinea('lg-d')">
           <div class="linea-letra-big">D</div>
@@ -489,17 +457,16 @@
             <div class="paso-num">Paso 1 — El árbol de decisiones en papel primero</div>
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>No abran Genially todavía. Primero, el mapa de la historia.</h4>
-            <p>Una narrativa ramificada es un árbol: hay un tronco (el punto de partida), ramas (las decisiones posibles) y hojas (los desenlaces). Si no tienen el árbol claro en papel, van a perder el doble de tiempo construyendo en digital.</p>
-            <p style="margin-top:8px;">Dibujen el árbol de su narrativa con este mínimo:</p>
+            <p>Dibujen el árbol de su narrativa con este mínimo:</p>
             <ul>
-              <li><strong>Nodo inicial:</strong> ¿Quién es el estudiante en la historia? ¿Dónde está? ¿Qué tiene que resolver?</li>
-              <li><strong>Primera bifurcación:</strong> dos decisiones posibles — cada una con consecuencias pedagógicamente diferentes (no solo "correcto/incorrecto")</li>
-              <li><strong>Al menos 2 nodos de desarrollo</strong> (uno por cada rama) con contenido disciplinar embebido</li>
-              <li><strong>Desenlace/s:</strong> ¿Qué aprende el estudiante al llegar? ¿El desenlace refleja las consecuencias de sus decisiones?</li>
+              <li><strong>Nodo inicial:</strong> ¿Quién es el estudiante en la historia? ¿Qué tiene que resolver?</li>
+              <li><strong>Primera bifurcación:</strong> dos decisiones posibles con consecuencias pedagógicamente diferentes.</li>
+              <li><strong>Al menos 2 nodos de desarrollo</strong> (uno por cada rama).</li>
+              <li><strong>Desenlace/s:</strong> ¿Qué aprende el estudiante al llegar?</li>
             </ul>
             <div class="teoria-ancla">
               <strong>Ancla teórica — Jenkins (2008), Narrativas transmedia y agencia</strong>
-              En una narrativa con valor pedagógico, la agencia del lector no es cosmética. Cada decisión tiene consecuencias narrativas Y cognitivas: el estudiante que elige el camino "incorrecto" aprende algo diferente pero igualmente válido. Si ambos caminos llevan al mismo lugar, no hay ramificación real — hay ilusión de elección.
+              Cada decisión tiene consecuencias narrativas Y cognitivas: el estudiante que elige el camino "incorrecto" aprende algo diferente pero igualmente válido.
             </div>
           </div>
 
@@ -507,37 +474,25 @@
             <div class="paso-num">Paso 2 — Digitalizar el árbol: estructura mínima para hoy</div>
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>Al menos 3 nodos funcionando y vinculados entre sí</h4>
-            <p>En <strong>Genially</strong>: cada página es un nodo. Los botones o zonas clicables de la página llevan al siguiente nodo. El link entre páginas es la rama.</p>
-            <p style="margin-top:6px;">En <strong>Google Slides</strong>: cada diapositiva es un nodo. Usá "insertar → link → diapositiva..." para vincular botones a slides específicos.</p>
-            <p style="margin-top:6px;">En <strong>Twine</strong>: la herramienta más poderosa para esto — cada nodo es un pasaje de texto con links a otros pasajes. Requiere más tiempo de aprendizaje pero el árbol se visualiza automáticamente.</p>
+            <p>En <strong>Genially</strong>: cada página es un nodo. Los botones o zonas clicables llevan al siguiente nodo.</p>
 
             <div class="c-block c-ini">
               <div style="background:var(--acl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--amb);margin-top:10px;font-size:13.5px;">
-                <strong style="color:var(--amb);">Inicial — "Teo y la cámara mágica" como ejemplo de árbol:</strong><br>
-                <strong>Nodo 1 (tronco):</strong> Teo encuentra una cámara. Le saca una foto a su amiga sin pedirle permiso. ¿Qué hace?<br>
-                <strong>Rama A:</strong> La comparte en el grupo de la familia → Nodo 2A: ¿Cómo se siente la amiga cuando lo descubre?<br>
-                <strong>Rama B:</strong> Se la muestra solo a ella → Nodo 2B: La amiga sonríe y le dice "gracias por preguntarme primero".<br>
-                <strong>Cierre:</strong> Ambas ramas llegan a la construcción oral de "las reglas de Teo" — pero con experiencias narrativas distintas.
-              </div>
-            </div>
-
-            <div class="c-block c-his">
-              <div style="background:var(--vcl);padding:10px 14px;border-radius:6px;border-left:3px solid var(--vio);margin-top:10px;font-size:13.5px;">
-                <strong style="color:var(--vio);">Historia — ejemplo de árbol:</strong><br>
-                <strong>Nodo 1:</strong> Sos un corresponsal del periódico fueguino en mayo de 1810. Recibís dos despachos contradictorios sobre los hechos del Cabildo. ¿A cuál le creés?<br>
-                <strong>Rama A:</strong> Al despacho oficial → el relato que construís refleja la versión dominante. Pero un testigo anónimo te dice que hay más información.<br>
-                <strong>Rama B:</strong> Al testigo anónimo → el relato que construís es heterodoxo. El editor te advierte que puede ser peligroso publicarlo.<br>
-                Cada rama termina con el estudiante reflexionando sobre cómo se construye el relato histórico.
+                <strong style="color:var(--amb);">Inicial — (Ejemplo de nodo para Sala de 4/5):</strong><br>
+                <em>Recuerden: En Inicial las opciones deben ser acciones visuales o físicas, no textos para leer.</em><br>
+                <strong>Nodo 1 (tronco):</strong> Teo encuentra una cámara. Le saca una foto a su amiga sin pedir permiso. ¿Qué hace?<br>
+                <strong>Rama A (Botón Verde):</strong> Le contamos a la seño → Feedback visual y sonoro positivo.<br>
+                <strong>Rama B (Botón Rojo):</strong> Nos escondemos → Consecuencia narrativa donde ven que la amiga está triste, y el juego les permite volver a intentar (Bucle).<br>
+                <strong>Cierre:</strong> Ambas ramas llegan a la construcción de "las reglas de Teo", pero con experiencias distintas.
               </div>
             </div>
 
             <div class="c-block c-ing">
               <div style="background:var(--pale);padding:10px 14px;border-radius:6px;border-left:3px solid var(--teal);margin-top:10px;font-size:13.5px;">
                 <strong style="color:var(--teal);">Inglés — ejemplo de árbol:</strong><br>
-                <strong>Nodo 1:</strong> You're working at the tourist office in Ushuaia. A British tourist asks you for directions to the Glacier. You have two ways to answer. Choose one.<br>
-                <strong>Rama A:</strong> Informal response → tourist is confused, asks again with a more specific question.<br>
-                <strong>Rama B:</strong> Formal response → tourist understands, but asks a follow-up you hadn't expected.<br>
-                Each branch requires producing a different type of language — not just choosing "correct" grammar.
+                <strong>Nodo 1:</strong> You're working at the tourist office in Ushuaia. A British tourist asks you for directions to the Glacier. Choose one response.<br>
+                <strong>Rama A:</strong> Informal response → tourist is confused.<br>
+                <strong>Rama B:</strong> Formal response → tourist understands, but asks a follow-up you hadn't expected.
               </div>
             </div>
           </div>
@@ -546,7 +501,7 @@
             <div class="paso-num">Paso 3 — Pregunta de calidad narrativa</div>
             <label class="paso-check"><input type="checkbox" onchange="this.closest('.paso').classList.toggle('done', this.checked)"> Listo</label>
             <h4>¿Cada rama del árbol enseña algo diferente o solo llega al mismo lugar por otro camino?</h4>
-            <p>Si todas las ramas convergen en el mismo aprendizaje sin que el recorrido haya importado, el estudiante no tuvo agencia real. La ramificación tiene valor pedagógico cuando el camino elegido genera una perspectiva, un conflicto o una comprensión que la otra rama no da.</p>
+            <p>Si todas las ramas convergen en el mismo aprendizaje sin que el recorrido haya importado, el estudiante no tuvo agencia real.</p>
           </div>
 
           <div class="c-block c-ini">
@@ -554,7 +509,7 @@
               <span style="font-size: 20px;">💡</span>
               <div>
                 <strong style="color:var(--amb); display:block; margin-bottom:4px;">APORTE: ¿Y SI HIBRIDAMOS LA HISTORIA O EL JUEGO? (ESPECIAL INICIAL)</strong>
-                <p style="font-size:14px; margin-bottom:0;">La narrativa ramificada o la gamificación no tienen que estar atadas a la pantalla. Lleven la historia o el juego al espacio físico (la sala, el patio). La pantalla puede ser solo el "tablero de control", mientras que las misiones o decisiones se resuelven buscando pistas y códigos QR escondidos en el entorno escolar.</p>
+                <p style="font-size:14px; margin-bottom:0;">La narrativa o la gamificación no tienen que estar atadas a la pantalla. Lleven el juego al espacio físico. La pantalla puede ser el "tablero de control", mientras que las misiones se resuelven buscando pistas en el entorno escolar. La compañera de Geografía es clave para diseñar este recorrido espacial.</p>
               </div>
             </div>
           </div>
@@ -564,7 +519,7 @@
               <span style="font-size: 20px;">💡</span>
               <div>
                 <strong style="color:var(--grn); display:block; margin-bottom:4px;">APORTE: ¿Y SI HIBRIDAMOS LA HISTORIA O EL JUEGO?</strong>
-                <p style="font-size:14px; margin-bottom:0;">Como las narrativas y la gamificación también fueron elegidas por Geografía, las decisiones espaciales de la historia o las misiones pueden requerir que el estudiante vaya a un mapa mural físico y escanee un QR en una zona específica para destrabar el siguiente nivel. ¡Aprovechen el territorio!</p>
+                <p style="font-size:14px; margin-bottom:0;">Las decisiones espaciales de la historia pueden requerir que el estudiante vaya a un mapa mural físico y escanee un QR en una zona específica para destrabar el siguiente nivel. ¡Aprovechen el territorio!</p>
               </div>
             </div>
           </div>
@@ -574,7 +529,7 @@
               <span style="font-size: 20px;">💡</span>
               <div>
                 <strong style="color:var(--teal); display:block; margin-bottom:4px;">APORTE: ¿Y SI HIBRIDAMOS LA HISTORIA O EL JUEGO?</strong>
-                <p style="font-size:14px; margin-bottom:0;">Dado que las narrativas y juegos también son sus líneas, el "Choose your own adventure" o la misión pueden tener postas físicas. Si eligen abrir una puerta en la historia digital, deben ir a la puerta real del aula para encontrar el QR con el diálogo siguiente en inglés.</p>
+                <p style="font-size:14px; margin-bottom:0;">El "Choose your own adventure" puede tener postas físicas. Si eligen abrir una puerta en la historia digital, deben ir a la puerta real del aula para encontrar el QR con el diálogo en inglés.</p>
               </div>
             </div>
           </div>
@@ -584,7 +539,6 @@
 
     </div>
 
-    <!-- MARCOS DE REFERENCIA -->
     <div id="pane-marcos" class="pane">
 
       <div class="note nb" style="margin-bottom:16px;">
@@ -595,38 +549,27 @@
       <div class="ref-card" style="border-left-color:var(--amb);">
         <h4>Creative Commons y Recursos Educativos Abiertos (REA)</h4>
         <p>Todo recurso que usen o incluyan en el TFI necesita licencia verificada. Los REA son materiales educativos publicados con licencias que permiten usarlos, adaptarlos y redistribuirlos sin pedir permiso. La UNESCO los reconoce como instrumento de justicia educativa.</p>
-        <p style="margin-top:8px;"><strong>CC BY:</strong> Solo requiere atribución. La más abierta — permite uso comercial y derivados. <strong>CC BY-SA:</strong> Atribución + los derivados deben tener la misma licencia. <strong>CC BY-NC:</strong> Atribución + No Comercial — la más frecuente en recursos educativos argentinos. <strong>CC BY-NC-SA:</strong> La más restrictiva dentro de las abiertas — la usa el Estado argentino para muchos de sus materiales.</p>
-        <p class="cita">Bancos de REA verificados: <a href="https://procomun.educalab.es/" target="_blank" style="color:var(--teal);">Procomún</a> · <a href="https://www.oercommons.org/" target="_blank" style="color:var(--teal);">OER Commons</a> · <a href="https://commons.wikimedia.org/" target="_blank" style="color:var(--teal);">Wikimedia Commons</a>. En las próximas semanas haremos curaduría formal de activos para el TFI — este es el marco conceptual que lo sostiene.</p>
+        <p style="margin-top:8px;"><strong>CC BY:</strong> Solo requiere atribución. <strong>CC BY-NC-SA:</strong> La más restrictiva dentro de las abiertas — la usa el Estado argentino para muchos de sus materiales.</p>
       </div>
 
       <div class="ref-card">
         <h4>TPACK — Mishra y Koehler (2006)</h4>
-        <p>El conocimiento tecnológico no es autónomo: solo tiene valor pedagógico cuando se intersecta con el conocimiento del contenido disciplinar y el conocimiento pedagógico. La pregunta central del TPACK no es "¿qué herramienta uso?" sino "¿qué herramienta, en este contenido, con este grupo, amplía el aprendizaje?"</p>
-        <p class="cita">Si el TFI muestra que la tecnología amplió lo que el contenido puede enseñar — y que las decisiones pedagógicas fundamentaron esa elección — el TPACK está presente.</p>
+        <p>El conocimiento tecnológico no es autónomo: solo tiene valor pedagógico cuando se intersecta con el conocimiento del contenido disciplinar y el conocimiento pedagógico.</p>
       </div>
 
       <div class="ref-card" style="border-left-color:var(--vio);">
         <h4>SAMR — Puentedura (2010)</h4>
-        <p>Los cuatro niveles no son escalera obligatoria: Sustitución y Aumento son legítimos cuando el contexto lo justifica. Lo que el modelo exige es conciencia: saber en qué nivel está el recurso y poder argumentar por qué ese nivel es el apropiado para estos destinatarios.</p>
-        <p class="cita">Pregunta clave: ¿Qué puede hacer el estudiante con este recurso que antes era imposible? Si la respuesta es "nada diferente", el recurso está en Sustitución.</p>
+        <p>Los cuatro niveles no son escalera obligatoria: Sustitución y Aumento son legítimos cuando el contexto lo justifica. Lo que el modelo exige es conciencia: saber en qué nivel está el recurso.</p>
       </div>
 
       <div class="ref-card" style="border-left-color:var(--amb);">
         <h4>PICRAT — Kimmons, Graham y West (2020)</h4>
-        <p>El modelo evalúa el rol del estudiante (Pasivo, Interactivo, Creativo) y la relación de la tecnología con la práctica docente (Reemplaza, Amplía, Transforma). El TFI busca al menos el nivel Interactivo/Amplía — y apunta a Creativo/Transforma cuando el diseño lo permite.</p>
-        <p class="cita">Si el estudiante solo recibe información del recurso (aunque sea interactiva), está en rol Pasivo. Si el recurso exige que produzca, decida o construya conocimiento: está en rol Interactivo o Creativo.</p>
-      </div>
-
-      <div class="ref-card" style="border-left-color:var(--grn);">
-        <h4>Maggio (2012) — La vara de calidad del TFI</h4>
-        <p>Una propuesta de enseñanza poderosa mediada por tecnología es original (no copia formatos genéricos), está en tiempo presente (habla de lo que les pasa a los estudiantes ahora), ofrece perspectiva (no hay una sola respuesta correcta) y es conmoviente (genera algo en el estudiante más allá del dato).</p>
-        <p class="cita">"La inclusión genuina de tecnologías requiere que las actividades formen parte de una Enseñanza Poderosa." — Maggio, M. (2012). Enriquecer la enseñanza.</p>
+        <p>El modelo evalúa el rol del estudiante (Pasivo, Interactivo, Creativo) y la relación de la tecnología con la práctica docente (Reemplaza, Amplía, Transforma).</p>
       </div>
 
       <div class="ref-card" style="border-left-color:var(--teal);">
         <h4>Soberanía Tecnológica y Software Libre — FSF (2023)</h4>
-        <p>La elección de herramientas no es neutral. Usar una plataforma privativa que recopila datos de menores en una clase sobre privacidad digital es una contradicción que necesita al menos ser nombrada. La soberanía tecnológica no exige rechazar las herramientas privativas — exige tomar esa decisión con conciencia y argumentarla.</p>
-        <p class="cita">Las cuatro libertades (usar, estudiar, modificar, distribuir) son el criterio mínimo para evaluar si una herramienta respeta la autonomía de la institución educativa.</p>
+        <p>La elección de herramientas no es neutral. Usar una plataforma privativa que recopila datos de menores en una clase sobre privacidad digital es una contradicción que necesita al menos ser nombrada.</p>
       </div>
 
     </div>
@@ -658,7 +601,6 @@ function startTimer(minutes) {
 }
 
 window.onload=function(){
-  // Auto-open all lineas so they're visible
   startTimer(120);
 }
 </script>
