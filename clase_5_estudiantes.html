@@ -95,9 +95,9 @@
   /* ENTREGA */
   .entrega-final{background:linear-gradient(135deg,var(--nav),var(--teal));border-radius:var(--r);padding:24px 28px;color:#fff;margin-bottom:24px;}
   .entrega-final h3{font-size:17px;color:var(--cl);margin-bottom:10px}
-  .entrega-final p{font-size:14px;opacity:.92;line-height:1.6;margin-bottom:8px}
-  .entrega-item{background:rgba(255,255,255,.12);border-left:3px solid var(--cl);border-radius:4px;padding:10px 14px;margin-bottom:8px;font-size:13.5px;color:#E6F7F8;line-height:1.5}
-  .entrega-item strong{color:var(--cl);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+  .entrega-final p{font-size:14px;opacity:.92;line-height:1.6;margin-bottom:12px}
+  .entrega-item{background:rgba(255,255,255,.12);border-left:3px solid var(--cl);border-radius:4px;padding:12px 16px;margin-bottom:10px;font-size:13.5px;color:#E6F7F8;line-height:1.55}
+  .entrega-item strong{color:var(--cl);display:block;font-size:12px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 
   /* MARCOS TEÓRICOS */
   .ref-card{background:var(--bco);border-radius:var(--r);padding:18px 22px;margin-bottom:14px;border-left:5px solid var(--teal);box-shadow:var(--sh)}
@@ -225,22 +225,128 @@
 
     <div id="pane-produccion" class="pane">
 
-      <div class="entrega-final">
-        <h3>¿Qué entregamos hoy?</h3>
-        <p>Al finalizar la clase, cada integrante sube al Aula Virtual:</p>
-        <div class="entrega-item">
-          <strong>1 — El link al recurso en producción / Documento GDD</strong>
-          No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: el Documento de Diseño compartido, el árbol de decisiones, o los primeros nodos operativos.
+      <!-- ============================================== -->
+      <!-- ENTREGA DEL DÍA PARA INICIAL (INTEGRADA HITO 0) -->
+      <!-- ============================================== -->
+      <div class="c-block c-ini">
+        <div class="card" style="margin-bottom: 20px; border-left: 4px solid var(--amb);">
+          <div class="ch" style="background:var(--acl); color:var(--amb);">Recuperatorio Hito 0: Definición y Prompt Pedagógico</div>
+          <div class="cb">
+            <p style="font-size:14px; margin-bottom:15px;">Como tenemos pendiente oficializar el proyecto de la clase anterior, completen estos tres pasos antes de empezar a producir hoy:</p>
+            
+            <div class="paso">
+              <div class="paso-num" style="background:var(--amb);">Paso 1</div>
+              <h4>Agrupamiento y definición del proyecto</h4>
+              <p>Esta actividad marca el inicio oficial de su Trabajo Final Integrador. Primero, agrúpense en equipos de 3 o 4 personas (idealmente cruzando distintos profesorados) para garantizar que la propuesta sea verdaderamente integral y se nutra de miradas interdisciplinarias. Luego, antes de abrir la IA, tomen tres decisiones en equipo que orientarán todo el trabajo hasta el cierre del taller:</p>
+              <ul>
+                <li><strong>Línea de producción:</strong> ¿A (Gamificación), B (DUA), C (Hibridación/RA) o D (Narrativa no lineal)? Ver la descripción de cada una en la pestaña Inicio.</li>
+                <li><strong>Tema o efeméride:</strong> ¿Sobre qué contenido disciplinar va a trabajar el recurso?</li>
+                <li><strong>Destinatarios reales:</strong> Año, nivel y contexto aproximado (no "estudiantes en general" — una sala de 3, un 4.° año de secundaria de Río Grande, etc.).</li>
+              </ul>
+              <div class="note nb" style="margin-top:10px; background:var(--pale); border-left-color:var(--teal);">
+                <span>📝</span>
+                <div><strong>Notas orientadoras según tu carrera:</strong><br>
+                Inglés: Elegir una unidad del Diseño Curricular (vocabulario, función comunicativa). Las líneas A (roleplay con decisiones en inglés en Blooket) o D (conversación no lineal) generan producción oral auténtica.</div>
+              </div>
+            </div>
+
+            <div class="paso">
+              <div class="paso-num" style="background:var(--amb);">Paso 2</div>
+              <h4>El primer prompt de diseño pedagógico</h4>
+              <p>Con las tres decisiones tomadas en grupo, abran Claude, ChatGPT o DeepSeek y construyan un prompt (instrucción) aplicado a diseño de experiencias, no a textos informativos. Asegúrense de incluir estos elementos clave:</p>
+              <ul>
+                <li><strong>Contexto:</strong> Quiénes son las y los estudiantes, en qué institución, en qué provincia, qué contenido aborda.</li>
+                <li><strong>Rol:</strong> Que la IA actúe como diseñador de experiencias educativas para ese nivel y disciplina.</li>
+                <li><strong>Tarea:</strong> Pedirle la línea que eligieron — narrativa de misterio, secuencia de decisiones, mecánica de juego, recurso accesible. <em>No pedirle "preguntas de opción múltiple": eso es sustitución.</em></li>
+                <li><strong>Formato:</strong> Especificar cuántas instancias o pantallas necesitan, en qué plataforma van a implementarlo y qué nivel de pensamiento crítico exige cada paso.</li>
+              </ul>
+              <p style="font-weight:600; font-size:13.5px; margin-top:8px; color:var(--nav);">Guarden el prompt exacto que usaron — lo van a necesitar para la entrega.</p>
+            </div>
+
+            <div class="paso">
+              <div class="paso-num" style="background:var(--amb);">Paso 3</div>
+              <h4>Auditoría crítica de la respuesta</h4>
+              <p>Antes de usar lo que devolvió la IA, apliquen los mismos filtros que la clase pasada — ahora sobre diseño pedagógico:</p>
+              <ul>
+                <li><strong>Filtro de contextualización:</strong> ¿La propuesta podría ser de cualquier país, o está situada en TDF y en el Diseño Curricular jurisdiccional? Si es genérica, el prompt fue demasiado vago.</li>
+                <li><strong>Filtro de alucinación:</strong> ¿Hay fechas, nombres o datos que no pueden verificarse? ¿La IA "inventó" algún recurso, plataforma o ley que no existe?</li>
+                <li><strong>Filtro PICRAT:</strong> ¿El estudiante que recibe esta propuesta está en rol Pasivo, Interactivo o Creativo? Si está Pasivo, hay que reescribir el prompt o ajustar la mecánica.</li>
+              </ul>
+              <p style="font-weight:600; font-size:13.5px; margin-top:8px; color:var(--nav);">Anoten en una oración qué corrigieron y por qué. Eso es la evidencia de que hubo apropiación crítica y no solo uso instrumental.</p>
+            </div>
+          </div>
         </div>
-        <div class="entrega-item">
-          <strong>2 — Una oración de estado</strong>
-          "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta.
-        </div>
-        <div class="entrega-item">
-          <strong>3 — Actualización del Hito 0 (si no lo hicieron aún)</strong>
-          El párrafo de justificación de herramientas con el chequeo de soberanía completado.
+
+        <div class="entrega-final" style="background:linear-gradient(135deg, var(--amb), #B06A26);">
+          <h3>Entrega en el Aula Virtual (Hito 0 del Proyecto)</h3>
+          <p>Para oficializar el inicio de su Trabajo Final Integrador, cada grupo debe subir a la tarea correspondiente en el Aula Virtual los siguientes 4 elementos:</p>
+          
+          <div class="entrega-item">
+            <strong>1 — Línea y Tema:</strong>
+            <span style="display:block; margin-top:4px;">¿Qué enfoque eligieron (A, B, C o D) y qué contenido disciplinar o efeméride van a trabajar?</span>
+          </div>
+
+          <div class="entrega-item">
+            <strong>2 — Destinatarios Reales:</strong>
+            <span style="display:block; margin-top:4px;">Año, nivel y contexto escolar fueguino específico.</span>
+          </div>
+
+          <div class="entrega-item">
+            <strong>3 — El Prompt Exacto:</strong>
+            <span style="display:block; margin-top:4px;">Copien y peguen el texto de la instrucción completa que le enviaron a la IA en el Paso 2.</span>
+          </div>
+
+          <div class="entrega-item">
+            <strong>4 — Auditoría Docente:</strong>
+            <span style="display:block; margin-top:4px;">Una oración final explicando qué le corrigieron o recortaron a la respuesta de la IA (aplicando el filtro de alucinación o PICRAT). la idea es esta clase hacer un resumen de lo que deben entregar o integrarlo.</span>
+          </div>
         </div>
       </div>
+
+      <!-- ============================================== -->
+      <!-- ENTREGA DEL DÍA PARA GEOGRAFÍA (ESTÁNDAR)      -->
+      <!-- ============================================== -->
+      <div class="c-block c-geo">
+        <div class="entrega-final">
+          <h3>¿Qué entregamos hoy?</h3>
+          <p>Al finalizar la clase, cada integrante sube al Aula Virtual:</p>
+          <div class="entrega-item">
+            <strong>1 — El link al recurso en producción</strong>
+            No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: al menos 3 pantallas o nodos operativos, el árbol de decisiones digitalizado, los primeros QR funcionando, o el recurso DUA con dos canales activos.
+          </div>
+          <div class="entrega-item">
+            <strong>2 — Una oración de estado</strong>
+            "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta.
+          </div>
+          <div class="entrega-item">
+            <strong>3 — Actualización del Hito 0 (si no lo hicieron aún)</strong>
+            El párrafo de justificación de herramientas con el chequeo de soberanía completado. Si ya lo subieron la clase anterior, solo verificar que esté allí.
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- ENTREGA DEL DÍA PARA INGLÉS (ESTÁNDAR)         -->
+      <!-- ============================================== -->
+      <div class="c-block c-ing">
+        <div class="entrega-final">
+          <h3>¿Qué entregamos hoy?</h3>
+          <p>Al finalizar la clase, cada integrante sube al Aula Virtual:</p>
+          <div class="entrega-item">
+            <strong>1 — El link al recurso en producción</strong>
+            No tiene que estar terminado. Tiene que ser un link funcional donde se vea lo que construyeron hoy: al menos 3 pantallas o nodos operativos, el árbol de decisiones digitalizado, los primeros QR funcionando, o el recurso DUA con dos canales activos.
+          </div>
+          <div class="entrega-item">
+            <strong>2 — Una oración de estado</strong>
+            "Hoy logramos X. El próximo paso es Y. El problema que no resolvimos es Z." Breve y honesta.
+          </div>
+          <div class="entrega-item">
+            <strong>3 — Actualización del Hito 0 (si no lo hicieron aún)</strong>
+            El párrafo de justificación de herramientas con el chequeo de soberanía completado. Si ya lo subieron la clase anterior, solo verificar que esté allí.
+          </div>
+        </div>
+      </div>
+
 
       <div class="note nb" style="margin-bottom:16px;">
         <span>💡</span>
@@ -601,6 +707,7 @@ function startTimer(minutes) {
 }
 
 window.onload=function(){
+  // Auto-open all lineas so they're visible
   startTimer(120);
 }
 </script>
