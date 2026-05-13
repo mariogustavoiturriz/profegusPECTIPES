@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 6 · Producción Integrada y Árbol de Decisiones</title>
+<style>
+  :root {
+    --nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;
+    --grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;
+    --vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;
+    --gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFFFFF;
+    --r:8px;--sh:0 2px 8px rgba(0,0,0,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
+
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.65;text-align:right; display:flex; align-items:center;}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background 0.2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.3);white-space:nowrap}
+  .btn-back:hover{background:rgba(255,255,255,0.25)}
+  .btn-reset{display:none;color:var(--cl);margin-right:12px;text-decoration:none;border-bottom:1px dotted var(--cl);cursor:pointer}
+  body.day-selected .btn-reset{display:inline-block}
+
+  #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
+  #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
+  #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
+  .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all 0.2s;min-width:220px}
+  .btn-career:hover{background:var(--teal);color:white;transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,148,154,.25)}
+  .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;width:100%;max-width:900px}
+
+  #main-app{display:none}
+  body.day-selected #welcome-screen{display:none}
+  body.day-selected #main-app{display:block}
+  .c-block{display:none}
+  body.show-miercoles .c-miercoles{display:block}
+  body.show-jueves .c-jueves{display:block}
+  body.show-viernes .c-viernes{display:block}
+
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+
+  .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden;width:100%}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:0.5px;color:var(--nav)}
+  .cb{padding:18px 25px}
+  .card-b .ch{background:var(--pale);color:var(--nav)}
+  
+  /* ESTILOS DEL ÁRBOL VISUAL */
+  .roles-container { display: flex; gap: 20px; margin-bottom: 25px; flex-wrap: wrap; }
+  .rol-box { flex: 1; min-width: 280px; padding: 20px; border-radius: var(--r); }
+  .rol-ing { background: var(--vcl); border-left: 5px solid var(--vio); }
+  .rol-geo { background: var(--gcl); border-left: 5px solid var(--grn); }
+  .rol-box h4 { font-size: 16px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .rol-ing h4 { color: var(--vio); }
+  .rol-geo h4 { color: var(--grn); }
+  .rol-box p { font-size: 14px; color: var(--txt); }
+
+  .tree-container { background: #E8EDF2; padding: 30px; border-radius: var(--r); text-align: center; overflow-x: auto;}
+  .tree-node { display: inline-block; padding: 12px 18px; border-radius: 6px; font-weight: 700; font-size: 14px; color: #fff; box-shadow: var(--sh); position: relative; max-width: 280px; line-height: 1.4; }
+  .node-blue { background: var(--vio); }
+  .node-green { background: var(--grn); }
+  .node-amber { background: var(--amb); }
+  .node-dark { background: var(--nav); }
+  .node-mixed { background: linear-gradient(90deg, var(--vio) 50%, var(--grn) 50%); }
+  
+  .tag-container { display: flex; gap: 6px; margin-top: 8px; justify-content: center; }
+  .tag-ing { background: #2A4073; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; width: 50%; }
+  .tag-geo { background: #1B4533; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; width: 50%; }
+
+  .tree-arrow { font-size: 24px; color: var(--slate); margin: 10px 0; font-weight: bold; }
+  .tree-row { display: flex; justify-content: center; gap: 20px; align-items: flex-start; margin-bottom: 10px; flex-wrap: wrap;}
+  
+  /* PASOS DE PRODUCCIÓN */
+  .paso{background:var(--gris);border-radius:var(--r);padding:18px 24px;margin-bottom:16px;border-left:5px solid var(--bd);position:relative;transition:all 0.3s ease;}
+  .paso-num{display:inline-block; background:var(--nav);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:.8px; margin-bottom: 8px;}
+  .paso h4{font-size:16px;font-weight:700;color:var(--neg);margin-bottom:8px;}
+  .paso p, .paso li{font-size:14px;color:var(--txt);line-height:1.6}
+  .paso ul{margin-left:20px;margin-top:8px}.paso li{margin-bottom:5px}
+
+  .alerta-autonomia { background: #FFF3E0; border: 1px solid #FFE0B2; padding: 12px 16px; border-radius: 6px; margin-top: 12px; color: #E65100; font-size: 13.5px; font-weight: 600; display: flex; gap: 10px; align-items: center; }
+
+  /* HERRAMIENTAS */
+  .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; margin-bottom: 30px; }
+  .tool-cat-title { font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid var(--bd); }
+  .cat-ing { color: var(--vio); border-bottom-color: var(--vcl); }
+  .cat-geo { color: var(--grn); border-bottom-color: var(--gcl); }
+  .cat-hib { color: var(--slate); border-bottom-color: var(--bd); }
+  .cat-trans { color: var(--amb); border-bottom-color: var(--acl); }
+  
+  .tool-card { background: #fff; border: 1px solid var(--bd); border-radius: var(--r); padding: 18px; transition: transform 0.2s, box-shadow 0.2s; }
+  .tool-card:hover { transform: translateY(-3px); box-shadow: var(--sh); }
+  .tool-card h4 { font-size: 15px; color: var(--nav); margin-bottom: 6px; }
+  .tool-card p { font-size: 13px; color: var(--txt); }
+
+  /* REQUISITOS LIST */
+  .req-list { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; }
+  .req-item { background: #fff; border: 1px solid var(--bd); padding: 14px 18px; border-radius: 6px; display: flex; align-items: flex-start; gap: 12px; }
+  .req-icon { font-size: 20px; }
+  .req-text h5 { font-size: 14.5px; color: var(--nav); margin-bottom: 4px; }
+  .req-text p { font-size: 13.5px; color: var(--txt); line-height: 1.5; }
+
+  /* INSPIRACION */
+  .btn-inspo { background: var(--pale); color: var(--teal); border: 1px solid var(--teal); padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; display: block; margin: 30px auto 10px; transition: all 0.2s; }
+  .btn-inspo:hover { background: var(--teal); color: #fff; }
+  .inspo-box { display: none; background: #fff; border-left: 4px solid var(--amb); padding: 20px; border-radius: 6px; margin-top: 15px; box-shadow: var(--sh); font-size: 14px; }
+  .inspo-box.show { display: block; animation: fadeIn 0.3s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* GUIAS DIDACTICAS (ACCORDION) */
+  details.guia { background: #fff; border-left: 4px solid var(--teal); border-radius: var(--r); margin-bottom: 15px; box-shadow: var(--sh); overflow: hidden; }
+  details.guia summary { font-weight: 700; color: var(--nav); padding: 15px 20px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; background: var(--pale); transition: background 0.2s; font-size: 15px; }
+  details.guia summary:hover { background: var(--cl); }
+  details.guia summary::-webkit-details-marker { display: none; }
+  details.guia summary::after { content: '+'; font-size: 18px; color: var(--teal); font-weight: bold; }
+  details.guia[open] summary::after { content: '−'; }
+  details.guia .guia-content { padding: 20px; font-size: 14px; color: var(--txt); line-height: 1.6; border-top: 1px solid var(--bd); }
+  .guia-content h5 { font-size: 14.5px; color: var(--nav); margin: 14px 0 6px 0; }
+  .guia-content ul { margin-left: 20px; margin-bottom: 10px; }
+  .guia-content li { margin-bottom: 6px; }
+
+  /* ESTILOS BITACORA */
+  .doc-template { background: #fff; border: 1px solid var(--bd); border-radius: var(--r); padding: 30px; font-family: 'Times New Roman', Times, serif; font-size: 14.5px; color: #333; box-shadow: inset 0 0 10px rgba(0,0,0,0.02); line-height: 1.6; }
+  .doc-template h1 { text-align: center; font-size: 20px; text-transform: uppercase; margin-bottom: 5px; color: #000; }
+  .doc-template h2 { font-size: 16px; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin: 25px 0 12px 0; color: #000; }
+  .doc-template h3 { font-size: 14.5px; font-weight: bold; margin: 15px 0 5px 0; color: #333; }
+  .fill-blank { background: #FFF9C4; color: #E65100; padding: 2px 6px; border-radius: 3px; font-family: monospace; font-size: 13px; }
+  .btn-copy { background: var(--nav); color: #fff; border: none; padding: 10px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; margin-bottom: 20px; transition: background 0.2s; }
+  .btn-copy:hover { background: var(--teal); }
+
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-info">
+    <a href="index.html" class="btn-back">← Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
+  </div>
+  <div class="top-r">
+    <span id="timer-display" style="font-weight:bold; background:rgba(0,0,0,0.2); padding:4px 8px; border-radius:4px; margin-right:12px; font-size:13px; letter-spacing:0.5px;">⏳ 120:00</span>
+    <a href="#" class="btn-reset" onclick="event.preventDefault();resetCareer()">Cambiar día</a> 
+    <span>2026</span>
+  </div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Seleccioná tu turno de cursada</h2>
+  <p>Hacé clic en tu día para acceder al laboratorio de producción situado.</p>
+  <div class="career-grid" style="justify-content: center;">
+    <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px; font-weight:400;">(Inglés + Geografía)</span></button>
+    <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves</button>
+    <button class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')">Viernes</button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 6 · Taller de Producción · Hito 1</p>
+    <h2>Construcción del Recurso: <span>Estructura de Flujo y Producción</span></h2>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('partida',this)">Punto de Partida (Consigna)</button>
+    <button class="tab-btn" onclick="showTab('plan',this)">Plan de Producción</button>
+    <button class="tab-btn" onclick="showTab('herramientas',this)">Herramientas</button>
+    <button class="tab-btn" onclick="showTab('guias',this)">💡 Guías Didácticas</button>
+    <button class="tab-btn" onclick="showTab('bitacora',this)">📝 Plantilla TFI</button>
+  </div>
+
+  <div class="wrap">
+
+    <!-- CONTENEDOR MIÉRCOLES (INGLÉS + GEO) -->
+    <div class="c-block c-miercoles">
+
+      <!-- PESTAÑA 1: PUNTO DE PARTIDA -->
+      <div id="pane-partida" class="pane on">
+
+        <!-- TARJETA: CONSIGNA OFICIAL REVISADA -->
+        <div class="card" style="border-top: 4px solid var(--amb);">
+          <div class="ch" style="background:var(--acl); color:var(--amb);">Consigna Oficial: Requisitos del Trabajo Final Integrador</div>
+          <div class="cb">
+            <p style="font-size:15px; margin-bottom:15px; color:var(--neg);">El TFI es <strong>un único proyecto integrado por equipo</strong> (alumnos de Inglés y Geografía trabajan sobre un mismo archivo de Genially). Lo que se evalúa es la coherencia entre el diseño tecnológico, el contenido disciplinar y el marco teórico. El producto a entregar consta de dos partes indivisibles:</p>
+
+            <div style="background: var(--pale); border-left: 4px solid var(--teal); padding: 15px 20px; border-radius: var(--r); margin-bottom: 20px;">
+              <h4 style="font-size: 16px; color: var(--nav); margin-bottom: 10px;">1. La Documentación Pedagógica (Guion del Recurso)</h4>
+              <ul style="margin-left: 18px; font-size: 14px; color: var(--txt); line-height: 1.6;">
+                <li><strong>Propuesta y Destinatarios:</strong> ¿De qué trata el recurso y para qué nivel/año específico está pensado?</li>
+                <li><strong>Eje Temático y Contenidos:</strong> Articulación clara con los contenidos del Diseño Curricular de la provincia.</li>
+                <li><strong>Fundamentación Teórica:</strong> Justificación breve apoyada en los marcos trabajados (TPACK, SAMR o PICRAT).</li>
+              </ul>
+            </div>
+
+            <h4 style="font-size: 16px; color: var(--nav); margin-bottom: 10px;">2. El Recurso Interactivo (Obligatorio)</h4>
+            <div class="req-list">
+              <div class="req-item">
+                <div class="req-icon">🌳</div>
+                <div class="req-text">
+                  <h5>Interactividad y Toma de Decisiones <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>El Genially debe presentar un diagrama de flujo con <strong>al menos 3 niveles de profundidad</strong>. Las elecciones del usuario al interactuar deben alterar el rumbo de la narrativa (Inglés) y del territorio (Geografía).</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🔐</div>
+                <div class="req-text">
+                  <h5>Mecánicas de Escape / Llaves <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Debe implementarse obligatoriamente la resolución de enigmas: al menos <strong>una llave intermedia</strong> (descifrar un código para destrabar un nodo) y <strong>una llave final</strong> para lograr el objetivo del juego.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🔗</div>
+                <div class="req-text">
+                  <h5>Hibridación Físico-Digital <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Debe haber un anclaje material en la escuela (afiche, postal, etc.) con <strong>al menos 1 código QR</strong>. <span style="color:var(--amb);font-weight:600;">Regla de escalabilidad:</span> si el equipo tiene más de 2 estudiantes, deben incluir <strong>2 códigos QR</strong> apuntando a distintas partes de la experiencia. Sumar Realidad Aumentada es opcional.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🎬</div>
+                <div class="req-text">
+                  <h5>Videos de Producción <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Deben incluir exactamente <strong>2 videos breves</strong> (de entre 20 y 40 segundos de duración cada uno): uno que funcione como introducción a la narrativa y otro de cierre hablando sobre el plan de producción elaborado por el equipo.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🎨</div>
+                <div class="req-text">
+                  <h5>Insumos Disciplinares <em>(Responsabilidad: Dividida por área)</em></h5>
+                  <p><strong>Dominio de Inglés:</strong> Producción de la narrativa internacional, textos en idioma extranjero y multimedialidad lingüística (audios nativos, capturas de redes sociales simuladas).<br><strong>Dominio de Geografía:</strong> Aporte de la evidencia territorial, datos oficiales y cartografía (mapas de impacto, infografías, leyes).</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🤖</div>
+                <div class="req-text">
+                  <h5>Uso de IA y Auditoría Humana <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Evidenciar el uso de IA Generativa para crear insumos (imágenes o textos). Deben adjuntar en la documentación el <strong>prompt estructurado (método CRTF)</strong> y explicar cómo el equipo docente auditó los sesgos de la IA.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- TARJETA: CODISEÑO Y ROLES -->
+        <div class="card">
+          <div class="ch">Codiseño del Recurso: Facetas del Debate y Autonomía</div>
+          <div class="cb">
+            <p style="font-size:15px; margin-bottom: 20px;">Atención acá: sabemos que construir el vínculo interdisciplinario lleva tiempo. Por eso, durante estas dos primeras semanas, <strong>el trabajo será en el mismo recurso pero con autonomía</strong>. El "Nodo 0" presentará el conflicto central, y a partir de ahí, el debate se bifurcará en distintas facetas. Cada disciplina explorará y diseñará su propia rama narrativa sin depender de los tiempos del otro equipo.</p>
+            
+            <h4 style="font-size: 16px; color: var(--nav); margin-bottom: 10px; text-align:center;">Mapa Visual: Bifurcación Autónoma y Convergencia</h4>
+            
+            <div style="background: var(--vcl); border-left: 4px solid var(--vio); padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; font-size: 13.5px; color: var(--nav);">
+              <strong>🗺️ Clave de lectura del mapa:</strong> Hay dos niveles de "paralelo" en este diagrama. Por un lado, <strong>el usuario final</strong> navega y elige qué rama explorar primero. Por otro lado, <strong>el flujo de producción</strong>: cada rama es diseñada autónomamente por su disciplina respectiva. Ambas convergen luego en la llave intermedia (Nodo 2) y el desenlace (Nodo 3).
+            </div>
+            
+            <div class="tree-container">
+              <!-- N0 -->
+              <div class="tree-node node-mixed">
+                NODO 0<br><span style="font-size:12px; font-weight:400;">El Dilema / Punto de Partida</span>
+                <div class="tag-container">
+                  <span class="tag-ing" style="width:100%; background:var(--slate);">Definición y Video Inicial Conjunto</span>
+                </div>
+              </div>
+              <div class="tree-arrow">↓</div>
+              
+              <!-- N1 -->
+              <div class="tree-row">
+                <div class="tree-node node-blue">
+                  RAMA INGLÉS (Nodos 1)<br><span style="font-size:12px; font-weight:400;">Perspectiva Internacional (Turismo / RRSS)</span>
+                </div>
+                <div class="tree-node node-green">
+                  RAMA GEOGRAFÍA (Nodos 1)<br><span style="font-size:12px; font-weight:400;">Impacto Local (Actores / Territorio)</span>
+                </div>
+              </div>
+              <div class="tree-arrow">↓</div>
+
+              <!-- N2 -->
+              <div class="tree-row" style="align-items: center;">
+                <div class="tree-node node-blue" style="width:200px;">NODO 2<br><span style="font-size:12px; font-weight:400;">Documento Oficial NGO<br>(Diseñado por Inglés)</span></div>
+                <div class="tree-node node-amber" style="width:180px; font-size:12px;">Punto de Convergencia<br><span style="font-weight:400;">(Llave Intermedia a resolver)</span></div>
+                <div class="tree-node node-green" style="width:200px;">NODO 2<br><span style="font-size:12px; font-weight:400;">Mapa Interactivo<br>(Diseñado por Geografía)</span></div>
+              </div>
+              <div class="tree-arrow">↓</div>
+
+              <!-- N3 Desenlace -->
+              <div class="tree-row">
+                <div class="tree-node node-dark" style="width:250px;">
+                  NODO 3 (DESENLACE)<br><span style="font-size:12px; font-weight:400;">Consecuencia Final y Video de Cierre</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 2: PLAN DE PRODUCCIÓN -->
+      <div id="pane-plan" class="pane">
+        <div class="card">
+          <div class="ch">Cronograma del TP: Etapas de Construcción</div>
+          <div class="cb">
+            <p style="font-size:14.5px; margin-bottom: 20px;">Este es el plan de producción estimado en semanas para completar el Trabajo Final Integrador sin atrasarse.</p>
+
+            <div class="paso">
+              <span class="paso-num" style="background:var(--amb);">SEMANA 6 (HOY)</span>
+              <h4>Etapa 1: Diseño del Dilema y Ramas (En papel)</h4>
+              <ul>
+                <li><strong>Juntos:</strong> Definir el "Nodo 0" (cuál es el conflicto central que dispara la historia).</li>
+                <li><strong>Inglés (Autónomo):</strong> Planificar qué actores o situaciones abordará su rama (ej. turistas perdidos, quejas de ONGs internacionales).</li>
+                <li><strong>Geografía (Autónomo):</strong> Planificar qué aspecto territorial abordará su rama (ej. zona afectada, conflicto de intereses locales).</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num" style="background:var(--amb);">SEMANA 6 (HOY)</span>
+              <h4>Etapa 2: Construcción del Nodo 0 (N0) y validación técnica</h4>
+              <ul>
+                <li>Crear la página base en Genially y diseñar la estética inicial.</li>
+                <li>Vincular los botones del N0 para que el usuario pueda elegir si seguir la historia por la "Rama Inglés" o la "Rama Geografía".</li>
+              </ul>
+              <div class="alerta-autonomia">
+                <span>🚨</span> El Principio de Autonomía: "Un estudiante que abre el link a las 11 de la noche tiene que poder hacer todo el recorrido sin necesitar al docente." Oculten las flechas de navegación por defecto de Genially.
+              </div>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 7</span>
+              <h4>Etapa 3: Desarrollo Autónomo de Ramas (N1 y N2)</h4>
+              <ul>
+                <li><strong>Inglés:</strong> Trabaja en sus propias páginas de Genially. Diseña en Canva <strong>capturas de publicaciones ficticias en redes sociales</strong> que simulen la reacción de actores internacionales ante la decisión tomada, y elabora los textos de su faceta.</li>
+                <li><strong>Geografía:</strong> Trabaja en sus propias páginas de Genially. Elabora sus mapas satelitales, infografías o recopila la legislación local y lo integra.</li>
+                <li><em>*Al trabajar en pantallas separadas, evitan pisarse el trabajo mientras construyen dinámica grupal.</em></li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 8</span>
+              <h4>Etapa 4: Llaves, Códigos y Convergencia (N3)</h4>
+              <ul>
+                <li><strong>Juntos:</strong> Diseñar la mecánica de la <strong>llave intermedia</strong> (el punto donde ambas ramas se cruzan) y la <strong>llave final</strong> (acertijos o códigos) para destrabar el desenlace.</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 9</span>
+              <h4>Etapa 5: Hibridación, Audiovisuales y Cierre</h4>
+              <ul>
+                <li>Diseño del afiche político (físico, impreso) que se pegará en las paredes de la escuela. Incluirá los <strong>códigos QR</strong> exigidos según el tamaño del grupo.</li>
+                <li>Grabación de los <strong>2 videos breves</strong> (intro y cierre) sobre el plan de producción del equipo, integrándolos al TP final.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 3: HERRAMIENTAS -->
+      <div id="pane-herramientas" class="pane">
+        <div class="card">
+          <div class="ch">Stack Tecnológico del Proyecto</div>
+          <div class="cb">
+            <p style="font-size:14.5px; margin-bottom: 25px;">Acá están los recursos curados específicos para la temática de este proyecto integrador. Recuerden usar el modelo CRTF (visto en la clase pasada) si usan IA generativa para apoyarse en la redacción o armado de imágenes. <br><br><strong>Recuerden:</strong> Pueden usar cualquier otra alternativa disponible en la <a href="repositorio_herramientas.html" target="_blank" style="color:var(--teal); font-weight:bold;">Caja de Herramientas Principal</a>.</p>
+
+            <h3 class="tool-cat-title cat-trans">Transversal (Ambas Disciplinas)</h3>
+            <div class="tools-grid">
+               <div class="tool-card" style="border-left: 4px solid var(--amb);">
+                <h4>Edpuzzle</h4>
+                <p>Ideal para integrar los <strong>videos de intro y cierre</strong> exigidos. Permite tomar un video, agregarle notas de voz, acortarlo, o pausarlo para hacerle una pregunta al usuario antes de dejarlo avanzar en la historia.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-ing">Producción de Inglés</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--vio);">
+                <h4>Genially (Colaborativo)</h4>
+                <p>La base de operaciones. Creen un solo proyecto y usen la función "Añadir colaboradores" para que ambos profesorados editen en tiempo real. <strong>Oculten la navegación lineal</strong> en la configuración de la plantilla.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--vio);">
+                <h4>Canva (Ficción Periodística / Redes)</h4>
+                <p>No pierdan tiempo dibujando. Usen las plantillas de "Social Media Post" en Canva para fabricar las noticias o tweets falsos y exportarlos como imágenes para el Genially.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--vio);">
+                <h4>ElevenLabs (Audios Nativos)</h4>
+                <p>Si necesitan simular un mensaje de voz de un turista o un periodista de la BBC, usen esta IA de texto-a-voz. Los acentos británicos y americanos son indistinguibles de una voz humana.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-geo">Producción de Geografía</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--grn);">
+                <h4>Google Earth Pro</h4>
+                <p>Para extraer capturas satelitales precisas de los valles glaciarios de Tierra del Fuego. Pueden superponer polígonos para marcar las zonas de impacto del proyecto del senador.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--grn);">
+                <h4>Inventario Nacional de Glaciares</h4>
+                <p>Fuente oficial y obligatoria. Busquen el geoportal oficial de Argentina para sacar los datos técnicos exactos sobre la cuenca hídrica afectada en la ficción que están armando.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--grn);">
+                <h4>Ley Nacional N° 26.639</h4>
+                <p>Ley de Presupuestos Mínimos para la Preservación de los Glaciares. El documento de la NGO (en inglés) debe fundamentar su postura basándose en artículos reales de esta ley.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-hib">Hibridación Áulica</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--slate);">
+                <h4>QR Code Monkey</h4>
+                <p>El generador de códigos más robusto y soberano (no expira, no pide tarjeta de crédito). Generen acá los códigos QR exigidos que irán en los afiches impresos apuntando al link público de su Genially.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--slate);">
+                <h4>Artivive (Realidad Aumentada - Opcional)</h4>
+                <p>Permite vincular una imagen física (el afiche) con una animación o video. Al apuntar el celular al póster en la pared, este cobra vida superponiendo el mensaje oculto.</p>
+              </div>
+            </div>
+            
+            <button class="btn-inspo" onclick="document.getElementById('inspo-box').classList.toggle('show')">💡 ¿Bloqueados? Ver estructura de un guion de ejemplo</button>
+            
+            <div id="inspo-box" class="inspo-box">
+            <h4 style="color:var(--nav); margin-bottom:10px;">Caso Ficticio: "El Proyecto Ruta 3 Bis"</h4>
+            <p><strong>NODO 0 (Juntos):</strong> El usuario escanea el código QR de un afiche y entra al Genially. <strong>Lo recibe un video introductorio (30 seg) grabado por ustedes simulando ser periodistas:</strong> <em>"¡Urgente Tierra del Fuego! Un Senador presentó un proyecto para expropiar tierras en la estepa y hacer una ruta exclusiva para camiones. El futuro de la provincia depende de vos."</em> Luego, el usuario debe elegir qué quiere investigar primero: <em>A) El impacto ambiental (Geo)</em> o <em>B) La reacción extranjera (Ing)</em>.</p>
+            <p style="margin-top:8px;"><strong>NODO 1 - GEO (Autónomo):</strong> Si elige la opción A, la pantalla le muestra un mapa satelital de la estepa intervenido. Descubre que la ruta cortaría un cauce de agua. <em>Decisión del usuario: Ignorarlo o denunciarlo.</em></p>
+            <p style="margin-top:8px;"><strong>NODO 1 - ING (Autónomo):</strong> Si elige la opción B, la pantalla muestra <strong>una captura de una red social ficticia diseñada en Canva</strong> donde turistas internacionales y una NGO ecologista británica amenazan con boicotear el turismo. <em>Decisión del usuario: Responderles en inglés o censurarlos.</em></p>
+            <p style="margin-top:8px;"><strong>LLAVE INTERMEDIA (NODO 2):</strong> Ambas ramas te terminan arrinconando en un tribunal virtual. Para poder acceder a la resolución final, el usuario debe ingresar un PIN de 4 dígitos. (Pista: el código está oculto en el afiche físico que quedó pegado en el aula).</p>
+            <p style="margin-top:8px;"><strong>DESENLACE (NODO 3):</strong> Al poner la llave, se resuelve el conflicto y se desbloquea el <strong>video de finalización (30 seg)</strong>. Acá "rompen la cuarta pared" y le explican al docente brevemente su plan: <em>"¡Misión cumplida! Para construir este recurso, la disciplina de Inglés usó Canva y ChatGPT auditado, mientras que Geografía mapeó la estepa con Google Earth. Trabajamos en paralelo las primeras semanas y convergimos en esta llave final..."</em></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PESTAÑA 4: GUIAS DIDACTICAS -->
+    <div id="pane-guias" class="pane">
+      <div class="card" style="border-left: 4px solid var(--teal);">
+        <div class="ch" style="background:var(--pale); color:var(--teal);">Andamiaje para la Autonomía: Guías de Producción</div>
+        <div class="cb">
+          <p style="font-size:14.5px; margin-bottom: 20px;">Utilicen este espacio como referencia pedagógica y técnica. Tienen autonomía total para decidir sobre el contenido de su trabajo, pero estas guías les garantizarán sortear obstáculos técnicos y evitar caer en recursos aburridos o pasivos.</p>
+
+          <details class="guia">
+            <summary>1. El Machete de Prompts IA (Método C.R.T.F.)</summary>
+            <div class="guia-content">
+              <p>Cuando usen ChatGPT, Claude o Copilot para generar textos (ej: perfiles de personajes, guiones, documentos de la ONG), nunca le hagan un pedido genérico. Usen esta estructura en su prompt para evitar sesgos y lograr un tono creíble:</p>
+              <ul>
+                <li><strong>[C] Contexto:</strong> ¿Para quién es y en qué situación de la historia se usa? <em>(Ej: "Alumnos fueguinos de secundaria leyendo una noticia").</em></li>
+                <li><strong>[R] Rol:</strong> ¿Quién debe ser la IA? <em>(Ej: "Actuá como un periodista sensacionalista", "Actuá como un experto ecologista británico").</em></li>
+                <li><strong>[T] Tarea:</strong> ¿Qué tiene que hacer exactamente? <em>(Ej: "Escribir una publicación de 280 caracteres quejándose del ruido de los camiones").</em></li>
+                <li><strong>[F] Formato:</strong> ¿Cómo te lo tiene que devolver? <em>(Ej: "Dame 3 opciones de texto", "Entregalo en una tabla", "Usá vocabulario nivel B1").</em></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>2. Diseño de Enigmas y Llaves (El Candado de Genially)</summary>
+            <div class="guia-content">
+              <p>Tienen varias formas de armar la "llave intermedia" o final para bloquear el avance del usuario:</p>
+              <h5>Opción 1: El Candado Nativo de Genially</h5>
+              <p>Genially tiene una función incorporada para bloquear páginas. Van al panel de <strong>Páginas</strong>, eligen la página que quieren ocultar, tocan los tres puntitos (Opciones) y seleccionan <strong>"Contraseña"</strong>. El usuario no podrá ver esa pantalla (ni hacer clic en los botones que lleven a ella) hasta que ingrese el PIN o palabra clave correcta.</p>
+              <h5>Opción 2: El teclado engañoso (Alternativa de diseño)</h5>
+              <p>Armen una pantalla que parezca un candado numérico (usando cajas de texto o botones). <strong>Solo al botón que tiene el número o letra correcta</strong> le añaden la interactividad "Ir a la página siguiente". A las opciones falsas les ponen "Ir a página de Error / Volver a intentar".</p>
+              <h5>Opción 3: Herramientas de terceros</h5>
+              <p>Usen <strong>Lockee.fr</strong> (crea candados digitales con geolocalización o patrón) o incrusten un quiz de <strong>Wordwall</strong> en la página de Genially. Al ganar el juego, el mensaje final revelará la contraseña que deben usar.</p>
+              <h5 style="color:var(--grn);">El Valor Pedagógico (¡No hagan trivias de memoria!)</h5>
+              <p>Eviten preguntar <em>"¿En qué año se fundó X?"</em>. La llave debe poner en juego sus competencias disciplinares:</p>
+              <ul>
+                <li><strong>Geografía:</strong> Pongan un mapa mudo y pidan: <em>"Tu clave de escape son los últimos 4 números de las coordenadas geográficas del Glaciar Martial"</em>.</li>
+                <li><strong>Inglés:</strong> Usen <em>Listening comprehension</em>. Generen un audio con acento nativo usando ElevenLabs donde un turista frustrado menciona una calle de Londres. Esa palabra es la clave de salida.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>3. Anatomía del Video Inmersivo (Intro y Cierre)</summary>
+            <div class="guia-content">
+              <p>Para cumplir el requisito de multimedialidad, evitemos el típico video donde hablan a la cámara de forma estática durante dos minutos. Un buen video interactivo (usando CapCut para editar y Edpuzzle para frenarlo) tiene que tener mucho ritmo. Estructura recomendada para sus 30 segundos:</p>
+              <ul>
+                <li><strong>Segundos 0-5 (El Gancho):</strong> Empiecen con una pregunta directa o un titular de urgencia periodística. <em>(Ej: "¡El Río Pipo está en peligro! Tenemos 24 horas para frenar el proyecto...").</em></li>
+                <li><strong>Segundos 5-20 (El Nudo):</strong> Desarrollo rápido del dilema. Usen bancos de imágenes (B-roll) o mapas de Google Earth de fondo mientras narran (voz en off).</li>
+                <li><strong>Segundos 20-30 (El Llamado a la Acción):</strong> Frenen la narrativa, háblenle directamente al usuario y oblíguenlo a interactuar con el Genially. <em>(Ej: "Llegaste al tribunal. ¿Qué postura vas a defender? Hacé clic en uno de los botones de abajo para empezar...").</em></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>4. Códigos QR: Creación y Buenas Prácticas</summary>
+            <div class="guia-content">
+              <p>El código QR es el puente entre el mundo físico (las paredes de la escuela) y el Genially. ¿Cómo lo armamos bien?</p>
+              <h5>¿Cómo generarlo?</h5>
+              <p>Copien el enlace público de su Genially (o de la herramienta intermedia que hayan usado) y péguenlo en <strong>QR Code Monkey</strong> o directamente en la pestaña "Apps" de Canva. Les devolverá una imagen lista para descargar y pegar en su afiche.</p>
+              <h5>Recomendaciones clave como especialistas:</h5>
+              <ul>
+                <li><strong>El Llamado a la Acción (CTA):</strong> Un QR flotando solo no sirve. Siempre pónganle texto alrededor que invite a interactuar: <em>"Escaneá acá para revelar el expediente oculto del Senador"</em>.</li>
+                <li><strong>La Zona de Silencio:</strong> El QR debe tener buen contraste (preferentemente negro sobre blanco) y mantener un margen blanco alrededor ("zona de silencio") para que la cámara lo procese rápido sin confundirse con el fondo del afiche.</li>
+                <li><strong>Pruebas:</strong> Antes de imprimir el afiche definitivo a color, escaneen el QR desde la pantalla de la compu con distintos celulares (Android y iPhone) para asegurarse de que el link funciona perfecto.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>5. Realidad Aumentada (RA): Magia con Artivive</summary>
+            <div class="guia-content">
+              <p>Si deciden ir un paso más allá del código QR, la Realidad Aumentada permite que el afiche literalmente cobre vida al ser enfocado con el celular. Usaremos la plataforma <strong>Artivive (Bridge)</strong>.</p>
+              <h5>¿Cómo funciona la creación?</h5>
+              <p>Van a necesitar dos elementos clave: una <strong>"Imagen Marcador"</strong> (el diseño físico del afiche impreso) y una <strong>"Capa Digital"</strong> (un video o animación que aparecerá superpuesta). Suben ambas a Artivive y la magia se hace sola.</p>
+              <h5>¿Qué experiencias didácticas pueden armar?</h5>
+              <ul>
+                <li><strong>El Afiche que Habla (Inglés):</strong> Imprimen un póster estático de "Se Busca" con la foto de un turista. Cuando el alumno lo escanea con la app, la foto cobra vida y el turista les habla (audio de ElevenLabs) dándoles pistas de dónde está atrapado.</li>
+                <li><strong>Impacto en Tiempo Real (Geografía):</strong> El póster físico muestra un paisaje fueguino prístino. Al escanearlo, se superpone un video acelerado (timelapse) mostrando cómo avanza la deforestación o el deshielo, revelando las consecuencias ambientales del proyecto.</li>
+              </ul>
+              <p><em>Tip técnico:</em> Asegúrense de que su "Imagen Marcador" (el afiche) tenga muchos contrastes, texturas y detalles (bordes definidos). Si usan un fondo liso blanco o colores muy planos, a la cámara del celular le costará "anclar" el video 3D en la pared.</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PESTAÑA 5: BITACORA TFI -->
+    <div id="pane-bitacora" class="pane">
+      <div class="card" style="border-top: 4px solid var(--nav);">
+        <div class="ch" style="background:var(--pale); color:var(--nav);">Bitácora de Trabajo (Documentación Pedagógica)</div>
+        <div class="cb">
+          <p style="font-size:14.5px; margin-bottom: 20px;">Esta es la estructura oficial de la "Documentación Pedagógica" que se evaluará junto con su Genially. <strong>Hagan clic en el botón de abajo para copiar la plantilla completa</strong> y péguenla en un documento de Google Docs compartido con su equipo. Se irá completando gradualmente, clase a clase.</p>
+          
+          <button class="btn-copy" onclick="copyBitacora()">📋 Copiar Plantilla al Portapapeles</button>
+
+          <div id="doc-template-content" class="doc-template">
+            <h1>Documentación Pedagógica - TFI</h1>
+            <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 20px;">Proyectos Educativos con TIC · IPES "Florentino Ameghino"</p>
+
+            <h3>Datos del Equipo</h3>
+            <p><strong>Título del Proyecto / Genially:</strong> <span class="fill-blank">[Escribir título]</span></p>
+            <p><strong>Integrantes (Inglés):</strong> <span class="fill-blank">[Nombres]</span></p>
+            <p><strong>Integrantes (Geografía):</strong> <span class="fill-blank">[Nombres]</span></p>
+
+            <h2>1. Marco Pedagógico y Curricular (Hito 0 y 1)</h2>
+            <p><strong>1.1 Propuesta y Destinatarios:</strong> <br><span class="fill-blank">[Redactar brevemente de qué trata el recurso y para qué nivel/año y contexto de Tierra del Fuego está pensado]</span></p>
+            <p><strong>1.2 Ejes y Contenidos Curriculares:</strong> <br><span class="fill-blank">[Mencionar qué contenidos específicos del Diseño Curricular de Geografía e Inglés se abordan]</span></p>
+            <p><strong>1.3 Objetivos de Aprendizaje:</strong> <br><span class="fill-blank">[¿Qué se espera que el alumno logre o comprenda tras finalizar la experiencia?]</span></p>
+            <p><strong>1.4 Fundamentación Teórica (TIC):</strong> <br><span class="fill-blank">[Justificar apoyándose en TPACK, SAMR o PICRAT: ¿Por qué usar narrativa ramificada y códigos QR mejora la enseñanza de este tema frente a un texto tradicional?]</span></p>
+
+            <h2>2. El Guion del Recurso (Hito 2 y 3)</h2>
+            <p><strong>NODO 0 (El Dilema Conjunto):</strong> <br><span class="fill-blank">[Describir el conflicto central y las opciones que se le dan al usuario]</span></p>
+            <p><strong>NODO 1 (Rama de Inglés - Faceta Internacional):</strong> <br><span class="fill-blank">[Describir los textos ficticios, publicaciones de redes sociales simuladas y decisiones de esta rama]</span></p>
+            <p><strong>NODO 1 (Rama de Geografía - Faceta Territorial):</strong> <br><span class="fill-blank">[Describir el impacto territorial, mapas, leyes o actores locales involucrados en esta rama]</span></p>
+            <p><strong>NODO 2 (La Llave de Convergencia):</strong> <br><span class="fill-blank">[Explicar de qué trata el enigma intermedio o final y cómo se resuelve. Detallar el valor pedagógico del enigma]</span></p>
+
+            <h2>3. Auditoría de Inteligencia Artificial (Hito 4)</h2>
+            <p><em>(Ejemplo de 1 prompt usado durante la cursada)</em></p>
+            <p><strong>Herramienta utilizada (ej. ChatGPT, Canva IA):</strong> <span class="fill-blank">[Completar]</span></p>
+            <p><strong>Prompt estructurado (CRTF):</strong> <br><span class="fill-blank">[Pegar el prompt exacto incluyendo Contexto, Rol, Tarea y Formato]</span></p>
+            <p><strong>Análisis y Corrección de Sesgos:</strong> <br><span class="fill-blank">[¿Qué error, estereotipo o sesgo tuvo la IA en su primera respuesta y cómo el equipo docente lo auditó/corrigió?]</span></p>
+
+            <h2>4. Entregables Finales (Hito 5)</h2>
+            <p><strong>Enlace público al Genially:</strong> <br><span class="fill-blank">[Pegar Link]</span></p>
+            <p><strong>Enlaces accesorios (Edpuzzle, Wordwall, si aplica):</strong> <br><span class="fill-blank">[Pegar Links]</span></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div> <!-- FIN CONTENEDOR MIÉRCOLES -->
+
+  <!-- CONTENEDORES JUEVES Y VIERNES (Vacíos por ahora) -->
+    <div class="c-block c-jueves">
+      <div class="card">
+        <div class="cb" style="text-align:center; padding: 60px 20px;">
+          <h3 style="color:var(--slate);">Turno Jueves</h3>
+          <p style="color:var(--txt); margin-top:10px;">El laboratorio de producción para este turno se habilitará próximamente.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="c-block c-viernes">
+      <div class="card">
+        <div class="cb" style="text-align:center; padding: 60px 20px;">
+          <h3 style="color:var(--slate);">Turno Viernes</h3>
+          <p style="color:var(--txt); margin-top:10px;">El laboratorio de producción para Educación Inicial se habilitará próximamente.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function selectCareer(code,name){
+  document.body.className='';
+  document.body.classList.add('show-'+code);
+  document.body.classList.add('day-selected');
+  document.getElementById('lbl-career').innerText=name;
+  
+  // Resetea las pestañas al cambiar de día
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
+  
+  // Activa la primera pestaña visible
+  const firstTabBtn = document.querySelector('.tab-btn');
+  if(firstTabBtn) {
+    firstTabBtn.classList.add('active');
+    document.getElementById('pane-partida').classList.add('on');
+  }
+}
+
+function resetCareer(){
+  document.body.classList.remove('day-selected');
+  document.getElementById('lbl-career').innerText='';
+}
+
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('pane-'+id).classList.add('on');
+  btn.classList.add('active');
+}
+
+// Timer functionality
+let timerInterval;
+function startTimer(minutes) {
+  let time = minutes * 60;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    const display = document.getElementById('timer-display');
+    if (!display) {
+      clearInterval(timerInterval);
+      return;
+    }
+    let m = Math.floor(time / 60);
+    let s = time % 60;
+    display.innerText = `⏳ ${m}:${s < 10 ? '0' : ''}${s}`;
+    if (time <= 0) clearInterval(timerInterval);
+    time--;
+  }, 1000);
+}
+
+// Boton de copia de plantilla
+function copyBitacora() {
+  const content = document.getElementById('doc-template-content').innerText;
+  navigator.clipboard.writeText(content).then(() => {
+    const btn = document.querySelector('.btn-copy');
+    const originalText = btn.innerText;
+    btn.innerText = "✅ ¡Plantilla copiada!";
+    btn.style.background = "var(--grn)";
+    setTimeout(() => {
+      btn.innerText = originalText;
+      btn.style.background = "var(--nav)";
+    }, 2500);
+  }).catch(err => {
+    console.error('Error al copiar: ', err);
+  });
+}
+
+window.onload=function(){
+  startTimer(120);
+}
+</script>
+</body>
+</html>
