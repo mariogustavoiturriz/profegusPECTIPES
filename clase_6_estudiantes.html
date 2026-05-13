@@ -160,7 +160,7 @@
   <p>Hacé clic en tu día para acceder al laboratorio de producción situado.</p>
   <div class="career-grid" style="justify-content: center;">
     <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px; font-weight:400;">(Inglés + Geografía)</span></button>
-    <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves</button>
+    <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px; font-weight:400;">(Proyecto Senderismo)</span></button>
     <button class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')">Viernes</button>
   </div>
 </div>
@@ -181,7 +181,9 @@
 
   <div class="wrap">
 
-    <!-- CONTENEDOR MIÉRCOLES (INGLÉS + GEO) -->
+    <!-- ==========================================
+         CONTENEDOR MIÉRCOLES (INTACTO) 
+         ========================================== -->
     <div class="c-block c-miercoles">
 
       <!-- PESTAÑA 1: PUNTO DE PARTIDA -->
@@ -470,8 +472,8 @@
               <p>Genially tiene una función incorporada para bloquear páginas. Van al panel de <strong>Páginas</strong>, eligen la página que quieren ocultar, tocan los tres puntitos (Opciones) y seleccionan <strong>"Contraseña"</strong>. El usuario no podrá ver esa pantalla (ni hacer clic en los botones que lleven a ella) hasta que ingrese el PIN o palabra clave correcta.</p>
               <h5>Opción 2: El teclado engañoso (Alternativa de diseño)</h5>
               <p>Armen una pantalla que parezca un candado numérico (usando cajas de texto o botones). <strong>Solo al botón que tiene el número o letra correcta</strong> le añaden la interactividad "Ir a la página siguiente". A las opciones falsas les ponen "Ir a página de Error / Volver a intentar".</p>
-              <h5>Opción 3: Herramientas de terceros</h5>
-              <p>Usen <strong>Lockee.fr</strong> (crea candados digitales con geolocalización o patrón) o incrusten un quiz de <strong>Wordwall</strong> en la página de Genially. Al ganar el juego, el mensaje final revelará la contraseña que deben usar.</p>
+              <h5>Opción 3: Herramientas de terceros (Google Forms o Wordwall)</h5>
+              <p>Aprovechen <strong>Google Forms</strong> usando la función de "Validación de respuesta": arman un formulario con una sola pregunta corta y lo configuran para que solo acepte una palabra o número exacto. En el "Mensaje de confirmación" al enviarlo, les dejan el link para avanzar. También pueden incrustar un quiz de <strong>Wordwall</strong> en la página de Genially; al ganar el juego, el mensaje final revelará la contraseña que deben usar.</p>
               <h5 style="color:var(--grn);">El Valor Pedagógico (¡No hagan trivias de memoria!)</h5>
               <p>Eviten preguntar <em>"¿En qué año se fundó X?"</em>. La llave debe poner en juego sus competencias disciplinares:</p>
               <ul>
@@ -572,18 +574,365 @@
       </div>
     </div>
 
-  </div> <!-- FIN CONTENEDOR MIÉRCOLES -->
+    </div> <!-- FIN CONTENEDOR MIÉRCOLES -->
 
-  <!-- CONTENEDORES JUEVES Y VIERNES (Vacíos por ahora) -->
+
+    <!-- ==========================================
+         CONTENEDOR JUEVES (SENDERISMO / LAGUNA) 
+         ========================================== -->
     <div class="c-block c-jueves">
-      <div class="card">
-        <div class="cb" style="text-align:center; padding: 60px 20px;">
-          <h3 style="color:var(--slate);">Turno Jueves</h3>
-          <p style="color:var(--txt); margin-top:10px;">El laboratorio de producción para este turno se habilitará próximamente.</p>
+
+      <!-- PESTAÑA 1: PUNTO DE PARTIDA JUEVES -->
+      <div id="pane-partida-jueves" class="pane on">
+
+        <div class="card" style="border-top: 4px solid var(--amb);">
+          <div class="ch" style="background:var(--acl); color:var(--amb);">Consigna Oficial: Requisitos del Trabajo Final Integrador</div>
+          <div class="cb">
+            <p style="font-size:15px; margin-bottom:15px; color:var(--neg);">El TFI es <strong>un único proyecto integrado por equipo</strong>. Lo que se evalúa es la coherencia entre el diseño tecnológico, el contenido disciplinar y el marco teórico. El producto a entregar consta de dos partes indivisibles:</p>
+
+            <div style="background: var(--pale); border-left: 4px solid var(--teal); padding: 15px 20px; border-radius: var(--r); margin-bottom: 20px;">
+              <h4 style="font-size: 16px; color: var(--nav); margin-bottom: 10px;">1. La Documentación Pedagógica (Guion del Recurso)</h4>
+              <ul style="margin-left: 18px; font-size: 14px; color: var(--txt); line-height: 1.6;">
+                <li><strong>Propuesta y Destinatarios:</strong> ¿De qué trata el recurso y para qué nivel/año específico está pensado?</li>
+                <li><strong>Eje Temático y Contenidos:</strong> Articulación clara con los contenidos del Diseño Curricular de la provincia.</li>
+                <li><strong>Fundamentación Teórica:</strong> Justificación breve apoyada en los marcos trabajados (TPACK, SAMR o PICRAT).</li>
+              </ul>
+            </div>
+
+            <h4 style="font-size: 16px; color: var(--nav); margin-bottom: 10px;">2. El Recurso Interactivo (Obligatorio)</h4>
+            <div class="req-list">
+              <div class="req-item">
+                <div class="req-icon">🌳</div>
+                <div class="req-text">
+                  <h5>Interactividad y Toma de Decisiones <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>La secuencia de <strong>Narrativa Aumentada</strong> debe presentar un diagrama de flujo con <strong>al menos 3 niveles de profundidad</strong>. Las elecciones del usuario al interactuar deben alterar el rumbo de la historia de los turistas (Inglés) y su posición/riesgo en el territorio (Geografía).</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🔐</div>
+                <div class="req-text">
+                  <h5>Mecánicas de Escape / Llaves <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Debe implementarse obligatoriamente la resolución de enigmas: al menos <strong>una llave intermedia</strong> (ej. orientar a los turistas usando un mapa) y <strong>una llave final</strong> para lograr el objetivo del juego (ej. rescate o llegada a la laguna).</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🔗</div>
+                <div class="req-text">
+                  <h5>Hibridación Físico-Digital <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Debe pensarse en un anclaje material en la escuela (ej. mapa físico del Valle de Andorra en la pared) con <strong>al menos 1 código QR</strong>. <span style="color:var(--amb);font-weight:600;">Regla de escalabilidad:</span> si el equipo tiene más de 2 estudiantes, deben incluir <strong>2 códigos QR</strong> apuntando a distintas etapas del sendero. Sumar Realidad Aumentada es opcional.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🎬</div>
+                <div class="req-text">
+                  <h5>Videos de Producción <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Deben incluir exactamente <strong>2 videos breves</strong> (de entre 20 y 40 segundos de duración cada uno): uno que funcione como introducción a la narrativa y otro de cierre hablando sobre el plan de producción elaborado por el equipo.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🎨</div>
+                <div class="req-text">
+                  <h5>Insumos Disciplinares <em>(Responsabilidad: Dividida por área)</em></h5>
+                  <p><strong>Dominio de Inglés:</strong> Textos narrativos/expositivos, diálogos de supervivencia, pedidos de ayuda de los turistas (audios, capturas de WhatsApp simuladas).<br><strong>Dominio de Geografía (Eje transversal):</strong> Ubicación, representación del espacio geográfico, impacto ambiental de los senderistas, topografía del Valle de Andorra.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🤖</div>
+                <div class="req-text">
+                  <h5>Uso de IA y Auditoría Humana <em>(Responsabilidad: Equipo completo)</em></h5>
+                  <p>Evidenciar el uso de IA Generativa para crear insumos (imágenes o textos). Deben adjuntar en la documentación el <strong>prompt estructurado (Contexto, Rol, Tarea, Destinatario/formato)</strong> y explicar cómo el equipo docente auditó los sesgos de la IA.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch">Codiseño del Recurso: Facetas de la Historia y Autonomía</div>
+          <div class="cb">
+            <p style="font-size:15px; margin-bottom: 20px;">Atención acá: sabemos que construir el vínculo interdisciplinario lleva tiempo. Por eso, durante estas dos primeras semanas, <strong>el trabajo será en el mismo recurso pero con autonomía</strong>. El "Nodo 0" presentará la llegada de los turistas al Valle, y a partir de ahí, la historia de supervivencia se bifurcará en distintas facetas. Cada disciplina explorará y diseñará su propia rama narrativa sin depender de los tiempos del otro equipo.</p>
+            
+            <div style="background: var(--vcl); border-left: 4px solid var(--vio); padding: 12px 16px; border-radius: 4px; margin-bottom: 20px; font-size: 13.5px; color: var(--nav);">
+              <strong>🗺️ Clave de lectura del mapa:</strong> Hay dos niveles de "paralelo" en este diagrama. Por un lado, <strong>el usuario final</strong> navega y elige qué rama explorar primero. Por otro lado, <strong>el flujo de producción</strong>: cada rama es diseñada autónomamente por su disciplina respectiva. Ambas convergen luego en la llave intermedia (Nodo 2) y el desenlace (Nodo 3).
+            </div>
+            
+            <div class="tree-container">
+              <!-- N0 -->
+              <div class="tree-node node-mixed">
+                NODO 0<br><span style="font-size:12px; font-weight:400;">Punto de Partida: Turistas en Valle de Andorra</span>
+                <div class="tag-container">
+                  <span class="tag-ing" style="width:100%; background:var(--slate);">Definición y Video Inicial Conjunto</span>
+                </div>
+              </div>
+              <div class="tree-arrow">↓</div>
+              
+              <!-- N1 -->
+              <div class="tree-row">
+                <div class="tree-node node-blue">
+                  RAMA INGLÉS (Nodos 1)<br><span style="font-size:12px; font-weight:400;">Narrativa de Supervivencia y Diálogos</span>
+                </div>
+                <div class="tree-node node-green">
+                  RAMA GEOGRAFÍA (Nodos 1)<br><span style="font-size:12px; font-weight:400;">Mapeo Espacial y Dificultad del Terreno</span>
+                </div>
+              </div>
+              <div class="tree-arrow">↓</div>
+
+              <!-- N2 -->
+              <div class="tree-row" style="align-items: center;">
+                <div class="tree-node node-blue" style="width:200px;">NODO 2<br><span style="font-size:12px; font-weight:400;">Pedido de Ayuda en Inglés<br>(Diseñado por Inglés)</span></div>
+                <div class="tree-node node-amber" style="width:180px; font-size:12px;">Punto de Convergencia<br><span style="font-weight:400;">(Llave Intermedia a resolver)</span></div>
+                <div class="tree-node node-green" style="width:200px;">NODO 2<br><span style="font-size:12px; font-weight:400;">Identificación Topográfica<br>(Diseñado por Geografía)</span></div>
+              </div>
+              <div class="tree-arrow">↓</div>
+
+              <!-- N3 -->
+              <div class="tree-row">
+                <div class="tree-node node-dark" style="width:250px;">
+                  NODO 3 (DESENLACE)<br><span style="font-size:12px; font-weight:400;">Llave - Rescate o Llegada a la Laguna (Video Final)</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 2: PLAN DE PRODUCCIÓN JUEVES -->
+      <div id="pane-plan-jueves" class="pane">
+        <div class="card">
+          <div class="ch">Cronograma del TP: Etapas de Construcción (Senderismo)</div>
+          <div class="cb">
+            <p style="font-size:14.5px; margin-bottom: 20px;">Este es el plan de producción estimado en semanas para completar el TFI de Senderismo y Concientización sin atrasarse.</p>
+
+            <div class="paso">
+              <span class="paso-num" style="background:var(--amb);">SEMANA 6 (HOY)</span>
+              <h4>Etapa 1: Diseño de la Historia y Ramas (En documento)</h4>
+              <ul>
+                <li><strong>Juntos:</strong> Definir el "Nodo 0" (Llegada al Valle de Andorra en auto alquilado, sin información ni equipo).</li>
+                <li><strong>Inglés (Autónomo):</strong> Planificar los perfiles de los turistas y las situaciones de los primeros diálogos.</li>
+                <li><strong>Geografía (Autónomo):</strong> Planificar qué zona del Valle de Andorra se mapeará y los peligros del sendero a la Laguna del Caminante.</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num" style="background:var(--amb);">SEMANA 6 (HOY)</span>
+              <h4>Etapa 2: Construcción del Nodo 0 (N0) y validación técnica</h4>
+              <ul>
+              <li>Crear la página base en la herramienta elegida y diseñar la estética inicial del sendero. (Se comparte a tod@s para editar).</li>
+                <li>Vincular los botones del N0 para que el estudiante (usuario) pueda elegir si investigar la situación a través del GPS de los turistas o a través de sus diálogos de pánico.</li>
+              </ul>
+              <div class="alerta-autonomia">
+                <span>🚨</span> El Principio de Autonomía: "Un estudiante que abre el link a las 11 de la noche tiene que poder hacer todo el recorrido sin necesitar al docente." Oculten las flechas de navegación por defecto de la plataforma.
+              </div>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 7</span>
+              <h4>Etapa 3: Desarrollo Autónomo de Ramas (N1 y N2)</h4>
+              <ul>
+                <li><strong>Inglés:</strong> Trabaja en sus propias páginas. Diseña <strong>capturas de WhatsApp o audios</strong> de los turistas desorientados, y los audios de los transeúntes del lugar.</li>
+                <li><strong>Geografía:</strong> Trabaja en sus propias páginas. Elabora mapas topográficos del sendero, marcando puntos de peligro (turbales, bifurcaciones) y lo integra.</li>
+                <li><em>*Al trabajar en pantallas separadas, evitan pisarse el trabajo mientras construyen dinámica grupal.</em></li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 8</span>
+              <h4>Etapa 4: Llaves, Códigos y Convergencia (N3)</h4>
+              <ul>
+                <li><strong>Juntos:</strong> Diseñar la mecánica de la <strong>llave intermedia</strong>: Los turistas preguntan <em>"Which way should I go?"</em> y un local responde <em>"Continue straight ahead to the waterfall fork, then turn left"</em>. El usuario debe usar esa pista en inglés y aplicarla sobre el mapa (Geografía) para destrabar el sendero correcto.</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 9</span>
+              <h4>Etapa 5: Hibridación, Audiovisuales y Cierre</h4>
+              <ul>
+                <li>Diseño del afiche físico que simulará ser el cartel de inicio del sendero en el colegio. Incluirá los <strong>códigos QR</strong> exigidos.</li>
+                <li>Grabación de los <strong>2 videos breves</strong> (intro de los turistas y cierre explicando el proyecto), integrándolos al TP final.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 3: HERRAMIENTAS JUEVES -->
+      <div id="pane-herramientas-jueves" class="pane">
+        <div class="card">
+          <div class="ch">Listado de tecnologías del Proyecto</div>
+          <div class="cb">
+            <p style="font-size:14.5px; margin-bottom: 25px;">Acá están los recursos (curados) específicos para el proyecto de Senderismo a la Laguna del Caminante. <br><br><strong>Recuerden:</strong> Pueden usar cualquier otra alternativa disponible en la <a href="repositorio_herramientas.html" target="_blank" style="color:var(--teal); font-weight:bold;">Caja de Herramientas Principal</a>.</p>
+
+            <h3 class="tool-cat-title cat-trans">Transversal (Ambas Disciplinas)</h3>
+            <div class="tools-grid">
+               <div class="tool-card" style="border-left: 4px solid var(--amb);">
+                <h4>Edpuzzle</h4>
+                <p>Ideal para integrar los <strong>videos de intro y cierre</strong> exigidos. Permite tomar un video, agregarle notas de voz o pausarlo para hacerle una pregunta al usuario antes de dejarlo avanzar en la historia del rescate.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-ing">Producción de Inglés</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--vio);">
+                <h4>Canva (Simulación de Chats)</h4>
+                <p>Usen las plantillas de "Mensajes de Texto" o "WhatsApp" en Canva para simular la conversación de los turistas dándose cuenta de que se perdieron. Exploten ahí los textos narrativos.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--vio);">
+                <h4>ElevenLabs (Audios Nativos)</h4>
+                <p>Crucial para el diálogo con los transeúntes. Usen esta IA de texto-a-voz para grabar la instrucción <em>"I'm looking for the trail to the hiker's lagoon..."</em> con un acento realista.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-geo">Producción de Geografía</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--grn);">
+                <h4>Google Earth Pro</h4>
+                <p>Obligatorio para mapear el Valle de Andorra y el cruce hacia la Laguna del Caminante. Usen la herramienta de perfiles de elevación para mostrar la dificultad real del terreno.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--grn);">
+                <h4>Wikiloc / IGN</h4>
+                <p>Busquen los tracks reales grabados por senderistas en la zona de la laguna o usen la cartografía del Instituto Geográfico Nacional para anclar la ficción en un espacio geográfico real.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-hib">Hibridación Áulica</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--slate);">
+                <h4>QR Code Monkey</h4>
+                <p>El generador de códigos, simple y gratis. Generen acá los códigos QR exigidos que irán en el afiche del sendero apuntando a la narrativa digital.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--slate);">
+                <h4>Artivive (Realidad Aumentada - Opcional)</h4>
+                <p>Si el afiche en el colegio es un mapa topográfico impreso, al escanearlo con Artivive puede aparecer un video de los turistas pidiendo auxilio sobre el mapa.</p>
+              </div>
+            </div>
+            
+            <button class="btn-inspo" onclick="document.getElementById('inspo-box-jueves').classList.toggle('show')">💡 ¿Bloqueados? Ver estructura de la narrativa base</button>
+            
+            <div id="inspo-box-jueves" class="inspo-box">
+            <h4 style="color:var(--nav); margin-bottom:10px;">Narrativa Base: "Perdidos en el Valle de Andorra"</h4>
+            <p><strong>NODO 0 (Juntos):</strong> El estudiante (usuario) escanea el código QR de un afiche en el colegio y entra al recurso. <strong>Lo recibe un video introductorio (20 seg) grabado por ustedes:</strong> <em>"¡Ayuda! Alquilamos un auto para ir a la Laguna del Caminante y nos metimos por el Valle de Andorra. No tenemos equipo y no hay señal..."</em> Luego, el estudiante debe elegir: <em>A) Revisar el mapa topográfico (Geo)</em> o <em>B) Escuchar la nota de voz que dejaron grabada (Ing)</em>.</p>
+            <p style="margin-top:8px;"><strong>NODO 1 - GEO (Autónomo):</strong> Si elige la opción A, la pantalla le muestra un mapa satelital del Valle de Andorra con las curvas de nivel. Descubre que los turistas tomaron el desvío incorrecto hacia un turbal. <em>Decisión del estudiante: Enviarlos al norte o al sur.</em></p>
+            <p style="margin-top:8px;"><strong>NODO 1 - ING (Autónomo):</strong> Si elige la opción B, escucha un audio en inglés donde los turistas describen el entorno que ven (textos expositivos). <em>Decisión del estudiante: Comprender el texto para elegir qué camino recomendarles.</em></p>
+            <p style="margin-top:8px;"><strong>LLAVE INTERMEDIA (NODO 2 - El Cruce):</strong> Los turistas logran cruzarse con un transeúnte. Hay un audio en inglés: <em>"I´m looking for the trail to the hiker's lagoon. Which way should I go?"</em> y el transeúnte responde: <em>"Continue straight ahead to the waterfall fork, then turn left."</em>. Para pasar la llave, el estudiante debe mirar el mapa geográfico, identificar la cascada, y seleccionar el sendero de la izquierda.</p>
+            <p style="margin-top:8px;"><strong>DESENLACE (NODO 3):</strong> Al resolver la llave, los turistas encuentran el sendero correcto. Se desbloquea el <strong>video de finalización (30 seg)</strong>. Acá "rompen la cuarta pared" y explican el plan de producción del equipo: <em>"¡Los salvamos! Para este recurso, Inglés trabajó los textos narrativos y diálogos, mientras que Geografía aportó la ubicación y representación del espacio del Valle..."</em></p>
+          </div>
+
         </div>
       </div>
     </div>
-    
+
+    <!-- PESTAÑA 4: GUIAS DIDACTICAS JUEVES -->
+    <div id="pane-guias-jueves" class="pane">
+      <div class="card" style="border-left: 4px solid var(--teal);">
+        <div class="ch" style="background:var(--pale); color:var(--teal);">Andamiaje para la Autonomía: Guías de Producción</div>
+        <div class="cb">
+          <p style="font-size:14.5px; margin-bottom: 20px;">Utilicen este espacio como referencia pedagógica y técnica. Tienen autonomía total para decidir sobre el contenido de su trabajo, pero estas guías les garantizarán sortear obstáculos técnicos y evitar caer en recursos aburridos o pasivos.</p>
+
+          <details class="guia">
+            <summary>1. El Machete de Prompts IA</summary>
+            <div class="guia-content">
+              <p>Cuando usen ChatGPT, Claude, Gemini o Copilot para generar textos, nunca le hagan un pedido genérico. Usen esta estructura en su prompt para evitar sesgos y lograr un tono creíble:</p>
+              <ul>
+                <li><strong>[C] Contexto:</strong> ¿Para quién es y en qué situación de la historia se usa? <em>(Ej: "Estudiantes fueguinos de secundaria participando de un recorrido interactivo de senderismo").</em></li>
+                <li><strong>[R] Rol:</strong> ¿Quién debe ser la IA? <em>(Ej: "Actuá como un turista inexperto y asustado", "Actuá como un guía de montaña de Ushuaia").</em></li>
+                <li><strong>[T] Tarea:</strong> ¿Qué tiene que hacer exactamente? <em>(Ej: "Escribir un diálogo pidiendo indicaciones para llegar a la laguna").</em></li>
+                <li><strong>[F] Formato/Destino:</strong> ¿Cómo te lo tiene que devolver? <em>(Ej: "Dame 3 opciones de texto", "Usá vocabulario de supervivencia nivel B1").</em></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>2. Diseño de Enigmas y Llaves (El Candado de Genially)</summary>
+            <div class="guia-content">
+              <p>Tienen varias formas de armar la "llave intermedia" o final para bloquear el avance del usuario:</p>
+              <h5>Opción 1: El Candado Nativo de Genially</h5>
+              <p>Genially tiene una función incorporada para bloquear páginas. Van al panel de <strong>Páginas</strong>, eligen la página que quieren ocultar, tocan los tres puntitos (Opciones) y seleccionan <strong>"Contraseña"</strong>. El estudiante no podrá ver esa pantalla hasta que ingrese el código que dedujo del mapa o del audio en inglés.</p>
+              <h5>Opción 2: Herramientas de terceros (Google Forms)</h5>
+              <p>Aprovechen <strong>Google Forms</strong> usando la función de "Validación de respuesta": arman un formulario con una sola pregunta corta y lo configuran para que solo acepte una respuesta exacta (ej. "Izquierda", si la instrucción del audio era <em>turn left</em>). En el "Mensaje de confirmación" al enviarlo, les dejan el link para avanzar.</p>
+              <h5 style="color:var(--grn);">El Valor Pedagógico del Enigma</h5>
+              <p>El "acertijo" debe exigir cruzar la comprensión del texto expositivo/narrativo en inglés con la interpretación del espacio geográfico del Valle de Andorra.</p>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>3. Anatomía del Video Inmersivo (Intro y Cierre)</summary>
+            <div class="guia-content">
+              <p>Para cumplir el requisito de multimedialidad, evitemos el típico video estático. Un buen video interactivo (usando Edpuzzle) tiene que tener mucho ritmo. Estructura para sus 30 segundos:</p>
+              <ul>
+                <li><strong>Segundos 0-5 (El Gancho):</strong> Empiecen con urgencia. <em>(Ej: "¡Dejamos el auto de alquiler hace dos horas y el sendero desapareció!").</em></li>
+                <li><strong>Segundos 5-20 (El Nudo):</strong> Desarrollo rápido de la desorientación. Usen imágenes de la Laguna del Caminante de fondo.</li>
+                <li><strong>Segundos 20-30 (El Llamado a la Acción):</strong> Obliguen al estudiante a interactuar con el recurso. <em>(Ej: "Ayudanos a leer el mapa o traducí lo que nos dijo aquel guía. ¡Elegí un botón rápido!").</em></li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>4. Códigos QR: Creación y Buenas Prácticas</summary>
+            <div class="guia-content">
+              <p>El código QR es el puente entre el mundo físico (las paredes del Colegio Los Andes) y el recurso digital.</p>
+              <h5>Recomendaciones clave como especialistas:</h5>
+              <ul>
+                <li><strong>Llamado a la Acción (Call To Action):</strong> Un QR en un afiche de la escuela no sirve si no dice qué hace. Pónganle texto: <em>"Escaneá acá para ayudar a los turistas perdidos en el Valle de Andorra"</em>.</li>
+                <li><strong>La Zona de Silencio:</strong> El QR debe tener buen contraste y mantener un margen blanco alrededor para que los celulares del colegio lo lean rápido.</li>
+              </ul>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PESTAÑA 5: BITACORA JUEVES -->
+    <div id="pane-bitacora-jueves" class="pane">
+      <div class="card" style="border-top: 4px solid var(--nav);">
+        <div class="ch" style="background:var(--pale); color:var(--nav);">Bitácora de Trabajo (Documentación Pedagógica)</div>
+        <div class="cb">
+          <p style="font-size:14.5px; margin-bottom: 20px;">Esta es la estructura oficial de la "Documentación Pedagógica" que se evaluará. <strong>Hagan clic en el botón de abajo para copiar la plantilla</strong> y péguenla en un Google Docs compartido con su equipo. Se irá completando gradualmente.</p>
+          
+          <button class="btn-copy" onclick="copyBitacora()">📋 Copiar Plantilla al Portapapeles</button>
+
+          <div id="doc-template-content-jueves" class="doc-template">
+            <h1>Documentación Pedagógica - TFI Senderismo</h1>
+            <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 20px;">Proyectos Educativos con TIC · IPES "Florentino Ameghino"</p>
+
+            <h3>Datos del Equipo</h3>
+            <p><strong>Título del Proyecto (Laguna del Caminante):</strong> <span class="fill-blank">[Escribir título]</span></p>
+            <p><strong>Integrantes (Inglés):</strong> <span class="fill-blank">[Nombres]</span></p>
+            <p><strong>Integrantes (Geografía):</strong> <span class="fill-blank">[Nombres]</span></p>
+
+            <h2>1. Marco Pedagógico y Curricular (Hito 0 y 1)</h2>
+            <p><strong>1.1 Propuesta y Destinatarios:</strong> <br>Recurso de Narrativa Aumentada sobre senderismo responsable, destinado a estudiantes de 6to año del Colegio Provincial Los Andes (Ushuaia).</p>
+            <p><strong>1.2 Ejes y Contenidos Curriculares:</strong> <br><span class="fill-blank">[Mencionar contenidos específicos de Geografía (ubicación/espacio) e Inglés (textos narrativos/expositivos)]</span></p>
+            <p><strong>1.3 Objetivos de Aprendizaje:</strong> <br><span class="fill-blank">[¿Qué se espera que el alumno logre comprender sobre la concientización turística y la orientación espacial?]</span></p>
+            <p><strong>1.4 Fundamentación Teórica (TIC):</strong> <br><span class="fill-blank">[Justificar apoyándose en TPACK, SAMR o PICRAT]</span></p>
+
+            <h2>2. El Guion del Recurso (Hito 2 y 3)</h2>
+            <p><strong>NODO 0 (El Dilema Conjunto):</strong> <br><span class="fill-blank">[Describir la llegada de los turistas al Valle de Andorra y su desorientación]</span></p>
+            <p><strong>NODO 1 (Rama de Inglés - Narrativa/Diálogos):</strong> <br><span class="fill-blank">[Describir los audios, textos narrativos o diálogos de auxilio de los turistas]</span></p>
+            <p><strong>NODO 1 (Rama de Geografía - Representación del Espacio):</strong> <br><span class="fill-blank">[Describir el impacto territorial y los mapas/riesgos geográficos presentados en esta rama]</span></p>
+            <p><strong>NODO 2 (La Llave de Convergencia):</strong> <br><span class="fill-blank">[Explicar de qué trata el enigma intermedio (ej. cruzar las instrucciones en inglés del local con el mapa de la cascada) y detallar su valor pedagógico]</span></p>
+
+            <h2>3. Auditoría de Inteligencia Artificial (Hito 4)</h2>
+            <p><em>(Ejemplo de 1 prompt usado durante la cursada)</em></p>
+            <p><strong>Herramienta utilizada (ej. ElevenLabs, Canva IA):</strong> <span class="fill-blank">[Completar]</span></p>
+            <p><strong>Prompt estructurado :</strong> <br><span class="fill-blank">[Pegar el prompt exacto incluyendo Contexto, Rol, Tarea y Formato]</span></p>
+            <p><strong>Análisis y Corrección de Sesgos:</strong> <br><span class="fill-blank">[¿Qué error de IA corrigió el equipo docente al armar los textos en inglés o las imágenes del bosque fueguino?]</span></p>
+
+            <h2>4. Entregables Finales (Hito 5)</h2>
+            <p><strong>Enlace público al Genially o Narrativa:</strong> <br><span class="fill-blank">[Pegar Link]</span></p>
+            <p><strong>Enlaces accesorios (Edpuzzle, Formularios, si aplica):</strong> <br><span class="fill-blank">[Pegar Links]</span></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    </div> <!-- FIN CONTENEDOR JUEVES -->
+
+    <!-- CONTENEDOR VIERNES (Vacío por ahora) -->
     <div class="c-block c-viernes">
       <div class="card">
         <div class="cb" style="text-align:center; padding: 60px 20px;">
@@ -607,11 +956,10 @@ function selectCareer(code,name){
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
   
-  // Activa la primera pestaña visible
+  // Activa la primera pestaña llamando a showTab para que maneje el sufijo del día
   const firstTabBtn = document.querySelector('.tab-btn');
   if(firstTabBtn) {
-    firstTabBtn.classList.add('active');
-    document.getElementById('pane-partida').classList.add('on');
+    showTab('partida', firstTabBtn);
   }
 }
 
@@ -623,7 +971,17 @@ function resetCareer(){
 function showTab(id,btn){
   document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('pane-'+id).classList.add('on');
+  
+  // Detecta en qué día estamos navegando
+  let daySuffix = '';
+  if(document.body.classList.contains('show-jueves')) daySuffix = '-jueves';
+  else if(document.body.classList.contains('show-viernes')) daySuffix = '-viernes';
+  
+  // Intenta abrir el panel específico del día, si no existe, abre el panel por defecto (miércoles)
+  let targetPane = document.getElementById('pane-' + id + daySuffix);
+  if(!targetPane) targetPane = document.getElementById('pane-' + id);
+  
+  if(targetPane) targetPane.classList.add('on');
   btn.classList.add('active');
 }
 
@@ -646,11 +1004,13 @@ function startTimer(minutes) {
   }, 1000);
 }
 
-// Boton de copia de plantilla
+// Boton de copia de plantilla (Adaptado para copiar la plantilla visible)
 function copyBitacora() {
-  const content = document.getElementById('doc-template-content').innerText;
+  const visiblePane = document.querySelector('.pane.on');
+  const content = visiblePane.querySelector('.doc-template').innerText;
+  
   navigator.clipboard.writeText(content).then(() => {
-    const btn = document.querySelector('.btn-copy');
+    const btn = visiblePane.querySelector('.btn-copy');
     const originalText = btn.innerText;
     btn.innerText = "✅ ¡Plantilla copiada!";
     btn.style.background = "var(--grn)";
