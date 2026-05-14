@@ -163,7 +163,7 @@
   <div class="career-grid" style="justify-content: center;">
     <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px; font-weight:400;">(Proyecto Glaciares)</span></button>
     <button id="btn-jueves" class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px; font-weight:400;">(Proyecto Senderismo)</span></button>
-    <button id="btn-viernes" class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')" disabled>Viernes</button>
+    <button id="btn-viernes" class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')" disabled>Viernes<br><span style="font-size:12px; font-weight:400;">(Escape Room TDF)</span></button>
   </div>
 </div>
 
@@ -930,15 +930,302 @@
 
     </div> <!-- FIN CONTENEDOR JUEVES -->
 
-    <!-- CONTENEDOR VIERNES (Vacío por ahora) -->
+
+    <!-- ==========================================
+         CONTENEDOR VIERNES (GAMIFICACION / TDFeIAS) 
+         ========================================== -->
     <div class="c-block c-viernes">
-      <div class="card">
-        <div class="cb" style="text-align:center; padding: 60px 20px;">
-          <h3 style="color:var(--slate);">Turno Viernes</h3>
-          <p style="color:var(--txt); margin-top:10px;">El laboratorio de producción para Educación Inicial se habilitará próximamente.</p>
+
+      <!-- PESTAÑA 1: PUNTO DE PARTIDA VIERNES -->
+      <div id="pane-partida-viernes" class="pane on">
+
+        <div class="card" style="border-top: 4px solid var(--amb);">
+          <div class="ch" style="background:var(--acl); color:var(--amb);">Consigna Oficial: El Proyecto Colaborativo</div>
+          <div class="cb">
+            <p style="font-size:15px; margin-bottom:15px; color:var(--neg);">Este proyecto es una <strong>Gamificación Hibridada (Escape Room)</strong> a gran escala. Las 5 comisiones trabajarán juntas para crear un recurso unificado sobre los ambientes de TDFeIAS (Tierra del Fuego, Antártida e Islas del Atlántico Sur).</p>
+
+            <div style="background: var(--pale); border-left: 4px solid var(--teal); padding: 15px 20px; border-radius: var(--r); margin-bottom: 20px;">
+              <h4 style="font-size: 16px; color: var(--nav); margin-bottom: 10px;">1. La Narrativa Transversal (Pepito el Albatros)</h4>
+              <p style="font-size: 14px; color: var(--txt); line-height: 1.6;">Todo el proyecto está atravesado por un hilo conductor: <strong>Pepito el Albatros</strong>. Él guía a los niños por distintas "Misiones" en cada ciudad para recolectar 5 llaves. Una vez que consigan todas las llaves, podrán abrir el "Cofre del Tesoro en la Antártida" (una bitácora con fotos antiguas e historias de su abuelo).</p>
+            </div>
+
+            <h4 style="font-size: 16px; color: var(--nav); margin-bottom: 10px;">2. Requisitos de las Estaciones de Aprendizaje</h4>
+            <div class="req-list">
+              <div class="req-item">
+                <div class="req-icon">🗺️</div>
+                <div class="req-text">
+                  <h5>Estructura No Lineal (Responsabilidad: Equipo Macro)</h5>
+                  <p>La experiencia tiene un Inicio (Ushuaia) y un Fin (Antártida), pero el desarrollo en el medio debe permitir que los niños viajen a cualquier misión (Tolhuin, Río Grande, Malvinas) en el orden que prefieran.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">📍</div>
+                <div class="req-text">
+                  <h5>2 Hitos por Estación (Responsabilidad: Cada Grupo)</h5>
+                  <p>Cada comisión debe diseñar <strong>2 hitos o misiones de conocimiento</strong> para su ambiente asignado. Para resolverlos, el niño interactuará lúdicamente (ej: arrastrar elementos, rompecabezas, memotest).</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">📱</div>
+                <div class="req-text">
+                  <h5>Hibridación Áulica con QR (Responsabilidad: Cada Grupo)</h5>
+                  <p>Las "postas" no ocurren solo en la pantalla. Deben **ambientar el espacio físico** (el aula o el patio). Los niños explorarán físicamente la estación, buscarán objetos/imágenes impresas y **escanearán un código QR** para acceder al juego digital de ese hito.</p>
+                </div>
+              </div>
+              <div class="req-item">
+                <div class="req-icon">🎬</div>
+                <div class="req-text">
+                  <h5>Video Avatar Inicial (Responsabilidad: Equipo Macro)</h5>
+                  <p>Debe producirse el video introductorio (usando IA para animar al Albatros y darle voz) en el que Pepito se presenta, explica qué es un Albatros y cuenta el propósito de la misión.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="ch">Distribución de las Estaciones (TDFeIAS)</div>
+          <div class="cb">
+            <p style="font-size:15px; margin-bottom: 20px;">Cada grupo de docentes en formación tiene total **autonomía** para diseñar las 2 actividades/hitos de su posta física-digital, siempre respetando la coherencia con el hilo narrativo del Albatros.</p>
+            
+            <div class="tree-container">
+              <!-- INICIO -->
+              <div class="tree-node node-dark" style="margin-bottom:15px;">
+                NODO CENTRAL<br><span style="font-size:12px; font-weight:400;">Video de Pepito el Albatros (El llamado a la aventura)</span>
+              </div>
+              <div class="tree-arrow">↓</div>
+              
+              <!-- ESTACIONES -->
+              <div class="tree-row" style="flex-wrap: wrap; max-width:800px; margin:0 auto;">
+                <div class="tree-node node-green">USHUAIA<br><span style="font-size:11px; font-weight:400;">Fauna del Canal Beagle y Bosque</span></div>
+                <div class="tree-node node-green">TOLHUIN<br><span style="font-size:11px; font-weight:400;">(Contenidos a definir por el grupo)</span></div>
+                <div class="tree-node node-green">RÍO GRANDE<br><span style="font-size:11px; font-weight:400;">La Estepa, el Viento y Punta Popper</span></div>
+                <div class="tree-node node-green">MALVINAS<br><span style="font-size:11px; font-weight:400;">Armado de Rompecabezas / Soberanía</span></div>
+              </div>
+              <div class="tree-arrow">↓</div>
+
+              <!-- FIN -->
+              <div class="tree-row">
+                <div class="tree-node node-blue" style="width:250px;">
+                  ESTACIÓN ANTÁRTIDA (FIN)<br><span style="font-size:12px; font-weight:400;">Apertura del Cofre con las 5 llaves (Bitácora)</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 2: PLAN DE PRODUCCIÓN VIERNES -->
+      <div id="pane-plan-viernes" class="pane">
+        <div class="card">
+          <div class="ch">Cronograma del Proyecto Colaborativo</div>
+          <div class="cb">
+            <p style="font-size:14.5px; margin-bottom: 20px;">Planificación sugerida para coordinar a los 5 grupos de la comisión.</p>
+
+            <div class="paso">
+              <span class="paso-num" style="background:var(--amb);">SEMANA 6 (HOY)</span>
+              <h4>Etapa 1: Diseño de los Hitos y la Macro-Historia</h4>
+              <ul>
+                <li><strong>En plenario:</strong> Definir exactamente el guion del Video del Albatros (quién lo anima) y qué formato tendrá el Cofre del Tesoro Final.</li>
+                <li><strong>Cada grupo (Autónomo):</strong> Define en papel cuáles serán sus "2 hitos/conocimientos" a enseñar en su ciudad y qué "objeto" deberán escanear los chicos en el aula para jugar.</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num" style="background:var(--amb);">SEMANA 6 (HOY)</span>
+              <h4>Etapa 2: Construcción del Mapa Interactivo Central</h4>
+              <ul>
+                <li>Se crea un **Genially único compartido** entre toda la comisión. </li>
+                <li>Arman la pantalla de inicio con el Albatros y un "Mapa de la Provincia" donde el usuario elige a qué ciudad volar primero. Cada botón lleva a la primera página de la estación asignada.</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 7</span>
+              <h4>Etapa 3: Desarrollo de Mini-Juegos (Hitos Digitales)</h4>
+              <ul>
+                <li>Cada grupo trabaja en la herramienta lúdica elegida para su estación (Ej: Río Grande arma el Memotest de la Reserva en Wordwall, Malvinas arma su rompecabezas, Ushuaia su Genially de fauna).</li>
+                <li>Tienen que configurar los juegos para que, al ganar, entreguen "Una pieza de llave".</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 8</span>
+              <h4>Etapa 4: Hibridación y Códigos QR</h4>
+              <ul>
+                <li><strong>Producción Física:</strong> Cada grupo imprime y arma el material que irá pegado en las paredes del aula (Imágenes antiguas, pósters de estepa, figuras de animales).</li>
+                <li>Generan los Códigos QR que vinculan el objeto físico con el mini-juego digital que armaron la semana anterior y los pegan en la escenografía.</li>
+              </ul>
+            </div>
+
+            <div class="paso">
+              <span class="paso-num">SEMANA 9</span>
+              <h4>Etapa 5: Ensamblaje Final y Tesoro</h4>
+              <ul>
+                <li>Integran todos los links en el Genially Central.</li>
+                <li>Terminan de maquetar el "Cofre del Tesoro" (la bitácora del abuelo con fotos antiguas) que se abre en la estación Antártida.</li>
+              </ul>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- PESTAÑA 3: HERRAMIENTAS VIERNES -->
+      <div id="pane-herramientas-viernes" class="pane">
+        <div class="card">
+          <div class="ch">Listado de Tecnologías para Gamificación</div>
+          <div class="cb">
+            <p style="font-size:14.5px; margin-bottom: 25px;">Recursos sugeridos para armar tanto la estructura general como los mini-juegos (hitos) de cada grupo.</p>
+
+            <h3 class="tool-cat-title cat-trans">La Base Operativa (Macro)</h3>
+            <div class="tools-grid">
+               <div class="tool-card" style="border-left: 4px solid var(--nav);">
+                <h4>Genially (Plataforma Hub)</h4>
+                <p>Armen acá el mapa provincial inicial y el panel de las "5 llaves" que destraba la bitácora en la Antártida. Usen la función de "Escape Room" o "Gamificación" que ya trae botones con ruidos y animaciones infantiles.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--amb);">
+                <h4>D-ID o HeyGen (Video del Albatros)</h4>
+                <p>IAs que animan imágenes estáticas. Pueden subir un dibujo de "Pepito el Albatros" generado por IA, escribirle un guion y la plataforma hará que el pájaro hable, parpadee y se mueva para la intro.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-geo">Mini-Juegos por Estación</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--grn);">
+                <h4>Wordwall</h4>
+                <p>Ideal para armar rapidísimo hitos gamificados de unir con flechas, buscar pares (Memotest para Río Grande), separar "Qué animal es de la estepa y cuál no" o el laberinto. Se pueden incrustar dentro del Genially.</p>
+              </div>
+              <div class="tool-card" style="border-left: 4px solid var(--grn);">
+                <h4>Jigsaw Planet / Puzzel.org</h4>
+                <p>Perfecto para el Hito de "Islas Malvinas". Suben la imagen del mapa de las islas y la herramienta les crea un rompecabezas digital interactivo para que los niños armen.</p>
+              </div>
+            </div>
+
+            <h3 class="tool-cat-title cat-hib">Hibridación Áulica</h3>
+            <div class="tools-grid">
+              <div class="tool-card" style="border-left: 4px solid var(--slate);">
+                <h4>QR Code Monkey</h4>
+                <p>Para imprimir y pegar junto a los animales físicos en las paredes del aula. Cada QR escaneado por las tablets disparará la actividad correspondiente de la estación.</p>
+              </div>
+            </div>
+            
+            <button class="btn-inspo" onclick="document.getElementById('inspo-box-viernes').classList.toggle('show')">💡 ¿Bloqueados? Ver flujo del Grupo Ushuaia</button>
+            
+            <div id="inspo-box-viernes" class="inspo-box">
+            <h4 style="color:var(--nav); margin-bottom:10px;">Ejemplo de Estación: Ushuaia (Sofi, Sofi y Kiara)</h4>
+            <p><strong>El Espacio Físico:</strong> En un rincón del aula armaron una ambientación del Canal Beagle. Pegaron imágenes de pingüinos, lobos marinos y cormoranes. Cada animal tiene un pequeño código QR debajo.</p>
+            <p style="margin-top:8px;"><strong>Hito 1 (En la tablet):</strong> Cuando el grupo de chicos escanea el QR del Pingüino con la tablet, se les abre un Genially donde Pepito el Albatros les da una pista en audio: <em>"¡Ayudame a encontrar a los animales que nadan en aguas muy heladas!"</em>. Tienen que tocar las respuestas correctas. Al ganar, la pantalla les da <strong>"La mitad de la llave de Ushuaia"</strong>.</p>
+            <p style="margin-top:8px;"><strong>Hito 2 (En la tablet):</strong> Escanean el QR que está en un "árbol" de cartón (Bosque Fueguino). Se abre un juego de arrastrar y soltar (ej. Wordwall) donde deben diferenciar qué animal vive en el bosque y cuál en el mar. Al superar el reto, la pantalla les da <strong>"La segunda mitad de la llave de Ushuaia"</strong>.</p>
+            <p style="margin-top:8px;"><strong>Salida:</strong> Con la llave de Ushuaia completa anotada, el grupo de niños camina hacia el rincón del aula donde está la estación de Tolhuin para seguir jugando, hasta tener las 5 llaves y llegar a la mesa final (Antártida).</p>
+          </div>
+
         </div>
       </div>
     </div>
+
+    <!-- PESTAÑA 4: GUIAS DIDACTICAS VIERNES -->
+    <div id="pane-guias-viernes" class="pane">
+      <div class="card" style="border-left: 4px solid var(--teal);">
+        <div class="ch" style="background:var(--pale); color:var(--teal);">Andamiaje para la Gamificación: Guías de Producción</div>
+        <div class="cb">
+          <p style="font-size:14.5px; margin-bottom: 20px;">Utilicen este espacio como referencia pedagógica y técnica para sortear obstáculos en el armado de este "mega" escape room hibridado.</p>
+
+          <details class="guia">
+            <summary>1. Crear a Pepito el Albatros (Video IA)</summary>
+            <div class="guia-content">
+              <p>Hacer que un personaje ilustrado hable no es difícil si combinan las herramientas adecuadas:</p>
+              <ul>
+                <li><strong>Paso 1 (La Imagen):</strong> Vayan a Bing Image Creator o Canva IA y pidan: <em>"Ilustración infantil 2D de un pájaro albatros simpático con una bufanda, fondo transparente"</em>.</li>
+                <li><strong>Paso 2 (El Audio):</strong> Escriban el guion ("Hola, soy Pepito...") y pásenlo por ElevenLabs eligiendo una voz amigable de niño o locutor.</li>
+                <li><strong>Paso 3 (La Animación):</strong> Entren a <strong>HeyGen</strong> o <strong>D-ID</strong> (tienen versiones gratuitas), suban la imagen de Pepito y suban el audio. La IA se encarga de moverle el pico sincronizado con las palabras.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>2. El "Truco" del Mapa No Lineal</summary>
+            <div class="guia-content">
+              <p>Para que los chicos puedan elegir a qué ciudad "viajar" primero (Ushuaia, Río Grande o Tolhuin):</p>
+              <p>En el panel central (Genially), creen un mapa interactivo de TDF. A los pines/botones de las ciudades pónganles la interactividad <strong>"Ir a la página..."</strong> de la estación correspondiente. <br><strong>¡Cuidado!</strong> Al final de los dos hitos de cada estación, no se olviden de poner un botón grande que diga <strong>"Volver al Mapa"</strong> para que el chico no quede atrapado y pueda elegir otra ciudad.</p>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>3. El Diseño de los Códigos QR para el Aula</summary>
+            <div class="guia-content">
+              <p>Como van a ambientar el espacio físico del aula (estaciones), el uso del QR tiene que ser bien planificado para los chicos:</p>
+              <ul>
+                <li><strong>Tamaño:</strong> No lo impriman en 2x2 centímetros. Hagan que tenga al menos 10x10cm para que las tablets de la escuela los enfoquen rápido sin frustrar a los niños.</li>
+                <li><strong>Instrucciones Visuales:</strong> Pónganle un marquito de diseño o texto claro, ej: <em>"Escaneá acá para jugar a la misión 1"</em>.</li>
+              </ul>
+            </div>
+          </details>
+
+          <details class="guia">
+            <summary>4. Entregar Llaves sin Pagar Genially Premium</summary>
+            <div class="guia-content">
+              <p>¿Cómo hacemos que los chicos "guarden" las llaves si Genially no guarda inventarios de objetos?</p>
+              <p><strong>Lo analógico como mejor recurso infantil:</strong> A cada grupo de niños le pueden dar un "Pasaporte Fueguino" físico de cartulina al inicio del juego. Cada vez que ganan un mini-juego digital (ej: el Memotest de Río Grande), la pantalla final les mostrará una "Contraseña" o un sello. Ellos deben anotar o pedirles el sello para su pasaporte de papel. Al llegar a la Antártida, si tienen los 5 sellos físicos en su pasaporte, ¡ustedes les abren el cofre real!</p>
+            </div>
+          </details>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- PESTAÑA 5: BITACORA VIERNES -->
+    <div id="pane-bitacora-viernes" class="pane">
+      <div class="card" style="border-top: 4px solid var(--nav);">
+        <div class="ch" style="background:var(--pale); color:var(--nav);">Bitácora de Trabajo (Documentación Pedagógica)</div>
+        <div class="cb">
+          <p style="font-size:14.5px; margin-bottom: 20px;">Dado que es un mega-proyecto, les sugiero tener <strong>este documento unificado</strong> donde todos los grupos carguen su información centralizada.</p>
+          
+          <button class="btn-copy" onclick="copyBitacora()">📋 Copiar Plantilla al Portapapeles</button>
+
+          <div id="doc-template-content-viernes" class="doc-template">
+            <h1>Documentación Pedagógica - Escape Room TDFeIAS</h1>
+            <p style="text-align: center; font-size: 13px; color: #666; margin-bottom: 20px;">Proyectos Educativos con TIC · IPES "Florentino Ameghino"</p>
+
+            <h3>Datos Generales</h3>
+            <p><strong>Título del Proyecto:</strong> <span class="fill-blank">[Misiones con Pepito el Albatros]</span></p>
+            <p><strong>Comisión:</strong> <span class="fill-blank">[Nombres de todos los integrantes de los 5 grupos]</span></p>
+
+            <h2>1. Marco Pedagógico y Curricular</h2>
+            <p><strong>1.1 Propuesta y Destinatarios:</strong> <br>Recurso lúdico interactivo e hibridado sobre exploración de los ambientes de la provincia, destinado a niños/as.</p>
+            <p><strong>1.2 Eje Temático:</strong> <br>Ambiente. Exploración de distintos ambientes de TDFeIAS.</p>
+            <p><strong>1.3 Objetivos de Aprendizaje:</strong> <br><span class="fill-blank">[¿Qué se espera que el niño logre o conozca de la provincia tras jugar?]</span></p>
+            <p><strong>1.4 Fundamentación Teórica (TIC):</strong> <br><span class="fill-blank">[Justificar el uso de gamificación (Escape Room) y códigos QR en nivel infantil]</span></p>
+
+            <h2>2. Estaciones y Guion de Hitos (Por grupo)</h2>
+            <p><strong>NODO CENTRAL (Macro-Historia):</strong> <br><span class="fill-blank">[Describir de qué trata el video de Pepito y cuál es el tesoro final]</span></p>
+            
+            <p><strong>ESTACIÓN USHUAIA:</strong><br>- Hito 1: <span class="fill-blank">[Ej: Exploración interactiva del Canal Beagle]</span><br>- Hito 2: <span class="fill-blank">[Ej: Wordwall del Bosque Fueguino]</span></p>
+            
+            <p><strong>ESTACIÓN RÍO GRANDE:</strong><br>- Hito 1: <span class="fill-blank">[Ej: Memotest de la Reserva Punta Popper]</span><br>- Hito 2: <span class="fill-blank">[Describir el segundo juego de la estepa]</span></p>
+            
+            <p><strong>ESTACIÓN TOLHUIN:</strong><br>- Hito 1: <span class="fill-blank">[Describir juego/contenido]</span><br>- Hito 2: <span class="fill-blank">[Describir juego/contenido]</span></p>
+            
+            <p><strong>ESTACIÓN MALVINAS:</strong><br>- Hito 1: <span class="fill-blank">[Ej: Armado del rompecabezas de las Islas]</span><br>- Hito 2: <span class="fill-blank">[Describir segundo contenido]</span></p>
+
+            <p><strong>ESTACIÓN ANTÁRTIDA (El Cierre):</strong><br>- Hito 1: <span class="fill-blank">[Reconocimiento de Fauna]</span><br>- Resolución: <span class="fill-blank">[Apertura de la bitácora del abuelo con imágenes antiguas]</span></p>
+
+            <h2>3. Auditoría de Inteligencia Artificial</h2>
+            <p><strong>Herramienta utilizada (ej. Generador de imágenes, Chatbots de texto):</strong> <span class="fill-blank">[Completar]</span></p>
+            <p><strong>Prompt estructurado utilizado:</strong> <br><span class="fill-blank">[Pegar un prompt de ejemplo (Contexto, Rol, Tarea, Formato)]</span></p>
+            <p><strong>Análisis y Corrección de Sesgos:</strong> <br><span class="fill-blank">[¿Qué corrigió el equipo docente sobre lo que devolvió la IA?]</span></p>
+
+            <h2>4. Entregables Finales</h2>
+            <p><strong>Enlace público al Genially (HUB central):</strong> <br><span class="fill-blank">[Pegar Link]</span></p>
+            <p><strong>Enlaces accesorios (Juegos satélite):</strong> <br><span class="fill-blank">[Pegar Links de Wordwall, Educaplay, etc.]</span></p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    </div> <!-- FIN CONTENEDOR VIERNES -->
 
   </div>
 </div>
@@ -1024,11 +1311,19 @@ function copyBitacora() {
 window.onload=function(){
   startTimer(120);
 
+  // Desbloqueo automático para el Viernes a las 8:00 AM (hora local Argentina)
+  const btnViernes = document.getElementById('btn-viernes');
+  const now = new Date();
+  const unlockTime = new Date('2026-05-15T08:00:00-03:00');
+  
+  if (btnViernes && now >= unlockTime) {
+    btnViernes.disabled = false;
+  }
+
   // Easter egg: Desbloquear los turnos con Ctrl + Shift + U
   document.addEventListener('keydown', function(event) {
     if (event.ctrlKey && event.shiftKey && (event.key === 'u' || event.key === 'U')) {
       const btnJueves = document.getElementById('btn-jueves');
-      const btnViernes = document.getElementById('btn-viernes');
       if (btnJueves) btnJueves.disabled = false;
       if (btnViernes) btnViernes.disabled = false;
     }
