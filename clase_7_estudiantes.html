@@ -1,0 +1,1169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 7 · Producción con IA: Texto e Imagen</title>
+<style>
+  :root {
+    --nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;
+    --grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;
+    --vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;
+    --gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFFFFF;
+    --r:8px;--sh:0 2px 8px rgba(0,0,0,.09);
+    --red:#C0392B;--rcl:#FDEDEC;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.65;text-align:right;display:flex;align-items:center}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background .2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+  .btn-back:hover{background:rgba(255,255,255,.25)}
+  .btn-reset{display:none;color:var(--cl);margin-right:12px;text-decoration:none;border-bottom:1px dotted var(--cl);cursor:pointer}
+  body.day-selected .btn-reset{display:inline-block}
+  #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
+  #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
+  #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
+  .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all .2s;min-width:220px}
+  .btn-career:hover{background:var(--teal);color:white;transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,148,154,.25)}
+  .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;width:100%;max-width:900px}
+  #main-app{display:none}
+  body.day-selected #welcome-screen{display:none}
+  body.day-selected #main-app{display:block}
+  .c-block{display:none}
+  body.show-miercoles .c-miercoles{display:block}
+  body.show-jueves .c-jueves{display:block}
+  body.show-viernes .c-viernes{display:block}
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+  .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.5px;color:var(--nav)}
+  .cb{padding:18px 25px}
+  .paso{background:var(--gris);border-radius:var(--r);padding:18px 24px;margin-bottom:16px;border-left:5px solid var(--bd)}
+  .paso-num{display:inline-block;background:var(--nav);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+  .paso h4{font-size:16px;font-weight:700;color:var(--neg);margin-bottom:8px}
+  .paso p,.paso li{font-size:14px;color:var(--txt);line-height:1.6}
+  .paso ul,.paso ol{margin-left:20px;margin-top:8px}.paso li{margin-bottom:5px}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:24px}
+  .tool-cat-title{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--bd);margin-top:20px}
+  .tool-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:18px;transition:transform .2s,box-shadow .2s}
+  .tool-card:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+  .tool-card h4{font-size:15px;color:var(--nav);margin-bottom:6px}
+  .tool-card p{font-size:13px;color:var(--txt)}
+  .tool-card a.btn-tool{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;color:#fff}
+  details.guia{background:#fff;border-left:4px solid var(--teal);border-radius:var(--r);margin-bottom:14px;box-shadow:var(--sh);overflow:hidden}
+  details.guia summary{font-weight:700;color:var(--nav);padding:14px 20px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--pale);font-size:14.5px}
+  details.guia summary:hover{background:var(--cl)}
+  details.guia summary::-webkit-details-marker{display:none}
+  details.guia summary::after{content:'+';font-size:18px;color:var(--teal);font-weight:bold}
+  details.guia[open] summary::after{content:'−'}
+  details.guia .guia-content{padding:20px;font-size:14px;color:var(--txt);line-height:1.6;border-top:1px solid var(--bd)}
+  .guia-content h5{font-size:14.5px;color:var(--nav);margin:14px 0 6px}
+  .guia-content ul{margin-left:20px;margin-bottom:10px}.guia-content li{margin-bottom:6px}
+  .alerta-sesgo{background:var(--rcl);border:1px solid #F1948A;padding:12px 16px;border-radius:6px;margin:12px 0;font-size:13.5px;color:var(--red);display:flex;gap:10px;align-items:flex-start}
+  .alerta-info{background:var(--pale);border-left:4px solid var(--teal);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--nav)}
+  .crtf-box{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px 20px;font-family:monospace;font-size:13px;line-height:1.8;color:var(--neg);margin:12px 0}
+  .crtf-label{font-weight:700;color:var(--nav)}
+  .track-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0}
+  @media(max-width:600px){.track-grid{grid-template-columns:1fr}}
+  .track-a{background:#FFF8E1;border:2px solid #F9A825;border-radius:var(--r);padding:18px}
+  .track-b{background:var(--gcl);border:2px solid var(--grn);border-radius:var(--r);padding:18px}
+  .track-a h4{color:#E65100;font-size:15px;margin-bottom:10px}
+  .track-b h4{color:var(--grn);font-size:15px;margin-bottom:10px}
+  .checklist{list-style:none;margin:0;padding:0}
+  .checklist li{display:flex;gap:8px;align-items:flex-start;padding:5px 0;font-size:13.5px;color:var(--txt);border-bottom:1px dashed var(--bd)}
+  .checklist li:last-child{border:none}
+  .check-icon{flex-shrink:0;width:18px;height:18px;border:2px solid var(--bd);border-radius:3px;margin-top:2px}
+  .doc-template{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:24px;font-family:'Times New Roman',Times,serif;font-size:14px;color:#333;line-height:1.6}
+  .doc-template h1{text-align:center;font-size:18px;text-transform:uppercase;margin-bottom:4px;color:#000}
+  .doc-template h2{font-size:15px;border-bottom:1px solid #ccc;padding-bottom:4px;margin:20px 0 10px;color:#000}
+  .fill-blank{background:#FFF9C4;color:#E65100;padding:2px 6px;border-radius:3px;font-family:monospace;font-size:13px}
+  .btn-copy{background:var(--nav);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:16px;transition:background .2s}
+  .btn-copy:hover{background:var(--teal)}
+  .avt-box{background:var(--nav);color:#fff;border-radius:var(--r);padding:16px 20px;margin-top:20px;font-size:14px}
+  .avt-box strong{display:block;color:var(--cl);margin-bottom:8px;font-size:15px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{background:var(--nav);color:#fff;padding:9px 12px;text-align:left}
+  td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="top-info">
+    <a href="index.html" class="btn-back">&#8592; Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
+  </div>
+  <div class="top-r">
+    <a href="#" class="btn-reset" onclick="event.preventDefault();resetCareer()">Cambiar día</a>
+    <span>2026</span>
+  </div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Seleccioná tu turno de cursada</h2>
+  <p>Clase 7 · Producción con IA: Texto e Imagen</p>
+  <div class="career-grid" style="justify-content:center;">
+    <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px;font-weight:400;">(Proyecto Glaciares)</span></button>
+    <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px;font-weight:400;">(Proyecto Senderismo)</span></button>
+    <button class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')">Viernes<br><span style="font-size:12px;font-weight:400;">(Escape Room TDF)</span></button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 7 · Eje 2: Laboratorio de Lenguajes y Narrativas · Fase 2 Producción TFI</p>
+    <h2>Producción con IA: <span>Texto, Imagen y Contenido Situado en TDF</span></h2>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('partida',this)">Consigna</button>
+    <button class="tab-btn" onclick="showTab('plan',this)">Plan de Clase</button>
+    <button class="tab-btn" onclick="showTab('herramientas',this)">Herramientas</button>
+    <button class="tab-btn" onclick="showTab('guias',this)">&#128161; Guías</button>
+    <button class="tab-btn" onclick="showTab('bitacora',this)">&#128221; Avance TFI</button>
+  </div>
+  <div class="wrap">
+
+<!-- ================================================
+     MIÉRCOLES — Glaciares / Senado
+     ================================================ -->
+<div class="c-block c-miercoles">
+
+<!-- PESTAÑA 1: CONSIGNA -->
+<div id="pane-partida" class="pane on">
+
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">&#128269; ¿Dónde quedamos y qué hacemos hoy?</div>
+    <div class="cb">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:20px;">
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:6px;">&#9989; Hecho en Clase 6</strong>
+          <p style="font-size:13.5px;color:var(--txt);">Etapa 1: dilema + ramas diseñadas en papel. Etapa 2: N0 iniciado en Genially (puede estar incompleto).</p>
+        </div>
+        <div style="background:var(--acl);border-left:4px solid var(--amb);border-radius:var(--r);padding:14px;">
+          <strong style="color:var(--amb);display:block;margin-bottom:6px;">&#9201; Pendiente</strong>
+          <p style="font-size:13.5px;color:var(--txt);">N0 puede no estar terminado. Las ramas N1 no se empezaron. Hoy completamos N0 y arrancamos N1 con texto primero.</p>
+        </div>
+        <div style="background:var(--pale);border-left:4px solid var(--teal);border-radius:var(--r);padding:14px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:6px;">&#127775; Nuevo hoy</strong>
+          <p style="font-size:13.5px;color:var(--txt);">CRTF aplicado a texto e imagen. El foco es la <strong>auditoría</strong> — detectar sesgos y fundamentar decisiones sobre el output de la IA.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:18px 22px;color:#fff;margin-bottom:20px;">
+        <strong style="display:block;color:var(--cl);font-size:15px;margin-bottom:10px;">Lo que se evalúa hoy — leerlo antes de arrancar</strong>
+        <p style="font-size:14px;opacity:.9;line-height:1.7;margin-bottom:10px;">No se evalúa si el Genially tiene imágenes de IA. Se evalúa que <strong>usaron la IA, analizaron el resultado y fundamentaron su decisión</strong>. Alguien que genera una imagen, detecta que parece suiza y no fueguina, documenta ese sesgo y decide usar una captura real del IANIGLA hizo exactamente lo que el programa pide — y lo hizo mejor que quien usó la imagen sin cuestionarla.</p>
+        <p style="font-size:13px;opacity:.8;">Evidencia evaluable necesaria por integrante: 1) el prompt que usaron, 2) captura del output de la IA, 3) detección escrita del sesgo o error, 4) el prompt corregido o la justificación de por qué rechazaron el output.</p>
+      </div>
+
+      <div class="alerta-sesgo">
+        <span style="font-size:20px;">&#128721;</span>
+        <div><strong>El sesgo que van a encontrar:</strong> cuando le pedís a la IA una imagen de un glaciar, te da el Cervino o los Alpes. Cuando le pedís un documento de ONG, te da una sede en Londres. Cuando le pedís datos de retroceso glaciario, puede inventarlos. Detectar eso en tu propio trabajo — y documentarlo — es el aprendizaje de hoy.</div>
+      </div>
+
+      <h4 style="font-size:15px;color:var(--nav);margin:20px 0 12px;">Qué produce cada rol hoy (foco reducido para que sea alcanzable)</h4>
+      <table>
+        <thead><tr><th>Dominio</th><th>Prioridad 1 (texto, menos resistencia)</th><th>Prioridad 2 (auditoría de imagen)</th></tr></thead>
+        <tbody>
+          <tr style="background:var(--vcl);">
+            <td style="font-weight:700;color:var(--vio);">Inglés</td>
+            <td>Texto del comunicado NGO en inglés, generado con IA + auditado contra la Ley 26.639 real. Una publicación ficticia en red social (Canva, sin IA de imagen).</td>
+            <td>Generar <strong>una sola imagen</strong> de portada del documento NGO con IA. Analizar si se ve como institución latinoamericana o anglocéntrica. Documentar. Decidir si la usan o no.</td>
+          </tr>
+          <tr style="background:var(--gcl);">
+            <td style="font-weight:700;color:var(--grn);">Geografía</td>
+            <td>Texto de contexto territorial (Claude), auditado contra el IANIGLA. Captura real de Google Earth del glaciar elegido con la zona de impacto marcada.</td>
+            <td>Generar <strong>una sola imagen</strong> con IA (esquema de impacto glaciario). Verificar si los datos implícitos son correctos para TDF. Documentar. Decidir si la usan o no.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><div id="pane-plan" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Miércoles</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 15 min — Verificar N0</span>
+        <h4>¿Está el N0 operativo? Checklist antes de avanzar</h4>
+        <ul class="checklist">
+          <li><span class="check-icon"></span>Página "NODO-0" en Genially con el conflicto central planteado</li>
+          <li><span class="check-icon"></span>Botón "Investigar la postura internacional" → vinculado a RAMA-ING-1</li>
+          <li><span class="check-icon"></span>Botón "Investigar el impacto territorial" → vinculado a RAMA-GEO-1</li>
+          <li><span class="check-icon"></span>Flechas de navegación desactivadas (Configuración → Navegación)</li>
+          <li><span class="check-icon"></span>Vista previa: los dos botones llevan adonde corresponde</li>
+        </ul>
+        <div class="alerta-info" style="margin-top:12px;">Si el N0 no está terminado, terminar ahora. No construir ramas sobre una base que no funciona.</div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">30 min — Texto primero (ambas disciplinas)</span>
+        <h4>Arrancar por el texto — menos fricción, más ancla al contenido real</h4>
+        <p style="font-size:13.5px;margin-bottom:14px;color:var(--txt);">El texto es el corazón disciplinar de las ramas. La imagen es una capa adicional. Producir el texto primero garantiza que aunque no lleguen a la imagen, tienen el insumo principal.</p>
+
+        <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;">
+          <strong style="color:var(--vio);display:block;margin-bottom:10px;">INGLÉS — Texto del comunicado NGO</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.8;color:var(--neg);">
+            <li>Abrir Claude o ChatGPT. Usar el prompt CRTF de la Guía 1.</li>
+            <li><strong>Auditar el texto generado:</strong> buscar en el texto oficial de la Ley 26.639 (ley26639.ar o InfoLEG) si el artículo que cita la IA existe. Si la IA inventó un artículo → eliminar o reemplazar con el artículo real. Documentar qué inventó.</li>
+            <li>Copiar el texto auditado a Google Docs. Diseñar la estructura del documento (encabezado NGO, cuerpo, firma ficticia).</li>
+            <li>Diseñar en Canva la publicación ficticia en red social (plantilla de Twitter/X o Instagram) con el texto ya auditado. Exportar PNG para Genially. <em>Esta parte no requiere IA de imagen.</em></li>
+          </ol>
+        </div>
+
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:16px 18px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:10px;">GEOGRAFÍA — Texto de contexto + captura real</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.8;color:var(--neg);">
+            <li>Abrir Claude. Usar el prompt CRTF de la Guía 1 para generar el texto de contexto territorial.</li>
+            <li><strong>Auditar contra el IANIGLA:</strong> ingresar a inventario.ianigla.conicet.gov.ar → buscar el glaciar elegido → comparar las cifras que generó la IA con las oficiales. Corregir cada dato que difiera. Documentar.</li>
+            <li>Abrir Google Earth → buscar el glaciar (Martial, Vinciguerra u otro) → captura del área → marcar la zona de impacto con una flecha o polígono en Canva. <em>Esta captura es una fuente real, no IA.</em></li>
+            <li>Integrar texto auditado + captura en la página RAMA-GEO-1 de Genially.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--red);">
+        <span class="paso-num" style="background:var(--red);">25 min — Ejercicio de auditoría de imagen IA</span>
+        <h4>Generar una imagen, analizarla, decidir — esto es lo que se evalúa</h4>
+        <p style="font-size:14px;margin-bottom:12px;color:var(--txt);">Este bloque es el momento programático central de la clase. <strong>No es obligatorio usar la imagen generada en el Genially.</strong> Es obligatorio hacer el ejercicio de auditoría y documentarlo.</p>
+
+        <div style="background:#FDEDEC;border-left:4px solid #C0392B;border-radius:var(--r);padding:14px 18px;margin-bottom:12px;font-size:13.5px;">
+          <strong style="color:#C0392B;display:block;margin-bottom:8px;">Protocolo de auditoría — 4 pasos para ambas disciplinas</strong>
+          <ol style="margin-left:16px;line-height:1.9;color:var(--neg);">
+            <li><strong>Generar:</strong> usar el prompt CRTF de la Guía 2 para obtener UNA imagen.</li>
+            <li><strong>Analizar:</strong> responder por escrito: ¿esta imagen podría ser de los Alpes o claramente es de la Patagonia fueguina? ¿Hay algo incorrecto geográficamente? ¿Hay personas? ¿Son representativas del contexto?</li>
+            <li><strong>Decidir:</strong> ¿la imagen pasa el filtro para el recurso o no? Si no pasa: ¿por qué? ¿Qué usarían en su lugar?</li>
+            <li><strong>Documentar:</strong> copiar el prompt original + captura del output + el análisis escrito + la decisión → va a la bitácora del TFI.</li>
+          </ol>
+        </div>
+
+        <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;font-size:13.5px;">
+          <strong style="color:var(--vio);">INGLÉS — imagen a auditar:</strong> Portada del comunicado NGO. Generar con Bing Image Creator o Canva IA (ver Guía 2). Analizar si se ve como institución latinoamericana o anglocéntrica.
+        </div>
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:12px 16px;font-size:13.5px;">
+          <strong style="color:var(--grn);">GEOGRAFÍA — imagen a auditar:</strong> Esquema de impacto glaciario. Generar con Canva IA o Bing (ver Guía 2). Comparar con lo que muestra el IANIGLA. ¿El glaciar parece Patagonia o los Alpes? ¿Los datos implícitos en la imagen son verificables?
+        </div>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre 10 min — Integrar lo que está listo + AVT</span>
+        <h4>No esperar tener todo — integrar lo que se terminó</h4>
+        <ul>
+          <li>Cada disciplina integra en su página de Genially lo que tiene terminado: el texto auditado + la captura real o la imagen de IA si pasó el filtro.</li>
+          <li>Completar la pestaña "Avance TFI" con los 4 elementos de evidencia: prompt, output, análisis, decisión.</li>
+          <li>Subir al AVT antes de Clase 8. La próxima clase arrancan con audio (ElevenLabs) sobre estos insumos.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div><div id="pane-herramientas" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas para producción con IA</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:6px;">Todas gratuitas. Siempre que uses IA, guardá el prompt exacto — va a la bitácora.</p>
+
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">IA para texto</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>Claude (claude.ai)</h4>
+          <p>El mejor para textos académicos y documentos formales. Menos tendencia a alucinar datos geográficos que otros modelos. Ideal para el comunicado NGO y el texto territorial de Geografía.</p>
+          <a href="https://claude.ai" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Claude</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>ChatGPT (chat.openai.com)</h4>
+          <p>Versión gratuita (GPT-4o mini) suficiente. Bueno para textos narrativos y adaptaciones de nivel. Siempre auditar datos geográficos — tiende a inventar cifras.</p>
+          <a href="https://chat.openai.com" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir ChatGPT</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--vio);">
+          <h4>Gemini (gemini.google.com)</h4>
+          <p>Integrado con Google Docs y Drive. Útil para generar texto directamente en el documento NGO sin copiar/pegar. Cuenta Google gratuita.</p>
+          <a href="https://gemini.google.com" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir Gemini</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--amb);border-bottom-color:var(--acl);">IA para imagen</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Bing Image Creator (DALL-E 3)</h4>
+          <p>Gratuito, sin límite efectivo. El mejor para imágenes fotorrealistas de paisajes y documentos institucionales. Acceder con cuenta Microsoft (gratuita). <strong>Tip:</strong> incluir "Tierra del Fuego, Patagonia argentina" en el prompt.</p>
+          <a href="https://www.bing.com/images/create" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Bing Create</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>Canva IA (Magic Media)</h4>
+          <p>Ya lo usan. Dentro de Canva → Elementos → "Generar imagen con IA". Más fácil de integrar directo al diseño del afiche o del nodo de Genially.</p>
+          <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Canva</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Ideogram.ai</h4>
+          <p>Especializado en imágenes donde el texto debe ser legible. Ideal para generar portadas de documentos, títulos de informes o letreros. Gratuito con cuenta.</p>
+          <a href="https://ideogram.ai" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Ideogram</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Geografía — fuentes primarias</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>IANIGLA — Inventario Nacional de Glaciares</h4>
+          <p>Fuente oficial obligatoria. Datos reales de superficie y retroceso glaciario en TDF. Cualquier dato que la IA genere debe chequearse acá.</p>
+          <a href="https://inventario.ianigla.conicet.gov.ar" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir IANIGLA</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Google Earth (web)</h4>
+          <p>Para capturar el área glaciaria. Buscar "Glaciar Martial" o "Glaciar Vinciguerra, Ushuaia". Herramienta de regla para marcar distancias. Captura de pantalla directa.</p>
+          <a href="https://earth.google.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Google Earth</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-herramientas -->
+
+<!-- PESTAÑA 4: GUÍAS -->
+<div id="pane-guias" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de producción</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. CRTF para texto — prompts aplicados al TFI Glaciares</summary>
+        <div class="guia-content">
+          <p>Recordá la estructura: <strong>Contexto → Rol → Tarea → Formato</strong>. Para este proyecto, cada componente tiene su propio prompt.</p>
+          <h5>Para el comunicado de la ONG (Inglés)</h5>
+          <div class="crtf-box">
+            <span class="crtf-label">[C]</span> Estoy diseñando un Escape Room educativo para futuros docentes en Ushuaia, TDF, sobre la Ley de Glaciares argentina (Ley 26.639).<br>
+            <span class="crtf-label">[R]</span> Actuá como redactor de comunicados institucionales de una ONG ambiental internacional anglófona.<br>
+            <span class="crtf-label">[T]</span> Escribí un comunicado urgente de la ONG ficticia "Andean Glaciers Defense Coalition" exigiendo al Senado argentino que rechace un proyecto minero que afectaría el Glaciar Vinciguerra en TDF. Incluir referencia al Artículo 6° de la Ley 26.639 y datos reales del retroceso glaciario documentado por el IANIGLA.<br>
+            <span class="crtf-label">[F]</span> Máximo 200 palabras. Registro formal institucional en inglés. Tono urgente pero técnico. Incluir encabezado oficial con nombre de la ONG y fecha ficticia (marzo 2026).
+          </div>
+          <div class="alerta-sesgo"><span>&#128721;</span><div>Antes de usar el texto: verificar cada dato numérico y cada referencia legal en el IANIGLA y en el texto oficial de la Ley 26.639. La IA puede inventar artículos inexistentes.</div></div>
+          <h5>Para el texto de contexto territorial (Geografía)</h5>
+          <div class="crtf-box">
+            <span class="crtf-label">[C]</span> Recurso educativo gamificado sobre glaciares de TDF para docentes en formación.<br>
+            <span class="crtf-label">[R]</span> Actuá como geógrafo especializado en criosfera patagónica.<br>
+            <span class="crtf-label">[T]</span> Redactá un párrafo explicando por qué el Glaciar Vinciguerra es estratégico como reserva hídrica para Ushuaia y qué consecuencias tendría su afectación. Usar datos reales del IANIGLA.<br>
+            <span class="crtf-label">[F]</span> Máximo 120 palabras. Nivel secundario/terciario. Sin tecnicismos innecesarios. En español.
+          </div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. CRTF para imagen — cómo anclar la IA a TDF</summary>
+        <div class="guia-content">
+          <p>La IA genera lo que es estadísticamente más común en sus datos de entrenamiento. "Glaciar" → Alpes. "ONG ambiental" → sede en Londres. Hay que forzarla con contexto específico.</p>
+          <h5>Para la portada del comunicado NGO (Inglés)</h5>
+          <div class="crtf-box">
+            Formal environmental NGO report cover, "Andean Glaciers Defense Coalition", Tierra del Fuego Argentina, professional institutional design, blue and green color palette, mountain glaciers Ushuaia Patagonia background, placeholder text, A4 horizontal format, photorealistic, no people
+          </div>
+          <h5>Para la infografía de impacto glaciario (Geografía)</h5>
+          <div class="crtf-box">
+            Scientific infographic showing glacier retreat timeline, Tierra del Fuego Argentina Patagonia, before/after comparison, blue-gray color palette, academic style, arrows showing ice loss direction, no text labels needed, vertical format, clean white background
+          </div>
+          <h5>Iteración si el resultado no es correcto</h5>
+          <ul>
+            <li>Si el glaciar parece suizo: agregar "southern tip of South America, Beagle Channel region, sub-Antarctic climate"</li>
+            <li>Si el documento parece genérico: agregar "Argentine institutional design, Spanish-language context, LATAM NGO aesthetic"</li>
+            <li>Si aparecen personas estereotipadas: agregar "no people" o especificar el perfil demográfico deseado</li>
+          </ul>
+          <div class="alerta-sesgo"><span>&#128721;</span><div>Guardar el prompt original y el corregido. La diferencia entre los dos ES el aprendizaje sobre sesgos de representación.</div></div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. Cómo incrustar un PDF de Drive en Genially</summary>
+        <div class="guia-content">
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>En Google Docs → Archivo → Descargar → PDF.</li>
+            <li>Subir el PDF a Google Drive → hacer clic derecho → "Obtener enlace" → configurar como "Cualquier persona con el enlace puede ver".</li>
+            <li>En Genially → Insertar → Contenido interactivo → "Iframe/HTML" → pegar la URL del Drive en este formato: <code style="background:#f4f4f4;padding:2px 6px;border-radius:3px;">https://drive.google.com/file/d/[ID]/preview</code></li>
+            <li>Alternativa más fácil: en Genially → Insertar → Archivo → subir el PDF directamente (funciona hasta 10MB).</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>4. Checklist de auditoría de IA — texto e imagen</summary>
+        <div class="guia-content">
+          <h5>Para textos generados con IA</h5>
+          <ul>
+            <li>&#9744; ¿Cada cifra numérica está verificada en una fuente primaria (IANIGLA, Ley 26.639, IGN)?</li>
+            <li>&#9744; ¿Los topónimos mencionados existen y son correctos para TDF?</li>
+            <li>&#9744; ¿El registro lingüístico es apropiado para el nivel del recurso?</li>
+            <li>&#9744; ¿La IA inventó algún artículo de ley, nombre de organismo o fecha? → Eliminar o corregir.</li>
+          </ul>
+          <h5>Para imágenes generadas con IA</h5>
+          <ul>
+            <li>&#9744; ¿La imagen es reconociblemente patagónica/fueguina o podría ser de cualquier lugar?</li>
+            <li>&#9744; ¿Si hay personas, son representativas del contexto (Argentina, TDF)?</li>
+            <li>&#9744; ¿El estilo visual es coherente con el resto del recurso Genially?</li>
+            <li>&#9744; ¿La imagen tiene texto? ¿Está en el idioma correcto y es legible?</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>5. Cuando la IA genera texto ilegible en las imágenes</summary>
+        <div class="guia-content">
+          <p>DALL-E y Canva IA todavía fallan con el texto en imágenes. Soluciones:</p>
+          <ul>
+            <li><strong>Ideogram.ai:</strong> especializado en texto legible dentro de imágenes. Funciona mucho mejor para portadas de documentos con título visible.</li>
+            <li><strong>Generar sin texto + agregar en Canva:</strong> generar la imagen de fondo (sin texto) y agregar los títulos con las herramientas de texto de Canva encima.</li>
+            <li><strong>En el prompt:</strong> agregar "no text, no letters, no words" si el texto va a quedar ilegible de todos modos.</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </div>
+
+      <details class="guia">
+        <summary>6. Si no querés usar la imagen que generó la IA — qué hacer</summary>
+        <div class="guia-content">
+          <p>La resistencia a usar imágenes de IA en un recurso educativo tiene razones válidas — especialmente en Geografía, donde una imagen incorrecta puede reproducir información falsa sobre el territorio. Esta guía explica cómo cumplir con el requisito de auditoría sin poner imágenes de IA en tu Genially si no te convencen.</p>
+          <h5>Lo que tenés que poder mostrar (la evidencia evaluable)</h5>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>El prompt que le diste a la IA (cualquier herramienta de texto o imagen)</li>
+            <li>Una captura del output que generó</li>
+            <li>Tu análisis escrito: ¿qué tiene de sesgo o de incorrecto?</li>
+            <li>Tu decisión fundamentada: "Decidí no usar esta imagen porque... y en su lugar usé..."</li>
+          </ol>
+          <p style="margin-top:10px;">Ese proceso — usar, criticar, rechazar, reemplazar con fuente verificada — es exactamente lo que evalúa el programa. Es más sofisticado que usar la imagen sin cuestionarla.</p>
+          <h5>Alternativas verificadas para reemplazar la imagen de IA</h5>
+          <ul>
+            <li><strong>Geografía:</strong> Capturas de Google Earth (territorio real), imágenes del geoportal IANIGLA, fotografías de glaciares de Wikimedia Commons con licencia CC.</li>
+            <li><strong>Inglés:</strong> La publicación ficticia en red social la pueden diseñar íntegramente en Canva (sin IA de imagen). El documento NGO puede tener una portada diseñada manualmente en Canva con elementos geométricos.</li>
+          </ul>
+          <h5>Cómo registrarlo en la bitácora</h5>
+          <p>En la sección "Sesgo detectado y corrección" de la bitácora escribir: <em>"Generamos [descripción de la imagen] con [herramienta]. La imagen presentaba [descripción del sesgo: paisaje alpino europeo / representación anglocéntrica / datos geográficos incorrectos]. Decidimos no usarla en el recurso y la reemplazamos con [fuente alternativa] porque [justificación]."</em></p>
+        </div>
+      </details>
+
+</div><!-- fin pane-guias -->
+
+<!-- PESTAÑA 5: AVANCE TFI -->
+<div id="pane-bitacora" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI — Lo que van a subir al AVT</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">El avance de hoy se agrega al Google Doc que empezaron en Clase 6. Copiar esta sección y completarla al final de la clase.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content" class="doc-template">
+        <h1>Avance TFI — Semana 7</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Agregar al final del Google Doc iniciado en Clase 6</p>
+        <h2>Producción con IA — Clase 7</h2>
+        <p><strong>Dominio:</strong> <span class="fill-blank">[Inglés / Geografía]</span></p>
+        <p><strong>Insumo producido:</strong> <span class="fill-blank">[Describir qué se construyó: comunicado NGO / texto territorial / imagen de portada / publicación ficticia / infografía]</span></p>
+        <p><strong>Herramienta de IA utilizada:</strong> <span class="fill-blank">[Claude / ChatGPT / Gemini / Bing Image Creator / Canva IA / Ideogram]</span></p>
+        <p><strong>Prompt original (exacto):</strong><br><span class="fill-blank">[Pegar el prompt completo tal como se escribió]</span></p>
+        <p><strong>Sesgo detectado:</strong><br><span class="fill-blank">[¿Qué generó la IA que tenía sesgo o error? Describir específicamente]</span></p>
+        <p><strong>Corrección aplicada:</strong><br><span class="fill-blank">[¿Cómo se reformuló el prompt o qué se corrigió manualmente? ¿Qué fuente primaria se consultó?]</span></p>
+        <p><strong>Prompt corregido (si aplica):</strong><br><span class="fill-blank">[Pegar el prompt revisado]</span></p>
+        <p><strong>Link al insumo final:</strong> <span class="fill-blank">[Link de Drive, Canva o captura]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; Entrega AVT — antes de la Clase 8</strong>
+        Subir este avance completado al foro/tarea del Aula Virtual. La Clase 8 empieza desde ahí: texto + imagen ya auditados → siguiente capa: audio con ElevenLabs.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora -->
+
+</div><!-- fin c-miercoles -->
+
+
+<!-- ================================================
+     JUEVES — Senderismo / Valle de Andorra
+     ================================================ -->
+<div class="c-block c-jueves">
+
+<!-- PESTAÑA 1: CONSIGNA JUEVES -->
+<div id="pane-partida-jueves" class="pane on">
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">&#128269; ¿Dónde quedamos y qué hacemos hoy?</div>
+    <div class="cb">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-bottom:20px;">
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:6px;">&#9989; Hecho en Clase 6</strong>
+          <p style="font-size:13.5px;color:var(--txt);">Diseño del Nodo 0 (la llegada al Valle de Andorra). Base del Genially iniciada.</p>
+        </div>
+        <div style="background:var(--acl);border-left:4px solid var(--amb);border-radius:var(--r);padding:14px;">
+          <strong style="color:var(--amb);display:block;margin-bottom:6px;">&#9201; Pendiente</strong>
+          <p style="font-size:13.5px;color:var(--txt);">N0 puede no estar terminado. Las ramas N1 (narrativa de supervivencia + mapeo espacial) no se construyeron.</p>
+        </div>
+        <div style="background:var(--pale);border-left:4px solid var(--teal);border-radius:var(--r);padding:14px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:6px;">&#127775; Nuevo hoy</strong>
+          <p style="font-size:13.5px;color:var(--txt);">CRTF para imagen y texto. La IA genera los insumos del Valle de Andorra. Detectar que la IA "imagina" Patagonia como paisaje alpino europeo.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:18px 22px;color:#fff;margin-bottom:20px;">
+        <strong style="display:block;color:var(--cl);font-size:15px;margin-bottom:10px;">Objetivo de hoy</strong>
+        <p style="font-size:14px;opacity:.9;line-height:1.7;">Terminar el N0 si falta, y poblar las dos ramas N1 con contenido real producido con IA. Inglés genera los textos de los turistas y sus materiales narrativos. Geografía trabaja el mapeo espacial del Valle. La clave es que los productos sean verificables y anclados en el territorio real de TDF.</p>
+      </div>
+
+      <div class="alerta-sesgo">
+        <span style="font-size:20px;">&#128721;</span>
+        <div><strong>El sesgo específico de este proyecto:</strong> cuando pedís "bosque patagónico" a la IA, genera pinos nevados alpinos. Cuando pedís "sendero de montaña", genera los Alpes o Dolomitas. TDF tiene bosque de lenga y ñire, turbales, clima subantártico — todo eso tiene que estar en el prompt.</div>
+      </div>
+
+      <h4 style="font-size:15px;color:var(--nav);margin:20px 0 12px;">Qué produce cada rol hoy</h4>
+      <table>
+        <thead><tr><th>Dominio</th><th>Insumos a producir</th><th>Herramienta</th></tr></thead>
+        <tbody>
+          <tr style="background:var(--vcl);">
+            <td style="font-weight:700;color:var(--vio);">Inglés</td>
+            <td>Textos narrativos de los turistas (ChatGPT/Claude) + foto de perfil del turista (DALL-E, apariencia verosímil) + simulación de chat WhatsApp (Canva) + pistas del audio (ElevenLabs — preparar el guion hoy)</td>
+            <td>Claude/ChatGPT + Canva IA + Canva + ElevenLabs</td>
+          </tr>
+          <tr style="background:var(--gcl);">
+            <td style="font-weight:700;color:var(--grn);">Geografía</td>
+            <td>Captura Google Earth del Valle de Andorra + anotación de puntos de peligro + texto de contexto topográfico (auditado) + visualización del sendero</td>
+            <td>Google Earth + Claude/ChatGPT + Canva IA</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div><!-- fin pane-partida-jueves -->
+
+<!-- PESTAÑA 2: PLAN JUEVES -->
+<div id="pane-plan-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Jueves</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 15 min — Verificar N0</span>
+        <h4>Checklist del N0 (Valle de Andorra)</h4>
+        <ul class="checklist">
+          <li><span class="check-icon"></span>Página "NODO-0": la llegada al Valle — video intro o texto + imagen disparador</li>
+          <li><span class="check-icon"></span>Botón "Escuchar la nota de voz de los turistas" → vinculado a RAMA-ING-1</li>
+          <li><span class="check-icon"></span>Botón "Revisar el mapa topográfico" → vinculado a RAMA-GEO-1</li>
+          <li><span class="check-icon"></span>Flechas de navegación desactivadas</li>
+          <li><span class="check-icon"></span>Vista previa: ambos botones funcionan</li>
+        </ul>
+        <div class="alerta-info" style="margin-top:12px;">Si el N0 no está terminado, terminarlo primero. La estructura de navegación tiene que estar operativa antes de agregar contenido.</div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">60 min — Producción paralela N1</span>
+        <h4>Cada dominio construye su rama</h4>
+
+        <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:16px 18px;margin-bottom:14px;">
+          <strong style="color:var(--vio);display:block;margin-bottom:10px;">INGLÉS — RAMA-ING-1: La Narrativa de los Turistas</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.8;color:var(--neg);">
+            <li>Abrir Claude. Usar el prompt CRTF (Guía 1) para generar los diálogos de los turistas perdidos: perfil, situación, mensajes de pánico. Nivel de inglés B1.</li>
+            <li><strong>Auditar:</strong> ¿los turistas describen el entorno como bosque de lenga, turbal, cursos de agua? ¿O mencionan elementos europeos genéricos?</li>
+            <li>Abrir Canva → plantillas de mensajes de texto/WhatsApp → diseñar la simulación de chat con los mensajes generados. Exportar PNG.</li>
+            <li>Abrir Bing Image Creator: generar la foto de perfil del turista (ver Guía 2). Usar un aspecto verosímil, no de stock fotográfico obvio.</li>
+            <li>Redactar el guion del audio (para ElevenLabs la semana que viene): el turista pregunta indicaciones → el transeúnte responde con instrucciones en inglés que incluyen referencias al mapa (cascada, sendero izquierdo).</li>
+            <li>Integrar simulación WhatsApp + foto de perfil en RAMA-ING-1 de Genially. El nodo termina con la decisión del usuario: ¿qué respuesta de las opciones es correcta?</li>
+          </ol>
+        </div>
+
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:16px 18px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:10px;">GEOGRAFÍA — RAMA-GEO-1: El Territorio del Valle</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.8;color:var(--neg);">
+            <li>Abrir Google Earth → buscar "Valle de Andorra, Ushuaia, Tierra del Fuego" → captura del terreno.</li>
+            <li>Identificar: la bifurcación hacia el turbal (desvío incorrecto de los turistas) y el sendero correcto a la Laguna del Caminante.</li>
+            <li>Marcar ambos recorridos sobre la captura (con flechas o polígonos en Canva).</li>
+            <li>Abrir Claude → prompt CRTF para texto de contexto geográfico (Guía 1 adaptada): descripción del Valle, tipo de terreno, peligros reales del sendero, por qué los turbales son peligrosos.</li>
+            <li><strong>Auditar:</strong> ¿el texto menciona características reales del Valle de Andorra? ¿O es una descripción genérica de montaña?</li>
+            <li>Integrar mapa anotado + texto en RAMA-GEO-1 de Genially. El nodo muestra el mapa y presenta la decisión: ¿norte o sur?</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--red);">
+        <span class="paso-num" style="background:var(--red);">10 min — Auditoría de sesgos</span>
+        <h4>Antes de integrar, revisar</h4>
+        <ol style="margin-left:20px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li><strong>Veracidad geográfica:</strong> ¿El Valle de Andorra y la Laguna del Caminante están bien representados? ¿El tipo de vegetación, clima y topografía son correctos para TDF?</li>
+          <li><strong>Contextualización visual:</strong> ¿La foto del turista y el paisaje podrían ser específicamente de Ushuaia o son genéricos del hemisferio norte?</li>
+          <li><strong>Nivel de idioma:</strong> ¿Los textos en inglés son B1 real o la IA los generó en C1 sin que lo pidieran?</li>
+        </ol>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre — preparar el audio para la semana que viene</span>
+        <h4>El guion del diálogo en la llave intermedia</h4>
+        <p style="font-size:14px;margin-bottom:10px;">La Semana 8 trabajan audio con ElevenLabs. Para no perder tiempo, hoy dejan redactado el guion exacto de la llave intermedia:</p>
+        <ul>
+          <li>Turista pregunta: <em>"Excuse me, I'm looking for the trail to the hiker's lagoon. Which way should I go?"</em></li>
+          <li>Transeúnte responde con instrucciones específicas que el usuario debe interpretar en el mapa.</li>
+          <li>Este texto — ya auditado — es el que Ivi convierte en audio la semana que viene.</li>
+        </ul>
+        <div class="avt-box">
+          <strong>&#128197; AVT antes de Clase 8</strong>
+          Subir el guion del audio + los insumos de texto e imagen producidos hoy + la bitácora de auditoría IA.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan-jueves -->
+
+<!-- PESTAÑA 3: HERRAMIENTAS JUEVES -->
+<div id="pane-herramientas-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Jueves</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:6px;">Las mismas herramientas de IA que Miércoles, con el foco puesto en Valle de Andorra.</p>
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">IA para texto</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>Claude (claude.ai)</h4>
+          <p>Para los diálogos narrativos de los turistas y el texto geográfico del Valle. Excelente para mantener el nivel de inglés B1 si se lo especifica en el prompt.</p>
+          <a href="https://claude.ai" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Claude</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>ChatGPT</h4>
+          <p>Alternativa para diálogos de supervivencia y mensajes de texto. Pedir siempre "escena ambientada en el Valle de Andorra, Ushuaia, Tierra del Fuego, Argentina".</p>
+          <a href="https://chat.openai.com" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir ChatGPT</a>
+        </div>
+      </div>
+      <h3 class="tool-cat-title" style="color:var(--amb);border-bottom-color:var(--acl);">IA para imagen</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Bing Image Creator</h4>
+          <p>Para la foto de perfil del turista. Agregar siempre: "hiking Tierra del Fuego Argentina, Beagle Channel region, sub-Antarctic landscape, lenga beech forest".</p>
+          <a href="https://www.bing.com/images/create" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Bing Create</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>Canva — simulación de chats</h4>
+          <p>Plantillas de mensajes de texto o WhatsApp para diseñar la conversación de los turistas. Exportar como PNG para Genially.</p>
+          <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Canva</a>
+        </div>
+      </div>
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Geografía — Valle de Andorra</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Google Earth</h4>
+          <p>Buscar "Valle de Andorra Ushuaia" → captura del terreno → identificar la bifurcación del sendero y los turbales. Perfil de elevación disponible en herramientas.</p>
+          <a href="https://earth.google.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Google Earth</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Wikiloc</h4>
+          <p>Tracks reales del sendero al Valle de Andorra y la Laguna del Caminante grabados por senderistas. Para verificar recorridos reales y tiempos de marcha.</p>
+          <a href="https://www.wikiloc.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Wikiloc</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-jueves -->
+
+<!-- PESTAÑA 4: GUÍAS JUEVES -->
+<div id="pane-guias-jueves" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de producción · Jueves</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. CRTF para texto — prompts aplicados al TFI Senderismo</summary>
+        <div class="guia-content">
+          <h5>Para el diálogo de los turistas (Inglés)</h5>
+          <div class="crtf-box">
+            <span class="crtf-label">[C]</span> Escape room narrativo sobre turistas perdidos en el Valle de Andorra, Ushuaia, TDF. Destinatarios: estudiantes de 6° año secundario.<br>
+            <span class="crtf-label">[R]</span> Actuá como escritor de ficción especializado en literatura de aventura y supervivencia en la naturaleza patagónica.<br>
+            <span class="crtf-label">[T]</span> Escribí 3 mensajes de WhatsApp enviados por los turistas: el primero describe el terreno que ven (bosque de lenga, cielo nublado, un río), el segundo describe el turbal donde se metieron y el miedo, el tercero pide instrucciones urgentes. Que los turistas sean dos adultos jóvenes, uno habla mejor inglés que el otro.<br>
+            <span class="crtf-label">[F]</span> Inglés nivel B1, vocabulario de naturaleza y emergencia. Cada mensaje máximo 40 palabras. Tono urgente pero comprensible.
+          </div>
+          <h5>Para el texto geográfico del Valle (Geografía)</h5>
+          <div class="crtf-box">
+            <span class="crtf-label">[C]</span> Recurso educativo de Geografía sobre senderismo responsable en el Valle de Andorra, Ushuaia, para nivel secundario superior.<br>
+            <span class="crtf-label">[R]</span> Actuá como guía de montaña certificado en Tierra del Fuego.<br>
+            <span class="crtf-label">[T]</span> Describí los peligros específicos del Valle de Andorra para turistas sin equipo: turbales (qué son, por qué son peligrosos), la bifurcación que lleva al sendero incorrecto, las condiciones climáticas habituales. Mencionar la Laguna del Caminante como destino correcto.<br>
+            <span class="crtf-label">[F]</span> Español, máximo 150 palabras, tono informativo sin alarmismo. Nivel secundario.
+          </div>
+          <div class="alerta-sesgo"><span>&#128721;</span><div>Verificar que el texto mencione lenga y ñire (no "pinos"), turbales (no "ciénagas"), y que la orientación geográfica sea correcta para el Valle de Andorra real.</div></div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. CRTF para imagen — el turista y el paisaje fueguino</summary>
+        <div class="guia-content">
+          <h5>Para la foto de perfil del turista (Bing Image Creator)</h5>
+          <div class="crtf-box">
+            Portrait photo of a hiker, casual selfie style, mid-30s, outdoor gear, background: Tierra del Fuego Argentina beech forest lenga trees, overcast sub-Antarctic weather, natural light, realistic photography style, no filters
+          </div>
+          <div class="alerta-sesgo"><span>&#128721;</span><div>Si la imagen generada muestra paisaje alpino europeo, montañas nevadas tipo Alpes o vegetación del hemisferio norte → agregar "southern hemisphere, Ushuaia Argentina, December summer conditions, lenga beech deciduous forest".</div></div>
+          <h5>Para ambientación visual del Valle (Geografía)</h5>
+          <div class="crtf-box">
+            Aerial or topographic view of Valle de Andorra near Ushuaia, Tierra del Fuego, Argentina, lenga beech trees, peat bogs visible, sub-Antarctic landscape, overcast sky, natural colors, no text, photorealistic
+          </div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. El guion de la llave intermedia — cómo construirlo bien</summary>
+        <div class="guia-content">
+          <p>La llave intermedia es el momento pedagógico más fuerte del recurso: el usuario tiene que cruzar información de dos fuentes (el audio en inglés + el mapa geográfico) para tomar una decisión. Tres principios:</p>
+          <ul>
+            <li><strong>El audio da información verbal:</strong> "Continue straight ahead to the waterfall fork, then turn left." → describe una secuencia de movimientos.</li>
+            <li><strong>El mapa hace visible esa información:</strong> el usuario tiene que identificar la cascada en el mapa y el sendero que queda a la izquierda.</li>
+            <li><strong>La decisión es genuina:</strong> si el usuario no entendió el inglés o no leyó el mapa, elige mal. El error tiene consecuencia narrativa (los turistas quedan atrapados).</li>
+          </ul>
+          <p style="margin-top:10px;">Para que funcione en Genially: la instrucción del transeúnte puede estar en un audio (ElevenLabs la semana que viene) o como texto en el nodo. El mapa aparece en la misma pantalla. Dos botones: "Sendero norte" y "Sendero sur". Solo uno está vinculado al desenlace correcto.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>4. Auditoría de sesgos — checklist para este proyecto</summary>
+        <div class="guia-content">
+          <ul>
+            <li>&#9744; ¿El texto geográfico menciona lenga y ñire (no "pinos" ni "robles")?</li>
+            <li>&#9744; ¿Los turbales están descritos correctamente (suelo saturado de agua, frágil, no un pantano tropical)?</li>
+            <li>&#9744; ¿La foto de perfil del turista muestra paisaje de TDF y no de los Alpes?</li>
+            <li>&#9744; ¿El inglés de los mensajes es B1 auténtico (no demasiado formal ni demasiado técnico)?</li>
+            <li>&#9744; ¿La información de senderos es verificable en Wikiloc o en registros reales del Valle de Andorra?</li>
+          </ul>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias-jueves -->
+
+<!-- PESTAÑA 5: AVANCE TFI JUEVES -->
+<div id="pane-bitacora-jueves" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI — Jueves</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Agregar al Google Doc iniciado en Clase 6. Copiar y completar.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content-jueves" class="doc-template">
+        <h1>Avance TFI — Semana 7 (Senderismo)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Agregar al Google Doc de Clase 6</p>
+        <h2>Producción con IA — Clase 7</h2>
+        <p><strong>Dominio:</strong> <span class="fill-blank">[Inglés / Geografía]</span></p>
+        <p><strong>Insumo producido:</strong> <span class="fill-blank">[Diálogos turistas / foto de perfil / simulación WhatsApp / texto geográfico del Valle / imagen satelital anotada]</span></p>
+        <p><strong>Herramienta de IA:</strong> <span class="fill-blank">[Claude / ChatGPT / Bing Image Creator / Canva IA]</span></p>
+        <p><strong>Prompt original:</strong><br><span class="fill-blank">[Pegar el prompt completo]</span></p>
+        <p><strong>Sesgo detectado:</strong><br><span class="fill-blank">[¿Qué generó la IA que no era correcto para TDF? (vegetación, topónimos, nivel de idioma, representación de personas)]</span></p>
+        <p><strong>Corrección:</strong><br><span class="fill-blank">[¿Cómo se reformuló? ¿Qué fuente se consultó para verificar?]</span></p>
+        <p><strong>Guion del audio (llave intermedia):</strong><br><span class="fill-blank">[Escribir aquí el texto exacto del diálogo turista-transeúnte que se grabará con ElevenLabs en Clase 8]</span></p>
+        <p><strong>Link al insumo:</strong> <span class="fill-blank">[Drive / Canva / captura]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 8</strong>
+        Subir esta sección completada. La Clase 8 arranca con el guion del audio ya escrito — directamente a ElevenLabs.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-jueves -->
+
+</div><!-- fin c-jueves -->
+
+
+<!-- ================================================
+     VIERNES — Escape Room TDFeIAS (19 estudiantes)
+     ================================================ -->
+<div class="c-block c-viernes">
+
+<!-- PESTAÑA 1: CONSIGNA VIERNES -->
+<div id="pane-partida-viernes" class="pane on">
+
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">&#128269; Estado del proyecto — dónde está cada grupo</div>
+    <div class="cb">
+
+      <div class="alerta-info">
+        <strong>Cómo usar esta clase:</strong> Antes de abrir cualquier herramienta, verificá en la tabla de abajo cuál es tu situación. Si tu pieza de Clase 6 no está terminada → Track A. Si ya está terminada → Track B. No hay una única secuencia — hay dos caminos paralelos dependiendo de tu avance.
+      </div>
+
+      <h4 style="font-size:15px;color:var(--nav);margin:16px 0 12px;">Estado esperado por integrante (después de Clase 6 completa)</h4>
+      <div style="overflow-x:auto;margin-bottom:20px;">
+        <table>
+          <thead><tr><th>Estación</th><th>Integrante</th><th>Pieza de Clase 6</th><th>Si está lista hoy → hacé esto</th></tr></thead>
+          <tbody>
+            <tr style="background:var(--gcl);">
+              <td rowspan="3" style="font-weight:700;color:var(--grn);">&#127754; Ushuaia</td>
+              <td>Sofi V.</td><td>Página USHUAIA-1 en Genially</td>
+              <td>Generar imagen de fondo del Canal Beagle con IA (Guía 1) → reemplazar placeholder. Empezar página USHUAIA-2 (Bosque Fueguino).</td>
+            </tr>
+            <tr style="background:var(--gcl);">
+              <td>Sofi A.</td><td>3 afiches de animales en Canva</td>
+              <td>Mejorar las imágenes de los animales con Canva IA (más ilustrativas, más claras para sala de 4/5). Generar versión con fondo transparente.</td>
+            </tr>
+            <tr style="background:var(--gcl);">
+              <td>Kiara B.</td><td>Audio de Pepito para Ushuaia</td>
+              <td>Usar IA para redactar el guion de Pepito en las otras estaciones (Tolhuin + Río Grande). Son los textos que se graban en Clase 8.</td>
+            </tr>
+            <tr style="background:var(--vcl);">
+              <td rowspan="3" style="font-weight:700;color:var(--vio);">&#127810; Tolhuin</td>
+              <td>Niky</td><td>Página TOLHUIN-1 en Genially</td>
+              <td>Generar imagen del Lago Fagnano con IA (azul profundo, cielo nublado, vegetación fueguina) → reemplazar el fondo genérico.</td>
+            </tr>
+            <tr style="background:var(--vcl);">
+              <td>Juli</td><td>Wordwall clasificación fauna</td>
+              <td>Mejorar las imágenes del Wordwall: generar con Canva IA ilustraciones más claras de huillín, pato vapor y trucha. Actualizar en Wordwall.</td>
+            </tr>
+            <tr style="background:var(--vcl);">
+              <td>Ailen</td><td>Afiche físico de Tolhuin</td>
+              <td>Generar con Canva IA una imagen del paisaje de Tolhuin (lago + bosque + cielo) que se integre bien al afiche. Reemplazar si la imagen actual es genérica.</td>
+            </tr>
+            <tr style="background:var(--acl);">
+              <td rowspan="3" style="font-weight:700;color:var(--amb);">&#128168; Río Grande</td>
+              <td>Agos</td><td>Memotest Rosimosi</td>
+              <td>Mejorar imágenes del memotest: generar con Canva IA o Bing ilustraciones de guanaco, ñandú, cauquén y zorro colorado que sean claras y reconocibles para niños de sala.</td>
+            </tr>
+            <tr style="background:var(--acl);">
+              <td>Guada</td><td>Afiche Reserva Punta Popper</td>
+              <td>Generar con Bing Image Creator una imagen fotorrealista de la estepa fueguina (pastizal abierto, viento, cielo gris) para el fondo del afiche.</td>
+            </tr>
+            <tr style="background:var(--acl);">
+              <td>Yuli</td><td>Página RÍO GRANDE-1 en Genially</td>
+              <td>Integrar el memotest mejorado de Agos. Generar texto descriptivo de la estepa con Claude (máximo 2 oraciones, nivel sala 4/5). Auditar.</td>
+            </tr>
+            <tr style="background:var(--pale);">
+              <td rowspan="3" style="font-weight:700;color:var(--nav);">&#127965; Malvinas</td>
+              <td>Nao</td><td>Rompecabezas Jigsaw Planet</td>
+              <td>Generar con Canva IA o Bing una imagen más atractiva del mapa de las Malvinas para el rompecabezas (colores vibrantes, legible para niños). Actualizar en Jigsaw.</td>
+            </tr>
+            <tr style="background:var(--pale);">
+              <td>Nairan</td><td>Infografía "¿Dónde están las Malvinas?"</td>
+              <td>Mejorar la infografía con elementos generados con IA: ícono del archipiélago, flecha indicativa. Verificar que el texto sea accesible para sala de 4/5.</td>
+            </tr>
+            <tr style="background:var(--pale);">
+              <td>Maribel</td><td>Página MALVINAS-1 en Genially</td>
+              <td>Integrar rompecabezas mejorado e infografía revisada. Generar con Claude el texto de Pepito para esta estación (Guía 2). Auditar que afirme soberanía argentina correctamente.</td>
+            </tr>
+            <tr style="background:#E8EDF2;">
+              <td rowspan="4" style="font-weight:700;color:var(--nav);">&#129398; Antártida</td>
+              <td>Andre</td><td>Páginas ANTÁRTIDA-1 y COFRE en Genially</td>
+              <td>Empezar el Nodo Central: mapa de TDF con 5 pines. Cada pin lleva a la primera página de cada estación. Añadir botón "Volver al mapa" en cada estación (coordinación con todas).</td>
+            </tr>
+            <tr style="background:#E8EDF2;">
+              <td>Sol</td><td>Bitácora del abuelo (Canva, 4 páginas)</td>
+              <td>Buscar en Wikimedia Commons imágenes históricas de TDF en dominio público. Generar textos del abuelo con Claude (Guía 2). Auditar veracidad histórica.</td>
+            </tr>
+            <tr style="background:#E8EDF2;">
+              <td>Bel</td><td>Wordwall fauna antártica</td>
+              <td>Generar con Canva IA o Bing imágenes más atractivas de pingüino Adelia, foca de Weddell, petrel y ballena jorobada. Actualizar en Wordwall.</td>
+            </tr>
+            <tr style="background:#E8EDF2;">
+              <td>Ivi</td><td>Video macro de Pepito</td>
+              <td>Si el video no está listo: generar imagen de Pepito con Bing Image Creator (Guía 1). Redactar el guion completo con Claude. Clase 8: lo animan con D-ID y le agregan voz.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="track-grid">
+        <div class="track-a">
+          <h4>&#9889; Track A — Pieza de Clase 6 sin terminar</h4>
+          <p style="font-size:13.5px;color:var(--txt);">Prioridad absoluta: terminar tu pieza individual. Ir al Plan de Clase → sección de tu grupo → completar la pieza. Una vez que tengas el link o archivo, pasárselo a tu coordinadora de Genially y moverte al Track B.</p>
+        </div>
+        <div class="track-b">
+          <h4>&#127775; Track B — Pieza lista, avanzando</h4>
+          <p style="font-size:13.5px;color:var(--txt);">Usá IA para mejorar tus insumos visuales y redactar guiones de texto para Clase 8 (audio). Ver la columna "Si está lista hoy" de tu fila en la tabla de arriba.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- fin pane-partida-viernes -->
+
+<!-- PESTAÑA 2: PLAN VIERNES -->
+<div id="pane-plan-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Viernes</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 10 min — Check-in grupal</span>
+        <h4>¿Quién terminó su pieza de Clase 6?</h4>
+        <p style="font-size:14px;">Ronda rápida por grupos. Levantar la mano quien tiene su pieza lista (link o archivo funcionando). Las que no la tienen → Track A durante toda la clase. Las que sí → Track B desde el principio.</p>
+        <div class="alerta-info" style="margin-top:10px;">Si más de la mitad del grupo está en Track A → la clase se enfoca principalmente en terminar Clase 6. Si la mayoría está en Track B → el foco es integración + IA para mejora.</div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--red);">
+        <span class="paso-num" style="background:var(--red);">Track A — Completar pieza de Clase 6</span>
+        <h4>Prioridad antes de cualquier otra cosa</h4>
+        <p style="font-size:14px;margin-bottom:10px;">Ir a la pestaña "Consigna" → tabla de estado → tu fila → columna "Pieza de Clase 6". Terminar esa tarea. Cuando tengas el link, pasárselo a tu coordinadora de Genially y avisarle.</p>
+        <p style="font-size:13.5px;color:var(--slate);">Coordinadoras de Genially: Sofi V. (Ushuaia), Niky (Tolhuin), Yuli (Río Grande), Maribel (Malvinas), Andre (Antártida).</p>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">Track B — IA para mejorar e integrar</span>
+        <h4>Mejorar insumos visuales con IA y preparar textos para Clase 8</h4>
+        <p style="font-size:14px;margin-bottom:12px;">Ver la columna "Si está lista hoy" de tu fila. En paralelo, hay dos líneas de trabajo:</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+          <div style="background:var(--pale);border-radius:var(--r);padding:14px;">
+            <strong style="color:var(--nav);display:block;margin-bottom:8px;">&#127775; IA para imagen</strong>
+            <p style="font-size:13px;color:var(--txt);">Mejorar las imágenes de tu pieza con Canva IA o Bing Image Creator. Clave: que las imágenes sean reconocibles para niños de sala de 4/5 y representen TDF (no fauna genérica ni paisaje europeo). Ver Guía 1.</p>
+          </div>
+          <div style="background:var(--gcl);border-radius:var(--r);padding:14px;">
+            <strong style="color:var(--grn);display:block;margin-bottom:8px;">&#127908; Guiones para Clase 8</strong>
+            <p style="font-size:13px;color:var(--txt);">La Clase 8 trabaja audio. Usar Claude hoy para redactar el guion de Pepito para tu estación (máximo 30 seg). Ese texto → la semana que viene lo graban con ElevenLabs o D-ID. Ver Guía 2.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--nav);">
+        <span class="paso-num" style="background:var(--nav);">Andre (Antártida) — Tarea especial</span>
+        <h4>Empezar el Nodo Central del mapa</h4>
+        <p style="font-size:14px;margin-bottom:10px;">Mientras los demás grupos trabajan, Andre tiene una tarea crítica: construir el Nodo Central. Esto desbloquea la integración de todo el proyecto.</p>
+        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li>En el Genially compartido, crear la página "NODO-CENTRAL".</li>
+          <li>Insertar un mapa de TDF como fondo (Canva IA o imagen del IGN).</li>
+          <li>Agregar 5 botones/pines sobre el mapa, uno por ciudad + Antártida + Malvinas.</li>
+          <li>Vincular cada botón a la primera página de la estación correspondiente (pedir el link de la primera página a cada coordinadora).</li>
+          <li>Insertar el video de Pepito de Ivi como pantalla previa al mapa (si ya está disponible).</li>
+          <li>Al final de cada estación (en las páginas de cada coordinadora): agregar botón "Volver al Mapa" → vinculado al NODO-CENTRAL. Coordinarlo con cada grupo.</li>
+        </ol>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre — auditoría y AVT</span>
+        <h4>Antes de irse</h4>
+        <ul>
+          <li>¿Qué imagen generó la IA que representaba un animal genérico en lugar de fauna fueguina? → documentarlo.</li>
+          <li>Cada integrante completa su fila de la bitácora del TFI (pestaña Avance TFI).</li>
+          <li>Las coordinadoras verifican que su página de Genially tenga el botón "Volver al Mapa" funcionando.</li>
+          <li>Subir el avance al AVT antes de Clase 8.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan-viernes -->
+
+<!-- PESTAÑA 3: HERRAMIENTAS VIERNES -->
+<div id="pane-herramientas-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Viernes</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:6px;">Las mismas herramientas de Clase 6, más las de IA para imagen. El foco: mejorar los insumos visuales para que funcionen con niños de sala de 4/5.</p>
+      <h3 class="tool-cat-title" style="color:var(--amb);border-bottom-color:var(--acl);">IA para imagen (nuevo en Clase 7)</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Bing Image Creator</h4>
+          <p>Para generar imágenes de animales ilustradas, paisajes de TDF, Pepito el Albatros. Gratuito. Prompt clave: especificar "children's book illustration style, Tierra del Fuego Argentina" para fauna de sala.</p>
+          <a href="https://www.bing.com/images/create" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Bing Create</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>Canva IA (Magic Media)</h4>
+          <p>Dentro de Canva: Elementos → "Generar imagen". Más fácil de integrar directamente en el afiche o diseño. Para sala de 4/5: pedir "ilustración infantil, colores vibrantes, trazo limpio".</p>
+          <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Canva</a>
+        </div>
+      </div>
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">IA para texto (guiones de Clase 8)</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>Claude (claude.ai)</h4>
+          <p>Para redactar los guiones de Pepito por estación. Pedir siempre: voz de personaje amigable para niños de 4/5 años, máximo 30 segundos de audio (unas 60 palabras), mencionar el nombre del lugar.</p>
+          <a href="https://claude.ai" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Claude</a>
+        </div>
+      </div>
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Lo que ya conocen (Clase 6)</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Genially</h4>
+          <p>Foco de hoy: el Nodo Central (Andre) y los botones "Volver al Mapa" en cada estación. Para incrustar juego externo: Insertar → Interactivo → pegar link del Wordwall o Jigsaw.</p>
+          <a href="https://genial.ly" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Genially</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>QR Code Monkey</h4>
+          <p>Si algún afiche no tiene el QR generado todavía: generar acá apuntando a la primera página de la estación en Genially. Tamaño mínimo: 8x8 cm para tablets de jardín.</p>
+          <a href="https://www.qrcode-monkey.com/es/" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir QR Monkey</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Rosimosi.com · Wordwall · Jigsaw Planet</h4>
+          <p>Si alguna pieza de juego necesita ajustes: entrar directamente a la herramienta, editar y publicar. El link ya debería estar en el Genially de la estación.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-viernes -->
+
+<!-- PESTAÑA 4: GUÍAS VIERNES -->
+<div id="pane-guias-viernes" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de producción · Viernes</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. CRTF para imagen — fauna y paisajes de TDF para sala de 4/5</summary>
+        <div class="guia-content">
+          <p>La clave para nivel inicial: las imágenes deben ser reconocibles al instante. Colores vibrantes, silueta clara, sin fondo recargado.</p>
+          <h5>Para animales (Ushuaia, Tolhuin, Río Grande, Antártida)</h5>
+          <div class="crtf-box">
+            Cute [nombre del animal] illustration, children's book style, Tierra del Fuego Argentina, vibrant colors, clean outline, white background, friendly expression, no text
+          </div>
+          <p style="font-size:13px;color:var(--txt);margin-top:6px;">Reemplazar [nombre del animal] por: Magellanic penguin / sea lion / Andean condor / guanaco / rhea / ñandú / huillín (river otter) / pato vapor (flightless steamer duck) / Adélie penguin / leopard seal</p>
+          <div class="alerta-sesgo"><span>&#128721;</span><div>Si el pingüino generado parece un pingüino de cuento de hadas europeo (con bufanda, en la nieve alpina) → agregar "sub-Antarctic South America, rocky Patagonian coast, realistic anatomy". El sesgo más frecuente en fauna es la genericidad — animales que podrían ser de cualquier lugar del mundo.</div></div>
+          <h5>Para Pepito el Albatros (Ivi)</h5>
+          <div class="crtf-box">
+            Friendly cartoon albatross character, illustrated style for children age 4-5, large white wings, orange beak, big expressive eyes, transparent background, 2D flat design, no text
+          </div>
+          <h5>Para paisajes (fondos de estaciones en Genially)</h5>
+          <div class="crtf-box">
+            [Ushuaia]: Beagle Channel Ushuaia Argentina, mountains and water, sub-Antarctic, photorealistic, wide landscape, no people<br>
+            [Tolhuin]: Lago Fagnano Tierra del Fuego, calm lake, lenga beech forest, overcast sky, photorealistic<br>
+            [Río Grande]: Fuegian steppe, flat grassland, strong wind, gray sky, photorealistic<br>
+            [Malvinas]: Falkland Islands coastline, rocky shores, British and Argentine flags (optional), photorealistic<br>
+            [Antártida]: Antarctic Peninsula Argentina, ice and penguins, research station, photorealistic
+          </div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. CRTF para texto — guiones de Pepito por estación (para Clase 8)</summary>
+        <div class="guia-content">
+          <p>Estos textos son los que se van a convertir en audio con ElevenLabs o D-ID en Clase 8. Redactarlos hoy para no perder tiempo la semana que viene.</p>
+          <div class="crtf-box">
+            <span class="crtf-label">[C]</span> Escape Room interactivo sobre TDF para niños y niñas de sala de 4/5 años. El personaje guía es Pepito el Albatros.<br>
+            <span class="crtf-label">[R]</span> Actuá como guionista de contenido educativo infantil, con experiencia en programas del estilo Paka Paka.<br>
+            <span class="crtf-label">[T]</span> Escribí el monólogo de Pepito para la estación [nombre de la estación]. Pepito tiene que: 1) presentar el lugar, 2) dar una pista de lo que hay que hacer en la misión, 3) animar a los niños a seguir jugando. Tono alegre, vocabulario simple, sin texto escrito para que funcione solo como audio.<br>
+            <span class="crtf-label">[F]</span> Máximo 60 palabras (equivale a 30 segundos de audio). Oraciones cortas. Primera persona. En español rioplatense.
+          </div>
+          <div class="alerta-sesgo"><span>&#128721;</span><div>Verificar que Pepito nombre correctamente el lugar (Lago Fagnano, no "un lago"; Canal Beagle, no "el mar"; estepa, no "el campo"). Cualquier nombre genérico → corregir con el topónimo real de TDF.</div></div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. El Nodo Central — instrucciones para Andre</summary>
+        <div class="guia-content">
+          <p>El Nodo Central es la pantalla que ve el usuario cuando abre el Genially. Desde ahí elige a qué estación ir. Es la "sala de control" del proyecto.</p>
+          <h5>Paso a paso</h5>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>En el Genially compartido → panel de páginas (izquierda) → crear página nueva → nombrarla "NODO-CENTRAL".</li>
+            <li>Fondo: mapa de TDF. Opciones: a) buscar imagen del IGN o Wikimedia Commons. b) Generar con Canva IA: "illustrated map of Tierra del Fuego Argentina, showing Ushuaia, Rio Grande, Tolhuin, Malvinas, Antarctica, children's style, colorful".</li>
+            <li>Sobre el mapa, insertar 5 elementos clicables (botones o imágenes de íconos de cada ciudad).</li>
+            <li>A cada elemento: Añadir interactividad → Ir a página → seleccionar la primera página de la estación correspondiente.</li>
+            <li>Insertar el video de Pepito (cuando Ivi lo tenga listo) como elemento de apertura. Configurar que se reproduzca automáticamente.</li>
+            <li>Verificar en Vista Previa que todos los pines llevan adonde corresponde.</li>
+          </ol>
+          <h5>El botón "Volver al Mapa"</h5>
+          <p>Cada coordinadora debe agregar en su última página de estación un botón "Volver al Mapa" → Ir a página → NODO-CENTRAL. Sin ese botón los niños quedan atrapados.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>4. Checklist de calidad DUA — ¿funciona para sala de 4/5?</summary>
+        <div class="guia-content">
+          <p>Antes de dar por terminada una página de Genially, verificar:</p>
+          <ul>
+            <li>&#9744; ¿Hay al menos una imagen grande y clara que comunica de qué trata la pantalla sin necesidad de leer?</li>
+            <li>&#9744; ¿La instrucción de qué hacer está como audio (o puede agregarse en Clase 8) además de texto?</li>
+            <li>&#9744; ¿Los botones o zonas clicables son grandes suficiente para una tablet de jardín con dedos de niño?</li>
+            <li>&#9744; ¿El fondo no compite visualmente con los elementos interactivos?</li>
+            <li>&#9744; ¿El nombre del lugar está visible y pronunciable para un nene de 4/5 años?</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>5. Detección de sesgos en fauna ilustrada para nivel inicial</summary>
+        <div class="guia-content">
+          <p>Los sesgos más frecuentes cuando se pide fauna fueguina a la IA:</p>
+          <ul>
+            <li><strong>El pingüino de dibujo animado genérico:</strong> suele aparecer con bufanda, en paisaje ártico tipo polo norte. Solución: "Magellanic penguin, not Emperor penguin, Tierra del Fuego rocky coast, summer".</li>
+            <li><strong>El guanaco parece llama o alpaca:</strong> morfología diferente. Solución: agregar "guanaco Lama guanicoe, not llama, Patagonian steppe".</li>
+            <li><strong>El huillín parece nutria europea:</strong> agregar "Lontra provocax, Southern river otter, Patagonia Argentina, endangered species".</li>
+            <li><strong>El ñandú parece avestruz africana:</strong> agregar "Darwin's rhea Rhea pennata, smaller than African ostrich, Patagonian steppe".</li>
+          </ul>
+          <p style="margin-top:10px;">Cada corrección de prompt que hacen y guardan es evidencia de auditoría de IA para la bitácora del TFI.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias-viernes -->
+
+<!-- PESTAÑA 5: AVANCE TFI VIERNES -->
+<div id="pane-bitacora-viernes" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Cada integrante completa su fila en el Google Doc compartido del proyecto. Copiar esta sección y pegar al final del doc grupal.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content-viernes" class="doc-template">
+        <h1>Avance TFI — Semana 7 (Escape Room TDFeIAS)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Cada integrante completa su fila</p>
+        <h2>Producción individual — Clase 7</h2>
+        <p><strong>Nombre:</strong> <span class="fill-blank">[Nombre]</span> &nbsp;&nbsp; <strong>Estación:</strong> <span class="fill-blank">[Ushuaia / Tolhuin / Río Grande / Malvinas / Antártida]</span></p>
+        <p><strong>Estado de la pieza de Clase 6:</strong> <span class="fill-blank">[Terminada / En proceso — describir qué falta]</span></p>
+        <p><strong>Track hoy:</strong> <span class="fill-blank">[A: terminando pieza Clase 6 / B: mejorando con IA + preparando Clase 8]</span></p>
+        <p><strong>Insumo IA producido hoy:</strong> <span class="fill-blank">[Imagen generada / texto de guion de Pepito / texto de descripción del ambiente]</span></p>
+        <p><strong>Herramienta IA utilizada:</strong> <span class="fill-blank">[Bing Image Creator / Canva IA / Claude / ChatGPT]</span></p>
+        <p><strong>Prompt original:</strong><br><span class="fill-blank">[Pegar el prompt exacto]</span></p>
+        <p><strong>Sesgo detectado:</strong><br><span class="fill-blank">[¿Qué generó la IA que no era correcto para TDF o para sala de 4/5? Describir]</span></p>
+        <p><strong>Corrección aplicada:</strong><br><span class="fill-blank">[Prompt revisado o ajuste manual]</span></p>
+        <p><strong>Link al insumo final:</strong> <span class="fill-blank">[Canva / Drive / captura]</span></p>
+        <h2>Guion de Pepito para Clase 8 (Track B)</h2>
+        <p><strong>Estación:</strong> <span class="fill-blank">[Nombre]</span></p>
+        <p><strong>Guion (máximo 60 palabras):</strong><br><span class="fill-blank">[Texto exacto que se grabará con ElevenLabs o D-ID]</span></p>
+        <p><strong>Prompt CRTF usado para generarlo:</strong><br><span class="fill-blank">[Pegar prompt]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 8</strong>
+        Subir este avance al foro del AVT. La Clase 8 arranca con los guiones ya escritos → directo a ElevenLabs y D-ID. Quien no tenga el guion escrito en el AVT empieza la Clase 8 en desventaja.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-viernes -->
+
+</div><!-- fin c-viernes -->
+
+  </div><!-- fin wrap -->
+</div><!-- fin main-app -->
+
+<script>
+function selectCareer(code,name){
+  document.body.className='';
+  document.body.classList.add('show-'+code);
+  document.body.classList.add('day-selected');
+  document.getElementById('lbl-career').innerText=name;
+  document.querySelectorAll('.tab-btn').forEach(btn=>btn.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  const firstTabBtn=document.querySelector('.tab-btn');
+  if(firstTabBtn){showTab('partida',firstTabBtn);}
+}
+function resetCareer(){
+  document.body.classList.remove('day-selected');
+  document.getElementById('lbl-career').innerText='';
+}
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  let daySuffix='';
+  if(document.body.classList.contains('show-jueves')) daySuffix='-jueves';
+  else if(document.body.classList.contains('show-viernes')) daySuffix='-viernes';
+  let targetPane=document.getElementById('pane-'+id+daySuffix);
+  if(!targetPane) targetPane=document.getElementById('pane-'+id);
+  if(targetPane) targetPane.classList.add('on');
+  if(btn) btn.classList.add('active');
+}
+function copyBitacora(){
+  const visiblePane=document.querySelector('.pane.on');
+  if(!visiblePane) return;
+  const tmpl=visiblePane.querySelector('.doc-template');
+  if(!tmpl) return;
+  navigator.clipboard.writeText(tmpl.innerText).then(()=>{
+    const btn=visiblePane.querySelector('.btn-copy');
+    if(!btn) return;
+    const orig=btn.innerText;
+    btn.innerText='\u2705 \u00a1Copiado!';
+    btn.style.background='var(--grn)';
+    setTimeout(()=>{btn.innerText=orig;btn.style.background='var(--nav)';},2500);
+  }).catch(err=>console.error('Error:',err));
+}
+</script>
+</body>
+</html>
