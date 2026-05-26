@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 8 · Audio e Integración Multimedial</title>
+<style>
+  :root {
+    --nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;
+    --grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;
+    --vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;
+    --gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFFFFF;
+    --red:#C0392B;--rcl:#FDEDEC;--vie:#7B3F9E;--vie-cl:#F0E8F7;
+    --r:8px;--sh:0 2px 8px rgba(0,0,0,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.65;text-align:right;display:flex;align-items:center}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;transition:background .2s;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3);white-space:nowrap}
+  .btn-back:hover{background:rgba(255,255,255,.25)}
+  .btn-reset{display:none;color:var(--cl);margin-right:12px;text-decoration:none;border-bottom:1px dotted var(--cl);cursor:pointer}
+  body.day-selected .btn-reset{display:inline-block}
+  #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
+  #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
+  #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
+  .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all .2s;min-width:220px}
+  .btn-career:hover{background:var(--teal);color:white;transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,148,154,.25)}
+  .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;width:100%;max-width:900px}
+  #main-app{display:none}
+  body.day-selected #welcome-screen{display:none}
+  body.day-selected #main-app{display:block}
+  .c-block{display:none}
+  body.show-miercoles .c-miercoles{display:block}
+  body.show-jueves .c-jueves{display:block}
+  body.show-viernes .c-viernes{display:block}
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+  .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.5px;color:var(--nav)}
+  .cb{padding:18px 25px}
+  .paso{background:var(--gris);border-radius:var(--r);padding:18px 24px;margin-bottom:16px;border-left:5px solid var(--bd)}
+  .paso-num{display:inline-block;background:var(--nav);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+  .paso h4{font-size:16px;font-weight:700;color:var(--neg);margin-bottom:8px}
+  .paso p,.paso li{font-size:14px;color:var(--txt);line-height:1.6}
+  .paso ul,.paso ol{margin-left:20px;margin-top:8px}.paso li{margin-bottom:5px}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:24px}
+  .tool-cat-title{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--bd);margin-top:20px}
+  .tool-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:18px;transition:transform .2s,box-shadow .2s}
+  .tool-card:hover{transform:translateY(-3px);box-shadow:var(--sh)}
+  .tool-card h4{font-size:15px;color:var(--nav);margin-bottom:6px}
+  .tool-card p{font-size:13px;color:var(--txt)}
+  .btn-tool{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;color:#fff}
+  details.guia{background:#fff;border-left:4px solid var(--teal);border-radius:var(--r);margin-bottom:14px;box-shadow:var(--sh);overflow:hidden}
+  details.guia summary{font-weight:700;color:var(--nav);padding:14px 20px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--pale);font-size:14.5px}
+  details.guia summary:hover{background:var(--cl)}
+  details.guia summary::-webkit-details-marker{display:none}
+  details.guia summary::after{content:'+';font-size:18px;color:var(--teal);font-weight:bold}
+  details.guia[open] summary::after{content:'−'}
+  details.guia .guia-content{padding:20px;font-size:14px;color:var(--txt);line-height:1.6;border-top:1px solid var(--bd)}
+  .guia-content h5{font-size:14.5px;color:var(--nav);margin:14px 0 6px}
+  .guia-content ul,.guia-content ol{margin-left:20px;margin-bottom:10px}
+  .guia-content li{margin-bottom:6px}
+  .alerta-info{background:var(--pale);border-left:4px solid var(--teal);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--nav)}
+  .alerta-dua{background:#E8F5E9;border-left:4px solid var(--grn);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--grn)}
+  .paso-audio{background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:14px 18px;margin-bottom:12px}
+  .paso-audio strong{color:var(--vio);display:block;margin-bottom:8px}
+  .paso-audio ol{margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg)}
+  .checklist{list-style:none;padding:0}
+  .checklist li{display:flex;gap:8px;align-items:flex-start;padding:6px 0;border-bottom:1px solid var(--bd);font-size:13.5px;color:var(--txt)}
+  .checklist li:last-child{border:none}
+  .cb-icon{width:16px;height:16px;border:2px solid var(--bd);border-radius:3px;flex-shrink:0;margin-top:2px}
+  .doc-template{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:24px;font-family:'Times New Roman',Times,serif;font-size:14px;color:#333;line-height:1.6}
+  .doc-template h1{text-align:center;font-size:18px;text-transform:uppercase;margin-bottom:4px;color:#000}
+  .doc-template h2{font-size:15px;border-bottom:1px solid #ccc;padding-bottom:4px;margin:20px 0 10px;color:#000}
+  .fill-blank{background:#FFF9C4;color:#E65100;padding:2px 6px;border-radius:3px;font-family:monospace;font-size:13px}
+  .btn-copy{background:var(--nav);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:16px;transition:background .2s}
+  .btn-copy:hover{background:var(--teal)}
+  .avt-box{background:var(--nav);color:#fff;border-radius:var(--r);padding:16px 20px;margin-top:16px;font-size:14px}
+  .avt-box strong{display:block;color:var(--cl);margin-bottom:6px;font-size:15px}
+  .cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
+  @media(max-width:600px){.cols2{grid-template-columns:1fr}}
+  .col-ing{background:var(--vcl);border-left:3px solid var(--vio);border-radius:var(--r);padding:14px}
+  .col-ing strong{color:var(--vio);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+  .col-geo{background:var(--gcl);border-left:3px solid var(--grn);border-radius:var(--r);padding:14px}
+  .col-geo strong{color:var(--grn);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-info">
+    <a href="index.html" class="btn-back">&#8592; Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
+  </div>
+  <div class="top-r">
+    <a href="#" class="btn-reset" onclick="event.preventDefault();resetCareer()">Cambiar día</a>
+    <span>2026</span>
+  </div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Seleccioná tu turno de cursada</h2>
+  <p>Clase 8 · Audio e Integración Multimedial</p>
+  <div class="career-grid" style="justify-content:center;">
+    <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px;font-weight:400;">(Proyecto Glaciares)</span></button>
+    <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px;font-weight:400;">(Proyecto Senderismo)</span></button>
+    <button class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')">Viernes<br><span style="font-size:12px;font-weight:400;">(Escape Room TDF)</span></button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 8 · Eje 2: Laboratorio de Lenguajes y Narrativas · Fase 2 Producción TFI</p>
+    <h2>Audio e Integración: <span>síntesis de voz, DUA y recurso multimedial completo</span></h2>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('partida',this)">Consigna</button>
+    <button class="tab-btn" onclick="showTab('plan',this)">Plan de Clase</button>
+    <button class="tab-btn" onclick="showTab('herramientas',this)">Herramientas</button>
+    <button class="tab-btn" onclick="showTab('guias',this)">&#128161; Guías</button>
+    <button class="tab-btn" onclick="showTab('bitacora',this)">&#128221; Avance TFI</button>
+  </div>
+  <div class="wrap">
+
+<!-- ================================================
+     MIÉRCOLES — Glaciares / Senado
+     ================================================ -->
+<div class="c-block c-miercoles">
+
+<div id="pane-partida" class="pane on">
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Estado del proyecto y objetivo de hoy</div>
+    <div class="cb">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px;">
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:13px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:5px;">&#9989; Clase 7 — hecho</strong>
+          <p style="font-size:13px;color:var(--txt);">Texto del comunicado NGO y contexto territorial — producidos y auditados. Imagen de portada y captura Google Earth integradas. Guión del audio de la llave intermedia redactado.</p>
+        </div>
+        <div style="background:var(--acl);border-left:4px solid var(--amb);border-radius:var(--r);padding:13px;">
+          <strong style="color:var(--amb);display:block;margin-bottom:5px;">&#127908; Clase 8 — hoy</strong>
+          <p style="font-size:13px;color:var(--txt);">Convertir los textos en audio con ElevenLabs. Integrar los audios en los nodos de Genially. Aplicar DUA al audio (transcripción accesible). Recurso texto + imagen + audio funcionando.</p>
+        </div>
+        <div style="background:var(--pale);border-left:4px solid var(--teal);border-radius:var(--r);padding:13px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:5px;">&#127925; Nuevo hoy</strong>
+          <p style="font-size:13px;color:var(--txt);">ElevenLabs para síntesis de voz. Suno para música generativa (opcional). DUA aplicado al audio: toda voz necesita su transcripción accesible en el mismo nodo.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin-bottom:16px;">
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">La regla de audio de hoy — antes de arrancar</strong>
+        <p style="font-size:14px;opacity:.9;line-height:1.7;">Ningún audio va al Genially sin su transcripción en texto accesible en la misma pantalla. No es una opción estética: es DUA. Un estudiante sordo, con conectividad baja o que estudia en silencio tiene que poder recibir la misma información que quien escucha el audio.</p>
+      </div>
+
+      <h4 style="font-size:15px;color:var(--nav);margin-bottom:12px;">Audios a producir hoy — uno por rol</h4>
+      <div class="cols2">
+        <div class="col-ing">
+          <strong>Inglés — 2 audios</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li><strong>Voz de la ONG:</strong> el representante de la organización leyendo/anunciando el comunicado urgente. Acento inglés o americano. 30–40 seg.</li>
+            <li><strong>Llave intermedia:</strong> el audio-pista que el usuario debe interpretar para avanzar. Es el texto que escribieron en Clase 7.</li>
+          </ol>
+        </div>
+        <div class="col-geo">
+          <strong>Geografía — 1 audio (+ 1 opcional)</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li><strong>Narrador territorial:</strong> voz que contextualiza el impacto ambiental sobre los glaciares. Tono académico/documental. 30–40 seg.</li>
+            <li style="opacity:.7;"><strong>Opcional — Suno:</strong> fondo musical de atmósfera patagónica para el nodo Geografía.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-partida -->
+
+<div id="pane-plan" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Miércoles</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 15 min — Verificar base</span>
+        <h4>¿Está el Genially navegable desde N0 hasta N1?</h4>
+        <ul class="checklist">
+          <li><span class="cb-icon"></span>N0 funciona: los dos botones llevan a RAMA-ING-1 y RAMA-GEO-1 respectivamente</li>
+          <li><span class="cb-icon"></span>RAMA-ING-1 tiene el texto del comunicado NGO integrado</li>
+          <li><span class="cb-icon"></span>RAMA-GEO-1 tiene el texto territorial y la captura de Google Earth</li>
+          <li><span class="cb-icon"></span>El guión del audio de la llave intermedia (escrito en Clase 7) está a mano</li>
+        </ul>
+        <div class="alerta-info" style="margin-top:10px;">Si el guión de la llave intermedia no se escribió en Clase 7, escribirlo ahora (10 min máximo) antes de arrancar con ElevenLabs. Sin texto previo no se puede generar audio.</div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">60 min — Producción de audio con ElevenLabs</span>
+        <h4>Trabajo paralelo por disciplina</h4>
+
+        <div class="paso-audio" style="margin-top:10px;">
+          <strong>INGLÉS — Audio 1: voz de la ONG</strong>
+          <ol>
+            <li>Abrir <a href="https://elevenlabs.io" target="_blank" style="color:var(--vio);font-weight:700;">elevenlabs.io</a> → crear cuenta gratuita o ingresar.</li>
+            <li>Speech Synthesis → elegir una voz profesional femenina o masculina con acento inglés o americano.</li>
+            <li>Pegar el texto del comunicado NGO (máximo 500 caracteres para la versión gratuita; si es más largo, usar el párrafo más importante).</li>
+            <li>Generar → escuchar → si el tono es correcto: descargar MP3.</li>
+            <li>Subir a Google Drive → compartir link → en Genially: Insertar → Audio → pegar link.</li>
+            <li><strong>DUA inmediato:</strong> agregar el texto del comunicado como elemento de texto en la misma pantalla del nodo, debajo del botón de audio.</li>
+          </ol>
+        </div>
+
+        <div class="paso-audio">
+          <strong>INGLÉS — Audio 2: la llave intermedia</strong>
+          <ol>
+            <li>Usar el guión escrito en Clase 7 (el que describe el código o la pista para avanzar).</li>
+            <li>En ElevenLabs: elegir una voz diferente a la de la ONG (distinguir personajes).</li>
+            <li>Generar → descargar → subir a Drive → incrustar en el nodo de convergencia (N2/llave).</li>
+            <li>Verificar que el audio contiene la información suficiente para que el usuario pueda resolver la llave sin ayuda del docente.</li>
+          </ol>
+        </div>
+
+        <div class="paso-audio" style="background:var(--gcl);border-left-color:var(--grn);">
+          <strong style="color:var(--grn);">GEOGRAFÍA — Narrador territorial</strong>
+          <ol>
+            <li>Abrir ElevenLabs → elegir una voz de narrador documental (tono calmado, académico).</li>
+            <li>Pegar el texto de contexto territorial auditado en Clase 7 (máximo 500 caracteres).</li>
+            <li>Generar → descargar → subir a Drive → insertar en RAMA-GEO-1.</li>
+            <li><strong>DUA:</strong> el texto territorial ya está en pantalla como elemento de texto — verificar que sea visible junto al botón de audio.</li>
+            <li><strong>Opcional:</strong> abrir <a href="https://suno.com" target="_blank" style="color:var(--grn);font-weight:700;">suno.com</a> → generar fondo musical patagónico sin letra (ver Guía 3).</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">30 min — Integración y verificación DUA</span>
+        <h4>El recurso tiene que funcionar sin el docente presente</h4>
+        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li>Navegar el Genially completo desde N0: elegir la rama Inglés → escuchar el audio → leer la transcripción → avanzar. Repetir por la rama Geografía.</li>
+          <li>Verificar que la llave intermedia funciona: el audio da la pista → el usuario puede resolver el código → avanza al desenlace.</li>
+          <li>Auditoría DUA: en cada nodo con audio, ¿la misma información está disponible en texto en la misma pantalla?</li>
+          <li>Documentar en la bitácora: herramienta usada, voz elegida, texto fuente, decisión sobre si auditar el audio generado.</li>
+        </ol>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre — AVT</span>
+        <h4>Tarea asincrónica antes de Clase 9</h4>
+        <p>Subir al AVT: el link del Genially con audio integrado + la bitácora de Clase 8. La Clase 9 trabaja Realidad Aumentada e hibridación física — llegar con el recurso digital funcionando.</p>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan -->
+
+<div id="pane-herramientas" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Miércoles</div>
+    <div class="cb">
+
+      <h3 class="tool-cat-title" style="color:var(--vio);border-bottom-color:var(--vcl);margin-top:0;">Síntesis de voz</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--vio);">
+          <h4>ElevenLabs</h4>
+          <p>La herramienta central de hoy. Plan gratuito: 10.000 caracteres/mes. Suficiente para 3–4 audios cortos. Voces de alta calidad en inglés y español. Para el comunicado NGO: elegir voz "Rachel" o "Adam" (inglés americano).</p>
+          <a href="https://elevenlabs.io" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir ElevenLabs</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--slate);">
+          <h4>Texto-a-voz del sistema (alternativa sin cuenta)</h4>
+          <p>Si ElevenLabs no está disponible: Windows → Narrador, macOS → Accesibilidad → Texto a voz, Android → TalkBack. Calidad inferior pero sin límites ni cuenta. Exportar con grabador de pantalla.</p>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Música generativa (opcional)</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Suno</h4>
+          <p>Para generar fondo musical sin letra para el nodo de Geografía. Plan gratuito: 50 generaciones/día. Usar Custom Mode: describir "ambient Patagonian atmosphere, no lyrics, documentary style, 30 seconds".</p>
+          <a href="https://suno.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Suno</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">Integración en Genially</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>Google Drive → Genially (audio)</h4>
+          <p>Subir el MP3 a Drive → click derecho → Compartir → "Cualquiera con el enlace puede ver" → copiar link. En Genially: Insertar → Multimedia → Audio → pegar el link de Drive.</p>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>Genially — elemento de audio</h4>
+          <p>El elemento de audio en Genially permite que el usuario haga clic para escuchar o que se reproduzca automáticamente al abrir el nodo. Recomendado: clic manual (el usuario controla cuándo escucha).</p>
+          <a href="https://genial.ly" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Genially</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-herramientas -->
+
+<div id="pane-guias" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de producción · Miércoles</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. Cómo elegir la voz correcta en ElevenLabs</summary>
+        <div class="guia-content">
+          <p>ElevenLabs tiene decenas de voces. Para este proyecto:</p>
+          <ul>
+            <li><strong>Voz de la ONG (inglés):</strong> buscar "Rachel" (profesional, americana) o "Adam" (formal, masculino). Velocidad normal.</li>
+            <li><strong>Llave intermedia (la pista):</strong> elegir una voz diferente para distinguirla de la ONG. Si la pista es un personaje local argentino, elegir una voz en español.</li>
+            <li><strong>Narrador Geografía (español):</strong> "Matias" o "Sofia" — voces en español latinoamericano disponibles en el plan gratuito.</li>
+          </ul>
+          <h5>El límite de caracteres del plan gratuito</h5>
+          <p>10.000 caracteres/mes ÷ 4 audios = ~2.500 caracteres por audio. Un texto de 300 palabras tiene ~1.800 caracteres. Alcanza para todos los audios del proyecto si se es sintético. Si se excede el límite: usar la alternativa del sistema operativo.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. DUA para audio — cómo implementarlo en Genially</summary>
+        <div class="guia-content">
+          <p>Cada nodo con audio debe tener el texto disponible en la misma pantalla. Dos formas de hacerlo en Genially:</p>
+          <h5>Opción A — Texto visible directamente</h5>
+          <p>El texto del audio aparece como elemento de texto en el nodo, debajo del ícono de audio. El usuario escucha o lee, según prefiera. Simple y accesible.</p>
+          <h5>Opción B — Botón desplegable "Leer transcripción"</h5>
+          <p>En Genially: insertar una caja de texto con el contenido → añadirle interactividad → "Tooltip" o "Ventana emergente". El botón dice "Leer transcripción" y al hacer clic aparece el texto. Más limpio visualmente.</p>
+          <div class="alerta-dua">&#9989; Regla: si el audio es la llave intermedia (la pista), la transcripción NO puede aparecer antes de que el usuario escuche. El texto es el spoiler. Usar Opción B con botón oculto.</div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. Suno — cómo generar música de atmósfera patagónica</summary>
+        <div class="guia-content">
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>Ir a suno.com → crear cuenta gratuita.</li>
+            <li>Hacer clic en "Create" → activar "Custom Mode".</li>
+            <li>En "Lyrics": escribir "(Instrumental)" para que no haya letra.</li>
+            <li>En "Style of Music": escribir: <em>ambient documentary score, Patagonian wilderness, no lyrics, sub-Antarctic wind, 30 seconds, cinematic</em></li>
+            <li>Generar → escuchar → si el resultado sirve: descargar MP3.</li>
+            <li>Subir a Drive → insertar en Genially como audio de fondo del nodo (activar "Reproducción automática" solo para el fondo, no para audios de contenido).</li>
+          </ol>
+          <div class="alerta-info">El audio de fondo no reemplaza el audio de contenido. El nodo puede tener ambos: fondo ambiental (automático) + narración (manual, el usuario decide cuándo escuchar).</div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>4. Cómo funciona la llave intermedia con audio</summary>
+        <div class="guia-content">
+          <p>La llave intermedia de este proyecto combina audio + visual para que el usuario tenga que procesar dos canales:</p>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>El usuario llega al nodo de convergencia (llave).</li>
+            <li>Escucha el audio: una voz da una pista que contiene información codificada (un número, una palabra, una instrucción).</li>
+            <li>Para resolver la llave, el usuario necesita aplicar esa información al mapa o al documento que aparece en pantalla.</li>
+            <li>Sin escuchar el audio (o sin leer la transcripción si aplica DUA) no puede resolver la llave.</li>
+          </ol>
+          <h5>Verificación antes de subir</h5>
+          <p>Reproducir el audio y preguntarse: ¿Un estudiante que escucha esto por primera vez puede resolver la llave? Si la respuesta requiere información que no está en el audio → el audio es incompleto. Revisar el guión.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias -->
+
+<div id="pane-bitacora" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Miércoles · Clase 8</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Agregar al Google Doc de bitácora iniciado en Clase 6. Cada disciplina completa su sección.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content" class="doc-template">
+        <h1>Avance TFI — Semana 8</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Agregar al Google Doc de bitácora</p>
+        <h2>Producción de audio — Clase 8</h2>
+        <p><strong>Dominio:</strong> <span class="fill-blank">[Inglés / Geografía]</span></p>
+        <p><strong>Audio producido:</strong> <span class="fill-blank">[Voz ONG / Llave intermedia / Narrador territorial / Fondo musical]</span></p>
+        <p><strong>Herramienta:</strong> <span class="fill-blank">[ElevenLabs / Suno / Texto-a-voz del sistema]</span></p>
+        <p><strong>Voz elegida y por qué:</strong><br><span class="fill-blank">[Nombre de la voz + justificación pedagógica del tono elegido]</span></p>
+        <p><strong>Texto fuente (el que se convirtió en audio):</strong><br><span class="fill-blank">[Pegar el texto exacto]</span></p>
+        <p><strong>Link al audio en Drive:</strong> <span class="fill-blank">[Link]</span></p>
+        <p><strong>DUA aplicado:</strong><br><span class="fill-blank">[¿Cómo está disponible la transcripción en el mismo nodo? Describir]</span></p>
+        <h2>Estado de integración del recurso</h2>
+        <p><strong>Nodos con audio integrado:</strong> <span class="fill-blank">[Lista de nodos]</span></p>
+        <p><strong>La llave intermedia funciona:</strong> <span class="fill-blank">[Sí / No — describir qué falta]</span></p>
+        <p><strong>Link del Genially para verificación:</strong> <span class="fill-blank">[Link público]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 9</strong>
+        Subir esta sección completada. La Clase 9 trabaja Realidad Aumentada e hibridación física — llegar con el recurso digital funcionando es el punto de partida.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora -->
+
+</div><!-- fin c-miercoles -->
+
+
+<!-- ================================================
+     JUEVES — Senderismo / Valle de Andorra
+     ================================================ -->
+<div class="c-block c-jueves">
+
+<div id="pane-partida-jueves" class="pane on">
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Estado del proyecto y objetivo de hoy</div>
+    <div class="cb">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px;">
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:13px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:5px;">&#9989; Clase 7 — hecho</strong>
+          <p style="font-size:13px;color:var(--txt);">Textos narrativos de los turistas y contexto geográfico del Valle — producidos y auditados. Simulación WhatsApp en Canva. Guión del diálogo de la llave intermedia (turista-transeúnte) escrito.</p>
+        </div>
+        <div style="background:var(--acl);border-left:4px solid var(--amb);border-radius:var(--r);padding:13px;">
+          <strong style="color:var(--amb);display:block;margin-bottom:5px;">&#127908; Clase 8 — hoy</strong>
+          <p style="font-size:13px;color:var(--txt);">Convertir los diálogos en audio con ElevenLabs. El audio de la llave intermedia es el corazón de este recurso: el usuario necesita escuchar en inglés y aplicarlo sobre el mapa.</p>
+        </div>
+        <div style="background:var(--pale);border-left:4px solid var(--teal);border-radius:var(--r);padding:13px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:5px;">&#128279; Integración</strong>
+          <p style="font-size:13px;color:var(--txt);">El nodo de la llave intermedia es donde convergen ambas ramas. Hoy tiene que quedar completo: el mapa de Geografía + el audio en inglés de la Narrativa funcionando juntos.</p>
+        </div>
+      </div>
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin-bottom:16px;">
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">La llave intermedia de este proyecto — repaso</strong>
+        <p style="font-size:14px;opacity:.9;line-height:1.7;">El usuario escucha un audio en inglés donde un transeúnte da instrucciones de orientación: <em>"Continue straight ahead to the waterfall fork, then turn left."</em> Para resolver la llave, el usuario tiene que identificar esa ruta en el mapa topográfico del Valle de Andorra que aparece en la misma pantalla. Sin entender el inglés O sin leer el mapa, no puede avanzar.</p>
+      </div>
+
+      <h4 style="font-size:15px;color:var(--nav);margin-bottom:12px;">Audios a producir hoy</h4>
+      <div class="cols2">
+        <div class="col-ing">
+          <strong>Narrativa / Inglés — 2 audios</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li><strong>Nota de voz del turista:</strong> el mensaje desesperado describiendo lo que ven. Acento no nativo (turista internacional). 20–30 seg.</li>
+            <li><strong>Llave intermedia:</strong> el transeúnte dando las instrucciones de orientación en inglés. Acento argentino que habla inglés. 15–20 seg. Es el audio más importante del recurso.</li>
+          </ol>
+        </div>
+        <div class="col-geo">
+          <strong>Geografía — 1 audio (+ 1 opcional)</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li><strong>Descripción del terreno:</strong> narrador explicando qué muestra el mapa topográfico (por qué el turbal es peligroso, qué es la bifurcación de la cascada). 30 seg.</li>
+            <li style="opacity:.7;"><strong>Opcional — Suno:</strong> sonido ambiental del bosque de lenga y viento sub-antártico para el nodo de Geografía.</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-partida-jueves -->
+
+<div id="pane-plan-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Jueves</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 15 min — Verificar base y guiones</span>
+        <h4>¿Está el guión del diálogo listo para grabar?</h4>
+        <ul class="checklist">
+          <li><span class="cb-icon"></span>N0 navega: botones llevan a RAMA-ING-1 y RAMA-GEO-1</li>
+          <li><span class="cb-icon"></span>RAMA-ING-1 tiene la simulación WhatsApp integrada en Genially</li>
+          <li><span class="cb-icon"></span>RAMA-GEO-1 tiene el mapa del Valle de Andorra con los puntos de peligro marcados</li>
+          <li><span class="cb-icon"></span>El guión del transeúnte (llave intermedia) está escrito y verificado: las instrucciones son aplicables al mapa real del Valle</li>
+        </ul>
+        <div class="alerta-info" style="margin-top:10px;">Si el guión del transeúnte no está escrito o no se puede verificar en el mapa real → es la primera tarea (10 min). Todo lo demás depende de que ese audio sea correcto.</div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">60 min — Producción de audio</span>
+        <h4>Arrancar por la llave intermedia — es el audio más crítico</h4>
+
+        <div class="paso-audio" style="margin-top:10px;">
+          <strong>LLAVE INTERMEDIA — primer audio a grabar</strong>
+          <ol>
+            <li>Abrir ElevenLabs. Para el transeúnte argentino que habla inglés: elegir una voz en inglés con acento no nativo o español/latino. Buscar "Diego" o "Liam" en voces en inglés.</li>
+            <li>Pegar el guión: <em>"I'm looking for the trail to the hiker's lagoon. Which way should I go?" — "Continue straight ahead to the waterfall fork, then turn left."</em></li>
+            <li>Generar → escuchar → verificar que las instrucciones son claras y aplicables al mapa.</li>
+            <li>Descargar MP3 → Drive → Genially → insertar en el nodo de convergencia (llave).</li>
+            <li><strong>DUA:</strong> agregar botón "Ver transcripción" con el texto del diálogo (Opción B — desplegable, no visible hasta que el usuario lo pida).</li>
+          </ol>
+        </div>
+
+        <div class="paso-audio">
+          <strong>NARRATIVA/INGLÉS — nota de voz del turista</strong>
+          <ol>
+            <li>Elegir una voz con acento extranjero (inglés o americano). El turista está asustado: ajustar la velocidad levemente más alta para dar sensación de urgencia.</li>
+            <li>Pegar el texto del mensaje de WhatsApp producido en Clase 7.</li>
+            <li>Generar → descargar → Drive → insertar en RAMA-ING-1 (en el nodo donde está la simulación de WhatsApp).</li>
+            <li><strong>DUA:</strong> la simulación de WhatsApp en Canva ya muestra el texto — eso es la transcripción accesible. Verificar que esté visible.</li>
+          </ol>
+        </div>
+
+        <div class="paso-audio" style="background:var(--gcl);border-left-color:var(--grn);">
+          <strong style="color:var(--grn);">GEOGRAFÍA — narrador del mapa</strong>
+          <ol>
+            <li>Elegir una voz de narrador documental tranquilo. En español.</li>
+            <li>Texto: la descripción del terreno del Valle de Andorra (producido en Clase 7).</li>
+            <li>Generar → descargar → Drive → insertar en RAMA-GEO-1, junto al mapa.</li>
+            <li><strong>DUA:</strong> el texto territorial ya está en el nodo como elemento de texto. Verificar visibilidad.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">30 min — Integración y prueba de la llave</span>
+        <h4>La prueba real: ¿funciona la llave intermedia?</h4>
+        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li>Navegar desde N0 hasta el nodo de convergencia (llave).</li>
+          <li>Escuchar el audio del transeúnte SIN leer el texto.</li>
+          <li>Intentar resolver la llave usando solo lo que el audio dijo más el mapa que está en pantalla.</li>
+          <li>Si se puede resolver → la llave funciona pedagógicamente.</li>
+          <li>Si no se puede → revisar si el guión es claro o si el mapa muestra los elementos mencionados en el audio (la cascada, la bifurcación).</li>
+        </ol>
+        <div class="alerta-dua">La llave es el momento más exigente del recurso. Si no funciona en esta prueba, no va a funcionar con los estudiantes reales.</div>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre — AVT</span>
+        <h4>Subir antes de Clase 9</h4>
+        <p>Link del Genially + bitácora de Clase 8. La Clase 9 trabaja RA e hibridación — el recurso digital tiene que estar completo para poder agregar la capa física.</p>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan-jueves -->
+
+<div id="pane-herramientas-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Jueves</div>
+    <div class="cb">
+
+      <h3 class="tool-cat-title" style="color:var(--vio);border-bottom-color:var(--vcl);margin-top:0;">Síntesis de voz</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--vio);">
+          <h4>ElevenLabs</h4>
+          <p>Para los tres audios del proyecto. Voces recomendadas para Jueves: <strong>turista</strong> → "Josh" (inglés con acento), <strong>transeúnte argentino</strong> → "Diego" o cualquier voz latino en inglés, <strong>narrador Geo</strong> → "Matias" (español). Plan gratuito: 10.000 chars/mes.</p>
+          <a href="https://elevenlabs.io" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir ElevenLabs</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Suno (atmósfera Patagónica — opcional)</h4>
+          <p>Fondo ambiental para el nodo de Geografía. Prompt sugerido: <em>"Fuegian forest ambient, wind through lenga beech trees, distant stream, no music, natural sounds"</em>.</p>
+          <a href="https://suno.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Suno</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Geografía — fuentes para el mapa</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Wikiloc</h4>
+          <p>Para verificar que la cascada y la bifurcación mencionadas en el audio del transeúnte existen realmente en el Valle de Andorra. Buscar tracks de "Valle de Andorra Ushuaia".</p>
+          <a href="https://www.wikiloc.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Wikiloc</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Google Earth</h4>
+          <p>Para captura actualizada del Valle con la cascada visible. La llave funciona porque el usuario puede identificar la cascada en el mapa satelital.</p>
+          <a href="https://earth.google.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Google Earth</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-jueves -->
+
+<div id="pane-guias-jueves" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de producción · Jueves</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. Cómo elegir el acento correcto para los personajes</summary>
+        <div class="guia-content">
+          <p>Los tres personajes del audio tienen voces distintas — eso ayuda a que el usuario los diferencie sin ver una pantalla.</p>
+          <ul>
+            <li><strong>Turista:</strong> acento nativo de inglés (británico o americano). Tono urgente. Velocidad ligeramente elevada.</li>
+            <li><strong>Transeúnte:</strong> acento latino en inglés (imperfecto, amigable). Tono calmado y claro. Velocidad normal-lenta para que las instrucciones se entiendan bien.</li>
+            <li><strong>Narrador Geo:</strong> español rioplatense, tono documental. Velocidad normal.</li>
+          </ul>
+          <p style="margin-top:8px;">En ElevenLabs: usar "Voice Settings" → ajustar Stability (estabilidad de la voz) y Clarity (claridad) según el personaje. Para el transeúnte: Stability alta para que las instrucciones sean claras.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. Verificar que la llave intermedia funciona pedagógicamente</summary>
+        <div class="guia-content">
+          <p>La llave combina comprensión auditiva en inglés (Listening comprehension B1) + interpretación cartográfica. Ambas competencias deben estar en juego.</p>
+          <h5>Test antes de integrar</h5>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>Escuchar el audio del transeúnte sin ver el guión.</li>
+            <li>Intentar identificar en el mapa: ¿cuál es la cascada? ¿Cuál es el sendero que queda a la izquierda de la cascada?</li>
+            <li>Si no se puede identificar en el mapa → la cascada no está visible o el mapa no tiene suficiente detalle. Actualizar con una captura más específica de Wikiloc o Google Earth.</li>
+            <li>Si el audio es muy difícil de entender → simplificar el vocabulario o bajar la velocidad en ElevenLabs.</li>
+          </ol>
+          <div class="alerta-dua">DUA para la llave: la transcripción se ofrece como botón opcional ("Ver texto del audio") — no aparece automáticamente porque sería el spoiler. El usuario que necesita la accesibilidad puede pedirla; el que quiere el desafío no la ve.</div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. DUA para audio — implementación en Genially</summary>
+        <div class="guia-content">
+          <p>Mismas dos opciones que Miércoles:</p>
+          <h5>Opción A — Texto visible junto al audio</h5>
+          <p>Para los audios de contenido (nota de voz del turista, narrador del mapa). El texto ya está visible en pantalla (la simulación de WhatsApp, el texto geográfico).</p>
+          <h5>Opción B — Botón desplegable para la llave intermedia</h5>
+          <p>En Genially: insertar caja de texto con el guión del diálogo → Añadir interactividad → Tooltip → escribir el texto en el tooltip. El botón dice "Necesito el texto del audio" y aparece como overlay.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias-jueves -->
+
+<div id="pane-bitacora-jueves" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Jueves · Clase 8</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Agregar al Google Doc iniciado en Clase 6.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content-jueves" class="doc-template">
+        <h1>Avance TFI — Semana 8 (Senderismo)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Agregar al Google Doc de bitácora</p>
+        <h2>Producción de audio — Clase 8</h2>
+        <p><strong>Dominio:</strong> <span class="fill-blank">[Narrativa/Inglés / Geografía]</span></p>
+        <p><strong>Audio producido:</strong> <span class="fill-blank">[Nota de voz turista / Llave intermedia transeúnte / Narrador mapa Valle]</span></p>
+        <p><strong>Herramienta y voz elegida:</strong> <span class="fill-blank">[ElevenLabs — nombre de la voz y por qué]</span></p>
+        <p><strong>Texto fuente exacto:</strong><br><span class="fill-blank">[Pegar el texto convertido en audio]</span></p>
+        <p><strong>Link Drive del audio:</strong> <span class="fill-blank">[Link]</span></p>
+        <p><strong>DUA aplicado:</strong><br><span class="fill-blank">[Describir cómo está disponible la transcripción]</span></p>
+        <h2>Test de la llave intermedia</h2>
+        <p><strong>¿Funciona sin leer el texto?</strong> <span class="fill-blank">[Sí / No — describir qué ajuste fue necesario]</span></p>
+        <p><strong>¿El mapa muestra la cascada y la bifurcación correctas?</strong> <span class="fill-blank">[Sí / No — fuente usada para verificar]</span></p>
+        <p><strong>Link del Genially:</strong> <span class="fill-blank">[Link público]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 9</strong>
+        La Clase 9 agrega Realidad Aumentada al afiche físico del Valle de Andorra. El recurso digital tiene que estar completo — con la llave funcionando — para poder agregar esa capa.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-jueves -->
+
+</div><!-- fin c-jueves -->
+
+
+<!-- ================================================
+     VIERNES — Escape Room TDFeIAS (readecuación)
+     ================================================ -->
+<div class="c-block c-viernes">
+
+<div id="pane-partida-viernes" class="pane on">
+  <div class="card" style="border-top:4px solid var(--vie);">
+    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Clase 8 para Viernes — readecuación de tiempos</div>
+    <div class="cb">
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin-bottom:18px;">
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">&#128201; Sin encuentro la semana pasada</strong>
+        <p style="font-size:14px;opacity:.9;line-height:1.7;">Esta clase retoma el trabajo de la Semana 7. El objetivo principal es completar las piezas digitales individuales y avanzar en la ambientación física de las postas. Para quienes ya tienen su pieza lista y el guión de Pepito escrito: esta clase es el primer contacto con ElevenLabs.</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;">
+        <div style="background:#FFF8E1;border:2px solid #F9A825;border-radius:var(--r);padding:14px;">
+          <h4 style="color:#E65100;font-size:14px;margin-bottom:8px;">&#9889; Track A — pieza sin terminar</h4>
+          <p style="font-size:13px;color:var(--txt);">Completar la pieza digital de Semana 7 hasta que el link funcione en otro celular. Ver la tabla de la Semana 7 (pestaña Consigna de Clase 7) para saber qué te falta.</p>
+        </div>
+        <div style="background:var(--gcl);border:2px solid var(--grn);border-radius:var(--r);padding:14px;">
+          <h4 style="color:var(--grn);font-size:14px;margin-bottom:8px;">&#127775; Track B — pieza lista</h4>
+          <p style="font-size:13px;color:var(--txt);">Planificar la ambientación física de tu posta + si tenés el guión de Pepito escrito: generar su voz con ElevenLabs hoy.</p>
+        </div>
+      </div>
+
+      <div class="alerta-info">
+        <strong>El audio de Pepito no es obligatorio para hoy.</strong> Es un bonus para las que estén en Track B y tengan el guión listo. Si no está el guión, primero escribirlo con Claude (ver Guía 1), después generar el audio.
+      </div>
+
+      <h4 style="font-size:15px;color:var(--nav);margin:16px 0 10px;">Estado esperado al final de esta clase</h4>
+      <ul style="margin-left:20px;font-size:13.5px;color:var(--txt);line-height:1.9;">
+        <li>Todas las piezas digitales individuales tienen link funcionando</li>
+        <li>Cada grupo tiene planificada la ambientación física de su posta (qué va en las paredes, qué objeto representativo)</li>
+        <li>Andre tiene el Nodo Central del mapa con los pines hacia cada estación</li>
+        <li>Las que están en Track B y tienen guión: el audio de Pepito generado y subido a Drive</li>
+      </ul>
+    </div>
+  </div>
+</div><!-- fin pane-partida-viernes -->
+
+<div id="pane-plan-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Viernes</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 10 min — Check-in rápido</span>
+        <h4>¿Quién tiene su pieza digital terminada?</h4>
+        <p style="font-size:14px;">Mostrar el link abierto en el celular de otra compañera. Si carga y funciona → Track B. Si no → Track A. André: además del check-in, verificar el estado del Nodo Central.</p>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">80 min — Producción en paralelo</span>
+        <h4>Track A y Track B simultáneos</h4>
+
+        <div style="background:#FFF8E1;border:2px solid #F9A825;border-radius:var(--r);padding:14px;margin-bottom:12px;">
+          <strong style="color:#E65100;display:block;margin-bottom:8px;">Track A — completar la pieza digital</strong>
+          <p style="font-size:13.5px;color:var(--neg);">Ir a la tabla de la Clase 7 (pestaña Consigna) → buscar tu fila → terminar la pieza digital. Cuando tengas el link: pasárselo a tu coordinadora de Genially y avisarle.</p>
+          <p style="font-size:12px;color:var(--slate);margin-top:6px;">Coordinadoras: Sofi V. (Ushuaia) · Niky (Tolhuin) · Yuli (Río Grande) · Maribel (Malvinas) · Andre (Antártida)</p>
+        </div>
+
+        <div style="background:var(--gcl);border:2px solid var(--grn);border-radius:var(--r);padding:14px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Track B — ambientación física + audio de Pepito</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li><strong>Planificar la posta física:</strong> ¿qué imágenes van en las paredes? ¿qué objeto físico representa el ambiente? ¿dónde está el QR y qué texto lo acompaña? Escribirlo en la bitácora.</li>
+            <li><strong>Si tenés guión de Pepito escrito:</strong> abrir ElevenLabs → voz amigable → pegar el guión (máximo 60 palabras) → generar → descargar → subir a Drive → pasar link a la coordinadora de tu estación.</li>
+            <li><strong>Si no tenés guión:</strong> escribirlo primero con Claude (ver Guía 1 de Clase 7) → después generar el audio.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--nav);">
+        <span class="paso-num" style="background:var(--nav);">Andre — Nodo Central</span>
+        <h4>Verificar que todos los pines del mapa funcionan</h4>
+        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li>Para cada estación: verificar que el pin lleva a la primera página correcta (pedir confirmación a cada coordinadora).</li>
+          <li>Verificar que cada estación tiene el botón "Volver al Mapa".</li>
+          <li>Verificar que el cofre/candado digital tiene la contraseña de 5 dígitos configurada.</li>
+          <li>Si el video de Pepito (Ivi) ya está listo: integrarlo como pantalla de bienvenida antes del mapa.</li>
+        </ol>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre — bitácora + AVT</span>
+        <h4>Antes de irse</h4>
+        <ul>
+          <li>Completar la bitácora: pieza completada, ambientación física planificada, audio de Pepito si aplica.</li>
+          <li>Subir al AVT. La Clase 9 trabaja RA — para agregar Artivive o QuiverVision al afiche, el afiche tiene que estar diseñado.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan-viernes -->
+
+<div id="pane-herramientas-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Viernes</div>
+    <div class="cb">
+
+      <h3 class="tool-cat-title" style="color:var(--vio);border-bottom-color:var(--vcl);margin-top:0;">Audio de Pepito — Track B</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--vio);">
+          <h4>ElevenLabs</h4>
+          <p>Para la voz de Pepito: elegir una voz amigable y expresiva. Opciones gratuitas: "Elli" (voz femenina cálida) o "Antoni" (voz masculina amigable). Velocidad: normal. El texto no puede superar 60 palabras (≈ 400 caracteres).</p>
+          <a href="https://elevenlabs.io" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir ElevenLabs</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--slate);">
+          <h4>D-ID (Pepito animado — opcional)</h4>
+          <p>Si quieren que Pepito hable con la boca moviéndose: subir imagen del albatros + el audio generado en ElevenLabs. D-ID sincroniza el pico con la voz. Versión gratuita: suficiente para 30 seg.</p>
+          <a href="https://www.d-id.com/" target="_blank" class="btn-tool" style="background:var(--slate);">Abrir D-ID</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Piezas digitales — Track A</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Genially, Wordwall, Jigsaw, Rosimosi, Canva</h4>
+          <p>Las mismas herramientas de Clase 6 y 7. Ver la tabla de la Clase 7 (pestaña Consigna) para saber exactamente qué herramienta usa cada integrante.</p>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>QR Code Monkey</h4>
+          <p>Si el afiche está diseñado pero falta el QR: generarlo acá apuntando a la primera página de Genially de la estación.</p>
+          <a href="https://www.qrcode-monkey.com/es/" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir QR Monkey</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-viernes -->
+
+<div id="pane-guias-viernes" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías · Viernes</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. Generar el audio de Pepito con ElevenLabs — paso a paso</summary>
+        <div class="guia-content">
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>Ir a <a href="https://elevenlabs.io" target="_blank" style="color:var(--teal);">elevenlabs.io</a> → Sign up (cuenta gratuita).</li>
+            <li>Speech Synthesis → elegir voz amigable (Elli, Antoni u otra).</li>
+            <li>Pegar el guión de Pepito para la estación (máximo 60 palabras / ~400 caracteres).</li>
+            <li>Clic en Generate → escuchar: ¿suena amigable y claro para niños de sala de 4/5?</li>
+            <li>Descargar MP3 → subir a Google Drive → compartir link → pasar a la coordinadora.</li>
+            <li>La coordinadora inserta en Genially: Insertar → Multimedia → Audio → link de Drive.</li>
+          </ol>
+          <div class="alerta-info">Si el límite gratuito de ElevenLabs se agotó: usar la alternativa del sistema operativo (Android: TalkBack, iOS: Accesibilidad → Texto a voz). Calidad inferior pero funcional para sala de 4/5.</div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. Pepito animado con D-ID — opcional para Ivi</summary>
+        <div class="guia-content">
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>Tener lista la imagen de Pepito generada con Bing Image Creator (fondo transparente o blanco).</li>
+            <li>Tener listo el audio MP3 de ElevenLabs.</li>
+            <li>Ir a <a href="https://www.d-id.com" target="_blank" style="color:var(--teal);">d-id.com</a> → Create video → subir imagen de Pepito.</li>
+            <li>Seleccionar "Upload audio" → subir el MP3 de ElevenLabs.</li>
+            <li>Generate → descargar el video → subir a Drive → insertar en Genially como video.</li>
+          </ol>
+          <p style="margin-top:8px;font-size:13px;color:var(--slate);">Plan gratuito de D-ID: 5 créditos, suficiente para 1-2 videos de 30 seg. Solo para el video macro de Pepito.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. Planificación de la ambientación física — hoja de trabajo</summary>
+        <div class="guia-content">
+          <p>Completar esto para tu posta y guardarlo en la bitácora:</p>
+          <ul>
+            <li><strong>Nombre de la estación:</strong> ___</li>
+            <li><strong>Imágenes que van en las paredes (3 mínimo):</strong> ___ / ___ / ___</li>
+            <li><strong>Objeto físico representativo:</strong> ___ (algo que los niños puedan tocar o ver que representa el ambiente)</li>
+            <li><strong>Texto del afiche principal:</strong> ___ (lo que acompaña al QR y llama a la acción)</li>
+            <li><strong>Dónde está el QR:</strong> ___ (pegado en qué objeto/afiche)</li>
+            <li><strong>¿Hay RA en esta posta?</strong> Sí / No — si sí: ¿Artivive o QuiverVision?</li>
+          </ul>
+          <div class="alerta-info">La ambientación física se construye en Clase 9. Hoy solo se planifica. Pero la planificación tiene que estar lista antes de esa clase para no improvisar.</div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias-viernes -->
+
+<div id="pane-bitacora-viernes" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Clase 8</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Completar y pegar en el Google Doc compartido del proyecto.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content-viernes" class="doc-template">
+        <h1>Avance TFI — Semana 8 (Escape Room TDFeIAS)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Cada integrante completa su fila</p>
+        <h2>Estado de la pieza digital</h2>
+        <p><strong>Nombre:</strong> <span class="fill-blank">[Nombre]</span> &nbsp; <strong>Estación:</strong> <span class="fill-blank">[Nombre]</span></p>
+        <p><strong>Pieza digital:</strong> <span class="fill-blank">[Terminada — link: ___ / En proceso — falta: ___]</span></p>
+        <h2>Audio de Pepito (Track B)</h2>
+        <p><strong>Guión (si lo escribiste):</strong><br><span class="fill-blank">[Texto exacto — máximo 60 palabras]</span></p>
+        <p><strong>Audio generado:</strong> <span class="fill-blank">[Sí — link Drive: ___ / No — pendiente Clase 9]</span></p>
+        <p><strong>Herramienta:</strong> <span class="fill-blank">[ElevenLabs / D-ID / texto-a-voz sistema]</span></p>
+        <h2>Ambientación física de la posta</h2>
+        <p><strong>Imágenes para las paredes:</strong><br><span class="fill-blank">[Describir]</span></p>
+        <p><strong>Objeto físico representativo:</strong><br><span class="fill-blank">[Describir]</span></p>
+        <p><strong>Texto del afiche + ubicación del QR:</strong><br><span class="fill-blank">[Describir]</span></p>
+        <p><strong>¿RA en esta posta?</strong> <span class="fill-blank">[Artivive / QuiverVision / No]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 9</strong>
+        La Clase 9 trabaja RA e hibridación física — construyen las postas. Para llegar listos: pieza digital terminada + ambientación planificada + afiche con QR diseñado (aunque no impreso aún).
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-viernes -->
+
+</div><!-- fin c-viernes -->
+
+  </div><!-- fin wrap -->
+</div><!-- fin main-app -->
+
+<script>
+function selectCareer(code,name){
+  document.body.className='';
+  document.body.classList.add('show-'+code);
+  document.body.classList.add('day-selected');
+  document.getElementById('lbl-career').innerText=name;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  const first=document.querySelector('.tab-btn');
+  if(first){first.classList.add('active');}
+  showTab('partida',document.querySelector('.tab-btn'));
+}
+function resetCareer(){
+  document.body.classList.remove('day-selected');
+  document.getElementById('lbl-career').innerText='';
+}
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  let s='';
+  if(document.body.classList.contains('show-jueves'))s='-jueves';
+  else if(document.body.classList.contains('show-viernes'))s='-viernes';
+  let t=document.getElementById('pane-'+id+s);
+  if(!t)t=document.getElementById('pane-'+id);
+  if(t)t.classList.add('on');
+  if(btn)btn.classList.add('active');
+}
+function copyBitacora(){
+  const v=document.querySelector('.pane.on');
+  if(!v)return;
+  const d=v.querySelector('.doc-template');
+  if(!d)return;
+  navigator.clipboard.writeText(d.innerText).then(()=>{
+    const b=v.querySelector('.btn-copy');
+    if(!b)return;
+    const o=b.innerText;
+    b.innerText='✅ ¡Copiado!';
+    b.style.background='var(--grn)';
+    setTimeout(()=>{b.innerText=o;b.style.background='var(--nav)';},2500);
+  });
+}
+</script>
+</body>
+</html>
