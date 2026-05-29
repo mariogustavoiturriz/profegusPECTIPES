@@ -89,6 +89,17 @@
   .avt-box strong{display:block;color:var(--cl);margin-bottom:6px;font-size:15px}
   .cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0}
   @media(max-width:600px){.cols2{grid-template-columns:1fr}}
+  /* Alerta sesgo (Viernes) */
+  .alerta-sesgo{background:#FFF3E0;border-left:4px solid var(--amb);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--amb);display:flex;gap:10px;align-items:flex-start}
+  /* CRTF prompt boxes (Viernes guías) */
+  .crtf-box{background:var(--nav);color:#B2E8EA;border-radius:6px;padding:14px 18px;font-family:monospace;font-size:13px;line-height:1.7;margin:10px 0}
+  .crtf-label{color:var(--teal);font-weight:700;margin-right:6px}
+  /* Table in Viernes plan */
+  table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13.5px}
+  table th{background:var(--nav);color:#fff;padding:9px 14px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+  table td{padding:9px 14px;border-bottom:1px solid var(--bd);color:var(--txt);vertical-align:top}
+  table tr:hover td{background:var(--gris)}
+
   .col-ing{background:var(--vcl);border-left:3px solid var(--vio);border-radius:var(--r);padding:14px}
   .col-ing strong{color:var(--vio);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
   .col-geo{background:var(--gcl);border-left:3px solid var(--grn);border-radius:var(--r);padding:14px}
@@ -159,12 +170,13 @@
         </div>
       </div>
 
+
       <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:16px 20px;margin-bottom:18px;">
         <h4 style="font-size:15px;color:var(--vio);margin-bottom:8px;">🎙️ Fundamentación Didáctica: El audio como herramienta pedagógica</h4>
-        <p style="font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:8px;">Integrar voz generada con IA no es solo un efecto técnico, tiene un propósito pedagógico que deben justificar en la bitácora:</p>
-        <ul style="margin-left:18px;font-size:13.5px;color:var(--txt);line-height:1.6;">
-          <li><strong>De la Sustitución a la Redefinición (SAMR):</strong> Si el audio solo lee el texto de la pantalla, es <em>Sustitución</em> (útil y obligatorio para el DUA). Pero si el audio entrega una pista vital que el estudiante debe procesar para resolver la "Llave Final", estamos <em>Redefiniendo</em> la tarea didáctica. Es un diseño inmersivo que sería imposible de replicar en papel.</li>
-          <li><strong>De Pasivos a Creadores (PICRAT):</strong> Al usar ElevenLabs, ustedes no buscan un sonido genérico; están diseñando la intención, el acento y la urgencia de un actor del conflicto. Pasan de un uso Pasivo de la tecnología a ser <em>Creadoras</em> de una simulación.</li>
+        <p style="font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:8px;">Integrar voz generada con IA no es solo un efecto técnico — tiene un propósito pedagógico que deben justificar en la bitácora:</p>
+        <ul style="margin-left:18px;font-size:13.5px;color:var(--txt);line-height:1.7;">
+          <li><strong>De la Sustitución a la Redefinición (SAMR):</strong> Si el audio solo lee el texto de la pantalla, es <em>Sustitución</em> (útil y obligatorio para el DUA). Pero si el audio entrega una pista vital que el estudiante debe procesar para resolver la Llave Final, estamos <em>Redefiniendo</em> la tarea didáctica — imposible de replicar en papel.</li>
+          <li><strong>De Pasivos a Creadores (PICRAT):</strong> Al usar ElevenLabs, no buscan un sonido genérico; están diseñando la intención, el acento y la urgencia de un actor del conflicto. Pasan de un uso Pasivo a ser <em>Creadoras</em> de una simulación.</li>
         </ul>
       </div>
 
@@ -173,25 +185,25 @@
         <p style="font-size:14px;opacity:.9;line-height:1.7;">Ningún audio va al Genially sin su transcripción en texto accesible en la misma pantalla. No es una opción estética: es DUA. Un estudiante sordo, con conectividad baja o que estudia en silencio tiene que poder recibir la misma información que quien escucha el audio.</p>
       </div>
 
-      <h4 style="font-size:15px;color:var(--nav);margin-bottom:12px;">Producción de hoy</h4>
+      <h4 style="font-size:15px;color:var(--nav);margin-bottom:12px;">Audios a producir hoy — uno por rol</h4>
       <div class="cols2">
         <div class="col-ing">
           <strong>Inglés — Audio 1</strong>
           <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
-            <li><strong>Voz de la ONG:</strong> el representante de la organización leyendo/anunciando el comunicado urgente. Acento inglés o americano. 30–40 seg (Audio obligatorio).</li>
+            <li><strong>Voz de la ONG:</strong> el representante de la organización leyendo/anunciando el comunicado urgente. Acento inglés o americano. 30–40 seg (obligatorio).</li>
           </ol>
         </div>
         <div class="col-geo">
           <strong>Geografía — 1 audio (+ 1 opcional)</strong>
           <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
-            <li><strong>Narrador territorial:</strong> voz que contextualiza el impacto ambiental sobre los glaciares. Tono académico/documental. 30–40 seg.</li>
-            <li style="opacity:.7;"><strong>Opcional — Suno:</strong> fondo musical de atmósfera patagónica para el nodo Geografía.</li>
+            <li><strong>Narrador territorial:</strong> voz que contextualiza el impacto ambiental. Tono académico/documental. 30–40 seg.</li>
+            <li style="opacity:.7;"><strong>Opcional — Suno:</strong> fondo musical de atmósfera patagónica.</li>
           </ol>
         </div>
-      </div>
+      
       <div style="background:var(--acl);border-left:3px solid var(--amb);border-radius:var(--r);padding:14px;margin-top:14px;">
         <strong style="color:var(--amb);display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;">Equipo (Juntos) — Llave Final Multimedial</strong>
-        <p style="font-size:13.5px;line-height:1.6;color:var(--neg);margin:0;"><strong>Debate y Prototipado (prioridad):</strong> La llave es el punto de convergencia. Juntos deben definir el medio. ¿Será un audio-pista (Inglés) que se aplica sobre un mapa (Geografía)? ¿Un bot de IA que simule un diálogo para evaluar argumentos? ¿Un video interactivo? ¿Una experiencia de realidad aumentada? Exploren todas las posibilidades, definan el formato y armen el borrador funcional.</p>
+        <p style="font-size:13.5px;line-height:1.6;color:var(--neg);margin:0;"><strong>Debate y Prototipado (prioridad):</strong> La llave es el punto de convergencia. ¿Será un audio-pista (Inglés) que se aplica sobre un mapa (Geografía)? ¿Un bot de IA que simule un diálogo? ¿Un video interactivo? Definan el formato y armen el borrador funcional.</p>
       </div>
     </div>
   </div>
@@ -209,9 +221,9 @@
           <li><span class="cb-icon"></span>N0 funciona: los dos botones llevan a RAMA-ING-1 y RAMA-GEO-1 respectivamente</li>
           <li><span class="cb-icon"></span>RAMA-ING-1 tiene el texto del comunicado NGO integrado</li>
           <li><span class="cb-icon"></span>RAMA-GEO-1 tiene el texto territorial y la captura de Google Earth</li>
-          <li><span class="cb-icon"></span>El concepto y contenido de la llave final (pensado en Clase 7) está a mano a modo de borrador</li>
+          <li><span class="cb-icon"></span>El concepto y contenido de la llave final (pensado en Clase 7) está disponible como borrador</li>
         </ul>
-        <div class="alerta-info" style="margin-top:10px;">Si la mecánica de la llave final no se debatió en Clase 7, tienen 10 minutos para definirla. ¿Qué información necesita el usuario para destrabar el final? El medio (audio, bot, imagen) lo deciden y prototipan hoy. Sin base no hay escape.</div>
+        <div class="alerta-info" style="margin-top:10px;">Si la mecánica de la llave final no se debatió en Clase 7, tienen 10 minutos para definirla. ¿Qué información necesita el usuario para destrabar el final? El medio (audio, bot, imagen) lo deciden y prototipan hoy.</div>
       </div>
 
       <div class="paso" style="border-left-color:var(--vio);">
@@ -223,20 +235,31 @@
           <ol>
             <li>Abrir <a href="https://elevenlabs.io" target="_blank" style="color:var(--vio);font-weight:700;">elevenlabs.io</a> → crear cuenta gratuita o ingresar.</li>
             <li>Speech Synthesis → elegir una voz profesional femenina o masculina con acento inglés o americano.</li>
-            <li>Pegar el texto del comunicado NGO (máximo 500 caracteres para la versión gratuita).</li>
+            <li>Pegar el texto del comunicado NGO (máximo 500 caracteres para la versión gratuita; si es más largo, usar el párrafo más importante).</li>
             <li>Generar → escuchar → si el tono es correcto: descargar MP3.</li>
             <li>Subir a Google Drive → compartir link → en Genially: Insertar → Audio → pegar link.</li>
-            <li><strong>DUA inmediato:</strong> agregar el texto del comunicado en pantalla, debajo del botón de audio.</li>
+            <li><strong>DUA inmediato:</strong> agregar el texto del comunicado como elemento de texto en la misma pantalla del nodo, debajo del botón de audio.</li>
           </ol>
         </div>
+
+        <div class="paso-audio">
+          <strong>INGLÉS — Audio 2: la llave intermedia</strong>
+          <ol>
+            <li>Usar el guión escrito en Clase 7 (el que describe el código o la pista para avanzar).</li>
+            <li>En ElevenLabs: elegir una voz diferente a la de la ONG (distinguir personajes).</li>
+            <li>Generar → descargar → subir a Drive → incrustar en el nodo de convergencia (N2/llave).</li>
+            <li>Verificar que el audio contiene la información suficiente para que el usuario pueda resolver la llave sin ayuda del docente.</li>
+          </ol>
+        </div>
+
 
         <div class="paso-audio" style="background:var(--acl);border-left-color:var(--amb);">
           <strong style="color:var(--amb);">JUNTOS — Llave Final: Prototipado Multimedial</strong>
           <ol>
-            <li><strong>Debate de formato:</strong> A partir del borrador, decidan juntos qué medio transmite mejor el desafío pedagógico integrando ambas materias.</li>
-            <li><strong>Opción A (Audio + Mapa):</strong> Usar un guión en inglés (ej. testimonio de un glaciólogo extranjero). Generar con ElevenLabs y obligar al usuario a cruzar ese dato auditivo con el mapa de Geografía.</li>
-            <li><strong>Opción B (Bot en Poe.com):</strong> Crear un bot personalizado que actúe como "Analista Político". El usuario escribe su argumento cruzando los datos de la ONG (Inglés) y el impacto territorial (Geografía) y el bot le da un veredicto.</li>
-            <li>Verificar que la llave final funcione correctamente sin ayuda del docente. Si sobra tiempo, pueden armar un acertijo intermedio previo.</li>
+            <li><strong>Debate de formato:</strong> A partir del borrador, decidan qué medio transmite mejor el desafío pedagógico integrando ambas disciplinas.</li>
+            <li><strong>Opción A (Audio + Mapa):</strong> Guión en inglés (testimonio de un glaciólogo). Generar con ElevenLabs y cruzar ese dato auditivo con el mapa de Geografía.</li>
+            <li><strong>Opción B (Bot en Poe.com):</strong> Un bot actúa como "Analista Político". El usuario escribe su argumento cruzando los datos de la ONG y el impacto territorial, y el bot da un veredicto.</li>
+            <li>Verificar que la llave final funcione sin ayuda del docente.</li>
           </ol>
         </div>
 
@@ -246,7 +269,7 @@
             <li>Abrir ElevenLabs → elegir una voz de narrador documental (tono calmado, académico).</li>
             <li>Pegar el texto de contexto territorial auditado en Clase 7 (máximo 500 caracteres).</li>
             <li>Generar → descargar → subir a Drive → insertar en RAMA-GEO-1.</li>
-            <li><strong>DUA:</strong> el texto territorial ya está en pantalla como elemento de texto — verificar que sea visible.</li>
+            <li><strong>DUA:</strong> el texto territorial ya está en pantalla como elemento de texto — verificar que sea visible junto al botón de audio.</li>
             <li><strong>Opcional:</strong> abrir <a href="https://suno.com" target="_blank" style="color:var(--grn);font-weight:700;">suno.com</a> → generar fondo musical patagónico sin letra (ver Guía 3).</li>
           </ol>
         </div>
@@ -257,7 +280,7 @@
         <h4>El recurso tiene que funcionar sin el docente presente</h4>
         <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
           <li>Navegar el Genially completo desde N0: elegir la rama Inglés → escuchar el audio → leer la transcripción → avanzar. Repetir por la rama Geografía.</li>
-          <li>Verificar que la llave final funciona: el audio da la pista (o el bot da el veredicto) → el usuario puede resolver el conflicto → avanza al desenlace.</li>
+          <li>Verificar que la llave intermedia funciona: el audio da la pista → el usuario puede resolver el código → avanza al desenlace.</li>
           <li>Auditoría DUA: en cada nodo con audio, ¿la misma información está disponible en texto en la misma pantalla?</li>
           <li>Documentar en la bitácora: herramienta usada, voz elegida, texto fuente, decisión sobre si auditar el audio generado.</li>
         </ol>
@@ -286,11 +309,16 @@
           <a href="https://elevenlabs.io" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir ElevenLabs</a>
         </div>
         <div class="tool-card" style="border-left:4px solid var(--slate);">
-          <h4>TTSMP3 / Narakeet (Alternativas web gratuitas)</h4>
-          <p>Si agotan el límite de ElevenLabs, estas opciones no requieren registrar tarjeta ni cuenta obligatoria. <strong>TTSMP3.com</strong> permite escribir y descargar el MP3 directo. <strong>Narakeet.com</strong> ofrece excelentes voces en español rioplatense e inglés.</p>
-          <div style="display:flex; gap:8px;">
-            <a href="https://ttsmp3.com/" target="_blank" class="btn-tool" style="background:var(--slate);">Abrir TTSMP3</a>
-            <a href="https://www.narakeet.com/" target="_blank" class="btn-tool" style="background:var(--slate);">Abrir Narakeet</a>
+          <h4>Texto-a-voz del sistema (alternativa sin cuenta)</h4>
+          <p>Si ElevenLabs no está disponible: Windows → Narrador, macOS → Accesibilidad → Texto a voz, Android → TalkBack. Calidad inferior pero sin límites ni cuenta. Exportar con grabador de pantalla.</p>
+        </div>
+
+        <div class="tool-card" style="border-left:4px solid var(--slate);">
+          <h4>TTSMP3 / Narakeet (alternativas sin cuenta)</h4>
+          <p>Si agotan el límite de ElevenLabs, estas opciones no requieren tarjeta ni cuenta obligatoria. <strong>TTSMP3.com</strong>: texto → MP3 directo. <strong>Narakeet.com</strong>: excelentes voces en español rioplatense e inglés.</p>
+          <div style="display:flex;gap:8px;">
+            <a href="https://ttsmp3.com/" target="_blank" class="btn-tool" style="background:var(--slate);">TTSMP3</a>
+            <a href="https://www.narakeet.com/" target="_blank" class="btn-tool" style="background:var(--slate);">Narakeet</a>
           </div>
         </div>
       </div>
@@ -304,13 +332,8 @@
         </div>
       </div>
 
-      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">Interactividad Avanzada e Integración</h3>
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">Integración en Genially</h3>
       <div class="tools-grid">
-        <div class="tool-card" style="border-left:4px solid var(--nav);">
-          <h4>Poe.com (Creación de Bots)</h4>
-          <p>Permite crear un chatbot con una instrucción (prompt) estricta. Ideal para la llave final: el bot evalúa lo que argumenta el alumno y le da un veredicto. Se incrusta en Genially mediante iframe.</p>
-          <a href="https://poe.com" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Poe</a>
-        </div>
         <div class="tool-card" style="border-left:4px solid var(--nav);">
           <h4>Google Drive → Genially (audio)</h4>
           <p>Subir el MP3 a Drive → click derecho → Compartir → "Cualquiera con el enlace puede ver" → copiar link. En Genially: Insertar → Multimedia → Audio → pegar el link de Drive.</p>
@@ -318,6 +341,25 @@
         <div class="tool-card" style="border-left:4px solid var(--teal);">
           <h4>Genially — elemento de audio</h4>
           <p>El elemento de audio en Genially permite que el usuario haga clic para escuchar o que se reproduzca automáticamente al abrir el nodo. Recomendado: clic manual (el usuario controla cuándo escucha).</p>
+          <a href="https://genial.ly" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Genially</a>
+        </div>
+      </div>
+
+
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">Interactividad Avanzada e Integración</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>Poe.com — Bot para la Llave Final</h4>
+          <p>Permite crear un chatbot con instrucción estricta. El bot evalúa el argumento del alumno sobre la Ley 26.639 y da un veredicto. Se incrusta en Genially via iframe. Ver Guía 5 para el prompt exacto.</p>
+          <a href="https://poe.com" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Poe</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>Google Drive → Genially (audio)</h4>
+          <p>Subir el MP3 a Drive → Compartir → "Cualquiera con el enlace" → copiar link. En Genially: Insertar → Multimedia → Audio → pegar link.</p>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>Genially — elemento de audio</h4>
+          <p>Recomendado: clic manual (el usuario controla cuándo escucha). Para llave final: nunca reproducción automática.</p>
           <a href="https://genial.ly" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Genially</a>
         </div>
       </div>
@@ -332,33 +374,47 @@
     <div class="cb">
 
       <details class="guia">
-        <summary>4. Cómo prototipar la llave final multimedial</summary>
+        <summary>1. Cómo prototipar la Llave Final multimedial</summary>
         <div class="guia-content">
-          <p>La llave final de este proyecto no tiene que ser obligatoriamente un audio; debe ser una experiencia multimedial que obligue al usuario a procesar información de ambas ramas para resolver un conflicto. El formato es una decisión de diseño de ustedes:</p>
+          <p>La llave final no tiene que ser obligatoriamente un audio — debe ser una experiencia que obligue al usuario a procesar información de ambas ramas:</p>
           <ol style="margin-left:16px;line-height:1.9;">
-            <li><strong>Si deciden usar Audio:</strong> Una voz da una pista que contiene información codificada (un número, una palabra, una instrucción). El usuario necesita aplicar esa información al mapa para avanzar.</li>
-            <li><strong>Si deciden usar un Bot (Poe.com):</strong> El desafío es argumentativo. El usuario debe combinar lo que aprendió en la ONG (Inglés) y el mapa (Geografía) para convencer al bot.</li>
-            <li><strong>Si deciden usar algo Visual:</strong> Un documento secreto o mapa intervenido que requiere leer el texto territorial para descifrarlo.</li>
+            <li><strong>Opción Audio:</strong> Una voz da una pista codificada. El usuario aplica esa información al mapa para avanzar.</li>
+            <li><strong>Opción Bot (Poe.com):</strong> El usuario combina datos de la ONG y el mapa para convencer al bot. El bot da un veredicto A/B/C.</li>
+            <li><strong>Opción Visual:</strong> Un documento secreto o mapa intervenido que requiere leer el texto territorial para descifrarlo.</li>
           </ol>
-          <h5>Verificación antes de subir</h5>
-          <p>Sea cual sea el prototipo que armen, pregúntense: ¿Un estudiante que llega a este punto por primera vez puede resolver la llave solo con la información que le dimos antes? Si la respuesta requiere información externa → el diseño está incompleto. Revisen el borrador.</p>
+          <h5>Verificación antes de integrar</h5>
+          <p>¿Un estudiante que llega a este punto puede resolver la llave solo con la información que le dimos antes? Si necesita información externa → el diseño está incompleto.</p>
         </div>
       </details>
 
       <details class="guia">
-        <summary>2. DUA para audio — cómo implementarlo en Genially</summary>
+        <summary>2. Cómo elegir la voz correcta en ElevenLabs</summary>
+        <div class="guia-content">
+          <p>ElevenLabs tiene decenas de voces. Para este proyecto:</p>
+          <ul>
+            <li><strong>Voz de la ONG (inglés):</strong> buscar "Rachel" (profesional, americana) o "Adam" (formal, masculino). Velocidad normal.</li>
+            <li><strong>Llave intermedia (la pista):</strong> elegir una voz diferente para distinguirla de la ONG. Si la pista es un personaje local argentino, elegir una voz en español.</li>
+            <li><strong>Narrador Geografía (español):</strong> "Matias" o "Sofia" — voces en español latinoamericano disponibles en el plan gratuito.</li>
+          </ul>
+          <h5>El límite de caracteres del plan gratuito</h5>
+          <p>10.000 caracteres/mes ÷ 4 audios = ~2.500 caracteres por audio. Un texto de 300 palabras tiene ~1.800 caracteres. Alcanza para todos los audios del proyecto si se es sintético. Si se excede el límite: usar la alternativa del sistema operativo.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. DUA para audio — cómo implementarlo en Genially</summary>
         <div class="guia-content">
           <p>Cada nodo con audio debe tener el texto disponible en la misma pantalla. Dos formas de hacerlo en Genially:</p>
           <h5>Opción A — Texto visible directamente</h5>
           <p>El texto del audio aparece como elemento de texto en el nodo, debajo del ícono de audio. El usuario escucha o lee, según prefiera. Simple y accesible.</p>
           <h5>Opción B — Botón desplegable "Leer transcripción"</h5>
           <p>En Genially: insertar una caja de texto con el contenido → añadirle interactividad → "Tooltip" o "Ventana emergente". El botón dice "Leer transcripción" y al hacer clic aparece el texto. Más limpio visualmente.</p>
-          <div class="alerta-dua">&#9989; Regla: si el audio es la pista de una llave, la transcripción NO puede aparecer antes de que el usuario escuche. El texto es el spoiler. Usar Opción B con botón oculto.</div>
+          <div class="alerta-dua">&#9989; Regla: si el audio es la llave intermedia (la pista), la transcripción NO puede aparecer antes de que el usuario escuche. El texto es el spoiler. Usar Opción B con botón oculto.</div>
         </div>
       </details>
 
       <details class="guia">
-        <summary>3. Suno — cómo generar música de atmósfera patagónica</summary>
+        <summary>4. Suno — cómo generar música de atmósfera patagónica</summary>
         <div class="guia-content">
           <ol style="margin-left:16px;line-height:1.9;">
             <li>Ir a suno.com → crear cuenta gratuita.</li>
@@ -373,9 +429,9 @@
       </details>
 
       <details class="guia">
-        <summary>4. Cómo funciona la llave final con audio</summary>
+        <summary>5. Cómo funciona la Llave Final con audio</summary>
         <div class="guia-content">
-          <p>La llave final de este proyecto combina audio + visual para que el usuario tenga que procesar dos canales:</p>
+          <p>La llave intermedia de este proyecto combina audio + visual para que el usuario tenga que procesar dos canales:</p>
           <ol style="margin-left:16px;line-height:1.9;">
             <li>El usuario llega al nodo de convergencia (llave).</li>
             <li>Escucha el audio: una voz da una pista que contiene información codificada (un número, una palabra, una instrucción).</li>
@@ -387,16 +443,17 @@
         </div>
       </details>
 
+
       <details class="guia">
-        <summary>5. Alternativa: La llave final con el Bot de Poe.com</summary>
+        <summary>6. Alternativa: La Llave Final con bot de Poe.com</summary>
         <div class="guia-content">
-          <p>En lugar de una pista de audio, la llave final (o una intermedia si les sobra tiempo) puede ser un <strong>simulador</strong> donde el estudiante debe argumentar su postura. En Poe.com pueden crear un bot gratuito e incrustarlo en Genially (Insertar → Otros → Código iframe).</p>
-          <h5>El Prompt base para configurar el Bot en Poe:</h5>
-          <div class="alerta-info" style="font-family:monospace; font-size:13px; margin-top:5px; line-height: 1.6;">
-            "Sos un analista político del Senado argentino. Cuando el estudiante te comparte el discurso que daría sobre la Ley de Glaciares 26.639, analizás si su postura es A) En contra de la modificación, B) A favor, o C) Abstención. Respondés SOLO con: 'VEREDICTO: [A/B/C]' seguido de dos líneas explicando por qué clasificaste el discurso así. Si es neutro, respondés 'VEREDICTO: C' y explicás las consecuencias."
+          <p>En lugar de audio, la llave final puede ser un simulador donde el estudiante argumenta su postura. Crear el bot en poe.com y embeber en Genially (Insertar → Otros → Código iframe).</p>
+          <h5>Prompt exacto para configurar el bot en Poe</h5>
+          <div class="alerta-info" style="font-family:monospace;font-size:13px;line-height:1.7;">
+            Sos un analista político del Senado argentino. Cuando el estudiante te comparte el discurso que daría sobre la Ley de Glaciares 26.639, analizás si su postura es A) En contra de la modificación, B) A favor, o C) Abstención. Respondés SOLO con: "VEREDICTO: [A/B/C]" seguido de dos líneas explicando por qué. Si es neutro o ambiguo, respondés "VEREDICTO: C" y explicás las consecuencias políticas de la abstención.
           </div>
-          <h5>Cómo se ensambla en Genially:</h5>
-          <p>En el Nodo 2 (o llave final), ponen 3 botones estáticos (A, B, C) que llevan a los distintos desenlaces. El estudiante interactúa con la ventana del bot de Poe, redacta su defensa, lee el veredicto que le dio la IA, y luego toca el botón correspondiente (A, B o C) para avanzar.</p>
+          <h5>Cómo se ensambla en Genially</h5>
+          <p>En el Nodo de la Llave, poner 3 botones estáticos (A, B, C) que llevan a los distintos desenlaces. El estudiante interactúa con el bot de Poe, lee el veredicto, y toca el botón correspondiente para avanzar.</p>
         </div>
       </details>
 
@@ -415,7 +472,7 @@
         <p style="text-align:center;font-size:12px;color:#666;">Agregar al Google Doc de bitácora</p>
         <h2>Producción de audio — Clase 8</h2>
         <p><strong>Dominio:</strong> <span class="fill-blank">[Inglés / Geografía]</span></p>
-        <p><strong>Audio producido:</strong> <span class="fill-blank">[Voz ONG / Llave final / Narrador territorial / Fondo musical]</span></p>
+        <p><strong>Audio producido:</strong> <span class="fill-blank">[Voz ONG / Llave intermedia / Narrador territorial / Fondo musical]</span></p>
         <p><strong>Herramienta:</strong> <span class="fill-blank">[ElevenLabs / Suno / Texto-a-voz del sistema]</span></p>
         <p><strong>Voz elegida y por qué:</strong><br><span class="fill-blank">[Nombre de la voz + justificación pedagógica del tono elegido]</span></p>
         <p><strong>Texto fuente (el que se convirtió en audio):</strong><br><span class="fill-blank">[Pegar el texto exacto]</span></p>
@@ -423,7 +480,7 @@
         <p><strong>DUA aplicado:</strong><br><span class="fill-blank">[¿Cómo está disponible la transcripción en el mismo nodo? Describir]</span></p>
         <h2>Estado de integración del recurso</h2>
         <p><strong>Nodos con audio integrado:</strong> <span class="fill-blank">[Lista de nodos]</span></p>
-        <p><strong>La llave final funciona:</strong> <span class="fill-blank">[Sí / No — describir qué falta]</span></p>
+        <p><strong>La llave intermedia funciona:</strong> <span class="fill-blank">[Sí / No — describir qué falta]</span></p>
         <p><strong>Link del Genially para verificación:</strong> <span class="fill-blank">[Link público]</span></p>
       </div>
       <div class="avt-box">
@@ -461,12 +518,13 @@
         </div>
       </div>
 
+
       <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:16px 20px;margin-bottom:18px;">
         <h4 style="font-size:15px;color:var(--vio);margin-bottom:8px;">🎙️ Fundamentación Didáctica: El audio como herramienta pedagógica</h4>
-        <p style="font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:8px;">Integrar voz generada con IA no es solo un efecto técnico, tiene un propósito pedagógico que deben justificar:</p>
-        <ul style="margin-left:18px;font-size:13.5px;color:var(--txt);line-height:1.6;">
-          <li><strong>De la Sustitución a la Redefinición (SAMR):</strong> Si el audio solo repite un texto escrito, es <em>Sustitución</em> (apoyo de accesibilidad). Pero usar un audio en inglés donde un transeúnte da instrucciones vitales de orientación para que el usuario las cruce obligatoriamente con el mapa topográfico, <em>Redefine</em> la evaluación de comprensión auditiva y espacial.</li>
-          <li><strong>De Pasivos a Creadores (PICRAT):</strong> Al configurar ElevenLabs, ustedes eligen el acento, la desesperación del turista o la calma del guía. Están tomando decisiones de diseño didáctico que las posicionan como <em>Creadoras</em> de una simulación inmersiva.</li>
+        <p style="font-size:13.5px;color:var(--txt);line-height:1.6;margin-bottom:8px;">Integrar voz generada con IA tiene un propósito pedagógico que deben justificar:</p>
+        <ul style="margin-left:18px;font-size:13.5px;color:var(--txt);line-height:1.7;">
+          <li><strong>De la Sustitución a la Redefinición (SAMR):</strong> Usar un audio en inglés donde un transeúnte da instrucciones vitales que el usuario debe cruzar con el mapa topográfico <em>Redefine</em> la evaluación de comprensión auditiva y espacial.</li>
+          <li><strong>De Pasivos a Creadores (PICRAT):</strong> Al configurar ElevenLabs eligen el acento, la desesperación del turista o la calma del guía. Decisiones de diseño didáctico que las posicionan como <em>Creadoras</em> de una simulación inmersiva.</li>
         </ul>
       </div>
 
@@ -696,36 +754,34 @@
 
 <div id="pane-partida-viernes" class="pane on">
   <div class="card" style="border-top:4px solid var(--vie);">
-    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Clase 8 para Viernes — Readecuación: Producción y Arquitectura</div>
+    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Clase 8 para Viernes — Readecuación: Sprint de Producción</div>
     <div class="cb">
 
       <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin-bottom:18px;">
-        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">&#128201; Sin encuentro la semana pasada: ¿Dónde estamos?</strong>
-        <p style="font-size:14px;opacity:.9;line-height:1.7;">Como no tuvimos la Clase 7, hoy haremos un "Sprint" (aceleración) para nivelar el proyecto. El análisis de sus documentos muestra que <strong>tienen una estructura sólida</strong>: el esquema (Hito 0 > Hitos 1 y 2 > Fin), la navegación no lineal y el cofre-bitácora como cierre son excelentes para Nivel Inicial. <br><br><strong>Lo que falta hoy:</strong> El contenido. Nadie produjo los textos, ni las imágenes, ni inició el Genially. Hoy es el día para construir esa "carne" digital usando Inteligencia Artificial.</p>
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">📊 Sin encuentro la semana pasada — ¿Dónde estamos?</strong>
+        <p style="font-size:14px;opacity:.9;line-height:1.7;">Como no tuvimos Clase 7, hoy hacemos un sprint para nivelar el proyecto. El análisis de sus documentos muestra que <strong>tienen una estructura sólida</strong>: el esquema Hito 0 → Hitos 1 y 2 → Fin, la navegación no lineal y el cofre-bitácora como cierre son excelentes para Nivel Inicial. <br><br><strong>Lo que falta hoy:</strong> el contenido. Nadie produjo textos, imágenes ni inició el Genially. Hoy es el día para construir esa "carne" digital usando IA.</p>
       </div>
 
       <h4 style="font-size:15px;color:var(--nav);margin-bottom:12px;">Tres definiciones urgentes antes de abrir las pantallas</h4>
-      
+
       <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px;">
         <div style="background:var(--pale);border-left:4px solid var(--teal);border-radius:var(--r);padding:14px;">
           <strong style="color:var(--nav);display:block;margin-bottom:4px;">1. "5 pantallas" no hacen un juego no lineal</strong>
-          <p style="font-size:13.5px;color:var(--txt);margin:0;">Para que los niños puedan elegir a qué ciudad ir, el Genially necesita un <strong>Nodo Central</strong> (un mapa de TDF). Sin ese mapa distribuidor, es solo una secuencia de diapositivas. Esta será la tarea exclusiva de <strong>Andre (Antártida)</strong> hoy: construir ese mapa con un pin por estación.</p>
+          <p style="font-size:13.5px;color:var(--txt);margin:0;">Para que los niños puedan elegir a qué ciudad ir, el Genially necesita un <strong>Nodo Central</strong> (un mapa de TDF con pines). Sin ese mapa distribuidor, es solo una secuencia de diapositivas. Esta es la tarea exclusiva de <strong>Andre (Antártida)</strong> hoy.</p>
         </div>
-        
         <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px;">
-          <strong style="color:var(--grn);display:block;margin-bottom:4px;">2. Definir la Actividad Digital (¿Qué hace el niño?)</strong>
-          <p style="font-size:13.5px;color:var(--txt);margin:0;">Antes de abrir Canva o Genially, cada grupo debe definir la mecánica de su estación. Ejemplos sugeridos: Ushuaia (Clasificar en Wordwall), Tolhuin (Rompecabezas Jigsaw Planet), Río Grande (Memotest Educaplay), Malvinas (Infografía interactiva).</p>
+          <strong style="color:var(--grn);display:block;margin-bottom:4px;">2. Definir la Actividad Digital de cada estación</strong>
+          <p style="font-size:13.5px;color:var(--txt);margin:0;">Antes de abrir Canva o Genially, cada grupo define qué hace el niño digitalmente en su posta. Sugeridos: Ushuaia → Wordwall (clasificar fauna Canal Beagle) · Tolhuin → Jigsaw Planet (rompecabezas Lago Fagnano) · Río Grande → Memotest Educaplay (fauna estepa) · Malvinas → Infografía interactiva.</p>
         </div>
-
         <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:14px;">
-          <strong style="color:var(--vio);display:block;margin-bottom:4px;">3. El Guion de Pepito (La llave para la próxima clase)</strong>
-          <p style="font-size:13.5px;color:var(--txt);margin:0;">La próxima clase trabajaremos con audio (síntesis de voz). Si hoy no escriben qué va a decir Pepito en su estación, la clase que viene no tendrán qué grabar. Usaremos IA (Claude/ChatGPT) para redactarlo hoy mismo.</p>
+          <strong style="color:var(--vio);display:block;margin-bottom:4px;">3. El guion de Pepito (la llave para la próxima clase)</strong>
+          <p style="font-size:13.5px;color:var(--txt);margin:0;">La próxima clase trabajamos audio con ElevenLabs. Si hoy no escriben qué dice Pepito en su estación, la semana que viene no tienen qué grabar. Se escribe hoy con Claude/ChatGPT. Máximo 60 palabras, primera persona, nombre real del lugar.</p>
         </div>
       </div>
 
       <div class="alerta-sesgo">
-        <span style="font-size:20px;">&#128273;</span>
-        <div><strong>Decisión de Plenario: El dilema de las Llaves vs. Grupos.</strong> El documento dice "encontrar las 5 llaves" y hay 5 grupos. Pero si Antártida es el cierre (el cofre), ¿Antártida también da una llave? Hay que definir hoy cómo será el candado digital: ¿Un código de 4 dígitos (y Antártida es solo la cerradura) o un código de 5?</div>
+        <span style="font-size:20px;">🔑</span>
+        <div><strong>Decisión de plenario — las llaves vs. los grupos:</strong> El documento dice "encontrar 5 llaves" y hay 5 grupos. Pero si Antártida es el cierre (el cofre), ¿también da una llave? Hay que definirlo hoy: ¿código de 4 dígitos (Antártida solo es la cerradura) o código de 5 dígitos (las 4 regiones + Ushuaia)?</div>
       </div>
 
     </div>
@@ -737,14 +793,14 @@
     <div class="ch">Plan de clase · Viernes</div>
     <div class="cb">
 
-      <table style="margin-bottom:20px;">
+      <table>
         <thead><tr><th>Tarea</th><th>Quién</th><th>Tiempo</th></tr></thead>
         <tbody>
           <tr><td>Definir la <strong>Actividad Digital</strong> de cada estación</td><td>Todos (con docente circulando)</td><td><strong>20 min</strong></td></tr>
-          <tr style="background:var(--pale);"><td>Decidir: ¿4 llaves o 5? ¿Código de cuántos dígitos?</td><td>Plenario rápido</td><td><strong>5 min</strong></td></tr>
-          <tr><td>Escribir <strong>guion de Pepito</strong> para su estación (Claude)</td><td>Cada grupo</td><td><strong>20 min</strong></td></tr>
+          <tr style="background:var(--pale);"><td>Decidir: ¿4 o 5 dígitos en el candado final?</td><td>Plenario rápido</td><td><strong>5 min</strong></td></tr>
+          <tr><td>Escribir <strong>guion de Pepito</strong> (Claude)</td><td>Cada grupo</td><td><strong>20 min</strong></td></tr>
           <tr style="background:var(--vcl);"><td>Generar <strong>imagen de fauna</strong> (Bing/Canva IA) + auditar sesgo</td><td>Cada grupo</td><td><strong>25 min</strong></td></tr>
-          <tr><td>Empezar el Nodo Central con mapa de TDF</td><td><strong>Andre</strong> (Antártida)</td><td><strong>Toda la clase</strong></td></tr>
+          <tr><td>Nodo Central con mapa de TDF + pines</td><td><strong>Andre</strong> (toda la clase)</td><td><strong>Toda la clase</strong></td></tr>
           <tr style="background:var(--gcl);"><td>Iniciar página de Genially de su estación</td><td>Quien termina antes</td><td><strong>Resto</strong></td></tr>
         </tbody>
       </table>
@@ -752,29 +808,29 @@
       <div class="paso" style="border-left-color:var(--amb);">
         <span class="paso-num" style="background:var(--amb);">Paso 1 — 20 min</span>
         <h4>Definición de la Estación</h4>
-        <p style="font-size:14px;">Abran su documento guía. Definan exactamente: ¿qué conocimiento adquiere el niño en esta estación? ¿Qué encuentra? ¿Cómo lo encuentra (Actividad Espacial en el aula / Actividad Digital en la tablet)? Anótenlo antes de seguir.</p>
+        <p style="font-size:14px;">Definir exactamente: ¿qué conocimiento adquiere el niño en esta estación? ¿Qué encuentra? ¿Cómo lo encuentra (actividad física en el aula / actividad digital en la tablet)? Anotarlo antes de seguir.</p>
       </div>
 
       <div class="paso" style="border-left-color:var(--vio);">
-        <span class="paso-num" style="background:var(--vio);">Paso 2 — 45 min</span>
-        <h4>Producción Intensiva con IA (Texto e Imagen)</h4>
+        <span class="paso-num" style="background:var(--vio);">Paso 2 — 45 min · Producción con IA</span>
+        <h4>Texto e imagen — arrancar por el guion</h4>
         <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
-          <li><strong>Texto (20 min):</strong> Abran Claude o ChatGPT. Redacten el guion de lo que Pepito va a decir en su estación (Ver Guía 1). Máximo 60 palabras, en primera persona, nombrando el lugar real.</li>
-          <li><strong>Imagen (25 min):</strong> Abran Bing Image Creator o Canva IA. Generen las ilustraciones de la fauna o el ambiente de su estación. Tienen que ser claras para sala de 4/5 (Ver Guía 2).</li>
-          <li><strong>Auditoría obligatoria:</strong> ¿El pingüino parece de TDF o es un dibujo genérico del Polo Norte? ¿El paisaje de Tolhuin tiene lengas o pinos suizos? Si hay sesgo, corrijan el prompt y guarden evidencia para la bitácora.</li>
+          <li><strong>Texto (20 min):</strong> Abrir Claude o ChatGPT. Redactar el guion de lo que Pepito va a decir en su estación (ver Guía 1). Máximo 60 palabras, primera persona, nombre real del lugar.</li>
+          <li><strong>Imagen (25 min):</strong> Abrir Bing Image Creator o Canva IA. Generar ilustraciones de fauna o ambiente de su estación. Tiene que ser reconocible para sala de 4/5 (ver Guía 2).</li>
+          <li><strong>Auditoría obligatoria:</strong> ¿El pingüino parece de TDF o del Polo Norte? ¿El paisaje tiene lengas o pinos suizos? Si hay sesgo, corregir el prompt y guardar evidencia para la bitácora.</li>
         </ol>
       </div>
 
       <div class="paso" style="border-left-color:var(--nav);">
-        <span class="paso-num" style="background:var(--nav);">Paso 3 — Tarea diferenciada (Andre)</span>
-        <h4>La Arquitectura del Juego</h4>
-        <p style="font-size:14px;">Andre no genera fauna hoy. Su tarea es crear el Genially base, poner un mapa de Tierra del Fuego como fondo (Nodo Central) y preparar los 5 pines clicables. Las demás compañeras, si terminan la producción de IA, entran a ese mismo Genially a diseñar la página 1 de su propia estación.</p>
+        <span class="paso-num" style="background:var(--nav);">Andre — Arquitectura del juego (toda la clase)</span>
+        <h4>El Nodo Central</h4>
+        <p style="font-size:14px;">Andre no genera fauna hoy. Su tarea: crear el Genially base, poner un mapa de TDF como fondo y preparar los pines clicables. Las demás compañeras, cuando terminen la producción de IA, entran a ese mismo Genially a diseñar la página 1 de su estación.</p>
       </div>
 
       <div class="paso">
         <span class="paso-num">Cierre — AVT</span>
         <h4>Lo que se llevan resuelto hoy</h4>
-        <p>Cada grupo debe subir a la bitácora/AVT: 1) El guion de Pepito redactado y 2) Al menos una imagen generada con IA y auditada. Si logran esto, la Clase 9 será puramente de grabación de audio y ensamble.</p>
+        <p>Cada grupo sube a la bitácora: 1) El guion de Pepito redactado. 2) Al menos una imagen generada con IA y auditada. Con esto, la Clase 9 es puramente grabación de audio y ensamble.</p>
       </div>
 
     </div>
@@ -785,45 +841,47 @@
   <div class="card">
     <div class="ch">Herramientas · Viernes</div>
     <div class="cb">
-      <p style="font-size:14.5px;margin-bottom:15px;">Hoy el foco es 100% Producción Textual y Visual. Todas son gratuitas o están incluidas en su cuenta Educación.</p>
 
-      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);">Generación de Textos (Guiones)</h3>
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);margin-top:0;">Generación de textos — guiones de Pepito</h3>
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--nav);">
           <h4>Claude (claude.ai)</h4>
-          <p>La mejor IA para redactar textos con un tono humano y pedagógico. Ideal para escribir lo que Pepito el Albatros le dirá a los niños en cada estación. Usar el método CRTF.</p>
+          <p>Mejor opción para textos con tono humano y pedagógico. Usar el método CRTF (ver Guía 1). Tono amigable para sala de 4/5.</p>
           <a href="https://claude.ai" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Claude</a>
         </div>
         <div class="tool-card" style="border-left:4px solid var(--teal);">
           <h4>ChatGPT</h4>
-          <p>Alternativa rápida si Claude no carga. Asegúrense de pedirle "tono amigable para niños de sala de 5 años" para que no use vocabulario complejo.</p>
+          <p>Alternativa si Claude no carga. Especificar "tono amigable para niños de sala de 5 años" en cada prompt.</p>
           <a href="https://chat.openai.com" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir ChatGPT</a>
         </div>
       </div>
 
-      <h3 class="tool-cat-title" style="color:var(--amb);border-bottom-color:var(--acl);">Generación de Imágenes (Fauna y Paisajes)</h3>
+      <h3 class="tool-cat-title" style="color:var(--amb);border-bottom-color:var(--acl);">Generación de imágenes — fauna y paisajes</h3>
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--amb);">
           <h4>Bing Image Creator (DALL-E 3)</h4>
-          <p>Gratuito. Excelente para pedir ilustraciones infantiles de animales fueguinos (pingüinos, guanacos, zorros) con estilo "libro de cuentos".</p>
+          <p>Gratuito. Excelente para ilustraciones infantiles de animales fueguinos con estilo "libro de cuentos". Ver los prompts sugeridos en Guía 2.</p>
           <a href="https://www.bing.com/images/create" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Bing Create</a>
         </div>
         <div class="tool-card" style="border-left:4px solid var(--nav);">
           <h4>Canva IA (Magic Media)</h4>
-          <p>Aprovechando la cuenta Educación del IPES, pueden generar las imágenes directamente dentro de Canva y usar la herramienta premium "Quita Fondos" para que queden listas para los juegos.</p>
-          <a href="https://www.canva.com/es_es/educacion/" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Canva Edu</a>
+          <p>Genera imágenes dentro de Canva y usa "Quita fondos" para dejarlas listas para los juegos digitales. Cuenta Educación del IPES.</p>
+          <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Canva</a>
         </div>
       </div>
 
-      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Actividades Digitales (Para definir hoy)</h3>
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">Actividades digitales — elegir hoy, construir la semana que viene</h3>
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--grn);">
-          <h4>Genially (El Nodo Central)</h4>
-          <p>La "mesa de trabajo" donde Andre armará el mapa de TDF. Las demás herramientas se incrustan acá adentro.</p>
+          <h4>Genially — Nodo Central (Andre)</h4>
+          <p>La "mesa de trabajo" donde Andre armará el mapa de TDF con pines. El resto de las herramientas se incrustan acá adentro vía embed.</p>
+          <a href="https://genial.ly" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Genially</a>
         </div>
         <div class="tool-card" style="border-left:4px solid var(--vio);">
-          <h4>Wordwall / Educaplay / Jigsaw Planet</h4>
-          <p>Plataformas 100% gratuitas para crear los mini-juegos (clasificar, memotest, rompecabezas). Hoy solo definen cuál usarán; la semana que viene las programan.</p>
+          <h4>Wordwall / Jigsaw Planet / Educaplay</h4>
+          <p>Para los mini-juegos de cada estación. Hoy solo se define cuál usa cada grupo. Se construyen en Clase 9.</p>
+          <a href="https://wordwall.net/es" target="_blank" class="btn-tool" style="background:var(--vio);">Wordwall</a>
+          <a href="https://www.jigsawplanet.com/" target="_blank" class="btn-tool" style="background:var(--vio);margin-left:6px;">Jigsaw</a>
         </div>
       </div>
 
@@ -839,38 +897,45 @@
       <details class="guia">
         <summary>1. CRTF para texto — El guion de Pepito por estación</summary>
         <div class="guia-content">
-          <p>Este texto es el que la semana que viene convertiremos en voz. Tiene que ser perfecto hoy.</p>
+          <p>Este texto es el que la semana que viene convertiremos en voz. Tiene que quedar perfecto hoy.</p>
           <div class="crtf-box">
-            <span class="crtf-label">[C]</span> Escape Room interactivo sobre Tierra del Fuego para niños y niñas de sala de 4 y 5 años. El personaje guía es Pepito, un simpático albatros.<br>
+            <span class="crtf-label">[C]</span> Escape Room interactivo sobre TDFeIAS para niños de sala de 4/5 años. El personaje guía es Pepito, un albatros simpático.<br>
             <span class="crtf-label">[R]</span> Actuá como guionista de contenido educativo infantil (estilo Paka Paka).<br>
-            <span class="crtf-label">[T]</span> Escribí lo que dice Pepito al llegar a la estación [NOMBRE DE TU CIUDAD]. Tiene que saludar, nombrar un animal o característica del lugar, y dar una instrucción simple para que los niños jueguen (ej: armar un rompecabezas, buscar parejas).<br>
-            <span class="crtf-label">[F]</span> Máximo 60 palabras (para que el audio dure 30 segundos). Oraciones muy cortas. Tono alegre. Español de Argentina.
+            <span class="crtf-label">[T]</span> Escribí lo que dice Pepito al llegar a la estación [NOMBRE]. Tiene que saludar, nombrar un animal o característica del lugar, y dar una instrucción simple para que los niños jueguen.<br>
+            <span class="crtf-label">[F]</span> Máximo 60 palabras. Oraciones muy cortas. Tono alegre. Español de Argentina. Sin referencias a texto escrito.
           </div>
+          <h5>Verificación antes de aprobar el guion</h5>
+          <ul>
+            <li>¿Pepito nombra el lugar con el topónimo real? ("Canal Beagle", "Lago Fagnano", no "el mar", "un lago")</li>
+            <li>¿Las oraciones son cortas y claras para sala de 5?</li>
+            <li>¿La instrucción que da Pepito conecta con la actividad digital que eligieron?</li>
+          </ul>
         </div>
       </details>
 
       <details class="guia">
         <summary>2. CRTF para imagen — Fauna fueguina sin sesgos</summary>
         <div class="guia-content">
-          <p>Si piden "un zorro" a la IA, les va a dar un zorro rojo europeo. Hay que forzar el contexto geográfico.</p>
-          <div class="crtf-box">
-            Cute [NOMBRE DEL ANIMAL] illustration, children's book style, Tierra del Fuego Patagonia Argentina, vibrant colors, clean white background, friendly expression, no text
+          <p>Si piden "un pingüino" a la IA, les da uno del Polo Norte con bufanda. Hay que forzar el contexto geográfico.</p>
+          <div class="crtf-box">Cute [NOMBRE DEL ANIMAL] illustration, children's book style, Tierra del Fuego Patagonia Argentina, vibrant colors, clean white background, friendly expression, no text</div>
+          <p style="font-size:13px;color:var(--txt);margin-top:8px;">Reemplazar por: Magellanic penguin · guanaco · rhea (ñandú) · river otter (huillín) · Andean condor · flightless steamer duck (pato vapor) · Adélie penguin (Antártida) · sea lion (lobo marino)</p>
+          <div class="alerta-sesgo" style="margin-top:10px;">
+            <span>⚠</span>
+            <div><strong>Auditoría visual:</strong> Si el fondo parece los Alpes o el pingüino tiene bufanda en el Polo Norte, el prompt falló. Agregar "sub-Antarctic landscape, accurate species, no snow caps" y volver a generar. Guardar ambas versiones en la bitácora como evidencia de auditoría.</div>
           </div>
-          <p style="font-size:13px;color:var(--txt);margin-top:6px;">Reemplazos sugeridos: Magellanic penguin / Andean condor / guanaco / rhea (ñandú) / river otter (huillín) / flightless steamer duck (pato vapor).</p>
-          <div class="alerta-sesgo"><span>&#128721;</span><div><strong>Auditoría visual:</strong> Si el paisaje de fondo parece los Alpes suizos o el pingüino tiene bufanda en el Polo Norte, el prompt falló. Corríjanlo agregando "sub-Antarctic landscape" o "realistic local flora".</div></div>
         </div>
       </details>
 
       <details class="guia">
         <summary>3. Instrucciones para el Nodo Central (Andre)</summary>
         <div class="guia-content">
-          <p>Sin tu mapa, el juego lineal no funciona. Tu misión hoy es armar la "Aduana" del juego.</p>
+          <p>Sin tu mapa el juego no-lineal no funciona. Tu misión hoy es armar la "aduana" del juego.</p>
           <ol style="margin-left:16px;line-height:1.9;">
-            <li>Crear un Genially en blanco (o usar el colaborativo). Nombrar la primera página "MAPA CENTRAL".</li>
-            <li>Buscar en Canva o Google una ilustración de la Isla de Tierra del Fuego que sea linda para niños y ponerla de fondo.</li>
-            <li>Colocar 5 "pines" o íconos grandes: Ushuaia, Tolhuin, Río Grande, Malvinas, Antártida.</li>
-            <li>A medida que tus compañeras creen las páginas de sus estaciones, vas a vincular cada pin con la opción "Ir a página".</li>
-            <li><strong>Clave:</strong> Acordá con las coordinadoras de los otros grupos que ELLAS deben poner un botón de "Volver al Mapa" al final de sus juegos, que regrese a tu página.</li>
+            <li>Crear un Genially en blanco (o usar el colaborativo ya creado). Primera página: "MAPA CENTRAL".</li>
+            <li>Buscar en Canva o Google una ilustración del mapa de TDFeIAS linda para niños. Ponerla de fondo.</li>
+            <li>Colocar 5 pines o íconos grandes: Ushuaia, Tolhuin, Río Grande, Malvinas, Antártida.</li>
+            <li>A medida que las compañeras creen las páginas de sus estaciones, vincular cada pin con "Ir a página".</li>
+            <li><strong>Clave:</strong> Cada coordinadora de grupo DEBE poner un botón "Volver al Mapa" al final de su juego.</li>
           </ol>
         </div>
       </details>
@@ -881,32 +946,29 @@
 
 <div id="pane-bitacora-viernes" class="pane">
   <div class="card" style="border-top:4px solid var(--nav);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Clase 8 (Nivelación)</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Semana 7/8 (Nivelación)</div>
     <div class="cb">
-      <p style="font-size:14.5px;margin-bottom:16px;">Completar y pegar en el Google Doc compartido del proyecto. Esta es la evidencia del Sprint de hoy.</p>
-      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <p style="font-size:14.5px;margin-bottom:16px;">Completar y pegar en el Google Doc compartido del proyecto. Evidencia del sprint de hoy.</p>
+      <button class="btn-copy" onclick="copyBitacora()">📋 Copiar sección al portapapeles</button>
       <div id="doc-template-content-viernes" class="doc-template">
-        <h1>Avance TFI — Semana 7/8 (Nivelación)</h1>
+        <h1>Avance TFI — Semanas 7/8 (Nivelación)</h1>
         <p style="text-align:center;font-size:12px;color:#666;">Cada grupo completa su sección</p>
-        
         <h2>1. Definición de la Estación</h2>
         <p><strong>Estación:</strong> <span class="fill-blank">[Ushuaia / Tolhuin / Río Grande / Malvinas / Antártida]</span></p>
-        <p><strong>Actividad Digital Elegida:</strong> <span class="fill-blank">[Ej: Memotest en Educaplay / Rompecabezas en Jigsaw]</span></p>
-        <p><strong>¿El plenario definió 4 o 5 llaves para el candado final?:</strong> <span class="fill-blank">[Escribir la decisión tomada]</span></p>
-
-        <h2>2. Producción de Insumos con IA</h2>
-        <p><strong>Guion de Pepito redactado (máx 60 palabras):</strong><br><span class="fill-blank">[Pegar el texto exacto que se grabará la próxima clase]</span></p>
-        <p><strong>Imagen generada:</strong> <span class="fill-blank">[Describir qué animal o paisaje hicieron]</span></p>
-        <p><strong>Herramienta utilizada:</strong> <span class="fill-blank">[Claude / Bing Image Creator / Canva IA]</span></p>
-        
-        <h2>3. Auditoría de Sesgos</h2>
-        <p><strong>Prompt original:</strong><br><span class="fill-blank">[Pegar el prompt usado]</span></p>
-        <p><strong>Sesgo o error detectado:</strong><br><span class="fill-blank">[¿El animal era genérico? ¿El paisaje no era fueguino? Describir]</span></p>
-        <p><strong>Link a las imágenes finales auditadas:</strong> <span class="fill-blank">[Link a Canva o Drive]</span></p>
+        <p><strong>Actividad Digital elegida:</strong> <span class="fill-blank">[Ej: Memotest Educaplay / Rompecabezas Jigsaw Planet / Clasificar Wordwall]</span></p>
+        <p><strong>Decisión de plenario — candado:</strong> <span class="fill-blank">[Código de 4 o 5 dígitos y por qué]</span></p>
+        <h2>2. Producción con IA</h2>
+        <p><strong>Guion de Pepito (máx 60 palabras):</strong><br><span class="fill-blank">[Texto exacto — se grabará con ElevenLabs en Clase 9]</span></p>
+        <p><strong>Imagen generada:</strong> <span class="fill-blank">[Describir qué animal o paisaje y con qué herramienta]</span></p>
+        <p><strong>Prompt original:</strong><br><span class="fill-blank">[Pegar el prompt exacto]</span></p>
+        <h2>3. Auditoría de sesgos</h2>
+        <p><strong>Sesgo o error detectado:</strong><br><span class="fill-blank">[¿El animal era genérico? ¿El paisaje no era fueguino?]</span></p>
+        <p><strong>Corrección aplicada:</strong><br><span class="fill-blank">[Prompt revisado]</span></p>
+        <p><strong>Link a las imágenes finales:</strong> <span class="fill-blank">[Link a Canva o Drive]</span></p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; AVT antes de Clase 9</strong>
-        Subir esta bitácora al foro del AVT. La semana que viene usaremos el guion que acaban de escribir para convertirlo en voz (Audio) y armaremos las postas físicas.
+        <strong>📅 AVT antes de Clase 9</strong>
+        Subir esta bitácora. La Clase 9 convierte el guion de Pepito en audio con ElevenLabs y construye las postas físicas. Para llegar listos: guion escrito + imagen auditada + actividad digital definida.
       </div>
     </div>
   </div>
