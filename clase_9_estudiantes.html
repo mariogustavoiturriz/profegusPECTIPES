@@ -316,25 +316,30 @@
 
           <p style="margin-bottom:12px;">El bot recibe el argumento del usuario y emite un veredicto A, B o C. El prompt es el mismo independientemente de la plataforma que elijan. Hay tres opciones según lo que funcione en el aula:</p>
 
-          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:16px;">
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin-bottom:16px;">
             <div style="background:var(--gcl);border:2px solid var(--grn);border-radius:var(--r);padding:12px;text-align:center;">
-              <div style="font-size:20px;margin-bottom:4px;">✅</div>
-              <strong style="color:var(--grn);display:block;font-size:12px;margin-bottom:4px;">OPCIÓN A — Fastbots.ai</strong>
-              <p style="font-size:12px;color:var(--txt);">Embed iframe nativo. Funciona directo en Genially. Límite: 50 mensajes/mes (cuenta docente).</p>
+              <div style="font-size:18px;margin-bottom:4px;">⭐</div>
+              <strong style="color:var(--grn);display:block;font-size:11px;margin-bottom:4px;">OPCIÓN A — Chatbase.co</strong>
+              <p style="font-size:11px;color:var(--txt);">Iframe nativo. 100 créditos/mes. Limita mensajes por dispositivo — ideal para el aula.</p>
+            </div>
+            <div style="background:var(--pale);border:2px solid var(--teal);border-radius:var(--r);padding:12px;text-align:center;">
+              <div style="font-size:18px;margin-bottom:4px;">✅</div>
+              <strong style="color:var(--teal);display:block;font-size:11px;margin-bottom:4px;">OPCIÓN B — Fastbots.ai</strong>
+              <p style="font-size:11px;color:var(--txt);">Iframe nativo. 50 mensajes/mes. Setup algo más simple que Chatbase.</p>
             </div>
             <div style="background:var(--vcl);border:2px solid var(--vio);border-radius:var(--r);padding:12px;text-align:center;">
-              <div style="font-size:20px;margin-bottom:4px;">🔗</div>
-              <strong style="color:var(--vio);display:block;font-size:12px;margin-bottom:4px;">OPCIÓN B — Poe.com</strong>
-              <p style="font-size:12px;color:var(--txt);">No permite iframe. Se usa como link externo que abre en nueva pestaña. Sin límite de mensajes.</p>
+              <div style="font-size:18px;margin-bottom:4px;">🔗</div>
+              <strong style="color:var(--vio);display:block;font-size:11px;margin-bottom:4px;">OPCIÓN C — Poe.com</strong>
+              <p style="font-size:11px;color:var(--txt);">Sin iframe. Link externo en nueva pestaña. Sin límite de mensajes.</p>
             </div>
             <div style="background:var(--acl);border:2px solid var(--amb);border-radius:var(--r);padding:12px;text-align:center;">
-              <div style="font-size:20px;margin-bottom:4px;">🎯</div>
-              <strong style="color:var(--amb);display:block;font-size:12px;margin-bottom:4px;">OPCIÓN C — Wordwall</strong>
-              <p style="font-size:12px;color:var(--txt);">Sin IA. Quiz de opción múltiple donde el usuario elige la postura. Menos inmersivo pero más simple.</p>
+              <div style="font-size:18px;margin-bottom:4px;">🎯</div>
+              <strong style="color:var(--amb);display:block;font-size:11px;margin-bottom:4px;">OPCIÓN D — Wordwall</strong>
+              <p style="font-size:11px;color:var(--txt);">Sin IA. Quiz de opción múltiple. Sin límites ni cuenta — plan final.</p>
             </div>
           </div>
 
-          <h5>El prompt — copiar tal cual (sirve para A y B)</h5>
+          <h5>El prompt — copiar tal cual (sirve para A, B y C)</h5>
           <div class="prompt-box">Sos un analista político del Congreso argentino. Cuando el usuario te comparte el argumento que daría como senador sobre la modificación de la Ley de Glaciares 26.639, analizás si su postura es A, B o C.
 
 A = EN CONTRA de la modificación (defiende la ley original 26.639).
@@ -348,7 +353,19 @@ FUNDAMENTO: [dos oraciones explicando por qué clasificaste así el argumento].
 Si el argumento es neutro, evita comprometerse o mezcla A y B sin posición clara → VEREDICTO: C.
 No des más información. No hagas preguntas. Solo el veredicto y el fundamento.</div>
 
-          <h5>Opción A — Fastbots.ai (recomendada — embed en Genially)</h5>
+          <h5>Opción A — Chatbase.co (recomendada — 100 créditos/mes + límite por dispositivo)</h5>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>Ir a <strong>chatbase.co</strong> → crear cuenta (en la cuenta del docente) → New Chatbot.</li>
+            <li>En "Quick Prompt": pegar el prompt de arriba. No hace falta subir documentos.</li>
+            <li>Settings del chatbot → <strong>Instructions</strong> (o "Base Prompt") → verificar que el prompt está guardado.</li>
+            <li>Settings → <strong>Security</strong> → activar <strong>Rate Limiting</strong> → poner límite de 4 mensajes por dispositivo cada 24 horas. Esto evita que una sola estudiante agote el cupo mensual.</li>
+            <li>Connect → <strong>Embed</strong> → copiar el código iframe.</li>
+            <li>En Genially: Insertar → Interactivo → Contenido externo → pegar el iframe.</li>
+            <li>Debajo del iframe: 3 botones estáticos — "Voté A", "Voté B", "Me abstuve" → cada uno vinculado a la página N3 correspondiente.</li>
+          </ol>
+          <div class="alerta-warn" style="margin-top:8px;"><strong>Límite:</strong> 100 créditos/mes en el plan gratuito — el doble que Fastbots. Con el rate limit de 4 mensajes por dispositivo y 4 estudiantes, el cupo dura varias semanas. Crear el bot en la cuenta del docente para controlar el contador.</div>
+
+          <h5 style="margin-top:14px;">Opción B — Fastbots.ai (alternativa — 50 mensajes/mes)</h5>
           <ol style="margin-left:16px;line-height:1.9;">
             <li>Ir a <strong>app.fastbots.ai</strong> → crear cuenta (mejor en la cuenta del docente) → New Bot.</li>
             <li>Darle nombre: "Analista Político — Glaciares".</li>
@@ -360,7 +377,7 @@ No des más información. No hagas preguntas. Solo el veredicto y el fundamento.
           </ol>
           <div class="alerta-warn" style="margin-top:8px;"><strong>Límite importante:</strong> el plan gratuito de Fastbots permite 50 mensajes/mes. Crear el bot en la cuenta del docente (no de las estudiantes) para centralizar el contador. Con 4 estudiantes usando el bot en clase son ~12-16 mensajes por sesión — alcanza para varias semanas de uso.</div>
 
-          <h5 style="margin-top:14px;">Opción B — Poe.com (link externo, sin límite de mensajes)</h5>
+          <h5 style="margin-top:14px;">Opción C — Poe.com (link externo, sin límite de mensajes)</h5>
           <ol style="margin-left:16px;line-height:1.9;">
             <li>Ir a <strong>poe.com</strong> → Create Bot → System Prompt → pegar el mismo prompt.</li>
             <li>Publicar → copiar el link del bot.</li>
@@ -368,7 +385,7 @@ No des más información. No hagas preguntas. Solo el veredicto y el fundamento.
             <li>El usuario escribe en Poe, lee el veredicto, vuelve al Genially y toca el botón correspondiente (A, B o C).</li>
           </ol>
 
-          <h5 style="margin-top:14px;">Opción C — Wordwall (sin IA, plan B si todo lo anterior falla)</h5>
+          <h5 style="margin-top:14px;">Opción D — Wordwall (sin IA — plan final si todo lo anterior falla)</h5>
           <p style="font-size:13.5px;color:var(--txt);">Crear un quiz en Wordwall con la pregunta "¿Cuál de estas posturas representa mejor tu argumento?" y tres opciones redactadas. Cada opción lleva a una pantalla diferente en Wordwall. Incrustar en Genially vía iframe. Sin bot, sin IA — pero funciona sin límites y sin cuenta.</p>
 
           <div class="alerta-info" style="margin-top:12px;">La conexión entre el bot y Genially siempre es manual: el usuario lee el veredicto e interpreta cuál botón tocar. Esto no es una limitación — es pedagógico. El usuario puede estar en desacuerdo con el bot, y ese desacuerdo es en sí mismo contenido de aprendizaje.</div>
