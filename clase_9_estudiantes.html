@@ -311,9 +311,30 @@
     <div class="cb">
 
       <details class="guia">
-        <summary>1. Prompt exacto para el bot de Poe (copiar tal cual)</summary>
+        <summary>1. Bot evaluador del discurso — prompt + opciones de embed</summary>
         <div class="guia-content">
-          <p>Crear el bot en poe.com → Create Bot → System Prompt. Pegar el siguiente texto:</p>
+
+          <p style="margin-bottom:12px;">El bot recibe el argumento del usuario y emite un veredicto A, B o C. El prompt es el mismo independientemente de la plataforma que elijan. Hay tres opciones según lo que funcione en el aula:</p>
+
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:16px;">
+            <div style="background:var(--gcl);border:2px solid var(--grn);border-radius:var(--r);padding:12px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">✅</div>
+              <strong style="color:var(--grn);display:block;font-size:12px;margin-bottom:4px;">OPCIÓN A — Fastbots.ai</strong>
+              <p style="font-size:12px;color:var(--txt);">Embed iframe nativo. Funciona directo en Genially. Límite: 50 mensajes/mes (cuenta docente).</p>
+            </div>
+            <div style="background:var(--vcl);border:2px solid var(--vio);border-radius:var(--r);padding:12px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">🔗</div>
+              <strong style="color:var(--vio);display:block;font-size:12px;margin-bottom:4px;">OPCIÓN B — Poe.com</strong>
+              <p style="font-size:12px;color:var(--txt);">No permite iframe. Se usa como link externo que abre en nueva pestaña. Sin límite de mensajes.</p>
+            </div>
+            <div style="background:var(--acl);border:2px solid var(--amb);border-radius:var(--r);padding:12px;text-align:center;">
+              <div style="font-size:20px;margin-bottom:4px;">🎯</div>
+              <strong style="color:var(--amb);display:block;font-size:12px;margin-bottom:4px;">OPCIÓN C — Wordwall</strong>
+              <p style="font-size:12px;color:var(--txt);">Sin IA. Quiz de opción múltiple donde el usuario elige la postura. Menos inmersivo pero más simple.</p>
+            </div>
+          </div>
+
+          <h5>El prompt — copiar tal cual (sirve para A y B)</h5>
           <div class="prompt-box">Sos un analista político del Congreso argentino. Cuando el usuario te comparte el argumento que daría como senador sobre la modificación de la Ley de Glaciares 26.639, analizás si su postura es A, B o C.
 
 A = EN CONTRA de la modificación (defiende la ley original 26.639).
@@ -326,14 +347,32 @@ FUNDAMENTO: [dos oraciones explicando por qué clasificaste así el argumento].
 
 Si el argumento es neutro, evita comprometerse o mezcla A y B sin posición clara → VEREDICTO: C.
 No des más información. No hagas preguntas. Solo el veredicto y el fundamento.</div>
-          <h5>Cómo se integra en Genially</h5>
+
+          <h5>Opción A — Fastbots.ai (recomendada — embed en Genially)</h5>
           <ol style="margin-left:16px;line-height:1.9;">
-            <li>En poe.com: crear el bot → compartir → copiar el link de embed (iframe).</li>
-            <li>En Genially, página N2: Insertar → Otros → HTML → pegar el código iframe del bot.</li>
-            <li>Debajo del iframe: agregar 3 botones estáticos: "Voté A", "Voté B", "Me abstuve" — cada uno vinculado a la página N3 correspondiente.</li>
-            <li>Instrucción visible en pantalla: "Escribí tu argumento al bot. Leé el veredicto. Tocá el botón que corresponda a tu postura."</li>
+            <li>Ir a <strong>app.fastbots.ai</strong> → crear cuenta (mejor en la cuenta del docente) → New Bot.</li>
+            <li>Darle nombre: "Analista Político — Glaciares".</li>
+            <li>En Settings del bot → <strong>Base Prompt</strong> → pegar el prompt de arriba.</li>
+            <li>En <strong>Knowledge Sources</strong>: desactivar "Use Documents" y activar <strong>"Use LLM Knowledge"</strong> (el bot responde con su conocimiento, no con documentos subidos). Sin esto puede responder "no encontré información en mis documentos".</li>
+            <li>Publish → <strong>Share / Embed</strong> → copiar el código iframe.</li>
+            <li>En Genially, página N2: Insertar → Interactivo → Contenido externo → pegar el iframe.</li>
+            <li>Debajo del iframe: 3 botones — "Voté A", "Voté B", "Me abstuve" → cada uno vinculado a la página N3 correspondiente.</li>
           </ol>
-          <div class="alerta-info">La conexión entre el bot y Genially es manual — el usuario lee el veredicto e interpreta cuál botón tocar. Esto no es una limitación: es pedagógico. El usuario puede estar en desacuerdo con el bot y eso abre el debate.</div>
+          <div class="alerta-warn" style="margin-top:8px;"><strong>Límite importante:</strong> el plan gratuito de Fastbots permite 50 mensajes/mes. Crear el bot en la cuenta del docente (no de las estudiantes) para centralizar el contador. Con 4 estudiantes usando el bot en clase son ~12-16 mensajes por sesión — alcanza para varias semanas de uso.</div>
+
+          <h5 style="margin-top:14px;">Opción B — Poe.com (link externo, sin límite de mensajes)</h5>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>Ir a <strong>poe.com</strong> → Create Bot → System Prompt → pegar el mismo prompt.</li>
+            <li>Publicar → copiar el link del bot.</li>
+            <li>En Genially, página N2: insertar un botón grande "💬 Consultá al analista político" → vincularlo al link de Poe (abre en nueva pestaña).</li>
+            <li>El usuario escribe en Poe, lee el veredicto, vuelve al Genially y toca el botón correspondiente (A, B o C).</li>
+          </ol>
+
+          <h5 style="margin-top:14px;">Opción C — Wordwall (sin IA, plan B si todo lo anterior falla)</h5>
+          <p style="font-size:13.5px;color:var(--txt);">Crear un quiz en Wordwall con la pregunta "¿Cuál de estas posturas representa mejor tu argumento?" y tres opciones redactadas. Cada opción lleva a una pantalla diferente en Wordwall. Incrustar en Genially vía iframe. Sin bot, sin IA — pero funciona sin límites y sin cuenta.</p>
+
+          <div class="alerta-info" style="margin-top:12px;">La conexión entre el bot y Genially siempre es manual: el usuario lee el veredicto e interpreta cuál botón tocar. Esto no es una limitación — es pedagógico. El usuario puede estar en desacuerdo con el bot, y ese desacuerdo es en sí mismo contenido de aprendizaje.</div>
+
         </div>
       </details>
 
@@ -354,7 +393,7 @@ No des más información. No hagas preguntas. Solo el veredicto y el fundamento.
           <p><strong>Contenido del nodo:</strong> mapa de impacto glaciario en TDF + texto del informe resumido (puede ser el comunicado de Parques Nacionales abreviado) + pregunta de decisión.</p>
           <p><strong>Bifurcación:</strong></p>
           <ul>
-            <li>✓ <strong>Respuesta correcta</strong>: "Solicito que el informe se lea ante el pleno antes de votar" → avanza al Nodo N2 (Mecánica de debate - Bot de Poe).</li>
+            <li>✓ <strong>Respuesta correcta</strong>: "Solicito que el informe se lea ante el pleno antes de votar" → avanza al nodo de convergencia con la rama Inglés.</li>
             <li>✗ <strong>Respuesta incorrecta</strong>: "El informe puede esperar, votamos ahora" → vuelve al N0 con una consecuencia narrativa ("los medios critican la falta de debate técnico").</li>
           </ul>
           <div class="alerta-info">El nodo de Geografía debe converger con el desenlace del mismo modo que el de Inglés. Si el usuario llega por la rama Geo, tiene que poder llegar igual al N3 (slogan) y al N4 (desenlace). Verificar que los botones de convergencia estén configurados.</div>
@@ -376,7 +415,7 @@ No des más información. No hagas preguntas. Solo el veredicto y el fundamento.
               <tr><td>DUA</td><td>¿Cada audio tiene transcripción accesible?</td><td>□</td></tr>
             </tbody>
           </table>
-          <p style="font-size:13px;color:var(--txt);">Un botón roto o un link que lleva a la pantalla equivocada es un error técnico que hay que corregir antes de la defensa. Anotarlo en la bitácora.</p>
+          <p style="font-size:13px;color:var(--txt);">Un botón roto o un link que lleva a la pantalla equivocada es un bug que hay que corregir antes de la defensa. Anotarlo en la bitácora.</p>
         </div>
       </details>
 
@@ -409,7 +448,7 @@ No des más información. No hagas preguntas. Solo el veredicto y el fundamento.
         <p><strong>Converge correctamente con la rama Inglés:</strong> <span class="fill-blank">[Sí / No]</span></p>
         <h2>Testeo</h2>
         <p><strong>Caminos testeados:</strong> <span class="fill-blank">[A / B / C / Geo / Celular]</span></p>
-        <p><strong>Errores técnicos encontrados y corregidos:</strong><br><span class="fill-blank">[Listar]</span></p>
+        <p><strong>Bugs encontrados y corregidos:</strong><br><span class="fill-blank">[Listar]</span></p>
         <p><strong>Link del Genially público:</strong> <span class="fill-blank">[Link]</span></p>
       </div>
       <div class="avt-box">
@@ -597,8 +636,8 @@ No des más información. No hagas preguntas. Solo el veredicto y el fundamento.
         <p><strong>Desenlace construido:</strong> <span class="fill-blank">[Sí / No — describir la escena final]</span></p>
         <p><strong>Botón "Volver al inicio" funcionando:</strong> <span class="fill-blank">[Sí / No]</span></p>
         <h2>Testeo completo</h2>
-        <p><strong>Camino correcto (llave resuelta):</strong> <span class="fill-blank">[Funcionó / Errores técnicos encontrados]</span></p>
-        <p><strong>Camino incorrecto (llave no resuelta):</strong> <span class="fill-blank">[Regresa al nodo / Error técnico]</span></p>
+        <p><strong>Camino correcto (llave resuelta):</strong> <span class="fill-blank">[Funcionó / Bugs encontrados]</span></p>
+        <p><strong>Camino incorrecto (llave no resuelta):</strong> <span class="fill-blank">[Regresa al nodo / Bug]</span></p>
         <p><strong>DUA verificado en todos los audios:</strong> <span class="fill-blank">[Sí / No]</span></p>
         <p><strong>Link del Genially público:</strong> <span class="fill-blank">[Link]</span></p>
       </div>
@@ -806,7 +845,7 @@ No des más información. No hagas preguntas. Solo el veredicto y el fundamento.
         <p><strong>¿Está integrada en Genially?</strong> <span class="fill-blank">[Sí (iframe) / Sí (botón externo) / No — qué falta]</span></p>
         <p><strong>¿El audio de Pepito está integrado en la estación?</strong> <span class="fill-blank">[Sí / No]</span></p>
         <h2>Testeo de navegación</h2>
-        <p><strong>¿Se puede navegar: Nodo Central → Estación → Actividad → Volver al Mapa?</strong> <span class="fill-blank">[Sí / No — describir error técnico]</span></p>
+        <p><strong>¿Se puede navegar: Nodo Central → Estación → Actividad → Volver al Mapa?</strong> <span class="fill-blank">[Sí / No — describir bug]</span></p>
         <p><strong>Funciona en celular:</strong> <span class="fill-blank">[Sí / No / No testeado]</span></p>
         <h2>Candado digital (solo Antártida — Andre)</h2>
         <p><strong>Contraseña configurada en Genially:</strong> <span class="fill-blank">[Sí / No / Alternativa implementada]</span></p>
