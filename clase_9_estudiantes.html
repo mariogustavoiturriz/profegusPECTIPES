@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 9 · Gamificación: Arquitectura de Juego y Testeo</title>
+<style>
+  :root{
+    --nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;
+    --grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;
+    --vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;
+    --gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFFFFF;
+    --red:#C0392B;--rcl:#FDEDEC;--vie:#7B3F9E;--vie-cl:#F0E8F7;
+    --r:8px;--sh:0 2px 8px rgba(0,0,0,.09);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{font-size:11px;opacity:.65;text-align:right;display:flex;align-items:center}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,0.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:bold;font-size:13px;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3);white-space:nowrap;text-decoration:none}
+  .btn-back:hover{background:rgba(255,255,255,.25)}
+  .btn-reset{display:none;color:var(--cl);margin-right:12px;border-bottom:1px dotted var(--cl);cursor:pointer;background:none;border-top:none;border-left:none;border-right:none;font-size:11px}
+  body.day-selected .btn-reset{display:inline-block}
+  #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
+  #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
+  #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
+  .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all .2s;min-width:220px}
+  .btn-career:hover{background:var(--teal);color:white;transform:translateY(-3px);box-shadow:0 6px 15px rgba(0,148,154,.25)}
+  .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;width:100%;max-width:900px;justify-content:center}
+  #main-app{display:none}
+  body.day-selected #welcome-screen{display:none}
+  body.day-selected #main-app{display:block}
+  .c-block{display:none}
+  body.show-miercoles .c-miercoles{display:block}
+  body.show-jueves .c-jueves{display:block}
+  body.show-viernes .c-viernes{display:block}
+  .titulo{background:var(--nav);padding:15px 24px 20px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+  .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.5px;color:var(--nav)}
+  .cb{padding:18px 25px}
+  .paso{background:var(--gris);border-radius:var(--r);padding:18px 24px;margin-bottom:16px;border-left:5px solid var(--bd)}
+  .paso-num{display:inline-block;background:var(--nav);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+  .paso h4{font-size:16px;font-weight:700;color:var(--neg);margin-bottom:8px}
+  .paso p,.paso li{font-size:14px;color:var(--txt);line-height:1.6}
+  .paso ul,.paso ol{margin-left:20px;margin-top:8px}.paso li{margin-bottom:5px}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-bottom:24px}
+  .tool-cat-title{font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid var(--bd);margin-top:20px}
+  .tool-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:18px}
+  .tool-card h4{font-size:15px;color:var(--nav);margin-bottom:6px}
+  .tool-card p{font-size:13px;color:var(--txt)}
+  .btn-tool{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;color:#fff}
+  details.guia{background:#fff;border-left:4px solid var(--teal);border-radius:var(--r);margin-bottom:14px;box-shadow:var(--sh);overflow:hidden}
+  details.guia summary{font-weight:700;color:var(--nav);padding:14px 20px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--pale);font-size:14.5px}
+  details.guia summary:hover{background:var(--cl)}
+  details.guia summary::-webkit-details-marker{display:none}
+  details.guia summary::after{content:'+';font-size:18px;color:var(--teal);font-weight:bold}
+  details.guia[open] summary::after{content:'−'}
+  .guia-content{padding:20px;font-size:14px;color:var(--txt);line-height:1.6;border-top:1px solid var(--bd)}
+  .guia-content h5{font-size:14.5px;color:var(--nav);margin:14px 0 6px}
+  .guia-content ul,.guia-content ol{margin-left:20px;margin-bottom:10px}
+  .guia-content li{margin-bottom:6px}
+  .alerta-info{background:var(--pale);border-left:4px solid var(--teal);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--nav)}
+  .alerta-warn{background:var(--acl);border-left:4px solid var(--amb);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--amb)}
+  .alerta-ok{background:var(--gcl);border-left:4px solid var(--grn);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--grn)}
+  .alerta-dua{background:#E8F5E9;border-left:4px solid var(--grn);border-radius:6px;padding:12px 16px;margin:10px 0;font-size:13.5px;color:var(--grn)}
+  .checklist{list-style:none;padding:0}
+  .checklist li{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13.5px;color:var(--txt)}
+  .checklist li:last-child{border:none}
+  .cb-icon{width:16px;height:16px;border:2px solid var(--bd);border-radius:3px;flex-shrink:0;margin-top:2px}
+  .doc-template{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:24px;font-family:'Times New Roman',Times,serif;font-size:14px;color:#333;line-height:1.6}
+  .doc-template h1{text-align:center;font-size:18px;text-transform:uppercase;margin-bottom:4px;color:#000}
+  .doc-template h2{font-size:15px;border-bottom:1px solid #ccc;padding-bottom:4px;margin:20px 0 10px;color:#000}
+  .fill-blank{background:#FFF9C4;color:#E65100;padding:2px 6px;border-radius:3px;font-family:monospace;font-size:13px}
+  .btn-copy{background:var(--nav);color:#fff;border:none;padding:10px 20px;border-radius:6px;font-weight:bold;cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:16px}
+  .btn-copy:hover{background:var(--teal)}
+  .avt-box{background:var(--nav);color:#fff;border-radius:var(--r);padding:16px 20px;margin-top:16px;font-size:14px}
+  .avt-box strong{display:block;color:var(--cl);margin-bottom:6px;font-size:15px}
+  .nodo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:14px 0}
+  .nodo-card{border-radius:var(--r);padding:12px 14px;font-size:13px;border-left:4px solid}
+  .nodo-ok{background:var(--gcl);border-color:var(--grn);color:var(--grn)}
+  .nodo-ok strong{display:block;margin-bottom:4px}
+  .nodo-pend{background:var(--acl);border-color:var(--amb);color:var(--amb)}
+  .nodo-pend strong{display:block;margin-bottom:4px}
+  .nodo-vacio{background:var(--rcl);border-color:var(--red);color:var(--red)}
+  .nodo-vacio strong{display:block;margin-bottom:4px}
+  .prompt-box{background:var(--nav);color:#B2E8EA;border-radius:6px;padding:14px 18px;font-family:monospace;font-size:13px;line-height:1.7;margin:10px 0}
+  table{width:100%;border-collapse:collapse;margin-bottom:16px;font-size:13.5px}
+  table th{background:var(--nav);color:#fff;padding:9px 14px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+  table td{padding:9px 14px;border-bottom:1px solid var(--bd);color:var(--txt);vertical-align:top}
+  table tr:hover td{background:var(--gris)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <div class="top-info">
+    <a href="index.html" class="btn-back">&#8592; Volver al Índice</a>
+    <div>
+      <strong>Proyectos Educativos con TIC</strong>
+      <small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small>
+    </div>
+  </div>
+  <div class="top-r">
+    <button class="btn-reset" onclick="resetCareer()">Cambiar día</button>
+    <span>2026</span>
+  </div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Seleccioná tu turno de cursada</h2>
+  <p>Clase 9 · Gamificación: Arquitectura de Juego y Testeo</p>
+  <div class="career-grid">
+    <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px;font-weight:400;">(Proyecto Glaciares)</span></button>
+    <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px;font-weight:400;">(Proyecto Senderismo)</span></button>
+    <button class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')">Viernes<br><span style="font-size:12px;font-weight:400;">(Escape Room TDF)</span></button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 9 · Eje 2: Laboratorio · Gamificación y Ludificación — Diseño de Mecánicas</p>
+    <h2>Arquitectura de juego: <span>N2, N3, N4 y testeo completo del recurso</span></h2>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('partida',this)">Consigna</button>
+    <button class="tab-btn" onclick="showTab('plan',this)">Plan de Clase</button>
+    <button class="tab-btn" onclick="showTab('herramientas',this)">Herramientas</button>
+    <button class="tab-btn" onclick="showTab('guias',this)">&#128161; Guías</button>
+    <button class="tab-btn" onclick="showTab('bitacora',this)">&#128221; Avance TFI</button>
+  </div>
+  <div class="wrap">
+
+<!-- ================================================
+     MIÉRCOLES — Glaciares / Senado
+     ================================================ -->
+<div class="c-block c-miercoles">
+
+<div id="pane-partida" class="pane on">
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Estado del proyecto al llegar a Clase 9</div>
+    <div class="cb">
+
+      <div class="nodo-grid">
+        <div class="nodo-card nodo-ok"><strong>N0 ✓</strong>Sesión de emergencia en el Senado. Carta Greenpeace + informe Parques Nacionales. Con audio integrado.</div>
+        <div class="nodo-card nodo-ok"><strong>N1 A/B/C ✓</strong>Tres ramas con consecuencias sociales diferentes. Tweets, noticias y reacciones en Genially.</div>
+        <div class="nodo-card nodo-pend"><strong>N2 ⚠</strong>Scripts de los senadores escritos. Falta: el bot / la mecánica de desafío y los 3 botones A/B/C en Genially.</div>
+        <div class="nodo-card nodo-pend"><strong>N3 ⚠</strong>Idea de slogan. Falta: la actividad interactiva que el usuario hace para crear su campaña.</div>
+        <div class="nodo-card nodo-vacio"><strong>N4 ✗</strong>Vacío. Es el desenlace — lo que pasa después del voto final. Sin esto el recurso no cierra.</div>
+        <div class="nodo-card nodo-vacio"><strong>Geo N1 ✗</strong>Incompleto. El nodo de Geografía corta a mitad de oración. Es la rama que falta completar.</div>
+      </div>
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">El foco de hoy — por prioridad</strong>
+        <ol style="margin-left:18px;font-size:14px;opacity:.9;line-height:1.9;">
+          <li><strong>N2 en Genially</strong>: implementar la mecánica del desafío con los audios ya grabados + bot Poe o quiz Wordwall + los 3 botones que llevan al N3.</li>
+          <li><strong>Geografía N1</strong>: terminar el nodo que falta. Sin él la rama Geo es un camino sin salida.</li>
+          <li><strong>N4 (desenlace)</strong>: diseñar y construir el cierre narrativo del recurso.</li>
+          <li><strong>N3 (slogan)</strong>: convertir la idea de campaña en una actividad interactiva.</li>
+          <li><strong>Testeo completo</strong>: navegar el Genially de principio a fin sin ayuda del docente.</li>
+        </ol>
+      </div>
+
+      <div class="alerta-warn">
+        <strong>Antes de arrancar — corregir el número de la ley:</strong> en el documento aparece "Ley N°26.339" (incorrecto) en algunos párrafos y "26.639" (correcto) en otros. Unificar <strong>26.639</strong> en todo el recurso. Si el número incorrecto ya está en Genially o en audios grabados, corregirlo antes de seguir.
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-partida -->
+
+<div id="pane-plan" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Miércoles</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 10 min — Verificar base</span>
+        <h4>¿El Genially llega hasta el final de N1 con audio?</h4>
+        <ul class="checklist">
+          <li><span class="cb-icon"></span>N0 → N1 navega correctamente por los tres botones (A, B, C)</li>
+          <li><span class="cb-icon"></span>Cada rama N1 tiene el audio del senador grabado y accesible (el "senador amigo" que discute)</li>
+          <li><span class="cb-icon"></span>Los audios de Greenpeace y Parques Nacionales tienen su transcripción visible en pantalla (DUA)</li>
+          <li><span class="cb-icon"></span>El número 26.639 es el único que aparece en el recurso</li>
+        </ul>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">50 min — Construcción en paralelo</span>
+        <h4>Dos tareas simultáneas — una por disciplina</h4>
+
+        <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:14px 18px;margin-bottom:12px;">
+          <strong style="color:var(--vio);display:block;margin-bottom:8px;">INGLÉS — N2: la mecánica del debate</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li>Crear el bot de Poe (ver Guía 1 con el prompt exacto). El bot recibe el discurso del usuario y emite el veredicto A, B o C.</li>
+            <li>En Genially, en cada página N2 (una por rama A/B/C): insertar el audio del senador correspondiente (ya grabado) + el iframe del bot de Poe + los 3 botones estáticos (Botón A → N3-A, Botón B → N3-B, Botón C → vuelve a N2).</li>
+            <li>DUA: agregar transcripción del audio del senador como botón desplegable (no visible automáticamente — es el argumento que deben contrarrestar).</li>
+          </ol>
+        </div>
+
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px 18px;margin-bottom:12px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:8px;">GEOGRAFÍA — N1: terminar la rama que falta</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li>Retomar el borrador de Geografía N1: "Pensando hacia una mirada geográfica..." — el nodo está incompleto.</li>
+            <li>Definir qué decisión toma el usuario en la rama Geo: ¿solicitar el informe del Inventario Nacional de Glaciares antes de votar, o votar sin esperar el informe? → Decisión correcta avanza, incorrecta regresa.</li>
+            <li>Construir el nodo en Genially: mapa de impacto glaciario + texto de decisión + 2 botones (avanzar o volver).</li>
+            <li>Conectar RAMA-GEO al nodo de convergencia (donde se unen con la rama Inglés para el desenlace).</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">30 min — N3 y N4</span>
+        <h4>Cerrar el arco narrativo</h4>
+
+        <div style="background:var(--pale);border-left:3px solid var(--teal);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:6px;">N3 — La campaña (slogan interactivo)</strong>
+          <p style="font-size:13.5px;color:var(--txt);">El usuario tiene que crear su slogan de campaña. Opciones: Wordwall "Completa la frase" (el usuario escribe el slogan y lo ve visualizado), o una página de Genially con un campo de texto decorativo. Lo más importante es que la actividad cierra con un producto visible (el slogan del usuario aparece en pantalla).</p>
+        </div>
+
+        <div style="background:var(--pale);border-left:3px solid var(--nav);border-radius:var(--r);padding:12px 16px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:6px;">N4 — El desenlace (qué pasa después del voto)</strong>
+          <p style="font-size:13.5px;color:var(--txt);">Diseñar tres desenlaces (uno por postura A/B/C). No tiene que ser largo — una imagen, un título y dos oraciones que muestren la consecuencia de esa decisión. Ejemplo para A (en contra): "La Ley 26.639 se mantiene. Los glaciares de TDF siguen protegidos. Tu voto sumó a la mayoría que frenó la modificación." Ejemplo para B (a favor): "La modificación fue aprobada. Las provincias ahora deciden qué glaciares proteger..."</p>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--teal);">
+        <span class="paso-num" style="background:var(--teal);">20 min — Testeo completo</span>
+        <h4>Navegar el recurso de principio a fin</h4>
+        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li>Hacer la prueba con el link público: abrir en el celular de alguien ajeno al grupo.</li>
+          <li>Recorrer el camino completo: N0 → N1 (elegir A) → N2 → escribir argumento en el bot → leer veredicto → tocar botón → N3 → crear slogan → N4.</li>
+          <li>Repetir por el camino B y verificar que C devuelve al N2.</li>
+          <li>Verificar que la rama Geografía converge correctamente con el desenlace.</li>
+          <li>Anotar cualquier link roto, botón que no funciona o pantalla sin botón de avance.</li>
+        </ol>
+        <div class="alerta-ok">Un recurso que se puede recorrer completo sin ayuda del docente está listo para la defensa. Uno que no → corregir antes de la próxima clase.</div>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre — AVT</span>
+        <h4>Subir antes de Clase 10</h4>
+        <p>Link público del Genially funcionando + bitácora de Clase 9. La Clase 10 trabaja curaduría, Creative Commons y los activos de imagen/texto con licencias verificadas para el TFI.</p>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan -->
+
+<div id="pane-herramientas" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Miércoles</div>
+    <div class="cb">
+
+      <h3 class="tool-cat-title" style="color:var(--nav);border-bottom-color:var(--bd);margin-top:0;">N2 — Mecánica del debate</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>Poe.com — Bot evaluador de discurso</h4>
+          <p>Crear un bot con el prompt exacto de la Guía 1. El usuario escribe su argumento, el bot responde con VEREDICTO: A, B o C. El usuario lee el veredicto y toca el botón correspondiente en Genially. Incrustar via iframe (Insertar → Otros → HTML).</p>
+          <a href="https://poe.com" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Poe</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>Wordwall — Alternativa sin iframe</h4>
+          <p>Si el iframe de Poe no carga en el aula: crear un quiz de opción múltiple en Wordwall donde el usuario elige la postura más cercana a su argumento. Cada opción lleva a una pantalla diferente.</p>
+          <a href="https://wordwall.net/es" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Wordwall</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">N3 — Slogan interactivo</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Genially — Tooltip o ventana emergente</h4>
+          <p>En la página N3: insertar un elemento visual de "cartel de campaña" vacío. Añadir interactividad → Ventana emergente → que muestre un campo de texto donde el usuario escribe su slogan. Al cerrar, el cartel muestra el resultado.</p>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Canva — Cartel de campaña</h4>
+          <p>Diseñar la plantilla visual del cartel de campaña (A y B tienen colores distintos). El usuario complete el slogan dentro de Genially, no en Canva. Canva solo provee la imagen de fondo del cartel.</p>
+          <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Canva</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--amb);border-bottom-color:var(--acl);">N4 — Desenlace y cierre</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Genially — Página de desenlace</h4>
+          <p>Tres páginas de desenlace (A, B, C). Cada una con: imagen representativa del resultado + título + 2 oraciones de consecuencia + botón "Jugar de nuevo" (→ N0). Sin botón de avance — es el final.</p>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Bing Image Creator — Imagen del desenlace</h4>
+          <p>Para las imágenes de los tres desenlaces. Prompts sugeridos: Guía 2.</p>
+          <a href="https://www.bing.com/images/create" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Bing Create</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-herramientas -->
+
+<div id="pane-guias" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de producción · Miércoles</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. Prompt exacto para el bot de Poe (copiar tal cual)</summary>
+        <div class="guia-content">
+          <p>Crear el bot en poe.com → Create Bot → System Prompt. Pegar el siguiente texto:</p>
+          <div class="prompt-box">Sos un analista político del Congreso argentino. Cuando el usuario te comparte el argumento que daría como senador sobre la modificación de la Ley de Glaciares 26.639, analizás si su postura es A, B o C.
+
+A = EN CONTRA de la modificación (defiende la ley original 26.639).
+B = A FAVOR de la modificación (apoya los cambios propuestos).
+C = ABSTENCIÓN o postura ambigua que no toma partido.
+
+Respondés SIEMPRE con este formato exacto:
+VEREDICTO: [A / B / C]
+FUNDAMENTO: [dos oraciones explicando por qué clasificaste así el argumento].
+
+Si el argumento es neutro, evita comprometerse o mezcla A y B sin posición clara → VEREDICTO: C.
+No des más información. No hagas preguntas. Solo el veredicto y el fundamento.</div>
+          <h5>Cómo se integra en Genially</h5>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>En poe.com: crear el bot → compartir → copiar el link de embed (iframe).</li>
+            <li>En Genially, página N2: Insertar → Otros → HTML → pegar el código iframe del bot.</li>
+            <li>Debajo del iframe: agregar 3 botones estáticos: "Voté A", "Voté B", "Me abstuve" — cada uno vinculado a la página N3 correspondiente.</li>
+            <li>Instrucción visible en pantalla: "Escribí tu argumento al bot. Leé el veredicto. Tocá el botón que corresponda a tu postura."</li>
+          </ol>
+          <div class="alerta-info">La conexión entre el bot y Genially es manual — el usuario lee el veredicto e interpreta cuál botón tocar. Esto no es una limitación: es pedagógico. El usuario puede estar en desacuerdo con el bot y eso abre el debate.</div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. Prompts de imagen para los tres desenlaces</summary>
+        <div class="guia-content">
+          <div class="prompt-box">Desenlace A (en contra de la modificación):<br>Patagonian glacier protected landscape, dramatic sub-Antarctic sky, pristine environment, Argentina, hopeful atmosphere, no people, digital illustration style<br><br>Desenlace B (a favor de la modificación):<br>Mining industry near mountains, Argentina Patagonia, economic activity, controversial landscape, serious tone, digital illustration<br><br>Desenlace C (abstención):<br>Empty senate chamber Argentina, empty chairs, indecision concept, dramatic lighting, digital illustration</div>
+          <p style="margin-top:10px;font-size:13px;color:var(--txt);">Auditar cada imagen: ¿se entiende claramente el significado? ¿El contexto es inequívocamente argentino/patagónico? Si no → agregar "Argentina flag symbol" o "Andes mountains" al prompt.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. Geografía N1 — cómo diseñar el nodo que falta</summary>
+        <div class="guia-content">
+          <p>El borrador del documento corta en: <em>"Nodo 1: Pensando hacia una mirada geográfica y pensando como un conservador de todo lo natural que..."</em>. Hay que terminarlo. Una propuesta:</p>
+          <h5>Propuesta para Geografía N1</h5>
+          <p><strong>Situación:</strong> el senador recibe el informe de Parques Nacionales y tiene que decidir qué hace con él antes de votar.</p>
+          <p><strong>Contenido del nodo:</strong> mapa de impacto glaciario en TDF + texto del informe resumido (puede ser el comunicado de Parques Nacionales abreviado) + pregunta de decisión.</p>
+          <p><strong>Bifurcación:</strong></p>
+          <ul>
+            <li>✓ <strong>Respuesta correcta</strong>: "Solicito que el informe se lea ante el pleno antes de votar" → avanza al Nodo N2 (Mecánica de debate - Bot de Poe).</li>
+            <li>✗ <strong>Respuesta incorrecta</strong>: "El informe puede esperar, votamos ahora" → vuelve al N0 con una consecuencia narrativa ("los medios critican la falta de debate técnico").</li>
+          </ul>
+          <div class="alerta-info">El nodo de Geografía debe converger con el desenlace del mismo modo que el de Inglés. Si el usuario llega por la rama Geo, tiene que poder llegar igual al N3 (slogan) y al N4 (desenlace). Verificar que los botones de convergencia estén configurados.</div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>4. Checklist de testeo completo — navegación sin errores</summary>
+        <div class="guia-content">
+          <p>Antes de dar por terminado el recurso, navegar cada uno de estos caminos completos:</p>
+          <table>
+            <thead><tr><th>Camino</th><th>Secuencia</th><th>¿Funciona?</th></tr></thead>
+            <tbody>
+              <tr><td>A completo</td><td>N0 → N1-A → N2-A → Bot → N3-A → N4-A</td><td>□</td></tr>
+              <tr><td>B completo</td><td>N0 → N1-B → N2-B → Bot → N3-B → N4-B</td><td>□</td></tr>
+              <tr><td>C (rebote)</td><td>N0 → N1-C → N2-C → Bot → N2-C (vuelve)</td><td>□</td></tr>
+              <tr><td>Geo completo</td><td>N0 → Geo-N1 → Convergencia → N4</td><td>□</td></tr>
+              <tr><td>Celular</td><td>Todo el recorrido A desde el celular</td><td>□</td></tr>
+              <tr><td>DUA</td><td>¿Cada audio tiene transcripción accesible?</td><td>□</td></tr>
+            </tbody>
+          </table>
+          <p style="font-size:13px;color:var(--txt);">Un botón roto o un link que lleva a la pantalla equivocada es un error técnico que hay que corregir antes de la defensa. Anotarlo en la bitácora.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias -->
+
+<div id="pane-bitacora" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Miércoles · Clase 9</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Agregar al Google Doc de bitácora. Una sección por disciplina.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content" class="doc-template">
+        <h1>Avance TFI — Semana 9</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Proyecto Glaciares / Senado · Clase 9</p>
+        <h2>N2 — Mecánica del debate</h2>
+        <p><strong>Método elegido para N2:</strong> <span class="fill-blank">[Bot Poe / Quiz Wordwall / otro]</span></p>
+        <p><strong>Link del bot / quiz:</strong> <span class="fill-blank">[Link]</span></p>
+        <p><strong>¿Funciona el iframe en Genially?</strong> <span class="fill-blank">[Sí / No — describir alternativa si no]</span></p>
+        <p><strong>DUA en N2 (transcripción del audio del senador):</strong> <span class="fill-blank">[Opción A visible / Opción B desplegable]</span></p>
+        <h2>N3 — Slogan de campaña</h2>
+        <p><strong>Actividad de slogan implementada:</strong> <span class="fill-blank">[Describir cómo funciona]</span></p>
+        <h2>N4 — Desenlace</h2>
+        <p><strong>Tres desenlaces construidos (A/B/C):</strong> <span class="fill-blank">[Sí / No — qué falta]</span></p>
+        <p><strong>Texto de cada desenlace:</strong><br>A: <span class="fill-blank">[Escribir]</span><br>B: <span class="fill-blank">[Escribir]</span><br>C: <span class="fill-blank">[Escribir]</span></p>
+        <h2>Geografía N1</h2>
+        <p><strong>Nodo completado:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <p><strong>Decisión del nodo (correcta / incorrecta):</strong> <span class="fill-blank">[Describir la bifurcación]</span></p>
+        <p><strong>Converge correctamente con la rama Inglés:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <h2>Testeo</h2>
+        <p><strong>Caminos testeados:</strong> <span class="fill-blank">[A / B / C / Geo / Celular]</span></p>
+        <p><strong>Errores técnicos encontrados y corregidos:</strong><br><span class="fill-blank">[Listar]</span></p>
+        <p><strong>Link del Genially público:</strong> <span class="fill-blank">[Link]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 10</strong>
+        Subir esta bitácora + link del Genially navegable. Clase 10: curaduría de recursos, Creative Commons y licencias. Llegar con todos los textos e imágenes del recurso identificados para verificar sus licencias.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora -->
+
+</div><!-- fin c-miercoles -->
+
+
+<!-- ================================================
+     JUEVES — Senderismo / Valle de Andorra
+     ================================================ -->
+<div class="c-block c-jueves">
+
+<div id="pane-partida-jueves" class="pane on">
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Estado del proyecto al llegar a Clase 9</div>
+    <div class="cb">
+
+      <div class="nodo-grid">
+        <div class="nodo-card nodo-ok"><strong>N0 ✓</strong>Turistas perdidos en el Valle de Andorra. El usuario elige rama narrativa o territorial.</div>
+        <div class="nodo-card nodo-ok"><strong>N1 Ing/Geo ✓</strong>Rama narrativa (WhatsApp + audio turista) y rama territorial (mapa + narrador) integradas.</div>
+        <div class="nodo-card nodo-pend"><strong>Llave ⚠</strong>Audio del transeúnte grabado. Verificar que el mapa muestra los elementos que menciona el audio (cascada, bifurcación).</div>
+        <div class="nodo-card nodo-vacio"><strong>Post-llave ✗</strong>¿Qué pasa después de resolver la llave? El recurso no tiene N2 ni desenlace.</div>
+      </div>
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">El foco de hoy</strong>
+        <ol style="margin-left:18px;font-size:14px;opacity:.9;line-height:1.9;">
+          <li><strong>Probar la llave intermedia</strong> de principio a fin: ¿el audio + el mapa permiten resolver sin ayuda?</li>
+          <li><strong>Diseñar el post-llave</strong>: ¿qué encuentra el usuario después de resolver el enigma de orientación?</li>
+          <li><strong>Construir el desenlace</strong>: ¿los turistas llegaron? ¿Qué pasó? Cerrar narrativamente.</li>
+          <li><strong>Testeo completo</strong>: desde N0 hasta el desenlace sin intervención del docente.</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-partida-jueves -->
+
+<div id="pane-plan-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Jueves</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Primeros 15 min — Test de la llave</span>
+        <h4>El test definitivo: resolver la llave sin ver el guión</h4>
+        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li>Abrir el Genially en modo vista previa. Navegar hasta el nodo de la llave.</li>
+          <li>Escuchar el audio del transeúnte <strong>una sola vez</strong>. No repetir.</li>
+          <li>Intentar identificar en el mapa: la cascada y el sendero que queda a la izquierda.</li>
+          <li>Si se puede resolver → la llave funciona. Avanzar.</li>
+          <li>Si no se puede → el audio es demasiado vago o el mapa no muestra los elementos. Corregir antes de seguir.</li>
+        </ol>
+        <div class="alerta-warn">Si el mapa no muestra la cascada claramente: reemplazarlo con una captura de Wikiloc o Google Earth más específica del Valle de Andorra real. Localización exacta: Valle de Andorra, Ushuaia, TDF.</div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">50 min — Diseñar y construir el post-llave</span>
+        <h4>¿Qué pasa después de que el usuario resuelve la orientación?</h4>
+        <p style="font-size:14px;margin-bottom:12px;color:var(--txt);">El recurso necesita al menos dos elementos después de la llave:</p>
+
+        <div style="background:var(--vcl);border-left:4px solid var(--vio);border-radius:var(--r);padding:14px 18px;margin-bottom:12px;">
+          <strong style="color:var(--vio);display:block;margin-bottom:8px;">Narrativa — N2: La consecuencia de la decisión</strong>
+          <p style="font-size:13.5px;color:var(--txt);">Si el usuario eligió el camino correcto (la ruta real del Valle), los turistas llegan a salvo. Si eligió el camino incorrecto, tienen que volver a intentarlo. Construir las dos páginas en Genially con audio (opcional) o solo texto + imagen del Valle.</p>
+        </div>
+
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px 18px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Geografía — N2: Datos del lugar que los turistas descubrieron</strong>
+          <p style="font-size:13.5px;color:var(--txt);">Después de llegar, los turistas aprenden algo del lugar. Esto conecta con la competencia territorial de Geografía: datos del Valle de Andorra, la laguna de montaña, la fauna de alta montaña en TDF. Una infografía pequeña o un texto con imagen.</p>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">25 min — Desenlace y testeo</span>
+        <h4>Cerrar el arco y navegar de punta a punta</h4>
+        <p style="font-size:14px;color:var(--txt);margin-bottom:10px;">Desenlace: una página final que "cierre" la aventura. Los turistas agradecen al transeúnte, comparten una foto del Valle en el "WhatsApp grupal" (simulación en Canva) y aprenden el nombre real del lugar donde estaban. Botón: "Jugar de nuevo" → vuelve al N0.</p>
+        <p style="font-size:14px;color:var(--txt);">Luego: testeo completo. Recorrer los dos caminos posibles (correcto e incorrecto en la llave). Verificar DUA en todos los audios.</p>
+      </div>
+
+      <div class="paso">
+        <span class="paso-num">Cierre — AVT</span>
+        <p>Subir link del Genially + bitácora. La Clase 10 trabaja curaduría y licencias — llegar con los recursos de imagen identificados.</p>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan-jueves -->
+
+<div id="pane-herramientas-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Jueves</div>
+    <div class="cb">
+
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);margin-top:0;">Verificación del mapa</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Wikiloc — Valle de Andorra Ushuaia</h4>
+          <p>Buscar tracks reales del Valle de Andorra. La cascada y la bifurcación mencionadas en el audio deben ser elementos reales del terreno. Si el mapa actual no los muestra, reemplazarlo con una captura de Wikiloc del track correcto.</p>
+          <a href="https://www.wikiloc.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Wikiloc</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Google Earth — Vista detallada</h4>
+          <p>Para una captura con más detalle topográfico. Coordenadas del Valle de Andorra: -54.7, -68.2 aprox. El mapa final debe mostrar claramente la bifurcación del sendero y el cuerpo de agua.</p>
+          <a href="https://earth.google.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Google Earth</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--vio);border-bottom-color:var(--vcl);">Post-llave y desenlace</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--vio);">
+          <h4>Canva — Simulación de WhatsApp del desenlace</h4>
+          <p>La escena final: el grupo de turistas comparte fotos del Valle en el chat. Crear una segunda pantalla de simulación de WhatsApp (misma plantilla que N1) pero con fotos y el mensaje de alivio.</p>
+          <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir Canva</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Bing Image Creator — Imagen del Valle real</h4>
+          <p>Para el desenlace: ilustración del Valle de Andorra con los turistas llegando a la laguna. Prompt: "Andorra Valley Ushuaia Tierra del Fuego Argentina, hikers arriving at mountain lake, sub-Antarctic landscape, children's book illustration style".</p>
+          <a href="https://www.bing.com/images/create" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Bing Create</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-jueves -->
+
+<div id="pane-guias-jueves" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de producción · Jueves</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. Si la llave no funciona — diagnóstico y corrección</summary>
+        <div class="guia-content">
+          <p>La llave falla por tres razones posibles. Diagnosticar cuál antes de corregir:</p>
+          <h5>Problema A: El audio no se entiende bien</h5>
+          <p>Si el oyente no puede repetir las instrucciones después de escucharlas una vez → el audio es demasiado rápido o el vocabulario es muy difícil. Corregir en ElevenLabs: bajar la velocidad o simplificar el guión. El transeúnte debe sonar como alguien que habla despacio para que lo entiendan.</p>
+          <h5>Problema B: El mapa no muestra los elementos mencionados</h5>
+          <p>Si el audio menciona "la cascada" pero en el mapa no se ve ninguna cascada → reemplazar el mapa. Usar Wikiloc con el track real del Valle de Andorra y capturar la pantalla en el punto donde la cascada es visible.</p>
+          <h5>Problema C: Las instrucciones son correctas pero no aplican al mapa</h5>
+          <p>Si la cascada está en el mapa pero "girar a la izquierda" lleva a un callejón sin salida → revisar el guión del transeúnte. Las instrucciones deben ser verificables sobre el mapa real del Valle.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. Diseñar el desenlace narrativo — qué hacer con los turistas</summary>
+        <div class="guia-content">
+          <p>El desenlace tiene que cerrar las dos preguntas que el recurso abrió: ¿los turistas llegaron? ¿Qué aprendieron del lugar?</p>
+          <h5>Estructura sugerida para el desenlace</h5>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li><strong>Imagen:</strong> los turistas llegando a la Laguna del Caminante (o al punto de destino real del Valle de Andorra). Imagen generada con IA o foto de Wikimedia Commons con licencia CC.</li>
+            <li><strong>Mensaje de WhatsApp final:</strong> el grupo comparte fotos y escribe "¡Llegamos! Gracias al lugareño que nos orientó." En inglés.</li>
+            <li><strong>Dato geográfico:</strong> una frase sobre el Valle de Andorra — por qué se llama así, qué tipo de ecosistema es, qué fauna vive allí.</li>
+            <li><strong>Botón "Volver al inicio":</strong> lleva de vuelta al N0 para que otro usuario pueda jugar.</li>
+          </ol>
+          <div class="alerta-dua">El texto geográfico del desenlace también es contenido disciplinar evaluable. No dejarlo como "dos líneas de relleno" — es el momento donde Geografía consolida el aprendizaje espacial del recurso.</div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias-jueves -->
+
+<div id="pane-bitacora-jueves" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Jueves · Clase 9</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Agregar al Google Doc de bitácora.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content-jueves" class="doc-template">
+        <h1>Avance TFI — Semana 9 (Senderismo)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Agregar al Google Doc de bitácora</p>
+        <h2>Test de la llave intermedia</h2>
+        <p><strong>¿Funciona sin ver el guión?</strong> <span class="fill-blank">[Sí / No — describir el problema si no]</span></p>
+        <p><strong>¿El mapa muestra la cascada y la bifurcación?</strong> <span class="fill-blank">[Sí / No — fuente del mapa usado]</span></p>
+        <p><strong>Correcciones aplicadas al audio o al mapa:</strong><br><span class="fill-blank">[Describir qué se cambió]</span></p>
+        <h2>Post-llave y desenlace</h2>
+        <p><strong>N2 narrativo construido:</strong> <span class="fill-blank">[Sí / No — describir]</span></p>
+        <p><strong>N2 geográfico (dato del Valle):</strong> <span class="fill-blank">[Sí / No — describir]</span></p>
+        <p><strong>Desenlace construido:</strong> <span class="fill-blank">[Sí / No — describir la escena final]</span></p>
+        <p><strong>Botón "Volver al inicio" funcionando:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <h2>Testeo completo</h2>
+        <p><strong>Camino correcto (llave resuelta):</strong> <span class="fill-blank">[Funcionó / Errores técnicos encontrados]</span></p>
+        <p><strong>Camino incorrecto (llave no resuelta):</strong> <span class="fill-blank">[Regresa al nodo / Error técnico]</span></p>
+        <p><strong>DUA verificado en todos los audios:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <p><strong>Link del Genially público:</strong> <span class="fill-blank">[Link]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 10</strong>
+        Subir esta bitácora + link del Genially. Clase 10: curaduría y licencias. Identificar qué imágenes y textos del recurso necesitan licencia verificada.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-jueves -->
+
+</div><!-- fin c-jueves -->
+
+
+<!-- ================================================
+     VIERNES — Escape Room TDFeIAS
+     ================================================ -->
+<div class="c-block c-viernes">
+
+<div id="pane-partida-viernes" class="pane on">
+  <div class="card" style="border-top:4px solid var(--vie);">
+    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Estado del proyecto al llegar a Clase 9</div>
+    <div class="cb">
+
+      <div class="nodo-grid">
+        <div class="nodo-card nodo-ok"><strong>Estructura ✓</strong>Nodo Central (mapa TDF) con pines. Guiones de Pepito escritos. Imágenes de fauna auditadas.</div>
+        <div class="nodo-card nodo-pend"><strong>Actividades ⚠</strong>Definidas pero no construidas. Cada grupo sabe qué herramienta usa (Wordwall, Jigsaw, Educaplay). Hoy se construyen.</div>
+        <div class="nodo-card nodo-pend"><strong>Integración ⚠</strong>Las actividades no están incrustadas en Genially todavía. Hoy se vinculan cada posta con el Nodo Central.</div>
+        <div class="nodo-card nodo-vacio"><strong>Candado ✗</strong>Código de dígitos definido pero no configurado en Genially. Bloquea el cierre del juego.</div>
+      </div>
+
+      <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">El foco de hoy</strong>
+        <ol style="margin-left:18px;font-size:14px;opacity:.9;line-height:1.9;">
+          <li><strong>Construir las actividades digitales</strong> de cada estación (Wordwall, Jigsaw, Memotest).</li>
+          <li><strong>Integrar cada actividad en Genially</strong> (embed via iframe o link desde botón).</li>
+          <li><strong>Configurar el candado digital</strong> (Andre): contraseña en la página Antártida.</li>
+          <li><strong>Testeo de navegación</strong>: recorrer dos estaciones completas de punta a punta.</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-partida-viernes -->
+
+<div id="pane-plan-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Viernes</div>
+    <div class="cb">
+
+      <table>
+        <thead><tr><th>Tarea</th><th>Quién</th><th>Tiempo</th></tr></thead>
+        <tbody>
+          <tr><td>Construir la actividad digital de su estación (Wordwall / Jigsaw / Educaplay)</td><td>Cada grupo</td><td><strong>40 min</strong></td></tr>
+          <tr style="background:var(--pale);"><td>Integrar la actividad en Genially (embed o link) + audio de Pepito</td><td>Coordinadoras</td><td><strong>25 min</strong></td></tr>
+          <tr><td>Configurar el candado digital (contraseña Antártida)</td><td><strong>Andre</strong></td><td><strong>15 min</strong></td></tr>
+          <tr style="background:var(--gcl);"><td>Testeo de 2 estaciones completas desde el celular</td><td>Todos</td><td><strong>20 min</strong></td></tr>
+          <tr><td>Documentar en bitácora</td><td>Todos</td><td><strong>10 min</strong></td></tr>
+        </tbody>
+      </table>
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">Paso 1 — 40 min · Construir la actividad digital</span>
+        <h4>Una actividad terminada y con link público — antes de pasar a Genially</h4>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
+          <div style="background:var(--gcl);border-left:3px solid var(--grn);border-radius:var(--r);padding:12px;">
+            <strong style="color:var(--grn);display:block;margin-bottom:4px;">🌊 Ushuaia (Sofi V.)</strong>
+            <p style="font-size:13px;color:var(--txt);">Wordwall: clasificar animales del Canal Beagle (peces, aves marinas, mamíferos marinos). Usar las imágenes de fauna auditadas.</p>
+          </div>
+          <div style="background:var(--vcl);border-left:3px solid var(--vio);border-radius:var(--r);padding:12px;">
+            <strong style="color:var(--vio);display:block;margin-bottom:4px;">🌲 Tolhuin (Niky)</strong>
+            <p style="font-size:13px;color:var(--txt);">Jigsaw Planet: rompecabezas del Lago Fagnano (9 piezas, nivel sala de 5). Subir imagen del lago con fauna visible.</p>
+          </div>
+          <div style="background:var(--acl);border-left:3px solid var(--amb);border-radius:var(--r);padding:12px;">
+            <strong style="color:var(--amb);display:block;margin-bottom:4px;">💨 Río Grande (Yuli)</strong>
+            <p style="font-size:13px;color:var(--txt);">Educaplay Memotest: pares de imagen-nombre de la fauna de la estepa (guanaco, ñandú, cauquén). Máximo 8 pares para sala de 4/5.</p>
+          </div>
+          <div style="background:var(--pale);border-left:3px solid var(--teal);border-radius:var(--r);padding:12px;">
+            <strong style="color:var(--nav);display:block;margin-bottom:4px;">🏝️ Malvinas (Maribel)</strong>
+            <p style="font-size:13px;color:var(--txt);">Jigsaw Planet o Wordwall: "¿Dónde están las Malvinas?" — asociar nombre de isla con posición en el mapa. Afirmar soberanía argentina en el texto de la estación.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--nav);">
+        <span class="paso-num" style="background:var(--nav);">Andre — Candado digital (toda la clase)</span>
+        <h4>Configurar la contraseña y verificar la convergencia</h4>
+        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
+          <li>En el Genially compartido: ir a la página del cofre (Antártida final).</li>
+          <li>Panel de páginas (izquierda) → tres puntitos → Contraseña → ingresar el código de dígitos definido en plenario.</li>
+          <li>Verificar en Vista Previa que la página NO es accesible sin el código.</li>
+          <li>Verificar que todos los pines del Nodo Central llevan a la primera página de la estación correcta.</li>
+          <li>Verificar que cada estación tiene un botón "Volver al Mapa" visible.</li>
+        </ol>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--teal);">
+        <span class="paso-num" style="background:var(--teal);">Testeo — 20 min</span>
+        <h4>Recorrer dos estaciones completas desde el celular</h4>
+        <p style="font-size:14px;color:var(--txt);">Abrir el Genially desde el celular de alguien externo al grupo. Entrar al Nodo Central → elegir una estación → hacer la actividad digital → anotar el dígito → volver al mapa. Repetir con otra estación. Verificar que el botón "Volver al Mapa" funciona en ambas.</p>
+        <div class="alerta-warn">Si la actividad no carga en el celular (iframe no soportado), el plan B es usar un botón que abra la actividad en una pestaña nueva. Ver Guía 2.</div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan-viernes -->
+
+<div id="pane-herramientas-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Viernes</div>
+    <div class="cb">
+
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);margin-top:0;">Actividades digitales por estación</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>Wordwall</h4>
+          <p>Para Ushuaia y Malvinas. Crear → Clasificación o Asociación → subir imágenes → publicar → copiar link o embed. El embed funciona en Genially vía iframe.</p>
+          <a href="https://wordwall.net/es" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Wordwall</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--vio);">
+          <h4>Jigsaw Planet</h4>
+          <p>Para Tolhuin y Malvinas alternativa. Subir imagen → elegir 9 piezas (nivel fácil) → publicar → copiar link embed → pegar en Genially (Insertar → Otros → HTML).</p>
+          <a href="https://www.jigsawplanet.com/" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir Jigsaw Planet</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Educaplay</h4>
+          <p>Para Río Grande (memotest). Crear → Relacionar columnas o Memotest → ingresar pares imagen-nombre → publicar → copiar link de incrustación.</p>
+          <a href="https://es.educaplay.com/" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Educaplay</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--teal);">
+          <h4>Genially — insertar iframe</h4>
+          <p>Para incrustar cualquier actividad: Insertar → Interactivo → Contenido externo (iframe) → pegar el link de embed. Si la actividad no tiene embed: usar botón que abre en nueva pestaña.</p>
+          <a href="https://genial.ly" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Genially</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-viernes -->
+
+<div id="pane-guias-viernes" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías · Viernes</div>
+    <div class="cb">
+
+      <details class="guia">
+        <summary>1. Cómo incrustar una actividad en Genially (iframe)</summary>
+        <div class="guia-content">
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>En la plataforma de la actividad (Wordwall, Jigsaw, etc.): publicar → buscar la opción "Incrustar" o "Embed" → copiar el código HTML o el link de iframe.</li>
+            <li>En Genially: ir a la página de la estación → Insertar → Interactivo → Contenido externo → pegar el código o link.</li>
+            <li>Ajustar el tamaño del iframe para que ocupe al menos el 70% de la pantalla.</li>
+            <li>Verificar en Vista Previa que la actividad carga y se puede jugar.</li>
+          </ol>
+          <h5>Si el iframe no carga en el celular</h5>
+          <p>Alternativa: en Genially, insertar un botón grande que diga "▶ Jugar" → Añadir interactividad → Enlace → pegar el link directo de la actividad (no el iframe). El jugador abre la actividad en una pestaña nueva, juega, vuelve al Genially.</p>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>2. Configurar el candado digital en Genially (Andre)</summary>
+        <div class="guia-content">
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>En el editor de Genially: Panel de páginas (columna izquierda) → encontrar la página del cofre/bitácora de Antártida.</li>
+            <li>Clic en los tres puntitos (⋯) junto al nombre de la página → "Contraseña".</li>
+            <li>Ingresar el código de dígitos definido en plenario. Guardar.</li>
+            <li>Verificar en Vista Previa: la página del cofre NO debe ser accesible sin el código.</li>
+            <li>Si la opción "Contraseña" no aparece: verificar que la cuenta tiene el plan que lo permite, o usar la alternativa (Guía 3).</li>
+          </ol>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. Alternativa al candado digital si Genially no lo permite</summary>
+        <div class="guia-content">
+          <p>Si la cuenta de Genially no incluye contraseña de página, hay una alternativa pedagógicamente equivalente:</p>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>En la página de Antártida: insertar un campo visual con 5 casillas vacías (imagen de Canva).</li>
+            <li>Debajo, 10 botones con los dígitos del 0 al 9. Cada botón tiene interactividad de "Ir a página".</li>
+            <li>Crear dos páginas: "Código correcto → Bitácora del abuelo" y "Código incorrecto → Volver a intentarlo".</li>
+            <li>Vincular los botones del código correcto a la página de apertura y el resto a "incorrecto".</li>
+          </ol>
+          <div class="alerta-info">Esta alternativa es más compleja de construir pero funciona sin plan pago. Consultar al docente antes de empezar si esta alternativa es viable dado el tiempo.</div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</div><!-- fin pane-guias-viernes -->
+
+<div id="pane-bitacora-viernes" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Clase 9</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:16px;">Completar en el Google Doc compartido. Una sección por grupo.</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
+      <div id="doc-template-content-viernes" class="doc-template">
+        <h1>Avance TFI — Semana 9 (Escape Room TDFeIAS)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Cada grupo completa su sección</p>
+        <h2>Actividad digital de la estación</h2>
+        <p><strong>Estación:</strong> <span class="fill-blank">[Ushuaia / Tolhuin / Río Grande / Malvinas / Antártida]</span></p>
+        <p><strong>Herramienta usada:</strong> <span class="fill-blank">[Wordwall / Jigsaw Planet / Educaplay]</span></p>
+        <p><strong>Link de la actividad (público):</strong> <span class="fill-blank">[Link]</span></p>
+        <p><strong>¿Está integrada en Genially?</strong> <span class="fill-blank">[Sí (iframe) / Sí (botón externo) / No — qué falta]</span></p>
+        <p><strong>¿El audio de Pepito está integrado en la estación?</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <h2>Testeo de navegación</h2>
+        <p><strong>¿Se puede navegar: Nodo Central → Estación → Actividad → Volver al Mapa?</strong> <span class="fill-blank">[Sí / No — describir error técnico]</span></p>
+        <p><strong>Funciona en celular:</strong> <span class="fill-blank">[Sí / No / No testeado]</span></p>
+        <h2>Candado digital (solo Antártida — Andre)</h2>
+        <p><strong>Contraseña configurada en Genially:</strong> <span class="fill-blank">[Sí / No / Alternativa implementada]</span></p>
+        <p><strong>Código de acceso (para el docente):</strong> <span class="fill-blank">[Código]</span></p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; AVT antes de Clase 10</strong>
+        Subir esta bitácora. La Clase 10 trabaja DUA y la ambientación física de las postas. Para llegar listos: actividad digital funcionando + audio de Pepito integrado.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-viernes -->
+
+</div><!-- fin c-viernes -->
+
+  </div><!-- fin wrap -->
+</div><!-- fin main-app -->
+
+<script>
+function selectCareer(code,name){
+  document.body.className='';
+  document.body.classList.add('show-'+code);
+  document.body.classList.add('day-selected');
+  document.getElementById('lbl-career').innerText=name;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  const first=document.querySelector('.tab-btn');
+  if(first){first.classList.add('active');}
+  showTab('partida',document.querySelector('.tab-btn'));
+}
+function resetCareer(){
+  document.body.classList.remove('day-selected');
+  document.getElementById('lbl-career').innerText='';
+}
+function showTab(id,btn){
+  document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  let s='';
+  if(document.body.classList.contains('show-jueves'))s='-jueves';
+  else if(document.body.classList.contains('show-viernes'))s='-viernes';
+  let t=document.getElementById('pane-'+id+s);
+  if(!t)t=document.getElementById('pane-'+id);
+  if(t)t.classList.add('on');
+  if(btn)btn.classList.add('active');
+}
+function copyBitacora(){
+  const v=document.querySelector('.pane.on');
+  if(!v)return;
+  const d=v.querySelector('.doc-template');
+  if(!d)return;
+  navigator.clipboard.writeText(d.innerText).then(()=>{
+    const b=v.querySelector('.btn-copy');
+    if(!b)return;
+    const o=b.innerText;
+    b.innerText='✅ ¡Copiado!';
+    b.style.background='var(--grn)';
+    setTimeout(()=>{b.innerText=o;b.style.background='var(--nav)';},2500);
+  });
+}
+</script>
+</body>
+</html>
