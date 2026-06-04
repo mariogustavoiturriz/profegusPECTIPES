@@ -3,459 +3,656 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Esquema Genially · Proyecto Glaciares / Senado</title>
+<title>Esquemas Escape Room TDFeIAS · Viernes</title>
 <style>
   :root{
-    --n0:#1D3461;--n0cl:#E8EDF7;
-    --ing:#3D5A99;--ingcl:#E4EAF7;
-    --geo:#2A6049;--geocl:#DFF0E9;
-    --n2:#B8590A;--n2cl:#FDF0E4;
-    --n3:#7B3F9E;--n3cl:#F0E8F7;
-    --n4:#1A6B4A;--n4cl:#D4EDDA;
-    --err:#C0392B;--errcl:#FDEDEC;
-    --line:#8899AA;--bg:#EEF3F7;--bco:#fff;
-    --r:8px;--sh:0 3px 10px rgba(0,0,0,.12);
+    --bg:#EEF3F7;--bco:#fff;--nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--bd:#C5D2DC;
+    --r:8px;--sh:0 3px 10px rgba(0,0,0,.12);--txt:#4A5E70;
+    /* Ciudad colors */
+    --ush:#1D3461;   /* Ushuaia — azul marino */
+    --tol:#2A6049;   /* Tolhuin — verde bosque */
+    --rga:#B8590A;   /* Río Grande — ocre estepa */
+    --mal:#00949A;   /* Malvinas — teal */
+    --ant:#4A3B7C;   /* Antártida — violeta hielo */
+    --cof:#C09428;   /* Cofre — dorado */
+    --pep:#D4A017;   /* Pepito — amarillo albatros */
+    --err:#C0392B;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);min-height:100vh;padding:24px}
-  h1{font-size:18px;color:var(--n0);margin-bottom:4px}
-  .subtitle{font-size:13px;color:#667;margin-bottom:20px}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);padding:20px;font-size:14px}
+  h1{font-size:18px;color:var(--nav);margin-bottom:3px}
+  .subtitle{font-size:12px;color:#667;margin-bottom:18px}
 
-  /* LEYENDA */
-  .legend{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:24px;background:var(--bco);padding:14px 18px;border-radius:var(--r);box-shadow:var(--sh)}
-  .leg-item{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:600}
-  .leg-dot{width:14px;height:14px;border-radius:3px;flex-shrink:0}
+  /* TABS */
+  .tab-row{display:flex;gap:0;margin-bottom:0;border-bottom:2px solid var(--bd)}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;color:var(--txt);margin-bottom:-2px;display:flex;align-items:center;gap:6px}
+  .tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+  .tab-panel{display:none;background:var(--bco);border-radius:0 0 var(--r) var(--r);box-shadow:var(--sh)}
+  .tab-panel.on{display:block}
 
-  /* CANVAS */
-  .canvas{position:relative;width:100%;overflow-x:auto}
-  svg.diagram{display:block;min-width:900px}
+  /* LEGEND */
+  .legend{display:flex;flex-wrap:wrap;gap:8px;padding:12px 18px;border-bottom:1px solid var(--bd)}
+  .leg{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--txt)}
+  .leg-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
 
-  /* PAGES */
-  .page{cursor:default;transition:filter .15s}
-  .page:hover{filter:brightness(.95)}
-  .page rect{rx:8}
-  .page text{font-family:'Segoe UI',Arial,sans-serif;font-size:11px;fill:#fff;text-anchor:middle;dominant-baseline:middle}
-  .page .p-title{font-size:12px;font-weight:700}
-  .page .p-sub{font-size:10px;opacity:.85}
-  .page .p-num{font-size:9px;opacity:.65;font-style:italic}
+  /* SVG canvas */
+  .canvas{overflow-x:auto;padding:10px}
+  svg{display:block;font-family:'Segoe UI',Arial,sans-serif}
 
   /* DETAIL PANEL */
-  .detail-panel{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);padding:20px;margin-top:20px;border-left:5px solid var(--n0);display:none}
-  .detail-panel.on{display:block}
-  .detail-panel h3{font-size:15px;color:var(--n0);margin-bottom:10px}
-  .detail-meta{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px}
-  .meta-item{background:var(--bg);border-radius:6px;padding:10px 12px}
-  .meta-item strong{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:#667;margin-bottom:4px}
-  .meta-item span{font-size:13px;color:#1A2C3A}
-  .detail-note{font-size:13px;color:#4A6080;line-height:1.65;background:#F8FAFB;border-radius:6px;padding:12px 14px}
-  .detail-nav{font-size:12px;color:#667;margin-top:10px}
-  .detail-nav strong{color:var(--n0)}
-  .close-btn{float:right;background:none;border:1px solid #ddd;border-radius:4px;padding:3px 8px;cursor:pointer;font-size:12px;color:#667}
+  .detail{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);padding:18px;margin:0 10px 10px;border-left:5px solid var(--nav);display:none}
+  .detail.on{display:block}
+  .detail h3{font-size:14px;color:var(--nav);margin-bottom:10px;font-weight:700}
+  .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin-bottom:10px}
+  .d-item{background:var(--bg);border-radius:6px;padding:9px 12px}
+  .d-item strong{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:#667;margin-bottom:3px}
+  .d-item span{font-size:12px;color:#1A2C3A}
+  .d-note{font-size:12.5px;color:var(--txt);background:#F8FAFB;border-radius:6px;padding:10px 12px;line-height:1.6}
+  .close-btn{float:right;background:none;border:1px solid #ddd;border-radius:4px;padding:2px 7px;cursor:pointer;font-size:11px;color:#667}
 
-  /* NOTES */
-  .schema-notes{margin-top:20px;background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);padding:18px 20px}
-  .schema-notes h3{font-size:14px;font-weight:700;color:var(--n0);margin-bottom:10px}
-  .schema-notes ul{margin-left:18px;font-size:13px;color:#4A6080;line-height:1.8}
-  .schema-notes li{margin-bottom:4px}
-  .badge{display:inline-block;padding:1px 7px;border-radius:10px;font-size:10px;font-weight:700;vertical-align:middle;margin-left:4px}
-  .b-ok{background:#DFF0E9;color:#2A6049}
-  .b-pen{background:#FDF0E4;color:#B8590A}
-  .b-no{background:#FDEDEC;color:#C0392B}
+  /* SCHEMA NOTES */
+  .notes{padding:16px 18px;border-top:1px solid var(--bd)}
+  .notes h3{font-size:13px;font-weight:700;color:var(--nav);margin-bottom:8px}
+  .notes ul{margin-left:16px;font-size:12px;color:var(--txt);line-height:1.8}
 </style>
 </head>
 <body>
 
-<h1>Esquema de navegación Genially · Proyecto Glaciares / Senado</h1>
-<p class="subtitle">Miércoles 4 de junio · Clase 9 · Inglés + Geografía &nbsp;·&nbsp; <strong style="color:var(--n2)">Hoy: construir N2, Geo N1, N3 y N4</strong> &nbsp;·&nbsp; Clic en cada página para ver el detalle</p>
+<h1>Escape Room TDFeIAS · "El Viaje de Pepito el Albatros"</h1>
+<p class="subtitle">Viernes · Ed. Inicial + Geografía &nbsp;·&nbsp; Clic en cada elemento para ver el detalle</p>
 
-<div class="legend">
-  <div class="leg-item"><div class="leg-dot" style="background:var(--n0)"></div>N0 · Punto de partida</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--ing)"></div>Rama Inglés</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--geo)"></div>Rama Geografía</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--n2)"></div>N2 · Convergencia</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--n3)"></div>N3 · Campaña</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--n4)"></div>N4 · Desenlace</div>
-  <div class="leg-item"><div class="leg-dot" style="background:var(--err)"></div>Retroceso (resp. incorrecta)</div>
+<div class="tab-row">
+  <button class="tab-btn active" onclick="switchTab('fisica',this)">🏫 Distribución Física del Aula</button>
+  <button class="tab-btn" onclick="switchTab('digital',this)">💻 Navegación Digital (Genially)</button>
 </div>
 
-<div class="canvas">
-<svg id="diag" class="diagram" viewBox="0 0 1060 860" xmlns="http://www.w3.org/2000/svg">
+<!-- ===================== TAB FÍSICA ===================== -->
+<div id="panel-fisica" class="tab-panel on">
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:var(--ush)"></div>Ushuaia</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--tol)"></div>Tolhuin</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--rga)"></div>Río Grande</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--mal)"></div>Malvinas</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--ant)"></div>Antártida</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--pep)"></div>Inicio · Introducción Pepito</div>
+  </div>
+  <div class="canvas">
+  <svg viewBox="0 0 960 600" width="960" height="600" xmlns="http://www.w3.org/2000/svg">
 <defs>
-  <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-    <polygon points="0 0, 8 3, 0 6" fill="var(--line)"/>
+  <marker id="farr" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 7 2.5, 0 5" fill="#8899AA"/>
   </marker>
-  <marker id="arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
-    <polygon points="0 0, 8 3, 0 6" fill="var(--err)"/>
+  <marker id="farr-free" markerWidth="7" markerHeight="5" refX="7" refY="2.5" orient="auto">
+    <polygon points="0 0, 7 2.5, 0 5" fill="#00949A"/>
+  </marker>
+  <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
+    <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#E0E8F0" stroke-width="0.5"/>
+  </pattern>
+</defs>
+
+<!-- Aula -->
+<rect x="30" y="28" width="900" height="548" rx="12" fill="#F8FAFB" stroke="#C5D2DC" stroke-width="2"/>
+<rect x="30" y="28" width="900" height="548" rx="12" fill="url(#grid)"/>
+<rect x="48" y="38" width="864" height="26" rx="4" fill="#1D3461" opacity=".85"/>
+<text x="480" y="56" font-size="12" fill="#B2E8EA" text-anchor="middle" font-weight="700">FRENTE DEL AULA · Docente</text>
+<rect x="32" y="490" width="16" height="55" rx="2" fill="#C5D2DC" stroke="#8899AA" stroke-width="1"/>
+<text x="40" y="520" font-size="8" fill="#667" text-anchor="middle" transform="rotate(-90,40,520)">ENTRADA</text>
+
+<!-- INICIO/PEPITO -->
+<g onclick="showFisica('inicio')">
+  <rect x="55" y="75" width="180" height="108" rx="8" fill="var(--pep)" opacity=".9"/>
+  <text x="145" y="95" font-size="10" fill="#fff" text-anchor="middle" font-weight="700" opacity=".8">INICIO</text>
+  <text x="145" y="112" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">🪶 Pepito</text>
+  <text x="145" y="128" font-size="9" fill="#fff" text-anchor="middle">Video introductorio</text>
+  <text x="145" y="142" font-size="9" fill="#fff" text-anchor="middle">Reparto Pasaportes</text>
+  <rect x="63" y="153" width="22" height="14" rx="2" fill="rgba(255,255,255,.35)"/>
+  <text x="74" y="163" font-size="8" fill="#fff" text-anchor="middle">📺</text>
+  <text x="100" y="164" font-size="8" fill="#fff">Proyector o TV</text>
+</g>
+
+<!-- USHUAIA -->
+<g onclick="showFisica('ushuaia')">
+  <rect x="55" y="208" width="180" height="118" rx="8" fill="var(--ush)"/>
+  <text x="145" y="226" font-size="10" fill="#B2E8EA" text-anchor="middle" opacity=".8">Posta 1 · LINEAL</text>
+  <text x="145" y="244" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">🌊 Ushuaia</text>
+  
+  <rect x="63" y="270" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="73" y="286" font-size="9" fill="#fff" text-anchor="middle">📄</text>
+  <text x="73" y="297" font-size="7" fill="#B2E8EA" text-anchor="middle">Afiche</text>
+  <rect x="90" y="270" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="100" y="286" font-size="9" fill="#fff" text-anchor="middle">▦</text>
+  <text x="100" y="297" font-size="7" fill="#B2E8EA" text-anchor="middle">QR</text>
+  <rect x="117" y="270" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="127" y="286" font-size="9" fill="#fff" text-anchor="middle">📱</text>
+  <text x="127" y="297" font-size="7" fill="#B2E8EA" text-anchor="middle">Tablet</text>
+  <rect x="144" y="270" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="154" y="286" font-size="9" fill="#fff" text-anchor="middle">🔑</text>
+  <text x="154" y="297" font-size="7" fill="#B2E8EA" text-anchor="middle">Dígito</text>
+  <text x="196" y="286" font-size="9" fill="#B2E8EA">→ libre</text>
+</g>
+
+<!-- TOLHUIN -->
+<g onclick="showFisica('tolhuin')">
+  <rect x="730" y="75" width="185" height="118" rx="8" fill="var(--tol)"/>
+  <text x="822" y="93" font-size="10" fill="#B2E8EA" text-anchor="middle" opacity=".8">Posta 2 · NO LINEAL</text>
+  <text x="822" y="111" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">🌲 Tolhuin</text>
+  
+  <rect x="738" y="137" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="748" y="153" font-size="9" fill="#fff" text-anchor="middle">📄</text>
+  <text x="748" y="164" font-size="7" fill="#B2E8EA" text-anchor="middle">Afiche</text>
+  <rect x="765" y="137" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="775" y="153" font-size="9" fill="#fff" text-anchor="middle">▦</text>
+  <text x="775" y="164" font-size="7" fill="#B2E8EA" text-anchor="middle">QR</text>
+  <rect x="792" y="137" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="802" y="153" font-size="9" fill="#fff" text-anchor="middle">📱</text>
+  <text x="802" y="164" font-size="7" fill="#B2E8EA" text-anchor="middle">Tablet</text>
+  <rect x="819" y="137" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="829" y="153" font-size="9" fill="#fff" text-anchor="middle">🔑</text>
+  <text x="829" y="164" font-size="7" fill="#B2E8EA" text-anchor="middle">Dígito</text>
+</g>
+
+<!-- RÍO GRANDE -->
+<g onclick="showFisica('riogrande')">
+  <rect x="260" y="165" width="185" height="118" rx="8" fill="var(--rga)"/>
+  <text x="352" y="183" font-size="10" fill="#fff" text-anchor="middle" opacity=".8">Posta 3 · NO LINEAL</text>
+  <text x="352" y="201" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">💨 Río Grande</text>
+  
+  <rect x="268" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="278" y="243" font-size="9" fill="#fff" text-anchor="middle">📄</text>
+  <text x="278" y="254" font-size="7" fill="#fff" text-anchor="middle">Afiche</text>
+  <rect x="295" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="305" y="243" font-size="9" fill="#fff" text-anchor="middle">▦</text>
+  <text x="305" y="254" font-size="7" fill="#fff" text-anchor="middle">QR</text>
+  <rect x="322" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="332" y="243" font-size="9" fill="#fff" text-anchor="middle">📱</text>
+  <text x="332" y="254" font-size="7" fill="#fff" text-anchor="middle">Tablet</text>
+  <rect x="349" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="359" y="243" font-size="9" fill="#fff" text-anchor="middle">🔑</text>
+  <text x="359" y="254" font-size="7" fill="#fff" text-anchor="middle">Dígito</text>
+  <text x="400" y="244" font-size="8" fill="rgba(255,255,255,.7)" text-anchor="middle">Reserva Punta Popper</text>
+</g>
+
+<!-- MALVINAS -->
+<g onclick="showFisica('malvinas')">
+  <rect x="500" y="165" width="185" height="118" rx="8" fill="var(--mal)"/>
+  <text x="592" y="183" font-size="10" fill="#fff" text-anchor="middle" opacity=".8">Posta 4 · NO LINEAL</text>
+  <text x="592" y="201" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">🏝️ Malvinas</text>
+  
+  <rect x="508" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="518" y="243" font-size="9" fill="#fff" text-anchor="middle">📄</text>
+  <text x="518" y="254" font-size="7" fill="#fff" text-anchor="middle">Afiche</text>
+  <rect x="535" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="545" y="243" font-size="9" fill="#fff" text-anchor="middle">▦</text>
+  <text x="545" y="254" font-size="7" fill="#fff" text-anchor="middle">QR</text>
+  <rect x="562" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="572" y="243" font-size="9" fill="#fff" text-anchor="middle">📱</text>
+  <text x="572" y="254" font-size="7" fill="#fff" text-anchor="middle">Tablet</text>
+  <rect x="589" y="227" width="20" height="26" rx="2" fill="rgba(255,255,255,.2)"/>
+  <text x="599" y="243" font-size="9" fill="#fff" text-anchor="middle">🔑</text>
+  <text x="599" y="254" font-size="7" fill="#fff" text-anchor="middle">Dígito</text>
+  <text x="648" y="244" font-size="8" fill="rgba(255,255,255,.8)">Soberanía arg. 🇦🇷</text>
+</g>
+
+<!-- ANTÁRTIDA -->
+<g onclick="showFisica('antartida')">
+  <rect x="300" y="375" width="255" height="130" rx="8" fill="var(--ant)"/>
+  <rect x="300" y="375" width="255" height="27" rx="8 8 0 0" fill="rgba(0,0,0,.25)"/>
+  <text x="427" y="393" font-size="10" fill="#D4C9F5" text-anchor="middle">Posta 5 · FINAL · LINEAL</text>
+  <text x="427" y="417" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">🧊 Antártida</text>
+  
+  <rect x="362" y="445" width="130" height="40" rx="6" fill="var(--cof)" opacity=".9"/>
+  <text x="427" y="460" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">🗝️ COFRE FÍSICO</text>
+  <text x="427" y="476" font-size="9" fill="#fff" text-anchor="middle">Bitácora del abuelo</text>
+  <text x="315" y="465" font-size="18" fill="rgba(255,255,255,.5)">🔐</text>
+  <text x="314" y="486" font-size="7" fill="#D4C9F5" text-anchor="middle">Código</text>
+  <text x="314" y="496" font-size="7" fill="#D4C9F5" text-anchor="middle">5 dígitos</text>
+</g>
+
+<!-- PASAPORTE -->
+<g onclick="showFisica('pasaporte')">
+  <rect x="620" y="380" width="205" height="92" rx="8" fill="var(--cof)" opacity=".88"/>
+  <text x="722" y="399" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">📋 PASAPORTE FUEGUINO</text>
+  <text x="722" y="414" font-size="9" fill="#fff" text-anchor="middle" opacity=".9">Cada niña/o lo lleva consigo</text>
+  <rect x="630" y="422" width="26" height="26" rx="3" fill="rgba(255,255,255,.3)"/>
+  <text x="643" y="439" font-size="10" fill="#fff" text-anchor="middle">🌊</text>
+  <text x="643" y="451" font-size="7" fill="#fff" text-anchor="middle">Ush.</text>
+  <rect x="662" y="422" width="26" height="26" rx="3" fill="rgba(255,255,255,.3)"/>
+  <text x="675" y="439" font-size="10" fill="#fff" text-anchor="middle">🌲</text>
+  <text x="675" y="451" font-size="7" fill="#fff" text-anchor="middle">Tol.</text>
+  <rect x="694" y="422" width="26" height="26" rx="3" fill="rgba(255,255,255,.3)"/>
+  <text x="707" y="439" font-size="10" fill="#fff" text-anchor="middle">💨</text>
+  <text x="707" y="451" font-size="7" fill="#fff" text-anchor="middle">RG</text>
+  <rect x="726" y="422" width="26" height="26" rx="3" fill="rgba(255,255,255,.3)"/>
+  <text x="739" y="439" font-size="10" fill="#fff" text-anchor="middle">🏝️</text>
+  <text x="739" y="451" font-size="7" fill="#fff" text-anchor="middle">Mal.</text>
+  <rect x="758" y="422" width="26" height="26" rx="3" fill="rgba(255,255,255,.3)"/>
+  <text x="771" y="439" font-size="10" fill="#fff" text-anchor="middle">🧊</text>
+  <text x="771" y="451" font-size="7" fill="#fff" text-anchor="middle">Ant.</text>
+</g>
+
+<!-- DOCENTE -->
+<g onclick="showFisica('docente')">
+  <rect x="55" y="390" width="185" height="78" rx="8" fill="#4A6080" opacity=".85"/>
+  <text x="147" y="425" font-size="13" fill="#fff" text-anchor="middle" font-weight="700">👤 Docente</text>
+  <text x="147" y="442" font-size="9" fill="#B2E8EA" text-anchor="middle">Circula entre postas</text>
+  <text x="147" y="456" font-size="9" fill="#B2E8EA" text-anchor="middle">Gestiona los dígitos</text>
+</g>
+
+<!-- ZONA LIBRE — fondo suave, sin flechas no lineales -->
+<rect x="248" y="58" width="682" height="242" rx="12"
+      fill="rgba(0,148,154,.06)" stroke="var(--teal)"
+      stroke-width="1.2" stroke-dasharray="6,4"/>
+<text x="590" y="79" font-size="10" fill="var(--teal)"
+      text-anchor="middle" font-weight="700" letter-spacing="1">ZONA DE LIBRE RECORRIDO</text>
+<text x="590" y="92" font-size="8" fill="var(--teal)"
+      text-anchor="middle" opacity=".85">postas 2, 3 y 4 en cualquier orden</text>
+
+<!-- SOLO flechas lineales -->
+<!-- Inicio → Ushuaia -->
+<path d="M 145 183 L 145 208" stroke="#8899AA" stroke-width="2"
+      fill="none" marker-end="url(#farr)"/>
+<text x="156" y="200" font-size="8" fill="#667">Empezamos</text>
+
+<!-- Zona libre → Antártida (una sola flecha de convergencia) -->
+<path d="M 480 300 L 440 375" stroke="#8899AA" stroke-width="1.8"
+      fill="none" marker-end="url(#farr)"/>
+<text x="498" y="333" font-size="8" fill="#667">al completar</text>
+<text x="498" y="344" font-size="8" fill="#667">las 3 postas</text>
+
+<!-- Nota cierre -->
+<text x="480" y="558" font-size="9" fill="var(--ant)" text-anchor="middle">Con los 5 dígitos → abrir el cofre → BITÁCORA DEL ABUELO</text>
+
+</svg>
+  </div>
+
+  <!-- PANEL DETALLE FÍSICO -->
+  <div id="fisica-detail" class="detail">
+    <button class="close-btn" onclick="closeFisica()">✕</button>
+    <h3 id="fd-title">—</h3>
+    <div class="detail-grid" id="fd-meta"></div>
+    <div class="d-note" id="fd-note"></div>
+  </div>
+
+  <div class="notes">
+    <h3>Notas de ambientación física</h3>
+    <ul>
+      <li><strong>Cada posta necesita:</strong> 1 afiche en la pared (A3 mínimo) + 1 QR impreso en el afiche + 1 dispositivo (tablet o celular) + 1 objeto físico representativo del ambiente.</li>
+      <li><strong>El Pasaporte Fueguino</strong> es una tarjeta A6 que cada estudiante lleva consigo. Tiene 5 casillas vacías (una por ciudad). Al completar la actividad digital, la coordinadora le dice el dígito en voz baja y lo anota.</li>
+      <li><strong>El orden es no lineal</strong> entre las postas 2, 3 y 4. La Posta 1 (Ushuaia) es la entrada y la Posta 5 (Antártida) es la salida.</li>
+      <li><strong>Antártida tiene el cofre físico</strong> (una caja cerrada con candado de combinación) y el digital (candado en Genially). El código es el mismo en ambos.</li>
+      <li><strong>La docente gestiona los dígitos:</strong> cada coordinadora de posta tiene el dígito de su ciudad. Solo lo revela cuando la actividad digital fue completada.</li>
+    </ul>
+  </div>
+</div><!-- fin panel-fisica -->
+
+<!-- ===================== TAB DIGITAL ===================== -->
+<div id="panel-digital" class="tab-panel">
+  <div class="legend">
+    <div class="leg"><div class="leg-dot" style="background:var(--nav)"></div>Nodo Central</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--pep)"></div>Intro Pepito</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--ush)"></div>Ushuaia</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--tol)"></div>Tolhuin</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--rga)"></div>Río Grande</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--mal)"></div>Malvinas</div>
+    <div class="leg"><div class="leg-dot" style="background:var(--ant)"></div>Antártida / Cofre</div>
+  </div>
+  <div class="canvas">
+  <svg viewBox="0 0 1150 740" width="1150" height="740" xmlns="http://www.w3.org/2000/svg">
+<defs>
+  <marker id="darr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="#8899AA"/>
+  </marker>
+  <marker id="darr-b" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="var(--teal)"/>
+  </marker>
+  <marker id="darr-gold" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+    <polygon points="0 0, 8 3, 0 6" fill="var(--cof)"/>
   </marker>
 </defs>
 
-<!-- ========== FLECHAS ========== -->
-<!-- N0 → ING-N1 -->
-<path d="M 200 110 Q 200 155 200 180" stroke="var(--line)" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
-<!-- N0 → GEO-N1 -->
-<path d="M 320 110 Q 590 145 590 180" stroke="var(--line)" stroke-width="1.8" fill="none" marker-end="url(#arr)"/>
-
-<!-- ING-N1 → N1-A -->
-<path d="M 120 245 Q 80 280 80 310" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- ING-N1 → N1-B -->
-<path d="M 200 245 Q 200 280 200 310" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- ING-N1 → N1-C -->
-<path d="M 280 245 Q 320 280 320 310" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-
-<!-- N1-A → N2-A -->
-<path d="M 80 375 Q 80 420 342 450" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- N1-B → N2-B -->
-<path d="M 200 375 Q 200 415 502 450" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- N1-C → N2-C -->
-<path d="M 320 375 L 320 420 L 657 450" stroke="var(--line)" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arr)"/>
-
-<!-- GEO-N1 → GEO-N1-OK -->
-<path d="M 590 245 Q 590 280 530 310" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- GEO-N1 → GEO-N1-ERR -->
-<path d="M 700 245 Q 760 280 760 310" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-
-<!-- GEO-N1-OK → N2-A (converge) -->
-<path d="M 530 375 Q 480 420 342 450" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-
-<!-- GEO-N1-ERR → GEO-N1 (retroceso) -->
-<path d="M 800 335 Q 850 290 760 260" stroke="var(--err)" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
-
-<!-- N2-A → N3-A -->
-<path d="M 342 520 Q 310 565 280 580" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- N2-B → N3-B -->
-<path d="M 502 520 Q 545 565 680 580" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- N2-C → N2-C-vuelve (retroceso) -->
-<path d="M 657 520 Q 657 548 720 558 Q 760 548 752 504 Q 745 472 730 462" stroke="var(--err)" stroke-width="1.5" fill="none" stroke-dasharray="4,3" marker-end="url(#arr-red)"/>
-
-<!-- N2-A → N3-A (bot ok) -->
-<!-- N3-A → N4-A -->
-<path d="M 280 645 Q 280 690 280 710" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-<!-- N3-B → N4-B -->
-<path d="M 680 645 Q 680 690 750 710" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-
-<!-- N4-A y N4-B → CREDITOS -->
-<path d="M 350 752 Q 420 780 480 780 Q 540 780 600 780 Q 660 780 720 752" stroke="var(--line)" stroke-width="1.5" fill="none" stroke-dasharray="3,3" marker-end="url(#arr)"/>
-<path d="M 580 792 L 580 808" stroke="var(--line)" stroke-width="1.5" fill="none" marker-end="url(#arr)"/>
-
-<!-- ========== ETIQUETAS DE FLECHAS ========== -->
-<text x="165" y="152" font-size="9" fill="#667" font-family="Segoe UI,Arial,sans-serif">Elige leer carta ONG</text>
-<text x="395" y="152" font-size="9" fill="#667" font-family="Segoe UI,Arial,sans-serif">Elige leer informe Parques</text>
-<text x="48" y="295" font-size="9" fill="#3D5A99" font-family="Segoe UI,Arial,sans-serif">A</text>
-<text x="178" y="295" font-size="9" fill="#3D5A99" font-family="Segoe UI,Arial,sans-serif">B</text>
-<text x="300" y="295" font-size="9" fill="#3D5A99" font-family="Segoe UI,Arial,sans-serif">C</text>
-<text x="508" y="295" font-size="9" fill="#2A6049" font-family="Segoe UI,Arial,sans-serif">Solicita informe</text>
-<text x="720" y="295" font-size="9" fill="#C0392B" font-family="Segoe UI,Arial,sans-serif">Vota sin esperar</text>
-<text x="818" y="310" font-size="9" fill="#C0392B" font-family="Segoe UI,Arial,sans-serif">↩ vuelve</text>
-<text x="720" y="548" font-size="9" fill="#C0392B" font-family="Segoe UI,Arial,sans-serif">↩ C vuelve</text>
-<text x="290" y="695" font-size="9" fill="#667" font-family="Segoe UI,Arial,sans-serif">bot aprueba</text>
-<text x="690" y="695" font-size="9" fill="#667" font-family="Segoe UI,Arial,sans-serif">bot aprueba</text>
-
-<!-- ========== PÁGINAS ========== -->
-
-<!-- N0 -->
-<g class="page" onclick="showDetail('n0')">
-  <rect x="170" y="50" width="200" height="65" fill="var(--n0)" rx="8"/>
-  <text x="270" y="72" class="p-num">Página 1</text>
-  <text x="270" y="88" class="p-title">N0 · La Urgencia</text>
-  <text x="270" y="103" class="p-sub">Congreso · sesión de emergencia</text>
+<!-- NODO CENTRAL -->
+<g onclick="showDigital('nodo')">
+  <rect x="380" y="15" width="390" height="68" rx="10" fill="var(--nav)"/>
+  <rect x="380" y="15" width="390" height="24" rx="10 10 0 0" fill="rgba(0,0,0,.2)"/>
+  <text x="575" y="32" font-size="10" fill="#B2E8EA" text-anchor="middle" opacity=".85">GENIALLY COMPARTIDO</text>
+  <text x="575" y="55" font-size="15" fill="#fff" text-anchor="middle" font-weight="700">🗺️ NODO CENTRAL</text>
+  <text x="575" y="72" font-size="10" fill="#B2E8EA" text-anchor="middle">Mapa de TDF con 5 pines interactivos</text>
 </g>
 
-<!-- ING-N1 -->
-<g class="page" onclick="showDetail('ing-n1')">
-  <rect x="130" y="180" width="145" height="65" fill="var(--ing)" rx="8"/>
-  <text x="202" y="198" class="p-num">Página 2</text>
-  <text x="202" y="214" class="p-title">INGLÉS-N1</text>
-  <text x="202" y="229" class="p-sub">Carta Greenpeace + audio</text>
+<!-- Flechas Nodo → columnas -->
+<path d="M 430 83 Q 280 110 112 155" stroke="#8899AA" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<path d="M 490 83 Q 420 115 322 155" stroke="#8899AA" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<path d="M 575 83 L 532 155" stroke="#8899AA" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<path d="M 650 83 Q 700 115 742 155" stroke="#8899AA" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<path d="M 730 83 Q 850 110 952 155" stroke="var(--ant)" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#darr)"/>
+
+<text x="108" y="138" font-size="8" fill="var(--ush)">Pin 🌊</text>
+<text x="315" y="140" font-size="8" fill="var(--tol)">Pin 🌲</text>
+<text x="540" y="140" font-size="8" fill="var(--rga)">Pin 💨</text>
+<text x="748" y="140" font-size="8" fill="var(--mal)">Pin 🏝️</text>
+<text x="880" y="125" font-size="8" fill="var(--ant)" font-style="italic">Pin 🧊 (solo visual)</text>
+
+<!-- ── COLUMNA USHUAIA x=20 center=112 ── -->
+<g onclick="showDigital('ush-pepito')">
+  <rect x="20" y="155" width="185" height="55" rx="6" fill="var(--pep)"/>
+  <text x="112" y="174" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">🪶 Pepito saluda</text>
+  <text x="112" y="189" font-size="9" fill="#fff" text-anchor="middle">Audio bienvenida Ushuaia</text>
+  <text x="112" y="202" font-size="8" fill="#fff" text-anchor="middle" opacity=".8">ElevenLabs · transcripción DUA</text>
+</g>
+<path d="M 112 210 L 112 232" stroke="var(--ush)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('ush-act1')">
+  <rect x="20" y="232" width="185" height="65" rx="6" fill="var(--ush)"/>
+  <text x="112" y="251" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">Actividad 1</text>
+  <text x="112" y="266" font-size="9" fill="#B2E8EA" text-anchor="middle">Wordwall: clasificar fauna</text>
+  <text x="112" y="280" font-size="8" fill="#B2E8EA" text-anchor="middle">del Canal Beagle</text>
+  <text x="112" y="292" font-size="7" fill="#B2E8EA" text-anchor="middle" opacity=".8">iframe embed en Genially</text>
+</g>
+<path d="M 112 297 L 112 320" stroke="var(--ush)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('ush-digito')">
+  <rect x="41" y="320" width="143" height="40" rx="6" fill="rgba(29,52,97,.12)" stroke="var(--ush)" stroke-width="1.5"/>
+  <text x="112" y="337" font-size="10" fill="var(--ush)" text-anchor="middle" font-weight="700">🔑 Dígito revelado</text>
+  <text x="112" y="352" font-size="8" fill="var(--ush)" text-anchor="middle">Solo si completada</text>
+</g>
+<path d="M 112 360 L 112 382" stroke="#8899AA" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#darr-b)"/>
+<g>
+  <rect x="41" y="382" width="143" height="26" rx="6" fill="var(--teal)" opacity=".85"/>
+  <text x="112" y="400" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">← Volver al Mapa</text>
 </g>
 
-<!-- N1-A -->
-<g class="page" onclick="showDetail('n1a')">
-  <rect x="30" y="310" width="105" height="65" fill="var(--ing)" rx="8"/>
-  <text x="82" y="328" class="p-num">Página 3</text>
-  <text x="82" y="344" class="p-title">N1-A</text>
-  <text x="82" y="359" class="p-sub">Sociedad apoya / tweets</text>
+<!-- ── COLUMNA TOLHUIN x=230 center=322 ── -->
+<g onclick="showDigital('tol-pepito')">
+  <rect x="230" y="155" width="185" height="55" rx="6" fill="var(--pep)"/>
+  <text x="322" y="174" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">🪶 Pepito saluda</text>
+  <text x="322" y="189" font-size="9" fill="#fff" text-anchor="middle">Audio bienvenida Tolhuin</text>
+  <text x="322" y="202" font-size="8" fill="#fff" text-anchor="middle" opacity=".8">ElevenLabs · transcripción DUA</text>
+</g>
+<path d="M 322 210 L 322 232" stroke="var(--tol)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('tol-act1')">
+  <rect x="230" y="232" width="185" height="65" rx="6" fill="var(--tol)"/>
+  <text x="322" y="251" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">Actividad 1</text>
+  <text x="322" y="266" font-size="9" fill="#B2E8EA" text-anchor="middle">Jigsaw Planet: Lago Fagnano</text>
+  <text x="322" y="280" font-size="8" fill="#B2E8EA" text-anchor="middle">rompecabezas 9 piezas</text>
+  <text x="322" y="292" font-size="7" fill="#B2E8EA" text-anchor="middle" opacity=".8">iframe embed en Genially</text>
+</g>
+<path d="M 322 297 L 322 320" stroke="var(--tol)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('tol-digito')">
+  <rect x="251" y="320" width="143" height="40" rx="6" fill="rgba(42,96,73,.1)" stroke="var(--tol)" stroke-width="1.5"/>
+  <text x="322" y="337" font-size="10" fill="var(--tol)" text-anchor="middle" font-weight="700">🔑 Dígito revelado</text>
+  <text x="322" y="352" font-size="8" fill="var(--tol)" text-anchor="middle">Solo si completada</text>
+</g>
+<path d="M 322 360 L 322 382" stroke="#8899AA" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#darr-b)"/>
+<g>
+  <rect x="251" y="382" width="143" height="26" rx="6" fill="var(--teal)" opacity=".85"/>
+  <text x="322" y="400" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">← Volver al Mapa</text>
 </g>
 
-<!-- N1-B -->
-<g class="page" onclick="showDetail('n1b')">
-  <rect x="150" y="310" width="105" height="65" fill="var(--ing)" rx="8"/>
-  <text x="202" y="328" class="p-num">Página 4</text>
-  <text x="202" y="344" class="p-title">N1-B</text>
-  <text x="202" y="359" class="p-sub">Manifestaciones / noticieros</text>
+<!-- ── COLUMNA RÍO GRANDE x=440 center=532 ── -->
+<g onclick="showDigital('rga-pepito')">
+  <rect x="440" y="155" width="185" height="55" rx="6" fill="var(--pep)"/>
+  <text x="532" y="174" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">🪶 Pepito saluda</text>
+  <text x="532" y="189" font-size="9" fill="#fff" text-anchor="middle">Audio bienvenida Río Grande</text>
+  <text x="532" y="202" font-size="8" fill="#fff" text-anchor="middle" opacity=".8">ElevenLabs · transcripción DUA</text>
+</g>
+<path d="M 532 210 L 532 232" stroke="var(--rga)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('rga-act1')">
+  <rect x="440" y="232" width="185" height="65" rx="6" fill="var(--rga)"/>
+  <text x="532" y="251" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">Actividad 1</text>
+  <text x="532" y="266" font-size="9" fill="#fff" text-anchor="middle">Memotest Rosimosi</text>
+  <text x="532" y="280" font-size="8" fill="#fff" text-anchor="middle">fauna estepa patagónica</text>
+  <text x="532" y="292" font-size="7" fill="#fff" text-anchor="middle" opacity=".8">link externo / iframe</text>
+</g>
+<path d="M 532 297 L 532 320" stroke="var(--rga)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('rga-digito')">
+  <rect x="461" y="320" width="143" height="40" rx="6" fill="rgba(184,89,10,.1)" stroke="var(--rga)" stroke-width="1.5"/>
+  <text x="532" y="337" font-size="10" fill="var(--rga)" text-anchor="middle" font-weight="700">🔑 Dígito revelado</text>
+  <text x="532" y="352" font-size="8" fill="var(--rga)" text-anchor="middle">Solo si completada</text>
+</g>
+<path d="M 532 360 L 532 382" stroke="#8899AA" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#darr-b)"/>
+<g>
+  <rect x="461" y="382" width="143" height="26" rx="6" fill="var(--teal)" opacity=".85"/>
+  <text x="532" y="400" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">← Volver al Mapa</text>
 </g>
 
-<!-- N1-C -->
-<g class="page" onclick="showDetail('n1c')">
-  <rect x="270" y="310" width="105" height="65" fill="var(--ing)" rx="8" opacity=".85"/>
-  <text x="322" y="328" class="p-num">Página 5</text>
-  <text x="322" y="344" class="p-title">N1-C</text>
-  <text x="322" y="359" class="p-sub">Abstención · medios critican</text>
+<!-- ── COLUMNA MALVINAS x=650 center=742 ── -->
+<g onclick="showDigital('mal-pepito')">
+  <rect x="650" y="155" width="185" height="55" rx="6" fill="var(--pep)"/>
+  <text x="742" y="174" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">🪶 Pepito saluda</text>
+  <text x="742" y="189" font-size="9" fill="#fff" text-anchor="middle">Audio bienvenida Malvinas</text>
+  <text x="742" y="202" font-size="8" fill="#fff" text-anchor="middle" opacity=".8">Soberanía argentina 🇦🇷</text>
+</g>
+<path d="M 742 210 L 742 232" stroke="var(--mal)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('mal-act1')">
+  <rect x="650" y="232" width="185" height="65" rx="6" fill="var(--mal)"/>
+  <text x="742" y="251" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">Actividad 1</text>
+  <text x="742" y="266" font-size="9" fill="#fff" text-anchor="middle">Wordwall/Jigsaw: mapa</text>
+  <text x="742" y="280" font-size="8" fill="#fff" text-anchor="middle">soberanía islas</text>
+  <text x="742" y="292" font-size="7" fill="#fff" text-anchor="middle" opacity=".8">iframe embed en Genially</text>
+</g>
+<path d="M 742 297 L 742 320" stroke="var(--mal)" stroke-width="1.5" fill="none" marker-end="url(#darr)"/>
+<g onclick="showDigital('mal-digito')">
+  <rect x="671" y="320" width="143" height="40" rx="6" fill="rgba(0,148,154,.1)" stroke="var(--mal)" stroke-width="1.5"/>
+  <text x="742" y="337" font-size="10" fill="var(--mal)" text-anchor="middle" font-weight="700">🔑 Dígito revelado</text>
+  <text x="742" y="352" font-size="8" fill="var(--mal)" text-anchor="middle">Solo si completada</text>
+</g>
+<path d="M 742 360 L 742 382" stroke="#8899AA" stroke-width="1.2" fill="none" stroke-dasharray="4,3" marker-end="url(#darr-b)"/>
+<g>
+  <rect x="671" y="382" width="143" height="26" rx="6" fill="var(--teal)" opacity=".85"/>
+  <text x="742" y="400" font-size="9" fill="#fff" text-anchor="middle" font-weight="700">← Volver al Mapa</text>
 </g>
 
-<!-- GEO-N1 -->
-<g class="page" onclick="showDetail('geo-n1')">
-  <rect x="530" y="180" width="150" height="65" fill="var(--geo)" rx="8"/>
-  <text x="605" y="198" class="p-num">Página 6</text>
-  <text x="605" y="214" class="p-title">GEO-N1</text>
-  <text x="605" y="229" class="p-sub">Informe Parques Nacionales</text>
+<!-- ── COLUMNA ANTÁRTIDA x=860 center=952 ── -->
+<g onclick="showDigital('ant-pin')">
+  <rect x="860" y="155" width="265" height="55" rx="6" fill="var(--ant)" opacity=".4" stroke="var(--ant)" stroke-dasharray="5,3"/>
+  <text x="992" y="177" font-size="10" fill="var(--ant)" text-anchor="middle" font-weight="700">Pin visual — no navega</text>
+  <text x="992" y="192" font-size="8" fill="var(--ant)" text-anchor="middle">Se llega con los 5 dígitos físicos</text>
+  <text x="992" y="205" font-size="8" fill="var(--ant)" text-anchor="middle">anotados en el Pasaporte</text>
 </g>
 
-<!-- GEO-N1-OK -->
-<g class="page" onclick="showDetail('geo-ok')">
-  <rect x="460" y="310" width="140" height="65" fill="var(--geo)" rx="8"/>
-  <text x="530" y="328" class="p-num">Página 7</text>
-  <text x="530" y="344" class="p-title">GEO-N1 · Decisión ✓</text>
-  <text x="530" y="359" class="p-sub">Solicita informe al pleno</text>
+<!-- Convergencia → candado -->
+<text x="575" y="440" font-size="10" fill="#667" text-anchor="middle" font-style="italic">Una vez que tenés los 5 dígitos en el Pasaporte Fueguino:</text>
+<path d="M 112 408 Q 112 440 395 470" stroke="var(--cof)" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#darr-gold)"/>
+<path d="M 322 408 Q 322 440 430 470" stroke="var(--cof)" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#darr-gold)"/>
+<path d="M 532 408 L 532 470" stroke="var(--cof)" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#darr-gold)"/>
+<path d="M 742 408 Q 742 440 672 470" stroke="var(--cof)" stroke-width="1.8" fill="none" stroke-dasharray="6,3" marker-end="url(#darr-gold)"/>
+
+<!-- CANDADO DIGITAL -->
+<g onclick="showDigital('candado')">
+  <rect x="285" y="470" width="580" height="55" rx="8" fill="var(--ant)"/>
+  <text x="575" y="493" font-size="12" fill="#D4C9F5" text-anchor="middle" font-weight="700">🔐 Candado Digital · Antártida</text>
+  <text x="575" y="512" font-size="9" fill="#D4C9F5" text-anchor="middle">Ingresar los 5 dígitos → contraseña en Genially (Panel de páginas → ⋯ → Contraseña)</text>
+</g>
+<path d="M 575 525 L 575 550" stroke="var(--cof)" stroke-width="2" fill="none" marker-end="url(#darr-gold)"/>
+
+<!-- COFRE -->
+<g onclick="showDigital('cofre')">
+  <rect x="285" y="550" width="580" height="78" rx="8" fill="var(--cof)"/>
+  <text x="575" y="575" font-size="14" fill="#fff" text-anchor="middle" font-weight="700">🗝️ COFRE ABIERTO</text>
+  <text x="575" y="594" font-size="10" fill="#fff" text-anchor="middle">Bitácora del abuelo recorriendo TDF</text>
+  <text x="575" y="610" font-size="9" fill="rgba(255,255,255,.85)" text-anchor="middle">Relato + imágenes de cada lugar visitado</text>
+  <text x="575" y="623" font-size="9" fill="rgba(255,255,255,.7)" text-anchor="middle">Botón: "Jugar de nuevo" → Nodo Central</text>
 </g>
 
-<!-- GEO-N1-ERR -->
-<g class="page" onclick="showDetail('geo-err')">
-  <rect x="720" y="310" width="130" height="65" fill="var(--err)" rx="8" opacity=".85"/>
-  <text x="785" y="328" class="p-num">Página 8</text>
-  <text x="785" y="344" class="p-title">GEO-N1 · Error ✗</text>
-  <text x="785" y="359" class="p-sub">Vota sin esperar · consecuencia</text>
-</g>
-
-<!-- N2-A -->
-<g class="page" onclick="showDetail('n2a')">
-  <rect x="270" y="450" width="145" height="70" fill="var(--n2)" rx="8"/>
-  <text x="342" y="468" class="p-num">Página 9</text>
-  <text x="342" y="484" class="p-title">N2-A · Debate</text>
-  <text x="342" y="499" class="p-sub">Audio senador pro-minería</text>
-  <text x="342" y="512" class="p-sub">Bot evalúa argumento</text>
-</g>
-
-<!-- N2-B -->
-<g class="page" onclick="showDetail('n2b')">
-  <rect x="430" y="450" width="145" height="70" fill="var(--n2)" rx="8" opacity=".85"/>
-  <text x="502" y="468" class="p-num">Página 10</text>
-  <text x="502" y="484" class="p-title">N2-B · Debate</text>
-  <text x="502" y="499" class="p-sub">Audio senador pro-glaciares</text>
-  <text x="502" y="512" class="p-sub">Bot evalúa argumento</text>
-</g>
-
-<!-- N2-C -->
-<g class="page" onclick="showDetail('n2c')">
-  <rect x="595" y="450" width="125" height="70" fill="var(--err)" rx="8" opacity=".8"/>
-  <text x="657" y="468" class="p-num">Página 11</text>
-  <text x="657" y="484" class="p-title">N2-C</text>
-  <text x="657" y="499" class="p-sub">Ambos audios</text>
-  <text x="657" y="512" class="p-sub">↩ Decidí si o sí</text>
-</g>
-
-<!-- N3-A -->
-<g class="page" onclick="showDetail('n3a')">
-  <rect x="190" y="580" width="175" height="65" fill="var(--n3)" rx="8"/>
-  <text x="277" y="598" class="p-num">Página 12</text>
-  <text x="277" y="614" class="p-title">N3-A · Campaña</text>
-  <text x="277" y="629" class="p-sub">Slogan en contra de la nueva ley</text>
-</g>
-
-<!-- N3-B -->
-<g class="page" onclick="showDetail('n3b')">
-  <rect x="590" y="580" width="175" height="65" fill="var(--n3)" rx="8" opacity=".85"/>
-  <text x="677" y="598" class="p-num">Página 13</text>
-  <text x="677" y="614" class="p-title">N3-B · Campaña</text>
-  <text x="677" y="629" class="p-sub">Slogan a favor de la nueva ley</text>
-</g>
-
-<!-- N4-A -->
-<g class="page" onclick="showDetail('n4a')">
-  <rect x="190" y="710" width="175" height="55" fill="var(--n4)" rx="8"/>
-  <text x="277" y="728" class="p-num">Página 14</text>
-  <text x="277" y="744" class="p-title">N4-A · Desenlace</text>
-  <text x="277" y="758" class="p-sub">Ley protegida · glaciares a salvo</text>
-</g>
-
-<!-- N4-B -->
-<g class="page" onclick="showDetail('n4b')">
-  <rect x="590" y="710" width="175" height="55" fill="var(--n4)" rx="8" opacity=".85"/>
-  <text x="677" y="728" class="p-num">Página 15</text>
-  <text x="677" y="744" class="p-title">N4-B · Desenlace</text>
-  <text x="677" y="758" class="p-sub">Ley modificada · consecuencias</text>
-</g>
-
-<!-- CREDITOS -->
-<g class="page" onclick="showDetail('cred')">
-  <rect x="490" y="795" width="180" height="45" fill="#4A6080" rx="8"/>
-  <text x="580" y="813" class="p-num">Página 16</text>
-  <text x="580" y="829" class="p-title">Créditos y Licencia CC</text>
-</g>
-
-<!-- Flecha N4A→CREDITOS -->
-<path d="M 280 765 L 280 785 Q 280 800 490 808" stroke="var(--line)" stroke-width="1.2" fill="none" stroke-dasharray="3,3" marker-end="url(#arr)"/>
-<path d="M 677 765 L 677 785 Q 677 800 670 808" stroke="var(--line)" stroke-width="1.2" fill="none" stroke-dasharray="3,3" marker-end="url(#arr)"/>
-
-<!-- Leyenda de estado en las páginas -->
-<rect x="870" y="50" width="170" height="200" rx="8" fill="var(--bco)" stroke="#ddd" stroke-width="1"/>
-<text x="955" y="72" font-size="12" font-weight="700" fill="#1D3461" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">Estado actual</text>
-<rect x="882" y="85" width="10" height="10" rx="2" fill="#DFF0E9" stroke="#2A6049"/>
-<text x="897" y="95" font-size="11" fill="#2A6049" font-family="Segoe UI,Arial,sans-serif">Lista</text>
-<rect x="882" y="105" width="10" height="10" rx="2" fill="#FDF0E4" stroke="#B8590A"/>
-<text x="897" y="115" font-size="11" fill="#B8590A" font-family="Segoe UI,Arial,sans-serif">Construyendo</text>
-<rect x="882" y="125" width="10" height="10" rx="2" fill="#FDEDEC" stroke="#C0392B"/>
-<text x="897" y="135" font-size="11" fill="#C0392B" font-family="Segoe UI,Arial,sans-serif">No existe todavía</text>
-<!-- Estado por página -->
-<text x="882" y="158" font-size="10" fill="#667" font-family="Segoe UI,Arial,sans-serif">N0</text><rect x="920" y="148" width="110" height="14" rx="3" fill="#DFF0E9" stroke="#2A6049" stroke-width=".7"/><text x="975" y="158" font-size="9" fill="#2A6049" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">Lista</text>
-<text x="882" y="175" font-size="10" fill="#667" font-family="Segoe UI,Arial,sans-serif">INGLÉS-N1</text><rect x="920" y="165" width="110" height="14" rx="3" fill="#DFF0E9" stroke="#2A6049" stroke-width=".7"/><text x="975" y="175" font-size="9" fill="#2A6049" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">Lista (+ audio)</text>
-<text x="882" y="192" font-size="10" fill="#667" font-family="Segoe UI,Arial,sans-serif">N1-A/B/C</text><rect x="920" y="182" width="110" height="14" rx="3" fill="#FDF0E4" stroke="#B8590A" stroke-width=".7"/><text x="975" y="192" font-size="9" fill="#B8590A" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">Construyendo</text>
-<text x="882" y="209" font-size="10" fill="#667" font-family="Segoe UI,Arial,sans-serif">GEO-N1</text><rect x="920" y="199" width="110" height="14" rx="3" fill="#FDF0E4" stroke="#B8590A" stroke-width=".7"/><text x="975" y="209" font-size="9" fill="#B8590A" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">⚡ Terminar</text>
-<text x="882" y="226" font-size="10" fill="#667" font-family="Segoe UI,Arial,sans-serif">N2</text><rect x="920" y="216" width="110" height="14" rx="3" fill="#FDEDEC" stroke="#C0392B" stroke-width=".7"/><text x="975" y="226" font-size="9" fill="#C0392B" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">⚡ Construir</text>
-<text x="882" y="243" font-size="10" fill="#667" font-family="Segoe UI,Arial,sans-serif">N3 / N4</text><rect x="920" y="233" width="110" height="14" rx="3" fill="#FDEDEC" stroke="#C0392B" stroke-width=".7"/><text x="975" y="243" font-size="9" fill="#C0392B" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">⚡ Construir</text>
-
-<!-- Total páginas -->
-<rect x="870" y="270" width="170" height="55" rx="8" fill="var(--n0)"/>
-<text x="955" y="289" font-size="11" fill="#B2E8EA" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">Total estimado</text>
-<text x="955" y="308" font-size="22" font-weight="700" fill="#fff" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">16 páginas</text>
-
-<!-- Nota N2 convergencia -->
-<rect x="860" y="440" width="190" height="80" rx="8" fill="#FDF0E4" stroke="#B8590A" stroke-width="1"/>
-<text x="955" y="458" font-size="11" font-weight="700" fill="#B8590A" font-family="Segoe UI,Arial,sans-serif" text-anchor="middle">N2 · La clave</text>
-<text x="870" y="473" font-size="10" fill="#5A3010" font-family="Segoe UI,Arial,sans-serif">El bot (Chatbase/Fastbots)</text>
-<text x="870" y="487" font-size="10" fill="#5A3010" font-family="Segoe UI,Arial,sans-serif">evalúa el argumento.</text>
-<text x="870" y="501" font-size="10" fill="#5A3010" font-family="Segoe UI,Arial,sans-serif">C nunca aprueba → ↩ vuelve.</text>
-<text x="870" y="515" font-size="10" fill="#5A3010" font-family="Segoe UI,Arial,sans-serif">A y B aprueban con buen arg.</text>
+<!-- Info total páginas -->
+<rect x="10" y="580" width="155" height="105" rx="8" fill="var(--nav)"/>
+<text x="87" y="600" font-size="10" fill="#B2E8EA" text-anchor="middle">Total de páginas</text>
+<text x="87" y="628" font-size="28" font-weight="700" fill="#fff" text-anchor="middle">21+</text>
+<text x="87" y="648" font-size="8" fill="#B2E8EA" text-anchor="middle">1 Nodo Central</text>
+<text x="87" y="660" font-size="8" fill="#B2E8EA" text-anchor="middle">4×3 = 12 (estaciones)</text>
+<text x="87" y="672" font-size="8" fill="#B2E8EA" text-anchor="middle">3 Antártida</text>
+<text x="87" y="684" font-size="8" fill="#B2E8EA" text-anchor="middle">+ créditos</text>
 
 </svg>
-</div>
+  </div>
 
-<!-- PANEL DE DETALLE -->
-<div id="detail" class="detail-panel">
-  <button class="close-btn" onclick="closeDetail()">✕ Cerrar</button>
-  <h3 id="d-title">—</h3>
-  <div class="detail-meta" id="d-meta"></div>
-  <div class="detail-note" id="d-note"></div>
-  <div class="detail-nav" id="d-nav"></div>
-</div>
+  <!-- PANEL DETALLE DIGITAL -->
+  <div id="digital-detail" class="detail">
+    <button class="close-btn" onclick="closeDigital()">✕</button>
+    <h3 id="dd-title">—</h3>
+    <div class="detail-grid" id="dd-meta"></div>
+    <div class="d-note" id="dd-note"></div>
+  </div>
 
-<!-- NOTAS DEL ESQUEMA -->
-<div class="schema-notes">
-  <h3>Notas de diseño — para tener en cuenta al construir</h3>
-  <ul>
-    <li><strong>N0 no es un menú de disciplinas.</strong> El usuario elige qué investigar primero (carta ONG vs informe Parques) — no sabe que está "eligiendo una materia". La estructura disciplinar es invisible.</li>
-    <li><strong>Las ramas N1-A/B/C (Inglés) y la rama Geo son independientes pero convergen en N2.</strong> Si el usuario tomó la rama Geo correcta (solicitó el informe), también llega al N2. Si tomó la incorrecta, vuelve a GEO-N1.</li>
-    <li><strong>N2 es el punto de convergencia y la llave pedagógica.</strong> El usuario tiene que usar información de AMBAS ramas (el reclamo de la ONG + el impacto territorial) para que el bot apruebe el argumento. Sin cruzar las dos fuentes, el argumento es débil.</li>
-    <li><strong>N2-C (abstención) nunca avanza.</strong> El juego no permite la abstención — el usuario debe tomar postura. Es una decisión pedagógica: "las decisiones en el país nunca son neutrales".</li>
-    <li><strong>La página de Créditos (pág. 16) es accesible desde N4-A y N4-B.</strong> También puede ponerse como botón discreto en N0.</li>
-    <li><strong>Nombres de página sugeridos en Genially</strong> (para que el panel de páginas sea legible): N0-URGENCIA · ING-N1-CARTA · N1-A-SOCIEDAD · N1-B-NOTICIEROS · N1-C-ABSTENCION · GEO-N1-INFORME · GEO-N1-OK · GEO-N1-ERROR · N2-A-DEBATE · N2-B-DEBATE · N2-C-VUELVE · N3-A-CAMPANIA · N3-B-CAMPANIA · N4-A-DESENLACE · N4-B-DESENLACE · CREDITOS.</li>
-  </ul>
-</div>
+  <div class="notes">
+    <h3>Notas de arquitectura digital</h3>
+    <ul>
+      <li><strong>El Nodo Central</strong> es el único Genially compartido por todo el grupo. Lo administra el grupo de Antártida. Los demás grupos tienen su propio Genially vinculado desde los pines del mapa.</li>
+      <li><strong>Cada columna</strong> (Pepito → Actividad → Dígito → Volver) es el Genially de ese grupo. Mínimo 3 páginas por grupo.</li>
+      <li><strong>El dígito</strong> no aparece automáticamente: la coordinadora de cada posta lo revela en voz baja cuando la estudiante completa la actividad. En el Genially puede mostrarse como tooltip o página separada accesible solo después de la actividad.</li>
+      <li><strong>El candado digital</strong> de Antártida se configura desde el Panel de páginas de Genially → ⋯ junto al nombre de la página → "Contraseña". Disponible en plan gratuito.</li>
+      <li><strong>DUA en cada posta:</strong> el audio de Pepito debe tener su transcripción visible (texto debajo del botón de play). Las actividades (Wordwall/Jigsaw/Memotest) deben poder hacerse tocando la pantalla sin necesidad de leer instrucciones complejas.</li>
+    </ul>
+  </div>
+</div><!-- fin panel-digital -->
 
 <script>
-const pages = {
-  n0: {
-    title: 'N0 · La Urgencia en el Congreso — Página 1',
-    content: '🔉 Audio: comunicado de sesión de emergencia.<br>📄 Texto: "Mañana se vota la modificación de la Ley de Glaciares 26.639. El pueblo está en la puerta del Congreso."<br>🖼️ Imagen: foto del Congreso / manifestación exterior.<br>❓ QR opcional: link a video resumen de la ley.',
-    botones: '2 botones: "Leer la carta de Greenpeace Internacional" → ING-N1-CARTA | "Ver el informe de Parques Nacionales" → GEO-N1-INFORME',
-    estado: 'Diseñado · con textos listos · pendiente de construir en Genially'
+function switchTab(id, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('on'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + id).classList.add('on');
+  btn.classList.add('active');
+}
+
+/* FÍSICA */
+const fisicaData = {
+  inicio: {
+    title: 'INICIO · Introducción de Pepito el Albatros',
+    meta: [
+      {k:'Responsable', v:'Docente / coordinadora general'},
+      {k:'Duración estimada', v:'10 minutos antes del juego'},
+    ],
+    note: '📺 Se proyecta el video introductorio de Pepito. El docente presenta la misión: "Pepito perdió algo importante y necesita que lo ayuden a recorrer TDF para encontrarlo." Se reparten los Pasaportes Fueguinos (uno por estudiante o uno por pareja). Se explica que cada posta tiene una actividad digital, y que al completarla recibirán un dígito para anotar en su pasaporte. La consigna de movimiento: pueden ir a cualquiera de las postas 2, 3 o 4 en el orden que quieran.'
   },
-  'ing-n1': {
-    title: 'INGLÉS-N1 · Carta de Greenpeace — Página 2',
-    content: '🔉 Audio: voz de Anna Jones (ElevenLabs, acento inglés). Texto de la carta ya escrito y auditado.<br>📄 Texto: el comunicado formal con citas a la Ley 26.639 y datos de retroceso glaciario.<br>🖼️ Imagen: portada institucional de la ONG (generada con IA).<br>♿ DUA: texto visible debajo del botón de audio.',
-    botones: '3 botones: "Voté en contra de la modificación" → N1-A | "Voté a favor de la modificación" → N1-B | "Me abstuve" → N1-C',
-    estado: 'Audio grabado con ElevenLabs · texto auditado · pendiente de integrar los 3 botones'
+  ushuaia: {
+    title: '🌊 Posta 1 · Ushuaia — LINEAL (entrada obligatoria)',
+    meta: [
+      
+      {k:'Contenido disciplinar', v:'Canal Beagle · fauna marina · ecosistema costero'},
+      {k:'Actividad digital', v:'Wordwall: clasificar fauna del Canal Beagle'},
+    ],
+    note: '📄 Afiche: imagen del Canal Beagle con texto de bienvenida de Pepito. QR impreso en el afiche. Al escanear → abre el Genially de Ushuaia en el celular. 📱 La estudiante completa la actividad digital. ✅ Cuando termina → la coordinadora le dice el dígito en voz baja → lo anota en su Pasaporte. ➡️ De acá puede ir a CUALQUIERA de las postas 2, 3 o 4.'
   },
-  n1a: {
-    title: 'N1-A · Reacción Social: en contra de la modificación — Página 3',
-    content: '🐦 Simulación de tweets y respuestas en redes. La sociedad apoya la postura. Ejemplo: "@SenadoX apoya a los glaciares 🧊 #26639"<br>📰 Titular de diario ficticio positivo.',
-    botones: '1 botón: "Preparar mi discurso para el Senado" → N2-A',
-    estado: 'Pendiente de construir'
+  tolhuin: {
+    title: '🌲 Posta 2 · Tolhuin — NO LINEAL',
+    meta: [
+      {k:'Contenido disciplinar', v:'Lago Fagnano · bosque de lenga · ambiente lacustre'},
+      {k:'Actividad digital', v:'Jigsaw Planet: rompecabezas del Lago Fagnano (9 piezas)'},
+    ],
+    note: '📄 Afiche: imagen del Lago Fagnano con fauna visible (huillín, pato vapor). QR al Genially de Tolhuin. 📱 Rompecabezas de 9 piezas — nivel sala de 5. ✅ Al terminar → dígito → Pasaporte. 🔄 Puede haberse llegado desde Ushuaia, desde Río Grande o desde Malvinas — el orden no importa.'
   },
-  n1b: {
-    title: 'N1-B · Reacción Social: a favor de la modificación — Página 4',
-    content: '📢 Manifestaciones en la calle. Imagen de protesta ambiental.<br>📺 Nota de noticiero ficticio cuestionando la postura minera.<br>💬 Titulares de medios críticos.',
-    botones: '1 botón: "Preparar mi discurso para el Senado" → N2-B',
-    estado: 'Pendiente de construir'
+  riogrande: {
+    title: '💨 Posta 3 · Río Grande — NO LINEAL',
+    meta: [
+      {k:'Contenido disciplinar', v:'Estepa patagónica · fauna terrestre · Reserva Punta Popper'},
+      {k:'Actividad digital', v:'Memotest Rosimosi: pares imagen-nombre de fauna de la estepa'},
+    ],
+    note: '📄 Afiche: imagen de la Reserva Punta Popper con la consigna "¿Qué observan en este paisaje?". El afiche funciona como disparador de observación antes de abrir el digital. 📱 Memotest (rosimosi.com) con fauna: guanaco, ñandú, cauquén, zorro colorado. 8 pares máximo. ✅ Al terminar → dígito → Pasaporte.'
   },
-  n1c: {
-    title: 'N1-C · Abstención — Página 5',
-    content: '📰 Los medios publican: "El bloque [nombre] no define su postura ante la crisis glaciar".<br>⚠️ Mensaje al usuario: "Las decisiones en el país nunca son neutrales. Volvé a intentarlo."',
-    botones: '2 botones: "Votar en contra" → N1-A | "Votar a favor" → N1-B — NO hay botón para seguir en abstención',
-    estado: 'Pendiente de construir'
+  malvinas: {
+    title: '🏝️ Posta 4 · Malvinas — NO LINEAL',
+    meta: [
+      {k:'Contenido disciplinar', v:'Islas Malvinas · soberanía argentina · geografía insular'},
+      {k:'Actividad digital', v:'Wordwall o Jigsaw: mapa de soberanía · asociar nombre-posición'},
+    ],
+    note: '📄 Afiche: mapa de TDF con las Malvinas visibles y leyenda "Las Malvinas son argentinas". Importante: todo el texto del afiche y de Pepito debe afirmar la soberanía argentina con naturalidad, sin carácter polémico — como dato geográfico propio del territorio. ✅ Al terminar → dígito → Pasaporte.'
   },
-  'geo-n1': {
-    title: 'GEO-N1 · Informe de Parques Nacionales — Página 6',
-    content: '🔉 Audio: narrador español (ElevenLabs) describiendo el impacto territorial.<br>🗺️ Mapa de impacto glaciario en la Patagonia (Google Earth o infografía).<br>📄 Texto: el comunicado de Parques Nacionales ya escrito.<br>❓ Decisión: ¿solicitás que el informe se lea ante el pleno antes de votar?',
-    botones: '2 botones: "Solicito que el informe se presente al pleno" (✓ correcta) → GEO-N1-OK | "Votamos ahora, el informe puede esperar" (✗ incorrecta) → GEO-N1-ERROR',
-    estado: 'Borrador incompleto · rama que falta terminar en Clase 9'
+  antartida: {
+    title: '🧊 Posta 5 · Antártida — LINEAL (salida / cofre)',
+    meta: [
+      {k:'Contenido disciplinar', v:'Antártida argentina · base Esperanza · fauna polar'},
+      {k:'Elemento físico', v:'Cofre físico (caja con candado de combinación)'},
+    ],
+    note: '🔐 La estudiante llega a Antártida con los 5 dígitos en su Pasaporte. Primero: ingresa el código en el Genially (candado digital). Si es correcto → accede al cofre virtual. Segundo (opcional): si hay un cofre físico, intenta abrirlo con el mismo código. 🗝️ Dentro del cofre: la Bitácora del Abuelo — relato ilustrado del viaje de un explorador fueguino por los mismos lugares que recorrieron hoy.'
   },
-  'geo-ok': {
-    title: 'GEO-N1 · Decisión correcta — Página 7',
-    content: '✅ "El informe de impacto se presenta ante el pleno. Los senadores tienen información territorial antes de votar."<br>🗺️ Aparece el mapa con los datos de retroceso glaciario de TDF.',
-    botones: '1 botón: "Preparar mi discurso" → N2-A (converge con la rama Inglés)',
-    estado: 'Pendiente de construir'
+  pasaporte: {
+    title: '📋 Pasaporte Fueguino — elemento articulador',
+    meta: [
+      {k:'Formato', v:'Tarjeta A6 impresa (una por estudiante o pareja)'},
+      {k:'Quién lo imprime', v:'El grupo de Antártida / docente'},
+    ],
+    note: '5 casillas vacías (una por ciudad). Al completar la actividad digital de cada posta, la coordinadora del grupo revela el dígito correspondiente y la estudiante lo anota en su casilla. Al tener los 5 dígitos → forman el código de 5 cifras → lo ingresan en el candado digital de Antártida. El Pasaporte Fueguino es el artefacto físico que conecta el recorrido con el cierre. Diseñarlo en Canva: formato A6 con los 5 casillas y el título "Pasaporte Fueguino · TDFeIAS 2026".'
   },
-  'geo-err': {
-    title: 'GEO-N1 · Decisión incorrecta — Página 8',
-    content: '❌ "El voto se realiza sin datos técnicos. Los medios ambientales denuncian la falta de rigor."<br>⚠️ Consecuencia narrativa breve.',
-    botones: '1 botón: "Volver a revisar el informe" → GEO-N1 (retrocede)',
-    estado: 'Pendiente de construir'
-  },
-  n2a: {
-    title: 'N2-A · Debate en el Senado (postura en contra) — Página 9',
-    content: '🔉 Audio del "senador amigo a favor de la minería": "Bro, honestly, all this environmental drama is so exaggerated…" (script ya escrito).<br>🤖 iframe del bot de Chatbase/Fastbots: el usuario escribe su contraargumento.<br>📋 Instrucción visible: "Escribí tu discurso. Leé el veredicto. Tocá el botón que corresponda."',
-    botones: '3 botones estáticos: "Voté A (en contra)" → N3-A | "Voté B (a favor)" → N3-B | "Me abstuve" → N2-C',
-    estado: 'No existe · construir en Clase 9 con Chatbase + 3 botones'
-  },
-  n2b: {
-    title: 'N2-B · Debate en el Senado (postura a favor) — Página 10',
-    content: '🔉 Audio del "senador amigo en contra": "I think we should not support the new Glaciers Law…" (script ya escrito).<br>🤖 Mismo iframe del bot (bot evalúa argumento contrario).<br>El usuario debe convencer al bot de que la modificación es necesaria.',
-    botones: '3 botones estáticos: "Voté A" → N3-A | "Voté B" → N3-B | "Me abstuve" → N2-C',
-    estado: 'No existe · construir en Clase 9'
-  },
-  n2c: {
-    title: 'N2-C · Abstención bloqueante — Página 11',
-    content: '⛔ "No podés abstenerte. El pleno espera tu voto. Las decisiones en el Congreso nunca son neutrales."<br>Reproducen ambos audios (el de la minería y el ambiental).<br>El usuario DEBE elegir.',
-    botones: '2 botones: "Voté en contra" → N2-A | "Voté a favor" → N2-B',
-    estado: 'No existe · construir en Clase 9'
-  },
-  n3a: {
-    title: 'N3-A · Campaña: en contra de la modificación — Página 12',
-    content: '🪧 Plantilla visual de cartel de campaña (azul/verde, colores de glaciares).<br>✏️ El usuario escribe su slogan. Ejemplos: "Los glaciares son de tod@s", "El lore de los glaciares".<br>💬 Tooltip o ventana emergente con el campo de texto.',
-    botones: '1 botón: "Ver el resultado de mi voto" → N4-A',
-    estado: 'No existe · construir en Clase 9'
-  },
-  n3b: {
-    title: 'N3-B · Campaña: a favor de la modificación — Página 13',
-    content: '🪧 Plantilla de cartel de campaña (colores distintos a N3-A, tonos cálidos/industriales).<br>✏️ El usuario escribe su slogan a favor de la reforma.',
-    botones: '1 botón: "Ver el resultado de mi voto" → N4-B',
-    estado: 'No existe · construir en Clase 9'
-  },
-  n4a: {
-    title: 'N4-A · Desenlace: Ley protegida — Página 14',
-    content: '🧊 Imagen: glaciar patagónico en buen estado (Bing Image Creator).<br>📖 Texto: "La modificación fue rechazada. La Ley 26.639 sigue vigente. Los glaciares de TDF continúan siendo patrimonio de la humanidad."<br>📊 Dato real: superficie de glaciares protegidos en TDF (glaciaresargentinos.gob.ar).',
-    botones: '1 botón: "Jugar de nuevo" → N0 | Botón opcional: "Ver créditos" → Créditos',
-    estado: 'No existe · construir en Clase 9'
-  },
-  n4b: {
-    title: 'N4-B · Desenlace: Modificación aprobada — Página 15',
-    content: '⛏️ Imagen: área minera cerca de glaciar (Bing Image Creator, tono dramático).<br>📖 Texto: "La modificación fue aprobada. Las provincias ahora deciden qué glaciares proteger. Los expertos alertan sobre el impacto en las reservas de agua de TDF."<br>⚠️ No es un desenlace "malo" explícito — es una consecuencia con datos reales.',
-    botones: '1 botón: "Jugar de nuevo" → N0 | Botón opcional: "Ver créditos" → Créditos',
-    estado: 'No existe · construir en Clase 9'
-  },
-  cred: {
-    title: 'Créditos y Licencia Creative Commons — Página 16',
-    content: '📋 Listado de todos los recursos usados en formato TASL (Título, Autor, Fuente, Licencia).<br>🤖 Declaración de herramientas IA usadas: ElevenLabs (voces), Bing Image Creator (imágenes), Claude/ChatGPT (textos asistidos).<br>⚖️ Licencia del recurso propio: CC BY-NC-SA 4.0 (ícono generado en chooser-beta.creativecommons.org).',
-    botones: 'Sin botón de navegación — es el final. Opcional: botón "Volver al inicio" → N0',
-    estado: 'Construir en Clase 10 después de la auditoría de derechos'
+  docente: {
+    title: '👤 Rol del docente durante el juego',
+    meta: [
+      {k:'Posición', v:'Circula entre las postas'},
+      {k:'Gestión', v:'Apoya técnicamente — no revela respuestas'},
+    ],
+    note: 'El docente NO gestiona los dígitos — eso lo hacen las coordinadoras de cada posta. El docente: verifica que el juego fluya, apoya si hay problemas técnicos (carga lenta, QR que no escanea), gestiona el tiempo ("en 10 minutos todos empezamos a converger hacia Antártida"), y observa para la evaluación formativa. Si alguna posta está muy congestionada → sugiere moverse a otra.'
   }
 };
 
-function showDetail(id) {
-  const p = pages[id];
-  if (!p) return;
-  const panel = document.getElementById('detail');
-  document.getElementById('d-title').innerHTML = p.title;
-  document.getElementById('d-meta').innerHTML = `
-    <div class="meta-item"><strong>Estado</strong><span>${p.estado}</span></div>
-    <div class="meta-item"><strong>Navegación saliente</strong><span>${p.botones}</span></div>`;
-  document.getElementById('d-note').innerHTML = p.content;
+function showFisica(id) {
+  const d = fisicaData[id];
+  if (!d) return;
+  document.getElementById('fd-title').innerText = d.title;
+  document.getElementById('fd-meta').innerHTML = d.meta.map(m =>
+    `<div class="d-item"><strong>${m.k}</strong><span>${m.v}</span></div>`).join('');
+  document.getElementById('fd-note').innerHTML = d.note;
+  const panel = document.getElementById('fisica-detail');
   panel.classList.add('on');
   panel.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
-function closeDetail() {
-  document.getElementById('detail').classList.remove('on');
+function closeFisica() { document.getElementById('fisica-detail').classList.remove('on'); }
+
+/* DIGITAL */
+const digitalData = {
+  nodo: {
+    title: '🗺️ Nodo Central · Mapa de TDF con 5 pines',
+    meta: [
+      {k:'Responsable', v:'El grupo que administra el Genially compartido'},
+      {k:'Elementos', v:'Imagen de mapa TDF + 5 pines interactivos + pin Antártida (visual)'},
+    ],
+    note: 'El pin de cada ciudad se vincula a la primera página del Genially de ese grupo. El pin de Antártida es solo visual — no lleva a ningún lado al hacer clic. El acceso al cofre se hace ingresando el código directamente en la página de Antártida. El mapa debe estar en alta resolución y los pines deben ser lo suficientemente grandes para tocarse fácilmente en celular (mínimo 44x44px área interactiva).'
+  },
+  'ush-pepito': {
+    title: '🪶 Audio de Pepito · Ushuaia',
+    meta: [{k:'Herramienta', v:'ElevenLabs — voz argentina, tono amigable para infantes'}, {k:'DUA', v:'Transcripción visible debajo del botón de play'}],
+    note: 'El audio de Pepito es la bienvenida a la posta. Máximo 20 segundos. Pepito dice el nombre del lugar, algo curioso sobre él, y la consigna de la actividad. Ejemplo: "¡Hola! Soy Pepito y estoy en Ushuaia, mirando el Canal Beagle desde las alturas. ¿Me ayudás a encontrar qué animales viven acá?" La transcripción del audio debe ser visible sin necesidad de interacción (no dentro de un tooltip).'
+  },
+  'ush-act1': {
+    title: '🌊 Actividad · Ushuaia — Wordwall clasificación',
+    meta: [{k:'Herramienta', v:'Wordwall — Clasificación o Asociación'}, {k:'Contenido', v:'Fauna del Canal Beagle: peces, aves marinas, mamíferos marinos'}, {k:'Embed', v:'iframe en Genially (Insertar → Interactivo → Contenido externo)'}],
+    note: 'La actividad debe funcionar tocando la pantalla, sin necesidad de leer instrucciones largas. Las imágenes de fauna deben ser reconocibles (no fotos de baja resolución). Si el iframe no carga en el celular → botón "▶ Jugar" que abre en pestaña nueva. La actividad no requiere cuenta de usuario para jugar.'
+  },
+  'ush-digito': {
+    title: '🔑 Dígito de Ushuaia',
+    meta: [{k:'Quién lo revela', v:'Coordinadora del grupo Ushuaia '}, {k:'Cuándo', v:'Solo cuando la actividad digital fue completada correctamente'}],
+    note: 'El dígito puede mostrarse en Genially como una página final de la posta (solo visible si completaron la actividad), o la coordinadora simplemente lo dice en voz baja. Si se muestra en Genially: crear una página "¡Encontraste el dígito de Ushuaia! Es el [N]. Anotalo en tu Pasaporte." con un botón ← Volver al Mapa.'
+  },
+  'tol-pepito': { title: '🪶 Audio de Pepito · Tolhuin', meta: [{k:'Herramienta', v:'ElevenLabs'}, {k:'Contenido', v:'Lago Fagnano, lenga, ambiente de bosque lacustre'}], note: 'Pepito menciona el Lago Fagnano y el bosque de lenga. Consigna: "¿Podés armar el rompecabezas del lago para ayudarme a recordar cómo es?"' },
+  'tol-act1': { title: '🌲 Actividad · Tolhuin — Jigsaw Planet', meta: [{k:'Herramienta', v:'Jigsaw Planet — 9 piezas'}, {k:'Imagen', v:'Lago Fagnano con fauna visible (huillín, pato vapor)'}], note: 'Subir imagen del Lago Fagnano a Jigsaw Planet → configurar 9 piezas → publicar → copiar link embed → pegar en Genially. 9 piezas es el nivel adecuado para sala de 5. Verificar que funcione en celular.' },
+  'tol-digito': { title: '🔑 Dígito de Tolhuin', meta: [{k:'Coordinadora', v:'Posta Tolhuin'}], note: 'Mismo protocolo que Ushuaia. Al completar el rompecabezas → dígito → anotar en Pasaporte → Volver al Mapa.' },
+  'rga-pepito': { title: '🪶 Audio de Pepito · Río Grande', meta: [{k:'Herramienta', v:'ElevenLabs'}, {k:'Contenido', v:'Estepa patagónica, viento, animales de la llanura'}], note: 'Pepito menciona el viento característico de Río Grande y los animales de la estepa. Consigna: "¡El viento de Río Grande me revolvió las fotos de los animales! ¿Podés ayudarme a emparejarlas?" (introduce el memotest).' },
+  'rga-act1': { title: '💨 Actividad · Río Grande — Memotest Rosimosi', meta: [{k:'Herramienta', v:'rosimosi.com — pklg-memory'}, {k:'Contenido', v:'Guanaco, ñandú, cauquén, zorro colorado — 8 pares máximo'}], note: 'Usar rosimosi.com o Educaplay Memotest. El link del juego se pega como botón externo o iframe en Genially. Máximo 8 pares para que la actividad no tarde más de 3-4 minutos. Las imágenes deben ser reconocibles y relacionadas con la estepa fueguina, no la estepa genérica.' },
+  'rga-digito': { title: '🔑 Dígito de Río Grande', meta: [{k:'Coordinadora', v:'Posta Río Grande'}], note: 'Al completar el memotest → dígito → anotar en Pasaporte → Volver al Mapa.' },
+  'mal-pepito': { title: '🪶 Audio de Pepito · Malvinas', meta: [{k:'Herramienta', v:'ElevenLabs'}, {k:'Contenido', v:'Islas Malvinas · soberanía argentina · fauna de aves marinas'}], note: 'IMPORTANTE: el texto de Pepito debe afirmar con naturalidad que las Malvinas son parte del territorio argentino. Sin tono polémico, como dato geográfico: "Estoy en las Islas Malvinas, que son parte de nuestra provincia de TDF. ¿Sabías que acá viven miles de pingüinos?" La soberanía se enseña desde la geografía, no desde el conflicto.' },
+  'mal-act1': { title: '🏝️ Actividad · Malvinas — Mapa de soberanía', meta: [{k:'Herramienta', v:'Wordwall o Jigsaw'}, {k:'Contenido', v:'Ubicar las islas en el mapa de TDF / asociar nombre con posición'}], note: 'La actividad debe mostrar el mapa de la provincia de TDF completo (incluyendo Malvinas y Antártida). Los estudiantes asocian el nombre de cada isla con su posición en el mapa. El mapa utilizado debe corresponder al mapa oficial argentino que incluye los territorios insulares.' },
+  'mal-digito': { title: '🔑 Dígito de Malvinas', meta: [{k:'Coordinadora', v:'Posta Malvinas'}], note: 'Al completar la actividad → dígito → Pasaporte → Volver al Mapa → converger hacia Antártida.' },
+  'ant-pin': { title: '🧊 Pin de Antártida en el Nodo Central', meta: [{k:'Tipo', v:'Solo visual — no interactivo'}, {k:'Por qué', v:'El acceso al cofre requiere el código completo, no un clic'}], note: 'El pin de Antártida aparece en el mapa pero no lleva a ninguna página al hacer clic. Su presencia visual indica que ahí está el destino final. La estudiante llega a Antártida yendo físicamente a esa posta y usando su Pasaporte para ingresar el código en el candado digital.' },
+  candado: {
+    title: '🔐 Candado Digital · Antártida',
+    meta: [{k:'Cómo configurarlo', v:'Panel de páginas → ⋯ junto al nombre de la página → Contraseña'}, {k:'Quién lo configura', v:'André'}, {k:'Plan Genially', v:'Disponible en plan gratuito'}],
+    note: 'La página del cofre tiene una contraseña de 5 dígitos (uno por ciudad). El estudiante ingresa los dígitos que anotó en su Pasaporte. Si son correctos → accede al cofre. Si no → mensaje "Revisá tu Pasaporte — algún dígito no es correcto" con botón para volver a intentar. VERIFICAR antes del juego que el candado funciona en modo vista previa desde un celular que no esté logueado en Genially.'
+  },
+  cofre: {
+    title: '🗝️ Cofre Digital Abierto · Bitácora del Abuelo',
+    meta: [{k:'Contenido', v:'Relato del abuelo recorriendo TDF + imágenes de cada lugar'}, {k:'Botón final', v:'"Jugar de nuevo" → Nodo Central'}],
+    note: 'La Bitácora del Abuelo es el cierre narrativo: un relato en primera persona de un explorador fueguino que visitó los mismos lugares que recorrieron los estudiantes. Cada lugar tiene un párrafo + imagen generada con IA (o foto CC de Wikimedia). El relato usa vocabulario accesible para sala de 5. Al finalizar: botón "Jugar de nuevo" que vuelve al Nodo Central. Esta página también puede tener el audio de Pepito diciendo un mensaje de cierre y agradecimiento.'
+  }
+};
+
+function showDigital(id) {
+  const d = digitalData[id];
+  if (!d) return;
+  document.getElementById('dd-title').innerText = d.title;
+  document.getElementById('dd-meta').innerHTML = d.meta.map(m =>
+    `<div class="d-item"><strong>${m.k}</strong><span>${m.v}</span></div>`).join('');
+  document.getElementById('dd-note').innerHTML = d.note;
+  const panel = document.getElementById('digital-detail');
+  panel.classList.add('on');
+  panel.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
+function closeDigital() { document.getElementById('digital-detail').classList.remove('on'); }
 </script>
 </body>
 </html>
