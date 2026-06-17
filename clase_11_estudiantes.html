@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clase 10 · Curaduría, Derechos y Licencias</title>
+<title>Clase 11 · Producción TFI: Cierre de contenidos</title>
 <style>
   :root{--nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;--grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;--vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFF;--red:#C0392B;--rcl:#FDEDEC;--vie:#7B3F9E;--vie-cl:#F0E8F7;--r:8px;--sh:0 2px 8px rgba(0,0,0,.09)}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -83,6 +83,11 @@
   table th{background:var(--nav);color:#fff;padding:8px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
   table td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
   table tr:hover td{background:var(--gris)}
+  .nodo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0}
+  .nodo-card{background:var(--bco);border-radius:var(--r);padding:12px;font-size:13px;border-left:4px solid var(--bd)}
+  .nodo-ok{border-left-color:var(--grn)}
+  .nodo-pend{border-left-color:var(--amb)}
+  .nodo-vacio{border-left-color:var(--red)}
 </style>
 </head>
 <body>
@@ -96,7 +101,7 @@
 
 <div id="welcome-screen">
   <h2>Seleccioná tu turno de cursada</h2>
-  <p>Clase 10 · Curaduría, Derechos y Licencias Creative Commons</p>
+  <p>Clase 11 · Producción TFI · Cierre de contenidos</p>
   <div class="career-grid">
     <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px;font-weight:400;">(Proyecto Glaciares)</span></button>
     <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px;font-weight:400;">(Proyecto Senderismo)</span></button>
@@ -106,7 +111,7 @@
 
 <div id="main-app">
   <div class="titulo">
-    <p>Semana 10 · Producción TFI · Cierre de contenidos</p>
+    <p>Semana 11 · Producción TFI · Cierre de contenidos</p>
     <h2>Completar el recurso: <span>video, navegación y créditos</span></h2>
   </div>
   <div class="tab-bar">
@@ -123,7 +128,7 @@
 
 <div id="pane-partida" class="pane on">
   <div class="card" style="border-top:4px solid var(--teal);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Semana 10 · Miércoles — Completar N4, video de cierre y navegación</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Semana 11 · Miércoles — Completar N4, video de cierre y navegación</div>
     <div class="cb">
       <div class="alerta-info" style="margin-bottom:14px;font-size:13px;">
         Este análisis se basa en las capturas del Genially y el documento actualizado del proyecto (17 de junio).
@@ -220,7 +225,7 @@
 
       <div class="paso">
         <span class="paso-num">Cierre — AVT</span>
-        <p style="font-size:14px;color:var(--txt);">Subir el link actualizado + bitácora. La Clase 11 (24 de junio) es la última de producción: testeo cruzado, corrección de bugs y cierre. El 1 de julio exponen.</p>
+        <p style="font-size:14px;color:var(--txt);">Subir el link actualizado + bitácora. La Clase 12 (24 de junio) es la última de producción: testeo cruzado, corrección de bugs y cierre. El 1 de julio exponen.</p>
       </div>
 
     </div>
@@ -321,12 +326,12 @@
 
 <div id="pane-bitacora" class="pane">
   <div class="card" style="border-top:4px solid var(--nav);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Miércoles · Semana 10</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Miércoles · Semana 11</div>
     <div class="cb">
       <p style="font-size:14.5px;margin-bottom:16px;">Agregar al Google Doc de bitácora.</p>
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar sección al portapapeles</button>
       <div id="doc-template-content" class="doc-template">
-        <h1>Avance TFI — Semana 10</h1>
+        <h1>Avance TFI — Semana 11</h1>
         <p style="text-align:center;font-size:12px;color:#666;">Proyecto Glaciares / Senado</p>
         <h2>Video de cierre (N4)</h2>
         <p><strong>Video N4-A (ley protegida) producido:</strong> <span class="fill-blank">[Sí / En proceso]</span></p>
@@ -343,8 +348,8 @@
         <p><strong>Link del Genially actualizado:</strong> <span class="fill-blank">[Link]</span></p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; AVT antes de Clase 11 (24 de junio)</strong>
-        Bitácora + link actualizado. La Clase 11 es la última de producción: testeo cruzado, corrección de bugs finales y cierre del borrador. El 1 de julio exponen.
+        <strong>&#128197; AVT antes de Clase 12 (24 de junio)</strong>
+        Bitácora + link actualizado. La Clase 12 es la última de producción: testeo cruzado, corrección de bugs finales y cierre del borrador. El 1 de julio exponen.
       </div>
     </div>
   </div>
@@ -412,7 +417,7 @@
           <p style="font-size:13.5px;color:var(--txt);">Un QR en el desenlace que abra el track real de Wikiloc del Valle de Andorra: "¿Querés hacer este sendero de verdad? Escaneá." Convierte la ficción interactiva en una invitación a la experiencia territorial real — el cierre perfecto para un recurso de senderismo. Generar en qrcode-monkey.com → insertar como imagen en Genially.</p>
         </div>
 
-        <div class="alerta-info" style="margin-top:10px;">Estas mejoras son opcionales para hoy pero suman mucho a la defensa: muestran integración multimedial completa (texto + audio + video + RA). Si no llegan hoy, pueden hacerse en la Clase 11 si el testeo cruzado sale limpio.</div>
+        <div class="alerta-info" style="margin-top:10px;">Estas mejoras son opcionales para hoy pero suman mucho a la defensa: muestran integración multimedial completa (texto + audio + video + RA). Si no llegan hoy, pueden hacerse en la Clase 12 si el testeo cruzado sale limpio.</div>
       </div>
 
     </div>
@@ -466,13 +471,13 @@
 
 <div id="pane-bitacora-jueves" class="pane">
   <div class="card" style="border-top:4px solid var(--nav);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Jueves · Clase 10 + Hito 1</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Jueves · Clase 11 + Hito 1</div>
     <div class="cb">
       <p style="font-size:14px;margin-bottom:14px;">Misma plantilla que Miércoles con los datos del Proyecto Senderismo.</p>
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar plantilla al portapapeles</button>
       <div id="doc-template-content-jueves" class="doc-template">
         <h1>TFI — Hito 1: Anteproyecto (Senderismo)</h1>
-        <p style="text-align:center;font-size:12px;color:#666;">Entregar al AVT antes de Clase 11</p>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar al AVT antes de Clase 12</p>
         <h2>Identificación</h2>
         <p><strong>Título:</strong> <span class="fill-blank">[Nombre del recurso]</span></p>
         <p><strong>Autoras:</strong> <span class="fill-blank">[Nombres y profesorados]</span></p>
@@ -489,8 +494,8 @@
         <p><strong>Link del Genially:</strong> <span class="fill-blank">[Link público]</span></p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; AVT antes de Clase 11</strong>
-        Anteproyecto completo + link del Genially con página de créditos. La Clase 11 es testeo cruzado entre grupos — llegar con el recurso navegable de principio a fin.
+        <strong>&#128197; AVT antes de Clase 12</strong>
+        Anteproyecto completo + link del Genially con página de créditos. La Clase 12 es testeo cruzado entre grupos — llegar con el recurso navegable de principio a fin.
       </div>
     </div>
   </div>
@@ -504,12 +509,12 @@
 
 <div id="pane-partida-viernes" class="pane on">
   <div class="card" style="border-top:4px solid var(--vie);">
-    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Clase 10 · Viernes — Video de Pepito + QR en afiches (RA básica)</div>
+    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Clase 8 · Viernes — Video de Pepito + QR en afiches (RA básica)</div>
     <div class="cb">
       <div class="alerta-info" style="margin-bottom:14px;">Este análisis se basa en el trabajo en clases y los documentos compartidos. Puede no reflejar avances realizados fuera de ese registro.</div>
 
       <div class="nodo-grid">
-        <div class="nodo-card nodo-pend"><strong>Actividades digitales →</strong>Deberían estar construidas e integradas desde Clase 9. Verificar al inicio: link funcionando en celular ajeno.</div>
+        <div class="nodo-card nodo-pend"><strong>Actividades digitales →</strong>Deberían estar construidas e integradas desde Clase 7. Verificar al inicio: link funcionando en celular ajeno.</div>
         <div class="nodo-card nodo-vacio"><strong>Video de Pepito ✗</strong>El documento del proyecto pide un video de apertura donde Pepito aparece, dice su nombre y se presenta. No existe todavía.</div>
         <div class="nodo-card nodo-vacio"><strong>QR en afiches ✗</strong>Los afiches físicos de cada posta necesitan el QR que abre su Genially. Sin él, el juego físico no puede empezar.</div>
         <div class="nodo-card nodo-pend"><strong>Planificación física →</strong>¿Qué va en cada posta el día del juego? Definirlo hoy para saber qué imprimir.</div>
@@ -722,12 +727,12 @@ Antártida: "¡Llegaste al cofre! Si tenés las 5 llaves, el tesoro del abuelo e
 
 <div id="pane-bitacora-viernes" class="pane">
   <div class="card" style="border-top:4px solid var(--nav);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Clase 10</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Clase 8</div>
     <div class="cb">
       <p style="font-size:14.5px;margin-bottom:16px;">Completar en el Google Doc compartido. Una sección por grupo.</p>
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar plantilla al portapapeles</button>
       <div id="doc-template-content-viernes" class="doc-template">
-        <h1>Avance TFI — Semana 10 (Escape Room TDFeIAS)</h1>
+        <h1>Avance TFI — Semana 11 (Escape Room TDFeIAS)</h1>
         <p style="text-align:center;font-size:12px;color:#666;">Cada grupo completa su sección</p>
         <h2>Video de Pepito</h2>
         <p><strong>Video de apertura general producido:</strong> <span class="fill-blank">[Sí / No — pendiente]</span></p>
@@ -746,8 +751,8 @@ Antártida: "¡Llegaste al cofre! Si tenés las 5 llaves, el tesoro del abuelo e
         <p><strong>Materiales a imprimir antes de Clase 12:</strong> <span class="fill-blank">[Listar: afiche, tarjetas, Pasaporte Fueguino, etc.]</span></p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; AVT antes de Clase 11</strong>
-        Esta bitácora + link del Genially con video integrado + QR verificado. Clase 11: curaduría de derechos CC y REA. Identificar el origen de cada imagen, audio y video para verificar sus licencias.
+        <strong>&#128197; AVT antes de Clase 9</strong>
+        Esta bitácora + link del Genially con video integrado + QR verificado. Clase 9: curaduría de derechos CC y REA. Identificar el origen de cada imagen, audio y video para verificar sus licencias.
       </div>
     </div>
   </div>
