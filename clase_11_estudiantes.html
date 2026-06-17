@@ -8,7 +8,6 @@
   :root{--nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;--grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;--vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFF;--red:#C0392B;--rcl:#FDEDEC;--vie:#7B3F9E;--vie-cl:#F0E8F7;--r:8px;--sh:0 2px 8px rgba(0,0,0,.09)}
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
-  
   .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
   .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
   .top-r{display:flex;align-items:center;font-size:11px;opacity:.65}
@@ -16,14 +15,12 @@
   .btn-back{background:rgba(255,255,255,.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3)}
   .btn-reset{display:none;color:var(--cl);margin-right:12px;cursor:pointer;background:none;border:none;border-bottom:1px dotted var(--cl);font-size:11px}
   body.day-selected .btn-reset{display:inline-block}
-  
   #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
   #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
   #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
   .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all .2s;min-width:220px}
   .btn-career:hover{background:var(--teal);color:#fff;transform:translateY(-3px)}
   .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;max-width:900px;width:100%}
-  
   #main-app{display:none}
   body.day-selected #welcome-screen{display:none}
   body.day-selected #main-app{display:block}
@@ -31,7 +28,6 @@
   body.show-miercoles .c-miercoles{display:block}
   body.show-jueves .c-jueves{display:block}
   body.show-viernes .c-viernes{display:block}
-  
   .titulo{background:var(--nav);padding:15px 24px 20px}
   .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
   .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
@@ -41,7 +37,6 @@
   .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
   .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
   .pane{display:none}.pane.on{display:block}
-  
   .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
   .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.5px;color:var(--nav)}
   .cb{padding:18px 25px}
@@ -50,7 +45,6 @@
   .paso h4{font-size:16px;font-weight:700;color:var(--neg);margin-bottom:8px}
   .paso p,.paso li{font-size:14px;color:var(--txt);line-height:1.6}
   .paso ul,.paso ol{margin-left:20px;margin-top:8px}.paso li{margin-bottom:5px}
-  
   .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-bottom:20px}
   .tool-cat-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:20px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--bd)}
   .tool-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px}
@@ -66,10 +60,10 @@
   .guia-content h5{font-size:14px;color:var(--nav);margin:12px 0 5px;font-weight:700}
   .guia-content ul,.guia-content ol{margin-left:18px;margin-bottom:8px}
   .guia-content li{margin-bottom:5px}
-  
   .alerta-info{background:var(--pale);border-left:4px solid var(--teal);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--nav)}
   .alerta-warn{background:var(--acl);border-left:4px solid var(--amb);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--amb)}
   .alerta-ok{background:var(--gcl);border-left:4px solid var(--grn);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--grn)}
+  .alerta-dua{background:var(--vie-cl);border-left:4px solid var(--vie);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--vie)}
   .checklist{list-style:none;padding:0}
   .checklist li{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13.5px;color:var(--txt)}
   .checklist li:last-child{border:none}
@@ -82,7 +76,6 @@
   .btn-copy:hover{background:var(--teal)}
   .avt-box{background:var(--nav);color:#fff;border-radius:var(--r);padding:14px 18px;margin-top:14px;font-size:14px}
   .avt-box strong{display:block;color:var(--cl);margin-bottom:5px;font-size:15px}
-  
   table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:14px}
   table th{background:var(--nav);color:#fff;padding:8px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
   table td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
@@ -156,7 +149,7 @@
       <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
         <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">Prioridades de hoy — en este orden</strong>
         <ol style="margin-left:18px;font-size:14px;opacity:.9;line-height:1.9;">
-          <li><strong>N4: producir e integrar el video de cierre</strong> — el script ya está escrito (estilo hopecore, 1 minuto). Hoy se produce en Canva y se integra en Genially.</li>
+          <li><strong>N4: revisar estética del video e integrarlo</strong> — los videos preliminares ya están. Hoy se revisa identidad visual, se agregan subtítulos y se integra en Genially.</li>
           <li><strong>Navegación completa:</strong> verificar que cada camino (A, B, C, Geo) llega al desenlace correcto sin botones rotos.</li>
           <li><strong>Limpiar notas de editor</strong> — la página de Rama Geografía tiene texto flotante "AVANCE TFI · JUEVES · CLASE 9..." que hay que borrar.</li>
           <li><strong>Página de créditos:</strong> autoría, licencias CC de las imágenes, declaración de IA (Fastbots, ElevenLabs).</li>
@@ -184,21 +177,19 @@
       </div>
 
       <div class="paso" style="border-left-color:var(--vio);">
-        <span class="paso-num" style="background:var(--vio);">La mayor parte de la clase — Producir e integrar el video N4</span>
-        <h4>El script ya existe. Hoy se produce y se sube.</h4>
+        <span class="paso-num" style="background:var(--vio);">La mayor parte de la clase — Revisar estética del video e integrarlo (N4)</span>
+        <h4>Los videos preliminares ya existen. Hoy se pulen y se suben.</h4>
 
-        <p style="font-size:14px;color:var(--txt);margin-bottom:12px;">El documento tiene el guión completo del video "Glaciers Are Safe" (versión hopecore, ~1 minuto). También hay un link de Canva. Hoy se termina de producir y se integra en el Genially como página N4.</p>
+        <p style="font-size:14px;color:var(--txt);margin-bottom:12px;">Los videos preliminares están producidos a partir del script "Glaciers Are Safe" (versión hopecore, ~1 minuto). Lo que queda hoy: revisar la estética e identidad visual para que el video sea coherente con el resto del recurso, agregar subtítulos e integrarlo como página N4.</p>
 
         <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px 18px;margin-bottom:12px;">
-          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Paso a paso — video en Canva</strong>
-          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
-            <li>Abrir el proyecto de Canva del video (el link ya existe en el documento).</li>
-            <li>Verificar que las imágenes, los textos en pantalla y el audio están sincronizados.</li>
-            <li>Agregar subtítulos visibles en cada escena — texto del voiceover en pantalla (DUA).</li>
-            <li>Descargar como MP4.</li>
-            <li>Subir a Google Drive → "Compartir con cualquiera con el enlace".</li>
-            <li>En Genially, página N4: Insertar → Multimedia → Video → pegar el link de Drive (o subir a YouTube No Listado si Drive no carga en celular).</li>
-          </ol>
+          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Qué revisar de la estética e identidad visual</strong>
+          <ul style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li>¿La tipografía de los textos en pantalla coincide con la del resto del Genially?</li>
+            <li>¿La paleta de colores (azules de glaciar, blancos) es coherente con la identidad del recurso?</li>
+            <li>¿El ritmo es adecuado? Para un cierre emotivo, las transiciones lentas funcionan mejor.</li>
+            <li>¿Los subtítulos están presentes y son legibles? El voiceover está en inglés — subtítulos obligatorios.</li>
+          </ul>
         </div>
 
         <div class="alerta-info">
@@ -247,7 +238,7 @@
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--grn);">
           <h4>Canva — Video ⭐</h4>
-          <p>El proyecto de Canva ya existe (link en el documento). Abrir → verificar sincronización → agregar subtítulos como texto en pantalla → descargar MP4.</p>
+          <p>El proyecto de Canva ya existe (link en el documento). Abrir → revisar estética e identidad → verificar sincronización → agregar subtítulos como texto en pantalla → descargar MP4.</p>
           <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Canva</a>
         </div>
         <div class="tool-card" style="border-left:4px solid var(--vio);">
@@ -340,7 +331,7 @@
         <h1>Avance TFI — Semana 11</h1>
         <p style="text-align:center;font-size:12px;color:#666;">Proyecto Glaciares / Senado</p>
         <h2>Video de cierre (N4)</h2>
-        <p><strong>Video N4-A (ley protegida) producido:</strong> <span class="fill-blank">[Sí / En proceso]</span></p>
+        <p><strong>Video N4-A (ley protegida) revisado e integrado:</strong> <span class="fill-blank">[Sí / En proceso]</span></p>
         <p><strong>¿Tiene subtítulos visibles?</strong> <span class="fill-blank">[Sí / No]</span></p>
         <p><strong>Link del video:</strong> <span class="fill-blank">[Drive o YouTube]</span></p>
         <p><strong>N4-B (ley modificada):</strong> <span class="fill-blank">[Video / Página estática con imagen y texto]</span></p>
@@ -522,7 +513,7 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
       </div>
       <div class="avt-box">
         <strong>&#128197; AVT antes de Clase 12</strong>
-        Bitácora completada + link del Genially testeado. La Clase 12 es el testeo cruzado final antes de exponer.
+        Bitácora completada + link del Genially testeado. La Clase 12 (25 de junio) es el testeo cruzado final antes de exponer el 1 de julio.
       </div>
     </div>
   </div>
@@ -535,15 +526,19 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
 
 <div id="pane-partida-viernes" class="pane on">
   <div class="card" style="border-top:4px solid var(--vie);">
-    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Semana 11 · Viernes — Clase 8 (PEI) · Video Pepito y Estaciones</div>
+    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Semana 11 · Viernes — Video Pepito y Estaciones</div>
     <div class="cb">
-      <div class="alerta-info" style="margin-bottom:14px;">Este análisis se basa en el trabajo en clases y los documentos compartidos del Mega-Proyecto Escape Room.</div>
+      <div class="alerta-info" style="margin-bottom:14px;">Este análisis se basa en el trabajo en clases y los documentos compartidos del Escape Room TDFeIAS.</div>
 
       <div class="nodo-grid">
         <div class="nodo-card nodo-pend"><strong>Actividades digitales →</strong>Deberían estar construidas e integradas. Verificar al inicio: link funcionando en celular ajeno.</div>
         <div class="nodo-card nodo-vacio"><strong>Video de Pepito ✗</strong>El documento del proyecto pide un video de apertura donde Pepito aparece, dice su nombre y se presenta. No existe todavía.</div>
         <div class="nodo-card nodo-vacio"><strong>QR en afiches ✗</strong>Los afiches físicos de cada posta necesitan el QR que abre su Genially. Sin él, el juego físico no puede empezar.</div>
         <div class="nodo-card nodo-pend"><strong>Planificación física →</strong>¿Qué va en cada posta el día del juego? Definirlo hoy para saber qué imprimir.</div>
+      </div>
+
+      <div class="alerta-info" style="margin-bottom:14px;">
+        <strong>Calendario del Viernes:</strong> Esta clase + la del 26 de junio para cerrar todo al 100%. El 3 de julio es la última clase: defensa y presentación del juego, sin producción.
       </div>
 
       <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
@@ -562,7 +557,7 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
 
 <div id="pane-plan-viernes" class="pane">
   <div class="card">
-    <div class="ch">Plan de clase · Viernes (Clase 8 PEI)</div>
+    <div class="ch">Plan de clase · Viernes</div>
     <div class="cb">
 
       <div class="paso" style="border-left-color:var(--amb);">
@@ -619,7 +614,7 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
       <div class="paso">
         <span class="paso-num">Planificación física de postas</span>
         <h4>Definir qué va en cada posta el día del juego</h4>
-        <p style="font-size:14px;color:var(--txt);margin-bottom:10px;">Cada posta necesita: 1 afiche (A3 o A4) con QR, 1 dispositivo (tablet/celular), y 1 objeto físico representativo. Definirlo hoy para saber qué imprimir antes de la Clase 9.</p>
+        <p style="font-size:14px;color:var(--txt);margin-bottom:10px;">Cada posta necesita: 1 afiche (A3 o A4) con QR, 1 dispositivo (tablet/celular), y 1 objeto físico representativo. Definirlo hoy para saber qué imprimir antes de la última clase de producción (26 de junio).</p>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
           <div style="background:var(--gcl);border-left:3px solid var(--grn);border-radius:var(--r);padding:12px;">
@@ -712,12 +707,12 @@ Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para enc
 
 <div id="pane-bitacora-viernes" class="pane">
   <div class="card" style="border-top:4px solid var(--nav);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Clase 8</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Viernes · Semana 11</div>
     <div class="cb">
       <p style="font-size:14.5px;margin-bottom:16px;">Completar en el Google Doc compartido. Una sección por grupo.</p>
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar plantilla al portapapeles</button>
       <div id="doc-template-content-viernes" class="doc-template">
-        <h1>Avance TFI — Clase 8 (Escape Room TDFeIAS)</h1>
+        <h1>Avance TFI — Semana 11 (Escape Room TDFeIAS)</h1>
         <p style="text-align:center;font-size:12px;color:#666;">Cada grupo completa su sección</p>
         <h2>Video de Pepito</h2>
         <p><strong>Video de apertura general producido:</strong> <span class="fill-blank">[Sí / No — pendiente]</span></p>
@@ -731,11 +726,11 @@ Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para enc
         <p><strong>Afiche diseñado en Canva:</strong> <span class="fill-blank">[Sí / No / Pendiente de imprimir]</span></p>
         <h2>Planificación física de la posta</h2>
         <p><strong>Objeto físico elegido para la ambientación:</strong> <span class="fill-blank">[Describir]</span></p>
-        <p><strong>Materiales a imprimir antes de Clase 9:</strong> <span class="fill-blank">[Listar: afiche, tarjetas, Pasaporte Fueguino, etc.]</span></p>
+        <p><strong>Materiales a imprimir antes del 26 de junio:</strong> <span class="fill-blank">[Listar: afiche, tarjetas, Pasaporte Fueguino, etc.]</span></p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; AVT antes de Clase 9</strong>
-        Esta bitácora + link del Genially con video integrado + QR verificado.
+        <strong>&#128197; AVT antes de Clase 12 (26 de junio)</strong>
+        Esta bitácora + link del Genially con video integrado + QR verificado. El 26 de junio se cierra todo al 100%; el 3 de julio es la defensa.
       </div>
     </div>
   </div>
@@ -748,19 +743,12 @@ Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para enc
 
 <script>
   function selectCareer(careerCode, careerName) {
-    // 1. Ocultar bienvenida y preparar contenedor
     document.body.className = '';
     document.body.classList.add('show-' + careerCode, 'day-selected');
-    
-    // 2. Actualizar el título de la materia en el header
     const lblCareer = document.getElementById('lbl-career');
     if (lblCareer) lblCareer.innerText = careerName;
-    
-    // 3. Reiniciar pestañas y paneles
     document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
     document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
-    
-    // 4. Forzar apertura de la pestaña "Consigna" por defecto
     const firstTabBtn = document.querySelector('.tab-btn');
     if (firstTabBtn) {
       showTab('partida', firstTabBtn);
@@ -774,22 +762,15 @@ Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para enc
   }
 
   function showTab(tabId, btnElement) {
-    // 1. Limpiar estados activos
     document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    
-    // 2. Identificar el contexto actual (qué día está activo)
     let daySuffix = '';
     if (document.body.classList.contains('show-jueves')) daySuffix = '-jueves';
     else if (document.body.classList.contains('show-viernes')) daySuffix = '-viernes';
-    
-    // 3. Buscar el panel. Intenta primero con sufijo, si no, usa el genérico
     let targetPane = document.getElementById('pane-' + tabId + daySuffix);
     if (!targetPane) {
       targetPane = document.getElementById('pane-' + tabId);
     }
-    
-    // 4. Mostrar panel y resaltar botón
     if (targetPane) targetPane.classList.add('on');
     if (btnElement) btnElement.classList.add('active');
   }
@@ -797,19 +778,15 @@ Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para enc
   function copyBitacora() {
     const visiblePane = document.querySelector('.pane.on');
     if (!visiblePane) return;
-    
     const docTemplate = visiblePane.querySelector('.doc-template');
     if (!docTemplate) return;
-    
     navigator.clipboard.writeText(docTemplate.innerText)
       .then(() => {
         const btn = visiblePane.querySelector('.btn-copy');
         if (!btn) return;
-        
         const originalText = btn.innerText;
         btn.innerText = '✅ ¡Copiado con éxito!';
         btn.style.background = 'var(--grn)';
-        
         setTimeout(() => {
           btn.innerText = originalText;
           btn.style.background = 'var(--nav)';
