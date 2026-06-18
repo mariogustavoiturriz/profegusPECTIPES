@@ -3,297 +3,828 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Armá la mochila — El sendero</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<title>Armá la Mochila</title>
 <style>
-  :root{
-    --noche:#16231B; --noche-2:#1E3026; --crema:#F3EBDA;
-    --ambar:#FFB937; --rojo:#E15B4F; --verde-ok:#7FC97A;
-    --lona:#3F7D5E; --lona-clara:#4F9772; --lona-oscura:#2C5C44;
-    --cuero:#C98A4B; --cuero-oscuro:#9A6634; --cierre:#E8DFC8; --radio:14px;
+  :root {
+    --verde: #2d6a4f;
+    --verde-claro: #52b788;
+    --verde-menta: #d8f3dc;
+    --naranja: #e76f51;
+    --naranja-claro: #f4a261;
+    --amarillo: #f9c74f;
+    --crema: #fefae0;
+    --tierra: #6b4226;
+    --gris: #6c757d;
+    --blanco: #ffffff;
+    --sombra: rgba(0,0,0,0.15);
   }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{height:100%;}
-  body{
-    font-family:'Atkinson Hyperlegible',sans-serif;
-    background:radial-gradient(ellipse 120% 60% at 50% -10%, #2A4234 0%, transparent 60%), var(--noche);
-    color:var(--crema); display:flex; flex-direction:column; align-items:center;
-    min-height:100%; padding:16px 14px 24px; overflow-x:hidden;
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: linear-gradient(135deg, #1a3a2a 0%, #2d6a4f 50%, #1a3a2a 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 12px;
+    user-select: none;
+    -webkit-user-select: none;
   }
-  header{text-align:center; max-width:560px; margin-bottom:10px;}
-  h1{font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:clamp(1.3rem,4vw,1.9rem); letter-spacing:-.02em;}
-  h1 .luz{color:var(--ambar);}
-  header p{font-size:.95rem; opacity:.85; margin-top:4px;}
 
-  /* vidas */
-  #vidas{display:flex; gap:6px; align-items:center; justify-content:center; margin:6px 0 2px; font-size:1.5rem;}
-  #vidas .vida{transition:transform .3s, opacity .3s; filter:saturate(1.2);}
-  #vidas .vida.perdida{opacity:.25; transform:scale(.7) rotate(-15deg); filter:grayscale(1);}
+  h1 {
+    color: var(--amarillo);
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    margin-bottom: 4px;
+    text-align: center;
+  }
 
-  #mensaje{min-height:1.6em; margin:6px 0 12px; font-size:.95rem; font-weight:700; text-align:center; max-width:520px; transition:color .2s;}
-  #mensaje.error{color:var(--rojo);}
-  #mensaje.ok{color:var(--verde-ok);}
-  #mensaje.espera{color:var(--ambar);}
+  .subtitle {
+    color: var(--verde-menta);
+    font-size: clamp(0.75rem, 2.5vw, 0.95rem);
+    text-align: center;
+    margin-bottom: 12px;
+    opacity: 0.9;
+  }
 
-  #juego{display:flex; gap:18px; align-items:flex-start; justify-content:center; flex-wrap:wrap; width:100%; max-width:780px;}
-  #mochila-zona{flex:0 0 260px; position:relative;}
-  #mochila-svg{width:100%; height:auto; display:block; filter:drop-shadow(0 8px 20px rgba(0,0,0,.45)); transition:transform .15s, filter .15s;}
-  #mochila-zona.sobre #mochila-svg{transform:scale(1.04); filter:drop-shadow(0 0 12px var(--ambar)) drop-shadow(0 8px 20px rgba(0,0,0,.45));}
-  #mochila-zona.sacude #mochila-svg{animation:sacudeMochila .5s;}
-  @keyframes sacudeMochila{0%,100%{transform:translateX(0);} 20%{transform:translateX(-10px) rotate(-2deg);} 40%{transform:translateX(10px) rotate(2deg);} 60%{transform:translateX(-7px);} 80%{transform:translateX(7px);}}
-  #contenido{position:absolute; left:14%; right:14%; top:46%; bottom:14%; display:flex; flex-wrap:wrap; gap:6px; justify-content:center; align-content:flex-start; pointer-events:none;}
-  .empacado{width:42px; height:42px; border-radius:50%; background:var(--crema); border:2px solid var(--cuero-oscuro); display:flex; align-items:center; justify-content:center; font-size:1.25rem; animation:entra .35s cubic-bezier(.2,1.4,.4,1);}
-  .empacado.cae{animation:cae .45s forwards;}
-  @keyframes entra{from{transform:scale(.2); opacity:0;} to{transform:scale(1); opacity:1;}}
-  @keyframes cae{to{transform:translateY(120px) rotate(40deg); opacity:0;}}
-  #progreso{margin:12px 10px 0; height:16px; border-radius:9px; background:var(--lona-oscura); border:2px solid var(--cuero-oscuro); overflow:hidden;}
-  #progreso .relleno{height:100%; width:0%; background:linear-gradient(90deg, var(--ambar), #FFD37A); transition:width .4s ease;}
-  #contador{text-align:center; font-size:.82rem; font-weight:700; margin-top:6px; opacity:.85;}
+  /* HUD */
+  .hud {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+  }
 
-  #items{flex:1 1 300px; max-width:430px; display:grid; grid-template-columns:repeat(auto-fill, minmax(92px,1fr)); gap:10px; transition:opacity .3s;}
-  #items.bloqueado{opacity:.4; pointer-events:none; filter:grayscale(.6);}
-  .item{background:var(--noche-2); border:2px solid rgba(243,235,218,.18); border-radius:var(--radio); padding:10px 6px 8px; text-align:center; cursor:grab; user-select:none; -webkit-user-select:none; touch-action:none; transition:transform .12s, border-color .12s, opacity .3s;}
-  .item:hover{border-color:var(--ambar); transform:translateY(-2px);}
-  .item .emoji{font-size:1.9rem; display:block; pointer-events:none;}
-  .item .nombre{font-size:.78rem; font-weight:700; margin-top:4px; pointer-events:none;}
-  .item.usado{opacity:0; pointer-events:none; transform:scale(.3);}
+  .intentos {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+  }
 
-  /* overlay de espera (cooldown) */
-  #espera{display:none; position:fixed; inset:0; z-index:90; background:rgba(12,18,14,.93); flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:24px;}
-  #espera.visible{display:flex;}
-  #espera .reloj{font-size:3.5rem; margin-bottom:10px;}
-  #espera h2{font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.4rem; color:var(--rojo); margin-bottom:6px;}
-  #espera p{opacity:.9; margin-bottom:18px;}
-  #cuenta{font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:3rem; color:var(--ambar);}
+  .corazon {
+    font-size: 1.4rem;
+    transition: transform 0.3s;
+  }
 
-  #final{display:none; position:fixed; inset:0; z-index:100; background:rgba(12,18,14,.92); align-items:center; justify-content:center; padding:20px;}
-  #final.visible{display:flex;}
-  #final .tarjeta{background:var(--noche-2); border:2px solid var(--ambar); border-radius:20px; padding:32px 26px; max-width:420px; text-align:center; animation:entra .4s cubic-bezier(.2,1.4,.4,1);}
-  #final h2{font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.5rem; color:var(--ambar); margin-bottom:10px;}
-  #final p{margin-bottom:14px; line-height:1.45;}
-  #clave{font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:1.7rem; letter-spacing:.25em; background:var(--crema); color:var(--noche); border-radius:10px; padding:10px 16px; display:inline-block;}
-  #reiniciar{margin-top:18px; font-family:inherit; font-weight:700; font-size:.9rem; background:none; border:2px solid var(--crema); color:var(--crema); border-radius:999px; padding:8px 20px; cursor:pointer;}
-  #reiniciar:hover{background:var(--crema); color:var(--noche);}
-  @media (prefers-reduced-motion: reduce){*{animation:none !important; transition:none !important;}}
-  @media (max-width:560px){#juego{flex-direction:column; align-items:center;} #mochila-zona{flex:none; width:100%; max-width:300px;}}
+  .corazon.perdido { opacity: 0.25; filter: grayscale(1); }
+
+  .contador-badge {
+    background: var(--tierra);
+    color: var(--amarillo);
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* LAYOUT */
+  .game-area {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    flex-wrap: wrap;
+  }
+
+  /* MOCHILA */
+  .mochila-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+
+  .mochila-label {
+    color: var(--verde-menta);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .drop-zone {
+    position: relative;
+    width: clamp(180px, 30vw, 240px);
+    height: clamp(220px, 38vw, 300px);
+    cursor: default;
+  }
+
+  .drop-zone.drag-over .mochila-svg .mochila-body {
+    filter: drop-shadow(0 0 16px var(--amarillo));
+  }
+
+  .mochila-svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(3px 6px 10px rgba(0,0,0,0.4));
+  }
+
+  /* Items dentro de la mochila */
+  .items-en-mochila {
+    position: absolute;
+    top: 22%;
+    left: 18%;
+    width: 64%;
+    height: 55%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 4px;
+    pointer-events: none;
+  }
+
+  .item-en-mochila {
+    font-size: clamp(1.1rem, 3vw, 1.5rem);
+    animation: pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(1px 2px 3px rgba(0,0,0,0.3));
+  }
+
+  @keyframes pop-in {
+    from { transform: scale(0) rotate(-20deg); opacity: 0; }
+    to   { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* Progreso */
+  .progreso-wrap {
+    width: clamp(180px, 30vw, 240px);
+    background: rgba(0,0,0,0.3);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 10px;
+  }
+
+  .progreso-barra {
+    height: 100%;
+    background: linear-gradient(90deg, var(--verde-claro), var(--amarillo));
+    border-radius: 10px;
+    transition: width 0.4s ease;
+    width: 0%;
+  }
+
+  .progreso-texto {
+    color: var(--verde-menta);
+    font-size: 0.75rem;
+    text-align: center;
+    margin-top: 3px;
+  }
+
+  /* GRILLA DE OBJETOS */
+  .objetos-panel {
+    flex: 1;
+    min-width: 200px;
+    max-width: 360px;
+  }
+
+  .objetos-label {
+    color: var(--verde-menta);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .objetos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+    gap: 8px;
+  }
+
+  .objeto {
+    background: var(--crema);
+    border-radius: 14px;
+    padding: 8px 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    cursor: grab;
+    border: 2px solid transparent;
+    box-shadow: 0 3px 8px var(--sombra);
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s, opacity 0.3s;
+    touch-action: none;
+    -webkit-touch-callout: none;
+  }
+
+  .objeto:active { cursor: grabbing; }
+
+  .objeto:hover:not(.usado):not(.dragging) {
+    transform: translateY(-3px) scale(1.04);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+    border-color: var(--verde-claro);
+  }
+
+  .objeto.usado {
+    opacity: 0.25;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .objeto.dragging {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+
+  .objeto-emoji { font-size: 1.8rem; line-height: 1; }
+  .objeto-nombre {
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: #333;
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  /* FANTASMA de arrastre */
+  #drag-ghost {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    font-size: 2.4rem;
+    transform: translate(-50%, -50%) scale(1.2);
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+    display: none;
+    transition: none;
+  }
+
+  /* MENSAJES */
+  .mensaje-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  .mensaje-overlay.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mensaje-card {
+    background: var(--crema);
+    border-radius: 20px;
+    padding: 28px 32px;
+    max-width: 380px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    transform: scale(0.85);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .mensaje-overlay.visible .mensaje-card { transform: scale(1); }
+
+  .mensaje-emoji { font-size: 3rem; margin-bottom: 10px; }
+  .mensaje-titulo {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--verde);
+    margin-bottom: 8px;
+  }
+  .mensaje-titulo.error { color: var(--naranja); }
+  .mensaje-titulo.bloqueo { color: var(--gris); }
+
+  .mensaje-texto {
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+
+  .palabra-clave {
+    background: linear-gradient(135deg, var(--verde), var(--verde-claro));
+    color: white;
+    font-size: 1.6rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    padding: 10px 20px;
+    border-radius: 12px;
+    margin: 12px 0;
+    display: inline-block;
+    text-shadow: 1px 2px 4px rgba(0,0,0,0.3);
+    animation: brillar 1.5s ease-in-out infinite alternate;
+  }
+
+  @keyframes brillar {
+    from { box-shadow: 0 0 10px var(--verde-claro); }
+    to   { box-shadow: 0 0 25px var(--amarillo), 0 0 40px var(--verde-claro); }
+  }
+
+  .btn {
+    background: var(--verde);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 28px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    margin-top: 4px;
+  }
+  .btn:hover { background: var(--verde-claro); transform: scale(1.05); }
+  .btn.btn-rojo { background: var(--naranja); }
+  .btn.btn-rojo:hover { background: var(--naranja-claro); }
+
+  .cuenta-regresiva {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--naranja);
+    margin: 8px 0;
+  }
+
+  /* Shake animation */
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    15%      { transform: translateX(-8px) rotate(-2deg); }
+    30%      { transform: translateX(8px) rotate(2deg); }
+    45%      { transform: translateX(-6px); }
+    60%      { transform: translateX(6px); }
+    75%      { transform: translateX(-4px); }
+    90%      { transform: translateX(4px); }
+  }
+
+  .shake { animation: shake 0.5s ease; }
+
+  /* Responsive */
+  @media (max-width: 480px) {
+    .game-area { flex-direction: column; align-items: center; }
+    .objetos-panel { max-width: 100%; width: 100%; }
+    .objetos-grid { grid-template-columns: repeat(4, 1fr); }
+    .drop-zone { width: 200px; height: 250px; }
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>Se hace de noche en el sendero <span class="luz">🔦</span></h1>
-  <p>Armá la mochila con <strong>solo lo necesario</strong>. Cuidado: si metés algo que no va, se vacía y empezás de nuevo. Tenés 3 intentos.</p>
-</header>
+<h1>🎒 Armá la Mochila</h1>
+<p class="subtitle">Arrastrá los objetos correctos para el trekking</p>
 
-<div id="vidas" aria-label="Intentos restantes"></div>
-<div id="mensaje" aria-live="polite"></div>
+<div class="hud">
+  <div class="intentos" id="intentos-display"></div>
+  <div class="contador-badge" id="progreso-badge">0 / 6</div>
+</div>
 
-<div id="juego">
-  <div id="mochila-zona">
-    <svg id="mochila-svg" viewBox="0 0 260 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Mochila de trekking">
-      <defs>
-        <linearGradient id="gLona" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="var(--lona-clara)"/><stop offset="1" stop-color="var(--lona-oscura)"/>
-        </linearGradient>
-        <linearGradient id="gSolapa" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="var(--lona-clara)"/><stop offset="1" stop-color="var(--lona)"/>
-        </linearGradient>
-      </defs>
-      <path d="M104 40 Q130 14 156 40" fill="none" stroke="var(--lona-oscura)" stroke-width="11" stroke-linecap="round"/>
-      <path d="M104 40 Q130 18 156 40" fill="none" stroke="var(--lona)" stroke-width="6" stroke-linecap="round"/>
-      <path d="M196 70 Q236 120 214 250" fill="none" stroke="var(--lona-oscura)" stroke-width="20" stroke-linecap="round"/>
-      <path d="M196 72 Q232 120 211 246" fill="none" stroke="var(--lona)" stroke-width="13" stroke-linecap="round"/>
-      <path d="M40 150 Q28 150 28 168 L30 250 Q30 268 50 266 L74 262 L74 150 Z" fill="url(#gLona)" stroke="var(--lona-oscura)" stroke-width="3"/>
-      <path d="M186 150 L220 152 Q236 152 234 172 L230 248 Q228 266 208 262 L186 256 Z" fill="var(--lona-oscura)" stroke="var(--lona-oscura)" stroke-width="3"/>
-      <path d="M188 158 Q210 150 226 162 L224 196 Q206 188 190 196 Z" fill="var(--cuero)" opacity=".9"/>
-      <circle cx="207" cy="178" r="5" fill="var(--cuero-oscuro)"/>
-      <path d="M66 96 Q66 80 86 78 L176 78 Q196 80 196 100 L200 250 Q200 274 176 274 L86 274 Q62 274 62 250 Z" fill="url(#gLona)" stroke="var(--lona-oscura)" stroke-width="3.5"/>
-      <path d="M84 168 Q84 156 98 156 L164 156 Q178 156 178 168 L180 250 Q180 266 164 266 L98 266 Q82 266 82 250 Z" fill="var(--lona)" stroke="var(--lona-oscura)" stroke-width="3"/>
-      <path d="M88 172 Q131 158 174 172" fill="none" stroke="var(--cuero-oscuro)" stroke-width="3"/>
-      <path d="M90 174 Q131 161 172 174" fill="none" stroke="var(--cierre)" stroke-width="4" stroke-dasharray="2 3"/>
-      <circle cx="131" cy="167" r="4.5" fill="var(--cuero)"/>
-      <rect x="129" y="167" width="4" height="13" rx="2" fill="var(--cuero-oscuro)"/>
-      <path d="M70 86 Q70 70 92 70 L172 70 Q192 70 192 92 L194 132 Q194 150 174 150 L88 150 Q66 150 66 132 Z" fill="url(#gSolapa)" stroke="var(--lona-oscura)" stroke-width="3.5"/>
-      <rect x="118" y="122" width="26" height="20" rx="4" fill="var(--cuero)" stroke="var(--cuero-oscuro)" stroke-width="2.5"/>
-      <rect x="124" y="116" width="14" height="12" rx="2" fill="var(--cuero-oscuro)"/>
-    </svg>
-    <div id="contenido"></div>
-    <div id="progreso"><div class="relleno"></div></div>
-    <div id="contador">0 / 0 elementos</div>
+<div class="game-area">
+
+  <!-- MOCHILA -->
+  <div class="mochila-container">
+    <div class="mochila-label">Tu mochila</div>
+    <div class="drop-zone" id="drop-zone">
+
+      <!-- SVG MOCHILA TREKKING -->
+      <svg class="mochila-svg" viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- Sombra -->
+        <ellipse cx="110" cy="272" rx="70" ry="8" fill="rgba(0,0,0,0.2)"/>
+
+        <!-- Correa top -->
+        <rect x="82" y="10" width="56" height="22" rx="11" fill="#4a7c59"/>
+        <rect x="88" y="13" width="44" height="16" rx="8" fill="#5a9e6f"/>
+
+        <!-- Cuerpo principal -->
+        <rect x="28" y="30" width="164" height="208" rx="30" fill="#e76f51"/>
+        <rect x="32" y="34" width="156" height="200" rx="28" fill="#f4a261"/>
+
+        <!-- Textura / gradiente cuerpo -->
+        <rect x="32" y="34" width="156" height="100" rx="28" fill="rgba(255,255,255,0.08)"/>
+
+        <!-- Panel frontal -->
+        <rect x="46" y="120" width="128" height="108" rx="18" fill="#e76f51"/>
+        <rect x="50" y="124" width="120" height="100" rx="16" fill="#d45f3e"/>
+
+        <!-- Bolsillo lateral izq -->
+        <rect x="10" y="80" width="26" height="80" rx="12" fill="#d45f3e"/>
+        <rect x="13" y="84" width="20" height="72" rx="10" fill="#c14f30"/>
+        <!-- Cierre lateral izq -->
+        <line x1="23" y1="84" x2="23" y2="156" stroke="#e76f51" stroke-width="2" stroke-dasharray="4,3"/>
+
+        <!-- Bolsillo lateral der -->
+        <rect x="184" y="80" width="26" height="80" rx="12" fill="#d45f3e"/>
+        <rect x="187" y="84" width="20" height="72" rx="10" fill="#c14f30"/>
+        <!-- Cierre lateral der -->
+        <line x1="197" y1="84" x2="197" y2="156" stroke="#e76f51" stroke-width="2" stroke-dasharray="4,3"/>
+
+        <!-- Cierre principal (cremallera) -->
+        <path d="M 50 124 Q 110 115 170 124" stroke="#f9c74f" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <circle cx="110" cy="116" r="5" fill="#f9c74f"/>
+        <circle cx="110" cy="116" r="3" fill="#c9a227"/>
+
+        <!-- Tiradores cremallera frontal -->
+        <path d="M 50 124 Q 46 128 48 133" stroke="#f9c74f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M 170 124 Q 174 128 172 133" stroke="#f9c74f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+
+        <!-- Detalle costuras cuerpo -->
+        <rect x="36" y="38" width="148" height="192" rx="26" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2" stroke-dasharray="6,4"/>
+
+        <!-- Correas del frente (arnés) -->
+        <path d="M 60 238 Q 55 260 50 270" stroke="#c14f30" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <path d="M 160 238 Q 165 260 170 270" stroke="#c14f30" stroke-width="8" stroke-linecap="round" fill="none"/>
+        <!-- Hebillas -->
+        <rect x="44" y="262" width="16" height="10" rx="3" fill="#f9c74f"/>
+        <rect x="164" y="262" width="16" height="10" rx="3" fill="#f9c74f"/>
+
+        <!-- Reflectivo -->
+        <rect x="85" y="200" width="50" height="8" rx="4" fill="rgba(255,255,255,0.6)"/>
+
+        <!-- Logotipo montaña -->
+        <path d="M 86 175 L 110 148 L 134 175 Z" fill="rgba(255,255,255,0.18)"/>
+        <path d="M 95 175 L 110 155 L 125 175 Z" fill="rgba(255,255,255,0.22)"/>
+      </svg>
+
+      <!-- Items dentro de la mochila -->
+      <div class="items-en-mochila" id="items-en-mochila"></div>
+    </div>
+
+    <div class="progreso-wrap">
+      <div class="progreso-barra" id="progreso-barra"></div>
+    </div>
+    <div class="progreso-texto" id="progreso-texto">Arrastrá los objetos correctos</div>
   </div>
-  <div id="items"></div>
+
+  <!-- OBJETOS -->
+  <div class="objetos-panel">
+    <div class="objetos-label">Objetos disponibles</div>
+    <div class="objetos-grid" id="objetos-grid"></div>
+  </div>
+
 </div>
 
-<div id="espera" role="dialog" aria-modal="true">
-  <div class="reloj">⏳</div>
-  <h2>Te quedaste sin intentos</h2>
-  <p>Respirá hondo. Podés volver a intentarlo en:</p>
-  <div id="cuenta">10</div>
-</div>
+<!-- Fantasma arrastre -->
+<div id="drag-ghost"></div>
 
-<div id="final" role="dialog" aria-modal="true">
-  <div class="tarjeta">
-    <h2>¡Mochila lista! 🎒</h2>
-    <p>Tenés todo lo necesario para seguir. Anotá la palabra clave y volvé a la aventura para elegir tu camino:</p>
-    <div id="clave">MIRADOR</div>
-    <br>
-    <button id="reiniciar">Jugar de nuevo</button>
+<!-- OVERLAY MENSAJES -->
+<div class="mensaje-overlay" id="overlay">
+  <div class="mensaje-card" id="mensaje-card">
+    <div class="mensaje-emoji" id="msg-emoji"></div>
+    <div class="mensaje-titulo" id="msg-titulo"></div>
+    <div class="mensaje-texto" id="msg-texto"></div>
+    <div id="msg-extra"></div>
+    <button class="btn" id="msg-btn" onclick="cerrarMensaje()">Intentar de nuevo</button>
   </div>
 </div>
 
 <script>
-/* ============================================================
-   CONFIGURACIÓN — editá acá los elementos, mensajes y reglas
-   ============================================================ */
-const PALABRA_CLAVE = "MIRADOR";
-const INTENTOS = 3;          // vidas antes del bloqueo
-const ESPERA_SEGUNDOS = 10;  // tiempo de espera tras perder todo
-
-const ELEMENTOS = [
-  {emoji:"💧", nombre:"Agua",      correcto:true,  feedback:"¡Bien! Hidratarse es lo primero."},
-  {emoji:"🔦", nombre:"Linterna",  correcto:true,  feedback:"Perfecto, se viene la noche."},
-  {emoji:"🧭", nombre:"Brújula",   correcto:true,  feedback:"Sin señal de GPS, la brújula salva."},
-  {emoji:"🩹", nombre:"Botiquín",  correcto:true,  feedback:"Siempre. Nunca se sabe."},
-  {emoji:"🧥", nombre:"Abrigo",    correcto:true,  feedback:"En la montaña la temperatura cae rápido."},
-  {emoji:"🗺️", nombre:"Mapa",      correcto:true,  feedback:"El papel no se queda sin batería."},
-  {emoji:"💻", nombre:"Notebook",  correcto:false, feedback:"¿Wi-Fi en el bosque?"},
-  {emoji:"🎮", nombre:"Consola",   correcto:false, feedback:"La única misión ahora es salir del sendero."},
-  {emoji:"👠", nombre:"Tacos",     correcto:false, feedback:"Para escalar piedras... mejor no."},
-  {emoji:"🪴", nombre:"Maceta",    correcto:false, feedback:"Plantas ya hay de sobra ahí afuera."},
-  {emoji:"📺", nombre:"Televisor", correcto:false, feedback:"Pesa 12 kilos. Imposible."},
-  {emoji:"🧸", nombre:"Peluche gigante", correcto:false, feedback:"Tierno, pero ocupa toda la mochila."},
+// ─────────────────────────────────────────
+// DATOS
+// ─────────────────────────────────────────
+const OBJETOS = [
+  { id: 'agua',      emoji: '💧', nombre: 'Agua',       correcto: true  },
+  { id: 'linterna',  emoji: '🔦', nombre: 'Linterna',   correcto: true  },
+  { id: 'brujula',   emoji: '🧭', nombre: 'Brújula',    correcto: true  },
+  { id: 'botiquin',  emoji: '🩹', nombre: 'Botiquín',   correcto: true  },
+  { id: 'abrigo',    emoji: '🧥', nombre: 'Abrigo',     correcto: true  },
+  { id: 'mapa',      emoji: '🗺️', nombre: 'Mapa',       correcto: true  },
+  { id: 'notebook',  emoji: '💻', nombre: 'Notebook',   correcto: false },
+  { id: 'consola',   emoji: '🎮', nombre: 'Consola',    correcto: false },
+  { id: 'tele',      emoji: '📺', nombre: 'Televisor',  correcto: false },
+  { id: 'zapatos',   emoji: '👠', nombre: 'Tacos',      correcto: false },
+  { id: 'pizza',     emoji: '🍕', nombre: 'Pizza',      correcto: false },
+  { id: 'pelota',    emoji: '⚽', nombre: 'Pelota',     correcto: false },
 ];
-/* ============================================================ */
 
-const $items=document.getElementById("items"), $zona=document.getElementById("mochila-zona"),
-  $svg=document.getElementById("mochila-svg"), $contenido=document.getElementById("contenido"),
-  $mensaje=document.getElementById("mensaje"), $relleno=document.querySelector("#progreso .relleno"),
-  $contador=document.getElementById("contador"), $vidas=document.getElementById("vidas"),
-  $espera=document.getElementById("espera"), $cuenta=document.getElementById("cuenta"),
-  $final=document.getElementById("final"), $clave=document.getElementById("clave");
+const PALABRA_CLAVE = 'CUMBRE';
+const MAX_INTENTOS = 3;
+const BLOQUEO_SEG = 10;
 
-const totalCorrectos=ELEMENTOS.filter(e=>e.correcto).length;
-let empacados=0, vidas=INTENTOS, bloqueado=false;
-$clave.textContent=PALABRA_CLAVE;
+// ─────────────────────────────────────────
+// ESTADO
+// ─────────────────────────────────────────
+let intentos = MAX_INTENTOS;
+let enMochila = [];
+let bloqueado = false;
+let dragItem = null;
+let ghostEl = document.getElementById('drag-ghost');
 
-function mezclar(arr){const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+// ─────────────────────────────────────────
+// INICIALIZAR
+// ─────────────────────────────────────────
+function init() {
+  enMochila = [];
+  renderHUD();
+  renderObjetos();
+  renderMochila();
+}
 
-function pintarVidas(){
-  $vidas.innerHTML="";
-  for(let i=0;i<INTENTOS;i++){
-    const s=document.createElement("span");
-    s.className="vida"+(i>=vidas?" perdida":"");
-    s.textContent="🎒";
-    $vidas.appendChild(s);
+function renderHUD() {
+  const el = document.getElementById('intentos-display');
+  el.innerHTML = '';
+  for (let i = 0; i < MAX_INTENTOS; i++) {
+    const c = document.createElement('span');
+    c.className = 'corazon' + (i >= intentos ? ' perdido' : '');
+    c.textContent = '❤️';
+    el.appendChild(c);
   }
 }
-function mostrarMensaje(t,tipo){$mensaje.textContent=t; $mensaje.className=tipo;}
-function actualizarProgreso(){$relleno.style.width=(empacados/totalCorrectos*100)+"%"; $contador.textContent=`${empacados} / ${totalCorrectos} elementos`;}
 
-/* arma la grilla de objetos desde cero */
-function repartirItems(){
-  $items.innerHTML="";
-  mezclar(ELEMENTOS).forEach(el=>{
-    const div=document.createElement("div"); div.className="item"; div.dataset.indice=ELEMENTOS.indexOf(el);
-    div.innerHTML=`<span class="emoji">${el.emoji}</span><span class="nombre">${el.nombre}</span>`;
-    $items.appendChild(div);
+function renderObjetos() {
+  const grid = document.getElementById('objetos-grid');
+  grid.innerHTML = '';
+
+  // Mezclar aleatoriamente
+  const shuffled = [...OBJETOS].sort(() => Math.random() - 0.5);
+
+  shuffled.forEach(obj => {
+    const div = document.createElement('div');
+    div.className = 'objeto' + (enMochila.includes(obj.id) ? ' usado' : '');
+    div.dataset.id = obj.id;
+    div.innerHTML = `<span class="objeto-emoji">${obj.emoji}</span><span class="objeto-nombre">${obj.nombre}</span>`;
+
+    // Mouse drag
+    div.addEventListener('mousedown', onMouseDown);
+    // Touch
+    div.addEventListener('touchstart', onTouchStart, { passive: false });
+
+    grid.appendChild(div);
   });
 }
 
-/* reinicio total del tablero (vidas llenas) */
-function reinicioTotal(){
-  vidas=INTENTOS; bloqueado=false;
-  empacados=0; $contenido.innerHTML=""; actualizarProgreso();
-  pintarVidas(); mostrarMensaje("",""); $items.classList.remove("bloqueado");
-  repartirItems();
+function renderMochila() {
+  const correctos = OBJETOS.filter(o => o.correcto);
+  const total = correctos.length;
+  const dentro = enMochila.filter(id => OBJETOS.find(o => o.id === id && o.correcto)).length;
+
+  // Badge
+  document.getElementById('progreso-badge').textContent = `${dentro} / ${total}`;
+
+  // Barra
+  const pct = total ? (dentro / total) * 100 : 0;
+  document.getElementById('progreso-barra').style.width = pct + '%';
+  document.getElementById('progreso-texto').textContent =
+    dentro === 0 ? 'Arrastrá los objetos correctos' :
+    dentro === total ? '¡Mochila lista!' :
+    `Llevas ${dentro} de ${total} objetos`;
+
+  // Emojis dentro
+  const cont = document.getElementById('items-en-mochila');
+  cont.innerHTML = '';
+  enMochila.forEach(id => {
+    const obj = OBJETOS.find(o => o.id === id);
+    if (!obj) return;
+    const s = document.createElement('span');
+    s.className = 'item-en-mochila';
+    s.textContent = obj.emoji;
+    cont.appendChild(s);
+  });
 }
 
-/* vaciar la mochila tras un error, sin reponer vidas */
-function vaciarMochila(){
-  $items.classList.add("bloqueado"); // bloquea durante la animación
-  const fichas=[...$contenido.children];
-  fichas.forEach((f,i)=>{ f.classList.add("cae"); f.style.animationDelay=(i*40)+"ms"; });
-  $zona.classList.remove("sacude"); void $zona.offsetWidth; $zona.classList.add("sacude");
-  setTimeout(()=>{
-    empacados=0; $contenido.innerHTML=""; actualizarProgreso();
-    repartirItems();
-    if(!bloqueado) $items.classList.remove("bloqueado");
-  },650);
-}
+// ─────────────────────────────────────────
+// DRAG & DROP — MOUSE
+// ─────────────────────────────────────────
+function onMouseDown(e) {
+  if (bloqueado) return;
+  const div = e.currentTarget;
+  if (div.classList.contains('usado')) return;
+  e.preventDefault();
 
-function empacar(divItem,el){
-  divItem.classList.add("usado");
-  const badge=document.createElement("div"); badge.className="empacado"; badge.textContent=el.emoji; badge.title=el.nombre;
-  $contenido.appendChild(badge); empacados++; actualizarProgreso(); mostrarMensaje(el.feedback,"ok");
-  if(empacados===totalCorrectos){setTimeout(()=>$final.classList.add("visible"),500);}
-}
+  startDrag(div, e.clientX, e.clientY);
 
-function fallar(el){
-  vidas--; pintarVidas();
-  if(vidas>0){
-    mostrarMensaje(`${el.feedback}  Mochila vaciada — te quedan ${vidas} intento${vidas===1?"":"s"}.`,"error");
-    vaciarMochila();
-  }else{
-    mostrarMensaje(`${el.feedback}`,"error");
-    vaciarMochila();
-    iniciarEspera();
+  const onMove = ev => moveDrag(ev.clientX, ev.clientY);
+  const onUp   = ev => { endDrag(ev.clientX, ev.clientY); cleanup(); };
+  function cleanup() {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
   }
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
 }
 
-/* cuenta regresiva de bloqueo */
-function iniciarEspera(){
-  bloqueado=true; $items.classList.add("bloqueado");
-  $espera.classList.add("visible");
-  let seg=ESPERA_SEGUNDOS; $cuenta.textContent=seg;
-  const t=setInterval(()=>{
-    seg--; $cuenta.textContent=seg;
-    if(seg<=0){
-      clearInterval(t);
-      $espera.classList.remove("visible");
-      reinicioTotal();
+// ─────────────────────────────────────────
+// DRAG & DROP — TOUCH
+// ─────────────────────────────────────────
+function onTouchStart(e) {
+  if (bloqueado) return;
+  const div = e.currentTarget;
+  if (div.classList.contains('usado')) return;
+  e.preventDefault();
+
+  const t = e.touches[0];
+  startDrag(div, t.clientX, t.clientY);
+
+  const onMove = ev => {
+    const tt = ev.touches[0];
+    moveDrag(tt.clientX, tt.clientY);
+  };
+  const onEnd = ev => {
+    const tt = ev.changedTouches[0];
+    endDrag(tt.clientX, tt.clientY);
+    cleanup();
+  };
+  function cleanup() {
+    document.removeEventListener('touchmove', onMove);
+    document.removeEventListener('touchend', onEnd);
+  }
+  document.addEventListener('touchmove', onMove, { passive: false });
+  document.addEventListener('touchend', onEnd);
+}
+
+// ─────────────────────────────────────────
+// LÓGICA ARRASTRE
+// ─────────────────────────────────────────
+function startDrag(div, x, y) {
+  dragItem = div.dataset.id;
+  const obj = OBJETOS.find(o => o.id === dragItem);
+
+  div.classList.add('dragging');
+
+  ghostEl.textContent = obj.emoji;
+  ghostEl.style.display = 'block';
+  ghostEl.style.left = x + 'px';
+  ghostEl.style.top  = y + 'px';
+
+  document.getElementById('drop-zone').classList.add('drag-over');
+}
+
+function moveDrag(x, y) {
+  ghostEl.style.left = x + 'px';
+  ghostEl.style.top  = y + 'px';
+}
+
+function endDrag(x, y) {
+  ghostEl.style.display = 'none';
+  document.getElementById('drop-zone').classList.remove('drag-over');
+
+  // Quitar clase dragging
+  document.querySelectorAll('.objeto.dragging').forEach(el => el.classList.remove('dragging'));
+
+  if (!dragItem) return;
+
+  // ¿Cayó sobre la zona mochila?
+  const zone = document.getElementById('drop-zone');
+  const rect = zone.getBoundingClientRect();
+  const dentro = x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+
+  if (dentro) {
+    procesarDrop(dragItem);
+  }
+
+  dragItem = null;
+}
+
+// ─────────────────────────────────────────
+// LÓGICA DEL JUEGO
+// ─────────────────────────────────────────
+function procesarDrop(id) {
+  if (enMochila.includes(id)) return;
+
+  const obj = OBJETOS.find(o => o.id === id);
+  if (!obj) return;
+
+  if (!obj.correcto) {
+    // Error: sacudir mochila y vaciar
+    const zone = document.getElementById('drop-zone');
+    zone.classList.add('shake');
+    zone.addEventListener('animationend', () => zone.classList.remove('shake'), { once: true });
+
+    intentos--;
+    enMochila = [];
+    renderHUD();
+    renderMochila();
+    renderObjetos();
+
+    if (intentos <= 0) {
+      iniciarBloqueo();
+    } else {
+      mostrarMensaje('error',
+        '😬', '¡Objeto incorrecto!',
+        `"${obj.nombre}" no va en la mochila de trekking.\nSe vació la mochila. Te quedan ${intentos} intento${intentos !== 1 ? 's' : ''}.`,
+        '', 'Entendido', () => cerrarMensaje()
+      );
     }
-  },1000);
+    return;
+  }
+
+  // Correcto
+  enMochila.push(id);
+  renderMochila();
+  renderObjetos();
+
+  // ¿Completó?
+  const correctosTotal = OBJETOS.filter(o => o.correcto).length;
+  if (enMochila.length === correctosTotal) {
+    setTimeout(() => mostrarVictoria(), 400);
+  }
 }
 
-/* ---- interacción tap / arrastre ---- */
-let activo=null,fantasma=null,inicioX=0,inicioY=0,arrastrando=false;
-$items.addEventListener("pointerdown",e=>{
-  if(bloqueado)return;
-  const item=e.target.closest(".item"); if(!item||item.classList.contains("usado"))return;
-  activo=item; inicioX=e.clientX; inicioY=e.clientY; arrastrando=false; item.setPointerCapture(e.pointerId);
-});
-$items.addEventListener("pointermove",e=>{
-  if(!activo)return;
-  const dx=e.clientX-inicioX,dy=e.clientY-inicioY;
-  if(!arrastrando&&Math.hypot(dx,dy)>8){
-    arrastrando=true; fantasma=activo.cloneNode(true);
-    fantasma.style.cssText="position:fixed;z-index:50;width:96px;opacity:.95;pointer-events:none;transform:scale(1.1) rotate(-3deg);box-shadow:0 10px 24px rgba(0,0,0,.5);";
-    fantasma.className="item"; document.body.appendChild(fantasma); activo.style.opacity=".35";
-  }
-  if(arrastrando){fantasma.style.left=(e.clientX-48)+"px"; fantasma.style.top=(e.clientY-48)+"px"; $zona.classList.toggle("sobre",sobreMochila(e.clientX,e.clientY));}
-});
-$items.addEventListener("pointerup",e=>{
-  if(!activo)return;
-  const item=activo, el=ELEMENTOS[+item.dataset.indice];
-  if(arrastrando){
-    const enMochila=sobreMochila(e.clientX,e.clientY);
-    fantasma.remove(); fantasma=null; activo.style.opacity=""; $zona.classList.remove("sobre");
-    if(enMochila){ el.correcto?empacar(item,el):fallar(el); }
-  }else{
-    el.correcto?empacar(item,el):fallar(el);
-  }
-  activo=null; arrastrando=false;
-});
-$items.addEventListener("pointercancel",()=>{
-  if(fantasma){fantasma.remove(); fantasma=null;} if(activo){activo.style.opacity="";}
-  $zona.classList.remove("sobre"); activo=null; arrastrando=false;
-});
-function sobreMochila(x,y){const r=$svg.getBoundingClientRect(); return x>=r.left&&x<=r.right&&y>=r.top&&y<=r.bottom;}
+// ─────────────────────────────────────────
+// MENSAJES
+// ─────────────────────────────────────────
+function mostrarMensaje(tipo, emoji, titulo, texto, extra, btnTxt, btnFn) {
+  document.getElementById('msg-emoji').textContent = emoji;
+  const t = document.getElementById('msg-titulo');
+  t.textContent = titulo;
+  t.className = 'mensaje-titulo ' + (tipo === 'error' ? 'error' : tipo === 'bloqueo' ? 'bloqueo' : '');
+  document.getElementById('msg-texto').textContent = texto;
+  document.getElementById('msg-extra').innerHTML = extra;
 
-document.getElementById("reiniciar").addEventListener("click",()=>{$final.classList.remove("visible"); reinicioTotal();});
+  const btn = document.getElementById('msg-btn');
+  btn.textContent = btnTxt;
+  btn.onclick = btnFn;
+  btn.className = 'btn' + (tipo === 'error' || tipo === 'bloqueo' ? ' btn-rojo' : '');
 
-reinicioTotal();
+  document.getElementById('overlay').classList.add('visible');
+}
+
+function cerrarMensaje() {
+  document.getElementById('overlay').classList.remove('visible');
+}
+
+function mostrarVictoria() {
+  mostrarMensaje('victoria',
+    '🏔️', '¡Mochila lista para el trekking!',
+    'Empacaste todo lo necesario. ¡Sos un aventurero de verdad!',
+    `<div style="margin:8px 0">Tu palabra clave secreta es:</div>
+     <div class="palabra-clave">${PALABRA_CLAVE}</div>
+     <div style="font-size:0.8rem;color:#777;margin-top:8px;">¡Guardala bien!</div>`,
+    '🎉 ¡Jugar de nuevo!',
+    () => { cerrarMensaje(); reiniciarTotal(); }
+  );
+  document.getElementById('msg-btn').textContent = '🎉 ¡Jugar de nuevo!';
+  document.getElementById('msg-btn').className = 'btn';
+}
+
+// ─────────────────────────────────────────
+// BLOQUEO
+// ─────────────────────────────────────────
+function iniciarBloqueo() {
+  bloqueado = true;
+  let segs = BLOQUEO_SEG;
+
+  function actualizar() {
+    mostrarMensaje('bloqueo',
+      '🔒', '¡Sin intentos!',
+      `Usaste todos tus intentos. Esperá ${segs} segundo${segs !== 1 ? 's' : ''} para reintentar.`,
+      `<div class="cuenta-regresiva">${segs}</div>`,
+      'Esperá...', () => {}
+    );
+    document.getElementById('msg-btn').disabled = true;
+    document.getElementById('msg-btn').style.opacity = '0.5';
+  }
+
+  actualizar();
+
+  const intervalo = setInterval(() => {
+    segs--;
+    const extra = document.getElementById('msg-extra');
+    if (extra) extra.innerHTML = `<div class="cuenta-regresiva">${segs}</div>`;
+    const txt = document.getElementById('msg-texto');
+    if (txt) txt.textContent = `Usaste todos tus intentos. Esperá ${segs} segundo${segs !== 1 ? 's' : ''} para reintentar.`;
+
+    if (segs <= 0) {
+      clearInterval(intervalo);
+      bloqueado = false;
+      intentos = MAX_INTENTOS;
+      enMochila = [];
+      renderHUD();
+      renderMochila();
+      renderObjetos();
+      cerrarMensaje();
+    }
+  }, 1000);
+}
+
+function reiniciarTotal() {
+  intentos = MAX_INTENTOS;
+  enMochila = [];
+  bloqueado = false;
+  init();
+}
+
+// ─────────────────────────────────────────
+// SOPORTE TÁCTIL DOBLE-TAP en móvil
+// (toque directo sobre el objeto sin arrastrar)
+// ─────────────────────────────────────────
+// Fallback: tap rápido = depositar directo en mochila
+let tapTimer = null;
+document.getElementById('objetos-grid').addEventListener('click', e => {
+  const div = e.target.closest('.objeto');
+  if (!div || div.classList.contains('usado') || bloqueado) return;
+  procesarDrop(div.dataset.id);
+});
+
+// ─────────────────────────────────────────
+// ARRANCAR
+// ─────────────────────────────────────────
+init();
 </script>
 </body>
 </html>
