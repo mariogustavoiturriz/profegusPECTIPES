@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Clase 11 · Producción TFI: Cierre de contenidos</title>
+<title>Clase 11 · Curaduría, Derechos y Licencias</title>
 <style>
   :root{--nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;--grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;--vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFF;--red:#C0392B;--rcl:#FDEDEC;--vie:#7B3F9E;--vie-cl:#F0E8F7;--r:8px;--sh:0 2px 8px rgba(0,0,0,.09)}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -63,7 +63,6 @@
   .alerta-info{background:var(--pale);border-left:4px solid var(--teal);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--nav)}
   .alerta-warn{background:var(--acl);border-left:4px solid var(--amb);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--amb)}
   .alerta-ok{background:var(--gcl);border-left:4px solid var(--grn);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--grn)}
-  .alerta-dua{background:var(--vie-cl);border-left:4px solid var(--vie);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--vie)}
   .checklist{list-style:none;padding:0}
   .checklist li{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--bd);font-size:13.5px;color:var(--txt)}
   .checklist li:last-child{border:none}
@@ -76,20 +75,17 @@
   .btn-copy:hover{background:var(--teal)}
   .avt-box{background:var(--nav);color:#fff;border-radius:var(--r);padding:14px 18px;margin-top:14px;font-size:14px}
   .avt-box strong{display:block;color:var(--cl);margin-bottom:5px;font-size:15px}
+  .cc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin:14px 0}
+  .cc-card{border-radius:var(--r);padding:12px;text-align:center;font-size:13px}
+  .cc-card .cc-icon{font-size:22px;display:block;margin-bottom:5px}
+  .cc-card strong{display:block;font-size:12px;margin-bottom:3px}
   table{width:100%;border-collapse:collapse;font-size:13.5px;margin-bottom:14px}
   table th{background:var(--nav);color:#fff;padding:8px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
   table td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
   table tr:hover td{background:var(--gris)}
-  .nodo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0}
-  .nodo-card{background:var(--bco);border-radius:var(--r);padding:12px;font-size:13px;border-left:4px solid var(--bd)}
-  .nodo-ok{border-left-color:var(--grn)}
-  .nodo-pend{border-left-color:var(--amb)}
-  .nodo-vacio{border-left-color:var(--red)}
-  .prompt-box{background:var(--nav);color:#B2E8EA;border-radius:6px;padding:14px 18px;font-family:monospace;font-size:13px;line-height:1.7;margin:10px 0;white-space:pre-wrap}
 </style>
 </head>
 <body>
-
 <div class="top">
   <div class="top-info">
     <a href="index.html" class="btn-back">&#8592; Volver al Índice</a>
@@ -100,7 +96,7 @@
 
 <div id="welcome-screen">
   <h2>Seleccioná tu turno de cursada</h2>
-  <p>Clase 11 · Producción TFI · Cierre de contenidos</p>
+  <p>Clase 11 · Curaduría, Derechos y Licencias Creative Commons</p>
   <div class="career-grid">
     <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px;font-weight:400;">(Proyecto Glaciares)</span></button>
     <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px;font-weight:400;">(Proyecto Senderismo)</span></button>
@@ -149,7 +145,7 @@
       <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
         <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">Prioridades de hoy — en este orden</strong>
         <ol style="margin-left:18px;font-size:14px;opacity:.9;line-height:1.9;">
-          <li><strong>N4: revisar estética del video e integrarlo</strong> — los videos preliminares ya están. Hoy se revisa identidad visual, se agregan subtítulos y se integra en Genially.</li>
+          <li><strong>N4: producir e integrar el video de cierre</strong> — el script ya está escrito (estilo hopecore, 1 minuto). Hoy se produce en Canva y se integra en Genially.</li>
           <li><strong>Navegación completa:</strong> verificar que cada camino (A, B, C, Geo) llega al desenlace correcto sin botones rotos.</li>
           <li><strong>Limpiar notas de editor</strong> — la página de Rama Geografía tiene texto flotante "AVANCE TFI · JUEVES · CLASE 9..." que hay que borrar.</li>
           <li><strong>Página de créditos:</strong> autoría, licencias CC de las imágenes, declaración de IA (Fastbots, ElevenLabs).</li>
@@ -169,6 +165,7 @@
         <span class="paso-num" style="background:var(--red);">Primeros 10 min — Limpieza y verificación</span>
         <h4>Sacar notas de editor y verificar navegación básica</h4>
         <ul class="checklist">
+          <li><span class="cb-icon"></span>Borrar "AVANCE TFI · JUEVES · CLASE 9..." de la página Rama Geografía</li>
           <li><span class="cb-icon"></span>N0 → Rama Inglés → N1 → N2 → N3 → llega a... ¿dónde? Verificar que hay botón hacia N4</li>
           <li><span class="cb-icon"></span>N0 → Rama Geo → postura → actores → llega a... ¿dónde? Verificar convergencia</li>
           <li><span class="cb-icon"></span>Bot Fastbots ("Santiago") responde correctamente en celular</li>
@@ -176,19 +173,21 @@
       </div>
 
       <div class="paso" style="border-left-color:var(--vio);">
-        <span class="paso-num" style="background:var(--vio);">La mayor parte de la clase — Revisar estética del video e integrarlo (N4)</span>
-        <h4>Los videos preliminares ya existen. Hoy se pulen y se suben.</h4>
+        <span class="paso-num" style="background:var(--vio);">La mayor parte de la clase — Producir e integrar el video N4</span>
+        <h4>El script ya existe. Hoy se produce y se sube.</h4>
 
-        <p style="font-size:14px;color:var(--txt);margin-bottom:12px;">Los videos preliminares están producidos a partir del script "Glaciers Are Safe" (versión hopecore, ~1 minuto). Lo que queda hoy: revisar la estética e identidad visual para que el video sea coherente con el resto del recurso, agregar subtítulos e integrarlo como página N4.</p>
+        <p style="font-size:14px;color:var(--txt);margin-bottom:12px;">El documento tiene el guión completo del video "Glaciers Are Safe" (versión hopecore, ~1 minuto). También hay un link de Canva. Hoy se termina de producir y se integra en el Genially como página N4.</p>
 
         <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px 18px;margin-bottom:12px;">
-          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Qué revisar de la estética e identidad visual</strong>
-          <ul style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
-            <li>¿La tipografía de los textos en pantalla coincide con la del resto del Genially?</li>
-            <li>¿La paleta de colores (azules de glaciar, blancos) es coherente con la identidad del recurso?</li>
-            <li>¿El ritmo es adecuado? Para un cierre emotivo, las transiciones lentas funcionan mejor.</li>
-            <li>¿Los subtítulos están presentes y son legibles? El voiceover está en inglés — subtítulos obligatorios.</li>
-          </ul>
+          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Paso a paso — video en Canva</strong>
+          <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
+            <li>Abrir el proyecto de Canva del video (el link ya existe en el documento).</li>
+            <li>Verificar que las imágenes, los textos en pantalla y el audio están sincronizados.</li>
+            <li>Agregar subtítulos visibles en cada escena — texto del voiceover en pantalla (DUA).</li>
+            <li>Descargar como MP4.</li>
+            <li>Subir a Google Drive → "Compartir con cualquiera con el enlace".</li>
+            <li>En Genially, página N4: Insertar → Multimedia → Video → pegar el link de Drive (o subir a YouTube No Listado si Drive no carga en celular).</li>
+          </ol>
         </div>
 
         <div class="alerta-info">
@@ -237,11 +236,11 @@
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--grn);">
           <h4>Canva — Video ⭐</h4>
-          <p>El proyecto de Canva ya existe (link en el documento). Abrir → revisar estética e identidad → verificar sincronización → agregar subtítulos como texto en pantalla → descargar MP4.</p>
+          <p>El proyecto de Canva ya existe (link en el documento). Abrir → verificar sincronización → agregar subtítulos como texto en pantalla → descargar MP4.</p>
           <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Canva</a>
         </div>
         <div class="tool-card" style="border-left:4px solid var(--vio);">
-          <h4>CapCut Web — Alternativa para subtítulos (ojo chequear privacidad de datos)</h4>
+          <h4>CapCut Web — Alternativa para subtítulos</h4>
           <p>Si necesitan subtítulos automáticos transcritos del audio: importar el MP4 de Canva → Texto → Subtítulos automáticos → Español/Inglés → exportar.</p>
           <a href="https://www.capcut.com/es-es/create" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir CapCut Web</a>
         </div>
@@ -330,7 +329,7 @@
         <h1>Avance TFI — Semana 11</h1>
         <p style="text-align:center;font-size:12px;color:#666;">Proyecto Glaciares / Senado</p>
         <h2>Video de cierre (N4)</h2>
-        <p><strong>Video N4-A (ley protegida) revisado e integrado:</strong> <span class="fill-blank">[Sí / En proceso]</span></p>
+        <p><strong>Video N4-A (ley protegida) producido:</strong> <span class="fill-blank">[Sí / En proceso]</span></p>
         <p><strong>¿Tiene subtítulos visibles?</strong> <span class="fill-blank">[Sí / No]</span></p>
         <p><strong>Link del video:</strong> <span class="fill-blank">[Drive o YouTube]</span></p>
         <p><strong>N4-B (ley modificada):</strong> <span class="fill-blank">[Video / Página estática con imagen y texto]</span></p>
@@ -345,7 +344,7 @@
       </div>
       <div class="avt-box">
         <strong>&#128197; AVT antes de Clase 12 (24 de junio)</strong>
-        Bitácora + link actualizado. La Clase 12 es la última de producción: testeo cruzado, corrección de bugs finales y cierre del borrador. El 1 de julio exponen.
+        Bitácora + link actualizado. La Clase 12 (24 de junio) es la última de producción: testeo de estrés, corrección de bugs finales y cierre del borrador. El 1 de julio exponen.
       </div>
     </div>
   </div>
@@ -353,32 +352,23 @@
 
 </div><!-- fin c-miercoles -->
 
+
 <!-- JUEVES -->
 <div class="c-block c-jueves">
 
 <div id="pane-partida-jueves" class="pane on">
   <div class="card" style="border-top:4px solid var(--teal);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Semana 11 · Jueves — Senderismo: Integración Final</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Curaduría y derechos — Jueves</div>
     <div class="cb">
-      <div class="alerta-info" style="margin-bottom:14px;">Este análisis se basa en el documento de diseño y narrativa de "John" en la Laguna del Caminante.</div>
-
-      <div class="nodo-grid">
-        <div class="nodo-card nodo-ok"><strong>N0 (John) ✓</strong>El turista que alquila auto sin información ya está diseñado conceptualmente.</div>
-        <div class="nodo-card nodo-ok"><strong>Textos ✓</strong>Contenido sobre Turbera, Glaciar y Bosque Fueguino redactados.</div>
-        <div class="nodo-card nodo-pend"><strong>Llave Intermedia ⚠</strong>El audio del transeúnte ("Continue straight ahead...") falta integrar con el mapa topográfico.</div>
-        <div class="nodo-card nodo-vacio"><strong>Mini-juego HTML ✗</strong>Falta generar e incrustar el juego de "Armá la mochila" usando código de IA.</div>
-        <div class="nodo-card nodo-vacio"><strong>Video Celular ✗</strong>El video introductorio de John simulando una pantalla de teléfono no está en Genially.</div>
-      </div>
-
-      <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
-        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">El foco de hoy — Completar el Genially</strong>
-        <ol style="margin-left:18px;font-size:14px;opacity:.9;line-height:1.9;">
-          <li><strong>Generar el juego HTML "Armá la mochila"</strong> (puede ser creado con Claude o Gemini) e incrustarlo mediante iframe.</li>
-          <li><strong>Video N0:</strong> Crear el video vertical de John en Canva (plantilla de celular).</li>
-          <li><strong>Ensamblar Nodos:</strong> Pegar los textos de turbera, glaciar y bosque, y cruzar el audio de la Llave Intermedia.</li>
-          <li><strong>Créditos:</strong> Licencias y citas TASL (Wikiloc, Google Earth).</li>
-        </ol>
-      </div>
+      <p style="font-size:14.5px;margin-bottom:14px;color:var(--txt);">Mismo marco que Miércoles. El foco específico para el Proyecto Senderismo:</p>
+      <ul style="margin-left:20px;font-size:14px;color:var(--txt);line-height:1.9;">
+        <li><strong>Wikiloc:</strong> las rutas descargadas del Valle de Andorra tienen licencia propia. Verificar en la ficha del track (generalmente CC BY-NC-SA) y citar al autor del track.</li>
+        <li><strong>Capturas de Google Earth / Google Maps:</strong> "© Google [año]" con atribución. No son CC pero el uso educativo no comercial está permitido en los TOS.</li>
+        <li><strong>Las narraciones propias</strong> (el WhatsApp de los turistas, el diálogo del transeúnte): son creaciones originales del grupo → CC BY-NC-SA del propio grupo.</li>
+        <li><strong>Audios de ElevenLabs:</strong> declarar herramienta + voz + texto fuente.</li>
+        <li><strong>Imágenes del Valle real</strong> (si se usaron fotos de Wikimedia u otras): verificar licencia de cada una.</li>
+      </ul>
+      <div class="alerta-info" style="margin-top:14px;">Si el recurso tiene el desenlace incompleto de la clase anterior: la primera mitad de hoy (30 min) se usa para completarlo. Los derechos se auditarán al mismo tiempo — no son tareas separadas.</div>
     </div>
   </div>
 </div><!-- fin pane-partida-jueves -->
@@ -389,35 +379,40 @@
     <div class="cb">
 
       <div class="paso" style="border-left-color:var(--amb);">
-        <span class="paso-num" style="background:var(--amb);">15 min — El Mini-juego HTML "Armá la Mochila"</span>
-        <h4>Uso de código generado por IA</h4>
-        <p style="font-size:14px;color:var(--txt);">Van a usar Claude para crear un interactivo a medida, sin programar. Copien el prompt exacto de la <strong>Guía 1</strong>. Claude les dará un archivo HTML. Cópienlo, guárdenlo (o usen CodePen/Replit) y generen el enlace para incrustarlo como <em>iframe</em> en su Genially.</p>
+        <span class="paso-num" style="background:var(--amb);">Primeros 30 min — Completar pendientes + auditoría simultánea</span>
+        <h4>Si el desenlace de Clase 9 quedó sin terminar</h4>
+        <p style="font-size:14px;color:var(--txt);">Mientras un integrante termina el desenlace en Genially, el otro audita los derechos de los recursos ya integrados usando la lista de la pestaña Consigna. No es necesario pausar la producción para hacer la auditoría — son tareas paralelas.</p>
       </div>
 
       <div class="paso" style="border-left-color:var(--vio);">
-        <span class="paso-num" style="background:var(--vio);">40 min — Video Vertical de John (N0)</span>
-        <h4>Simulación de interfaz móvil en Canva</h4>
-        <ul style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
-          <li>Ir a Canva. Buscar: "Video mensaje de móvil" o "Mensaje de celular".</li>
-          <li>John pide ayuda desde la entrada de Andorra: <em>"No hay señal constante y el sendero no está claro..."</em></li>
-          <li>Exportar en MP4, subir a YouTube/Drive e incrustar en la página de inicio.</li>
-          <li><strong>Decisión N0:</strong> Abajo del video, dos botones que lleven a la rama de Geografía (analizar mapa) o Inglés (leer folleto/advertencias).</li>
-        </ul>
+        <span class="paso-num" style="background:var(--vio);">50 min — Auditoría de derechos + página de créditos</span>
+        <h4>Mismo protocolo que Miércoles</h4>
+        <p style="font-size:14px;color:var(--txt);">Inventario de recursos → verificar → reemplazar si hace falta → crear página de créditos en el Genially con formato TASL → declarar licencia CC del recurso propio.</p>
+        <div class="alerta-warn" style="margin-top:10px;">El track de Wikiloc del Valle de Andorra: ir a la ficha del track → buscar "Licencia" o "License". Si es CC BY-NC-SA, citar: "[Nombre del track], [Autor], Wikiloc, CC BY-NC-SA 4.0".</div>
       </div>
 
       <div class="paso" style="border-left-color:var(--grn);">
-        <span class="paso-num" style="background:var(--grn);">30 min — Carga de Contenidos y Llave (N1 y N2)</span>
-        <h4>Mapear el contenido al Genially</h4>
-        <ol style="margin-left:18px;font-size:14px;line-height:1.9;color:var(--txt);">
-          <li><strong>Nodos de Peligro:</strong> Pegar los textos que ya escribieron sobre la Turbera (esponjas gigantes), el Bosque Fueguino (Lenga, Guindo) y el Glaciar.</li>
-          <li><strong>La Llave Intermedia:</strong> En el nodo donde convergen, poner el mapa del Valle y el audio de ElevenLabs (<em>"I´m looking for the trail..."</em>). Si el jugador no cruza el mapa visual con la instrucción en inglés, se pierde en la cascada.</li>
-        </ol>
+        <span class="paso-num" style="background:var(--grn);">30 min — Testeo parcial + Hito 1</span>
+        <h4>Probar la navegación completa y entregar el Anteproyecto</h4>
+        <p style="font-size:14px;color:var(--txt);">Navegar el Genially desde N0 hasta el desenlace. Verificar que la página de créditos es accesible desde el recurso (botón "i" o página final). Completar la plantilla del Anteproyecto (Hito 1) y subir al AVT.</p>
       </div>
 
-      <div class="paso" style="border-left-color:var(--teal);">
-        <span class="paso-num" style="background:var(--teal);">20 min — Créditos y Testeo Final</span>
-        <h4>Cerrar la estructura</h4>
-        <p style="font-size:14px;color:var(--txt);">Hagan el recorrido completo: ¿El turista llega a la laguna? Agregar la página final de Créditos citando las fuentes de los mapas (Google Earth / Wikiloc) en formato TASL.</p>
+      <div class="paso" style="border-left-color:var(--vie);">
+        <span class="paso-num" style="background:var(--vie);">Opción de avance — Video y RA básica</span>
+        <h4>Para grupos que terminen antes: enriquecer el recurso con video y QR</h4>
+        <p style="font-size:14px;color:var(--txt);margin-bottom:12px;">Si la auditoría y el Hito 1 están completos, dos mejoras de alto impacto que Miércoles y Viernes ya están implementando:</p>
+
+        <div style="background:var(--vie-cl);border-left:3px solid var(--vie);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;">
+          <strong style="color:var(--vie);display:block;margin-bottom:6px;">🎬 Video para el desenlace</strong>
+          <p style="font-size:13.5px;color:var(--txt);">El WhatsApp final de los turistas puede potenciarse con un clip de 20–30 segundos del Valle de Andorra real. Opción rápida: curar un video CC de Wikimedia o YouTube (canal oficial de Turismo TDF). Opción propia: armarlo en Canva (Crear → Vídeo → imágenes del Valle + el audio del turista agradeciendo + texto del guión como subtítulos). <strong>Con subtítulos siempre (DUA).</strong></p>
+        </div>
+
+        <div style="background:var(--pale);border-left:3px solid var(--teal);border-radius:var(--r);padding:12px 16px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:6px;">📲 QR como RA básica</strong>
+          <p style="font-size:13.5px;color:var(--txt);">Un QR en el desenlace que abra el track real de Wikiloc del Valle de Andorra: "¿Querés hacer este sendero de verdad? Escaneá." Convierte la ficción interactiva en una invitación a la experiencia territorial real — el cierre perfecto para un recurso de senderismo. Generar en qrcode-monkey.com → insertar como imagen en Genially.</p>
+        </div>
+
+        <div class="alerta-info" style="margin-top:10px;">Estas mejoras son opcionales para hoy pero suman mucho a la defensa: muestran integración multimedial completa (texto + audio + video + RA). Si no llegan hoy, pueden hacerse en la Clase 11 si el testeo cruzado sale limpio.</div>
       </div>
 
     </div>
@@ -428,23 +423,31 @@
   <div class="card">
     <div class="ch">Herramientas · Jueves</div>
     <div class="cb">
-      <div class="tools-grid">
-        <div class="tool-card" style="border-left:4px solid var(--nav);">
-          <h4>Claude (claude.ai) ⭐</h4>
-          <p>Para generar el código HTML, CSS y JS del juego "Armá la mochila" en segundos. Es superior a ChatGPT para generar código funcional completo en un solo bloque.</p>
-          <a href="https://claude.ai/" target="_blank" class="btn-tool" style="background:var(--nav);">Abrir Claude</a>
-        </div>
-        <div class="tool-card" style="border-left:4px solid var(--vio);">
-          <h4>Canva — Plantilla Móvil</h4>
-          <p>Clave para la inmersión del N0. Asegúrense de usar formato vertical (9:16) para simular que John nos habla desde su smartphone.</p>
-          <a href="https://www.canva.com/" target="_blank" class="btn-tool" style="background:var(--vio);">Abrir Canva</a>
-        </div>
-      </div>
+      <p style="font-size:14px;color:var(--txt);margin-bottom:14px;">Las mismas que Miércoles. Énfasis en las fuentes relevantes para el Proyecto Senderismo:</p>
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--grn);">
-          <h4>ElevenLabs — Audio de la llave</h4>
-          <p>Para la conversación con el transeúnte: <em>"Continue straight ahead to the waterfall..."</em>. Necesario para que el jugador se oriente en el mapa.</p>
-          <a href="https://elevenlabs.io/" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir ElevenLabs</a>
+          <h4>Wikimedia Commons — Fauna patagónica</h4>
+          <p>Para reemplazar cualquier imagen de fauna sin licencia verificada. Buscar: "Tierra del Fuego fauna", "Andorra Valley", "Nothofagus pumilio" (lenga). Todas tienen licencia en la ficha.</p>
+          <a href="https://commons.wikimedia.org" target="_blank" class="btn-tool" style="background:var(--grn);">Abrir Wikimedia</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>CC Chooser — Licencia del recurso propio</h4>
+          <p>Generar el ícono CC BY-NC-SA 4.0 para pegar en la página de créditos del Genially.</p>
+          <a href="https://chooser-beta.creativecommons.org" target="_blank" class="btn-tool" style="background:var(--nav);">Elegir licencia</a>
+        </div>
+      </div>
+
+      <h3 class="tool-cat-title" style="color:var(--vie);border-bottom-color:var(--vie-cl);">Opción de avance — Video y RA</h3>
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--vie);">
+          <h4>Canva — Video del desenlace</h4>
+          <p>Crear → Vídeo → imágenes del Valle + audio del turista → texto del guión en pantalla como subtítulos → exportar MP4. Insertar en Genially (Insertar → Multimedia → Video). Si prefieren subtítulos automáticos transcritos, usar CapCut Web (capcut.com/es-es/create).</p>
+          <a href="https://www.canva.com/es_ar/crear/videos/" target="_blank" class="btn-tool" style="background:var(--vie);">Crear video en Canva</a>
+        </div>
+        <div class="tool-card" style="border-left:4px solid var(--grn);">
+          <h4>QR Code Monkey — RA básica</h4>
+          <p>Generar un QR que abra el track real de Wikiloc del Valle de Andorra. Insertarlo en el desenlace: "¿Querés hacer este sendero de verdad? Escaneá."</p>
+          <a href="https://www.qrcode-monkey.com/es/" target="_blank" class="btn-tool" style="background:var(--grn);">Generar QR</a>
         </div>
       </div>
     </div>
@@ -453,66 +456,41 @@
 
 <div id="pane-guias-jueves" class="pane">
   <div class="card" style="border-left:4px solid var(--teal);">
-    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías de Producción · Jueves</div>
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías · Jueves</div>
     <div class="cb">
-      
-      <details class="guia">
-        <summary>1. Prompt exacto para el juego "Armá la mochila" (Copiar y pegar en Claude)</summary>
-        <div class="guia-content">
-          <p>Copien este bloque de texto y péguenlo en Claude para que les arme el juego automáticamente:</p>
-          <div class="prompt-box">Quiero que generes un juego educativo en un solo archivo HTML (con CSS y JavaScript incluidos, sin librerías externas) para incrustar en Genially mediante iframe.
-
-El juego se llama "Armá la mochila". Hay una mochila dibujada en SVG (estilo trekking, con color) y una grilla de objetos al costado. El alumno debe arrastrar o tocar los objetos para meterlos en la mochila.
-
-Reglas:
-1. Algunos objetos van (agua, linterna, brújula, botiquín, abrigo, mapa) y otros no (notebook, consola, etc.).
-2. Si mete un objeto incorrecto, la mochila se vacía y empieza de nuevo.
-3. Tiene 3 intentos. Si los pierde, queda bloqueado 10 segundos antes de reintentar.
-4. Al completar la mochila correctamente, muestra una palabra clave secreta.
-
-Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea responsive. Mostrame el código completo en un solo archivo.</div>
-          <div class="alerta-ok">Una vez que Claude les dé el código, pueden guardarlo en un bloc de notas como <code>mochila.html</code> y subirlo a un hosting (como Vercel, Netlify o GitHub Pages) para obtener el link e incrustarlo en Genially.</div>
-        </div>
-      </details>
-
-      <details class="guia">
-        <summary>2. El Cruce Didáctico de la Llave Intermedia</summary>
-        <div class="guia-content">
-          <p>La clave de la estación 2 es que el jugador NO pueda avanzar si no usa las dos disciplinas a la vez:</p>
-          <ul>
-            <li><strong>Inglés:</strong> Escuchar y comprender el audio ("waterfall fork, then turn left").</li>
-            <li><strong>Geografía:</strong> Mirar la topografía del mapa de Andorra que está en la pantalla y ubicar la cascada para saber hacia qué sendero clickear.</li>
-            <li>Si el Genially permite adivinar haciendo clic al azar, la llave falla. Asegúrense de poner opciones distractoras ("turn right at the river").</li>
-          </ul>
-        </div>
-      </details>
-      
+      <p style="font-size:14px;color:var(--txt);margin-bottom:14px;">Las mismas guías que Miércoles (pestaña Guías de Miércoles). Consultarlas directamente. Énfasis para Jueves: la Guía 2 (formato TASL) para el track de Wikiloc y los mapas de Google Earth.</p>
+      <div class="alerta-info">Recordatorio: el track de Wikiloc es de un usuario particular que subió el recorrido. Tiene nombre, perfil y fecha. La cita correcta incluye esos datos.</div>
     </div>
   </div>
 </div><!-- fin pane-guias-jueves -->
 
 <div id="pane-bitacora-jueves" class="pane">
   <div class="card" style="border-top:4px solid var(--nav);">
-    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Jueves · Semana 11</div>
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Avance TFI · Jueves · Clase 11 + Hito 1</div>
     <div class="cb">
+      <p style="font-size:14px;margin-bottom:14px;">Misma plantilla que Miércoles con los datos del Proyecto Senderismo.</p>
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar plantilla al portapapeles</button>
       <div id="doc-template-content-jueves" class="doc-template">
-        <h1>Avance TFI — Semana 11 (Senderismo)</h1>
-        <p style="text-align:center;font-size:12px;color:#666;">Proyecto Senderismo / Andorra</p>
-        <h2>Producción Interactiva</h2>
-        <p><strong>Juego HTML "Armá la mochila" generado e incrustado:</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <p><strong>Video de John (mensaje móvil) integrado en N0:</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <h2>Carga de Contenidos</h2>
-        <p><strong>Textos integrados (Turbera, Glaciar, Bosque):</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <p><strong>Llave Intermedia (Audio + Mapa) operativa:</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <h2>Créditos y Navegación</h2>
-        <p><strong>Página de créditos con citas TASL (Wikiloc/Google Earth):</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <p><strong>El recorrido completo llega a la Laguna:</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <p><strong>Link del Genially actualizado:</strong> <span class="fill-blank">[Link público]</span></p>
+        <h1>TFI — Hito 1: Anteproyecto (Senderismo)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar al AVT antes de Clase 12</p>
+        <h2>Identificación</h2>
+        <p><strong>Título:</strong> <span class="fill-blank">[Nombre del recurso]</span></p>
+        <p><strong>Autoras:</strong> <span class="fill-blank">[Nombres y profesorados]</span></p>
+        <p><strong>Destinatarios:</strong> <span class="fill-blank">[Año y nivel]</span></p>
+        <h2>Descripción</h2>
+        <p><strong>Propósito pedagógico:</strong><br><span class="fill-blank">[Qué aprende el usuario: orientación, vocabulario en inglés, geografía del Valle]</span></p>
+        <p><strong>Estructura:</strong><br><span class="fill-blank">[N0 dilema → N1 rama Inglés / Geografía → Llave intermedia → Post-llave → Desenlace]</span></p>
+        <p><strong>Herramientas:</strong> <span class="fill-blank">[Genially, ElevenLabs, Canva, Wikiloc, Google Earth, IA generativa]</span></p>
+        <h2>Auditoría de derechos</h2>
+        <p><strong>Recursos de terceros:</strong><br><span class="fill-blank">[Track Wikiloc / Capturas Google Earth / Imágenes Wikimedia — con TASL de cada uno]</span></p>
+        <p><strong>Recursos IA:</strong><br><span class="fill-blank">[Imágenes generadas con [herramienta], audios ElevenLabs — con prompt y voz]</span></p>
+        <h2>Licencia</h2>
+        <p><strong>Licencia elegida:</strong> <span class="fill-blank">[CC BY-NC-SA 4.0]</span></p>
+        <p><strong>Link del Genially:</strong> <span class="fill-blank">[Link público]</span></p>
       </div>
       <div class="avt-box">
         <strong>&#128197; AVT antes de Clase 12</strong>
-        Bitácora completada + link del Genially testeado. La Clase 12 (25 de junio) es el testeo cruzado final antes de exponer el 1 de julio.
+        Anteproyecto completo + link del Genially con página de créditos. La Clase 12 es testeo de estrés y cierre de producción — llegar con el recurso navegable de principio a fin.
       </div>
     </div>
   </div>
@@ -520,36 +498,36 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
 
 </div><!-- fin c-jueves -->
 
+
 <!-- VIERNES -->
 <div class="c-block c-viernes">
 
 <div id="pane-partida-viernes" class="pane on">
   <div class="card" style="border-top:4px solid var(--vie);">
-    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Semana 11 · Viernes — Video Pepito y Estaciones</div>
+    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Viernes 19 de junio — Video del personaje + QR de las misiones</div>
     <div class="cb">
-      <div class="alerta-info" style="margin-bottom:14px;">Este análisis se basa en el trabajo en clases y los documentos compartidos del Escape Room TDFeIAS.</div>
+      <div class="alerta-info" style="margin-bottom:14px;font-size:13px;">Análisis basado en el documento del proyecto "El viaje del Albatros" y el trabajo en clase.</div>
 
       <div class="nodo-grid">
-        <div class="nodo-card nodo-pend"><strong>Actividades digitales →</strong>Deberían estar construidas e integradas. Verificar al inicio: link funcionando en celular ajeno.</div>
-        <div class="nodo-card nodo-vacio"><strong>Video de Pepito ✗</strong>El documento del proyecto pide un video de apertura donde Pepito aparece, dice su nombre y se presenta. No existe todavía.</div>
-        <div class="nodo-card nodo-vacio"><strong>QR en afiches ✗</strong>Los afiches físicos de cada posta necesitan el QR que abre su Genially. Sin él, el juego físico no puede empezar.</div>
-        <div class="nodo-card nodo-pend"><strong>Planificación física →</strong>¿Qué va en cada posta el día del juego? Definirlo hoy para saber qué imprimir.</div>
-      </div>
-
-      <div class="alerta-info" style="margin-bottom:14px;">
-        <strong>Calendario del Viernes:</strong> Esta clase + la del 26 de junio para cerrar todo al 100%. El 3 de julio es la última clase: defensa y presentación del juego, sin producción.
+        <div class="nodo-card nodo-ok"><strong>Diseño ✓</strong>Cada grupo tiene su estación, sus misiones y su contenido definidos (animales, paisaje, fauna).</div>
+        <div class="nodo-card nodo-pend"><strong>Genially por estación →</strong>Cada grupo arma SU propio Genially. Verificar que el de cada uno tenga al menos una misión funcionando.</div>
+        <div class="nodo-card nodo-vacio"><strong>Video del personaje ✗</strong>El albatros que se presenta y pide ayuda. Es lo que abre cada estación.</div>
+        <div class="nodo-card nodo-vacio"><strong>QR ✗</strong>Dos usos: el QR que abre el Genially de la estación, y los QR de los animales físicos del aula.</div>
       </div>
 
       <div style="background:var(--nav);border-radius:var(--r);padding:16px 20px;color:#fff;margin:16px 0;">
-        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">El foco de hoy — por prioridad</strong>
+        <strong style="color:var(--cl);display:block;font-size:15px;margin-bottom:8px;">Lo que hay que lograr hoy</strong>
         <ol style="margin-left:18px;font-size:14px;opacity:.9;line-height:1.9;">
-          <li><strong>Video de apertura de Pepito:</strong> el documento pide un video donde el albatros aparece, se presenta y explica la misión. Es el elemento que abre el juego ante los niños.</li>
-          <li><strong>QR para los afiches físicos:</strong> cada posta tiene un afiche en la pared con un QR que abre el Genially de esa estación. Generar e imprimir los 5 QR.</li>
-          <li><strong>Video breve de Pepito por estación</strong> (si hay tiempo): versión corta del saludo de Pepito adaptada a cada lugar (Ushuaia, Tolhuin, etc.).</li>
-          <li><strong>Planificación física de postas:</strong> definir qué va en la pared y qué se pone sobre la mesa el día del juego.</li>
+          <li><strong>Video del albatros</strong> que abre la estación (se presenta y pide ayuda).</li>
+          <li><strong>QR de la estación:</strong> el que abre tu Genially.</li>
+          <li><strong>QR de los animales/elementos físicos</strong> (para los grupos que usan búsqueda en el aula, como Ushuaia).</li>
+          <li><strong>Que cada misión entregue su llave</strong> al completarse.</li>
         </ol>
       </div>
 
+      <div class="alerta-info">
+        <strong>Calendario:</strong> Hoy + la clase del 26 de junio para cerrar todo al 100%. El 3 de julio es la defensa: se juega el Escape Room completo, sin producción.
+      </div>
     </div>
   </div>
 </div><!-- fin pane-partida-viernes -->
@@ -560,71 +538,49 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
     <div class="cb">
 
       <div class="paso" style="border-left-color:var(--amb);">
-        <span class="paso-num" style="background:var(--amb);">10 min — Verificación base</span>
-        <h4>¿Cada estación tiene su actividad digital con link funcionando?</h4>
-        <p style="font-size:14px;color:var(--txt);">Rápida vuelta por cada grupo: mostrar el link de la actividad y abrirlo en un celular ajeno. Si no carga → ese grupo trabaja primero en corregirlo antes de pasar al video. El resto arranca directo con Pepito.</p>
+        <span class="paso-num" style="background:var(--amb);">Paso 1 · 10 min — Verificar el Genially de cada estación</span>
+        <h4>¿Cada grupo tiene su Genially con al menos una misión?</h4>
+        <p style="font-size:14px;color:var(--txt);">Vuelta rápida: cada grupo abre su Genially en un celular ajeno. ¿Carga? ¿Se puede jugar al menos una misión (memotest, rompecabezas, arrastrar)? El que no tenga nada todavía arranca por ahí.</p>
       </div>
 
       <div class="paso" style="border-left-color:var(--vie);">
-        <span class="paso-num" style="background:var(--vie);">50 min — Video de apertura de Pepito</span>
-        <h4>El albatros que abre el juego</h4>
-
-        <div style="background:var(--vie-cl);border-left:4px solid var(--vie);border-radius:var(--r);padding:14px 18px;margin-bottom:12px;">
-          <strong style="color:var(--vie);display:block;margin-bottom:8px;">¿Qué tiene que decir Pepito en el video?</strong>
-          <p style="font-size:13.5px;color:var(--txt);margin-bottom:8px;">El documento del proyecto dice: <em>"Hola, mi nombre es Pepito, y soy un albatros. Me caracterizo por tener alas grandes…"</em> El video tiene que ser corto (20–30 segundos), amigable para sala de 4/5, y terminar con la consigna del juego.</p>
-          <p style="font-size:13px;color:var(--txt);">Guión sugerido: <em>"¡Hola! Soy Pepito el Albatros y recorro toda la Tierra del Fuego. Hoy necesito tu ayuda: hay 5 lugares especiales que tenés que explorar para encontrar las llaves del cofre. ¿Empezamos?"</em></p>
-        </div>
-
-        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px 18px;margin-bottom:12px;">
-          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Cómo producirlo — Opción A: Canva + ElevenLabs (recomendada)</strong>
+        <span class="paso-num" style="background:var(--vie);">Paso 2 · 45 min — Video del albatros</span>
+        <h4>El personaje que abre la estación</h4>
+        <p style="font-size:14px;color:var(--txt);margin-bottom:10px;">Cada grupo hace el video donde el albatros se presenta y pide ayuda para su misión. Corto (20–30 seg), para sala de 5.</p>
+        <div style="background:var(--gcl);border-left:4px solid var(--grn);border-radius:var(--r);padding:14px 18px;">
+          <strong style="color:var(--grn);display:block;margin-bottom:8px;">Cómo armarlo en Canva (5 pasos)</strong>
           <ol style="margin-left:16px;font-size:13.5px;line-height:1.9;color:var(--neg);">
-            <li>En Canva: Crear → Vídeo (formato 16:9) → elegir un fondo de paisaje fueguino.</li>
-            <li>Agregar la imagen del albatros (ilustración CC).</li>
-            <li>Grabar el audio en ElevenLabs con la voz ya elegida para Pepito.</li>
-            <li>En Canva: Insertar el audio → sincronizar con la imagen.</li>
-            <li>Agregar subtítulos como texto en pantalla (DUA obligatorio).</li>
-            <li>Descargar como MP4 → subir a Google Drive → insertar en el Nodo Central de Genially.</li>
+            <li>Canva → Crear → Vídeo → fondo de paisaje de tu estación.</li>
+            <li>Insertar la imagen del albatros.</li>
+            <li>Grabar la voz en ElevenLabs (guión en la Guía 1) → descargar MP3.</li>
+            <li>En Canva: Agregar → Audio → subir el MP3 + texto en pantalla (subtítulos DUA).</li>
+            <li>Descargar MP4 → Google Drive → insertar en la primera página del Genially.</li>
           </ol>
         </div>
-
       </div>
 
       <div class="paso" style="border-left-color:var(--grn);">
-        <span class="paso-num" style="background:var(--grn);">35 min — QR para afiches físicos (RA básica)</span>
-        <h4>Cada posta necesita su código QR impreso</h4>
+        <span class="paso-num" style="background:var(--grn);">Paso 3 · 35 min — Los QR (la magia física-digital)</span>
+        <h4>Dos tipos de QR según tu estación</h4>
 
-        <p style="font-size:14px;color:var(--txt);margin-bottom:12px;">El QR del afiche es la Realidad Aumentada básica del proyecto: convierte el papel en una puerta al Genially digital. Sin el QR, los niños no pueden entrar al juego desde la posta física.</p>
+        <div style="background:var(--pale);border-left:3px solid var(--teal);border-radius:var(--r);padding:12px 16px;margin-bottom:10px;">
+          <strong style="color:var(--nav);display:block;margin-bottom:6px;">QR de la estación (todos los grupos)</strong>
+          <p style="font-size:13.5px;color:var(--txt);">El QR que va en el afiche de la posta y abre tu Genially. Generarlo en QR Code Monkey con el link público de tu Genially.</p>
+        </div>
 
-        <table>
-          <thead><tr><th>Estación</th><th>QR apunta a</th><th>Color sugerido</th></tr></thead>
-          <tbody>
-            <tr><td>🌊 Ushuaia</td><td>Primera página del Genially de Ushuaia</td><td>Azul marino</td></tr>
-            <tr><td>🌲 Tolhuin</td><td>Primera página del Genially de Tolhuin</td><td>Verde bosque</td></tr>
-            <tr><td>💨 Río Grande</td><td>Primera página del Genially de Río Grande</td><td>Ocre / marrón</td></tr>
-            <tr><td>🏝️ Malvinas</td><td>Primera página del Genially de Malvinas</td><td>Teal</td></tr>
-            <tr><td>🧊 Antártida</td><td>Nodo Central (mapa TDF)</td><td>Violeta</td></tr>
-          </tbody>
-        </table>
+        <div style="background:var(--pale);border-left:3px solid var(--vie);border-radius:var(--r);padding:12px 16px;">
+          <strong style="color:var(--vie);display:block;margin-bottom:6px;">QR de los animales/elementos físicos (Ushuaia y quien lo use)</strong>
+          <p style="font-size:13.5px;color:var(--txt);">Los animales repartidos por el aula tienen cada uno su QR. Cuando el niño encuentra el animal correcto y lo escanea, se habilita la siguiente pista en el Genially. Generar un QR por animal, apuntando a la página de la pista que corresponde.</p>
+        </div>
 
-        <div class="alerta-info" style="margin-top:10px;">El QR de Antártida apunta al <strong>Nodo Central</strong>, no al cofre. Los niños llegan al cofre cuando ya tienen los 5 dígitos — el afiche de Antártida solo los recibe en la última posta.</div>
-        <div class="alerta-warn" style="margin-top:8px;">Generar el QR <strong>antes</strong> de imprimir el afiche. Si el link de Genially cambia después, el QR impreso queda inservible.</div>
+        <div class="alerta-warn" style="margin-top:10px;">Generar los QR <strong>antes</strong> de imprimir. Si el link del Genially cambia, el QR impreso deja de servir. Escanear cada uno para verificar antes de mandar a imprimir.</div>
       </div>
 
       <div class="paso">
-        <span class="paso-num">Planificación física de postas</span>
-        <h4>Definir qué va en cada posta el día del juego</h4>
-        <p style="font-size:14px;color:var(--txt);margin-bottom:10px;">Cada posta necesita: 1 afiche (A3 o A4) con QR, 1 dispositivo (tablet/celular), y 1 objeto físico representativo. Definirlo hoy para saber qué imprimir antes de la última clase de producción (26 de junio).</p>
-
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;">
-          <div style="background:var(--gcl);border-left:3px solid var(--grn);border-radius:var(--r);padding:12px;">
-            <strong style="color:var(--grn);display:block;margin-bottom:4px;">Afiche</strong>
-            <p style="font-size:13px;color:var(--txt);">Diseñar en Canva: nombre del lugar, imagen representativa, QR grande en el centro.</p>
-          </div>
-          <div style="background:var(--pale);border-left:3px solid var(--teal);border-radius:var(--r);padding:12px;">
-            <strong style="color:var(--teal);display:block;margin-bottom:4px;">Objeto físico</strong>
-            <p style="font-size:13px;color:var(--txt);">Algo del ambiente: conchilla para Ushuaia, piña de lenga para Tolhuin, pluma para Río Grande.</p>
-          </div>
-        </div>
+        <span class="paso-num">Paso 4 · Cierre — La llave de tu estación</span>
+        <h4>Cada misión completada entrega su llave</h4>
+        <p style="font-size:14px;color:var(--txt);">Verificar que al terminar las misiones de tu estación, el niño recibe la llave (digital o pista para pedir la pieza física a la seño). Las 5 llaves juntas abren el cofre del abuelo en Antártida.</p>
+        <div class="alerta-info" style="margin-top:8px;"><strong>AVT:</strong> subir el link del Genially + el avance en la bitácora. El 26 de junio se cierra todo al 100%.</div>
       </div>
 
     </div>
@@ -636,31 +592,36 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
     <div class="ch">Herramientas · Viernes</div>
     <div class="cb">
 
-      <h3 class="tool-cat-title" style="color:var(--vie);border-bottom-color:var(--vie-cl);margin-top:0;">Producción del video de Pepito</h3>
+      <h3 class="tool-cat-title" style="color:var(--vie);border-bottom-color:var(--vie-cl);margin-top:0;">Video del albatros</h3>
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--vie);">
           <h4>Canva — Video ⭐</h4>
-          <p>Crear → Vídeo (16:9) → fondo de paisaje fueguino → insertar imagen del albatros → insertar audio de ElevenLabs → agregar texto como subtítulos → descargar MP4.</p>
-          <a href="https://www.canva.com/es_ar/crear/videos/" target="_blank" class="btn-tool" style="background:var(--vie);">Crear video en Canva</a>
+          <p>Crear → Vídeo → fondo + albatros + audio + subtítulos → descargar MP4. La forma más directa.</p>
+          <a href="https://www.canva.com/es_ar/crear/videos/" target="_blank" class="btn-tool" style="background:var(--vie);">Crear video</a>
         </div>
         <div class="tool-card" style="border-left:4px solid var(--teal);">
-          <h4>ElevenLabs — Voz de Pepito</h4>
-          <p>Usar la misma voz ya configurada para Pepito. Grabar el guión de apertura (20–30 seg) y descargar el MP3.</p>
+          <h4>ElevenLabs — Voz del albatros</h4>
+          <p>Grabar el guión de presentación (20–30 seg) con la voz de Pepito → descargar MP3.</p>
           <a href="https://elevenlabs.io" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir ElevenLabs</a>
         </div>
       </div>
 
-      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">QR y RA básica</h3>
+      <h3 class="tool-cat-title" style="color:var(--grn);border-bottom-color:var(--gcl);">QR y juegos</h3>
       <div class="tools-grid">
         <div class="tool-card" style="border-left:4px solid var(--grn);">
           <h4>QR Code Monkey</h4>
-          <p>Pegar el link público del Genially → personalizar color del QR → descargar PNG → insertar en el afiche de Canva.</p>
+          <p>Generar los QR (de la estación y de los animales). Pegar link → color → descargar PNG → insertar en el afiche o la tarjeta del animal.</p>
           <a href="https://www.qrcode-monkey.com/es/" target="_blank" class="btn-tool" style="background:var(--grn);">Generar QR</a>
         </div>
+        <div class="tool-card" style="border-left:4px solid var(--amb);">
+          <h4>Rosimosi — Memotest</h4>
+          <p>Para el memotest de animales fueguinos (Río Grande). Crear el juego, publicar, copiar el link para el Genially.</p>
+          <a href="https://www.rosimosi.com/games/kindergarten/pklg-memory/" target="_blank" class="btn-tool" style="background:var(--amb);">Abrir Rosimosi</a>
+        </div>
         <div class="tool-card" style="border-left:4px solid var(--teal);">
-          <h4>Canva — Afiche de posta</h4>
-          <p>Plantilla A4: nombre del lugar + imagen representativa + QR grande en el centro. Descargar como PDF para impresión.</p>
-          <a href="https://www.canva.com" target="_blank" class="btn-tool" style="background:var(--teal);">Diseñar afiche</a>
+          <h4>Wordwall — Arrastrar y soltar</h4>
+          <p>Para reconstruir el paisaje (arrastrar lo que pertenece, sacar lo que no). Publicar → link embed para el Genially.</p>
+          <a href="https://wordwall.net/es" target="_blank" class="btn-tool" style="background:var(--teal);">Abrir Wordwall</a>
         </div>
       </div>
 
@@ -674,29 +635,41 @@ Cuidá que funcione tanto en celular (táctil) como en computadora, y que sea re
     <div class="cb">
 
       <details class="guia">
-        <summary>1. Guión completo de apertura — Pepito en el Nodo Central</summary>
+        <summary>1. Guión del albatros (presentación de la estación)</summary>
         <div class="guia-content">
-          <p>El video de apertura se reproduce en la primera pantalla del Nodo Central, antes de que los niños vean el mapa. Duración ideal: 20–25 segundos.</p>
-          <div class="prompt-box">¡Hola! Soy Pepito el Albatros 🪶 y recorro toda la Tierra del Fuego con mis alas enormes.
+          <p>El albatros se presenta y pide ayuda. Adaptar el lugar y la misión a cada estación.</p>
+          <div class="prompt-box">¡Hola! Soy Pepito el Albatros 🪶 y vuelo por toda la Tierra del Fuego.
 
-Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para encontrar las llaves del cofre del abuelo.
+Llegué a [Río Grande / Ushuaia / Tolhuin / Malvinas] y necesito tu ayuda. Acá perdí algo importante y solo vos podés ayudarme a encontrarlo.
 
-¿Empezamos la aventura? ¡Tocá el mapa y elegí por dónde empezar!</div>
-          <div class="alerta-dua">DUA: todos los videos deben tener el texto hablado visible como subtítulos en pantalla. Para los niños que no escuchan bien o que están en un espacio ruidoso, los subtítulos son el acceso al contenido.</div>
+¿Me ayudás? ¡Resolvé los desafíos y conseguí la llave!</div>
+          <div class="alerta-dua">DUA: el texto que dice el albatros tiene que estar también escrito en pantalla (subtítulos). Así el niño que no escucha bien o está en un lugar ruidoso también lo entiende.</div>
         </div>
       </details>
 
       <details class="guia">
-        <summary>2. Cómo generar e integrar el QR en el afiche de Canva</summary>
+        <summary>2. Cómo conectar un QR físico con una pista del Genially</summary>
+        <div class="guia-content">
+          <p>Esto es lo que hace "mágica" la búsqueda de Ushuaia: el niño encuentra el animal físico, lo escanea y se abre la siguiente pista.</p>
+          <ol style="margin-left:16px;line-height:1.9;">
+            <li>En el Genially, crear la página de la pista (ej: "¡Encontraste el lobo marino! Ahora buscá el pingüino").</li>
+            <li>Publicar el Genially y copiar el link de ESA página específica.</li>
+            <li>En QR Code Monkey: pegar ese link → generar el QR → imprimirlo y pegarlo en el animal físico.</li>
+            <li>Repetir con cada animal. Cada QR lleva a la pista del siguiente.</li>
+          </ol>
+          <div class="alerta-info">El último animal de la cadena lleva a la página de la llave: "¡Completaste Ushuaia! Pedile la llave a tu seño."</div>
+        </div>
+      </details>
+
+      <details class="guia">
+        <summary>3. Cómo incrustar un juego (Rosimosi / Wordwall) en Genially</summary>
         <div class="guia-content">
           <ol style="margin-left:16px;line-height:1.9;">
-            <li>Verificar que el Genially de la estación está en modo público: Publicar → "Cualquiera con el link" → copiar el link.</li>
-            <li>Ir a qrcode-monkey.com → pegar el link → personalizar color (uno distinto por estación) → descargar PNG (mínimo 500x500px).</li>
-            <li>En el afiche de Canva: insertar el PNG del QR → posicionarlo en el centro o esquina inferior → agregar la etiqueta "Escaneá para jugar".</li>
-            <li>Descargar el afiche como PDF → imprimir en A4 o A3.</li>
-            <li>Antes de imprimir: escanear el QR desde el celular para verificar que abre la página correcta.</li>
+            <li>En la plataforma del juego: publicar → "Insertar" o "Embed" → copiar el código.</li>
+            <li>En Genially: Insertar → Interactivo → Contenido externo → pegar.</li>
+            <li>Si no carga en celular: usar un botón "▶ Jugar" que abra el juego en pestaña nueva.</li>
+            <li>Verificar en Vista Previa que se puede jugar.</li>
           </ol>
-          <div class="alerta-warn">Imprimir solo cuando el Genially esté 100% terminado. Un QR que apunta a un Genially incompleto es peor que no tener QR.</div>
         </div>
       </details>
 
@@ -711,25 +684,27 @@ Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para enc
       <p style="font-size:14.5px;margin-bottom:16px;">Completar en el Google Doc compartido. Una sección por grupo.</p>
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar plantilla al portapapeles</button>
       <div id="doc-template-content-viernes" class="doc-template">
-        <h1>Avance TFI — Semana 11 (Escape Room TDFeIAS)</h1>
+        <h1>Avance TFI — Semana 11 (El viaje del Albatros)</h1>
         <p style="text-align:center;font-size:12px;color:#666;">Cada grupo completa su sección</p>
-        <h2>Video de Pepito</h2>
-        <p><strong>Video de apertura general producido:</strong> <span class="fill-blank">[Sí / No — pendiente]</span></p>
-        <p><strong>Link del video (Drive o YouTube):</strong> <span class="fill-blank">[Link]</span></p>
-        <p><strong>¿Tiene subtítulos visibles?</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <p><strong>Integrado en Genially:</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <h2>QR y afiche físico (por estación)</h2>
-        <p><strong>Estación:</strong> <span class="fill-blank">[Nombre]</span></p>
+        <h2>Estación</h2>
+        <p><strong>Estación:</strong> <span class="fill-blank">[Ushuaia / Tolhuin / Río Grande / Malvinas / Antártida]</span></p>
         <p><strong>Link público del Genially:</strong> <span class="fill-blank">[Link]</span></p>
-        <p><strong>QR generado:</strong> <span class="fill-blank">[Sí / No]</span></p>
-        <p><strong>Afiche diseñado en Canva:</strong> <span class="fill-blank">[Sí / No / Pendiente de imprimir]</span></p>
-        <h2>Planificación física de la posta</h2>
-        <p><strong>Objeto físico elegido para la ambientación:</strong> <span class="fill-blank">[Describir]</span></p>
-        <p><strong>Materiales a imprimir antes del 26 de junio:</strong> <span class="fill-blank">[Listar: afiche, tarjetas, Pasaporte Fueguino, etc.]</span></p>
+        <h2>Video del albatros</h2>
+        <p><strong>Producido:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <p><strong>Con subtítulos:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <p><strong>Integrado en el Genially:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <h2>Misiones y juegos</h2>
+        <p><strong>Juegos integrados (memotest, arrastrar, rompecabezas):</strong> <span class="fill-blank">[Cuáles y si funcionan]</span></p>
+        <p><strong>Cada misión entrega su llave/pista:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <h2>QR</h2>
+        <p><strong>QR de la estación generado y verificado:</strong> <span class="fill-blank">[Sí / No]</span></p>
+        <p><strong>QR de animales/elementos físicos (si aplica):</strong> <span class="fill-blank">[Sí / No / No aplica]</span></p>
+        <h2>Físico</h2>
+        <p><strong>Materiales a imprimir antes del 26 de junio:</strong> <span class="fill-blank">[Afiche, animales con QR, tarjetas, etc.]</span></p>
       </div>
       <div class="avt-box">
         <strong>&#128197; AVT antes de Clase 12 (26 de junio)</strong>
-        Esta bitácora + link del Genially con video integrado + QR verificado. El 26 de junio se cierra todo al 100%; el 3 de julio es la defensa.
+        Link del Genially + bitácora. El 26 de junio se cierra todo al 100%; el 3 de julio se juega el Escape Room completo en la defensa.
       </div>
     </div>
   </div>
@@ -741,58 +716,10 @@ Hoy necesito tu ayuda. Hay 5 lugares especiales que tenés que explorar para enc
 </div><!-- fin main-app -->
 
 <script>
-  function selectCareer(careerCode, careerName) {
-    document.body.className = '';
-    document.body.classList.add('show-' + careerCode, 'day-selected');
-    const lblCareer = document.getElementById('lbl-career');
-    if (lblCareer) lblCareer.innerText = careerName;
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
-    const firstTabBtn = document.querySelector('.tab-btn');
-    if (firstTabBtn) {
-      showTab('partida', firstTabBtn);
-    }
-  }
-
-  function resetCareer() {
-    document.body.classList.remove('day-selected');
-    const lblCareer = document.getElementById('lbl-career');
-    if (lblCareer) lblCareer.innerText = '';
-  }
-
-  function showTab(tabId, btnElement) {
-    document.querySelectorAll('.pane').forEach(p => p.classList.remove('on'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    let daySuffix = '';
-    if (document.body.classList.contains('show-jueves')) daySuffix = '-jueves';
-    else if (document.body.classList.contains('show-viernes')) daySuffix = '-viernes';
-    let targetPane = document.getElementById('pane-' + tabId + daySuffix);
-    if (!targetPane) {
-      targetPane = document.getElementById('pane-' + tabId);
-    }
-    if (targetPane) targetPane.classList.add('on');
-    if (btnElement) btnElement.classList.add('active');
-  }
-
-  function copyBitacora() {
-    const visiblePane = document.querySelector('.pane.on');
-    if (!visiblePane) return;
-    const docTemplate = visiblePane.querySelector('.doc-template');
-    if (!docTemplate) return;
-    navigator.clipboard.writeText(docTemplate.innerText)
-      .then(() => {
-        const btn = visiblePane.querySelector('.btn-copy');
-        if (!btn) return;
-        const originalText = btn.innerText;
-        btn.innerText = '✅ ¡Copiado con éxito!';
-        btn.style.background = 'var(--grn)';
-        setTimeout(() => {
-          btn.innerText = originalText;
-          btn.style.background = 'var(--nav)';
-        }, 2500);
-      })
-      .catch(err => console.error('Error copiando al portapapeles:', err));
-  }
+function selectCareer(c,n){document.body.className='';document.body.classList.add('show-'+c,'day-selected');document.getElementById('lbl-career').innerText=n;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));showTab('partida',document.querySelector('.tab-btn'));}
+function resetCareer(){document.body.classList.remove('day-selected');document.getElementById('lbl-career').innerText='';}
+function showTab(id,btn){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));let s='';if(document.body.classList.contains('show-jueves'))s='-jueves';else if(document.body.classList.contains('show-viernes'))s='-viernes';let t=document.getElementById('pane-'+id+s)||document.getElementById('pane-'+id);if(t)t.classList.add('on');if(btn)btn.classList.add('active');}
+function copyBitacora(){const v=document.querySelector('.pane.on');if(!v)return;const d=v.querySelector('.doc-template');if(!d)return;navigator.clipboard.writeText(d.innerText).then(()=>{const b=v.querySelector('.btn-copy');if(!b)return;const o=b.innerText;b.innerText='✅ ¡Copiado!';b.style.background='var(--grn)';setTimeout(()=>{b.innerText=o;b.style.background='var(--nav)';},2500);});}
 </script>
 </body>
 </html>
