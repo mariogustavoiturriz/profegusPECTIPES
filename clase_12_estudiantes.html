@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clase 12 · Simulación Final del Recurso</title>
+<style>
+  :root{--nav:#1D3461;--teal:#00949A;--cl:#B2E8EA;--pale:#E6F7F8;--grn:#2A6049;--gcl:#DFF0E9;--amb:#D4873A;--acl:#FDF0E4;--vio:#3D5A99;--vcl:#E4EAF7;--slate:#4A6080;--gris:#F3F6F9;--bd:#C5D2DC;--txt:#4A5E70;--neg:#1A2C3A;--bco:#FFF;--red:#C0392B;--rcl:#FDEDEC;--vie:#7B3F9E;--vie-cl:#F0E8F7;--r:8px;--sh:0 2px 8px rgba(0,0,0,.09)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;font-size:15px;color:var(--neg);background:#EEF3F7;line-height:1.65;overflow-x:hidden}
+  .top{background:var(--nav);color:#fff;padding:13px 28px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:3px solid var(--teal)}
+  .top strong{display:block;font-size:15px}.top small{font-size:12px;opacity:.75}
+  .top-r{display:flex;align-items:center;font-size:11px;opacity:.65}
+  .top-info{display:flex;align-items:center;gap:20px}
+  .btn-back{background:rgba(255,255,255,.15);color:#fff;text-decoration:none;padding:6px 12px;border-radius:6px;font-weight:700;font-size:13px;display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.3)}
+  .btn-reset{display:none;color:var(--cl);margin-right:12px;cursor:pointer;background:none;border:none;border-bottom:1px dotted var(--cl);font-size:11px}
+  body.day-selected .btn-reset{display:inline-block}
+  #welcome-screen{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:70vh;padding:20px;text-align:center}
+  #welcome-screen h2{font-size:24px;color:var(--nav);margin-bottom:10px}
+  #welcome-screen p{font-size:16px;color:var(--txt);margin-bottom:30px;font-weight:600}
+  .btn-career{background:var(--bco);border:2px solid var(--teal);color:var(--teal);font-size:16px;font-weight:700;padding:16px 28px;border-radius:8px;cursor:pointer;transition:all .2s;min-width:220px}
+  .btn-career:hover{background:var(--teal);color:#fff;transform:translateY(-3px)}
+  .career-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;max-width:900px;width:100%}
+  #main-app{display:none}
+  body.day-selected #welcome-screen{display:none}
+  body.day-selected #main-app{display:block}
+  .c-block{display:none}
+  body.show-miercoles .c-miercoles{display:block}
+  body.show-jueves .c-jueves{display:block}
+  body.show-viernes .c-viernes{display:block}
+  .titulo{background:var(--nav);padding:15px 24px 20px}
+  .titulo p{font-size:11px;color:rgba(255,255,255,.5);letter-spacing:.8px;text-transform:uppercase;margin-bottom:5px}
+  .titulo h2{font-size:20px;font-weight:700;color:#fff;line-height:1.3}
+  .titulo h2 span{font-weight:400;color:var(--teal)}
+  .tab-bar{background:var(--bco);border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;position:sticky;top:0;z-index:100}
+  .tab-btn{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--txt);padding:14px 20px;white-space:nowrap;transition:all .15s;margin-bottom:-2px}
+  .tab-btn:hover{color:var(--teal)}.tab-btn.active{color:var(--nav);border-bottom-color:var(--nav)}
+  .wrap{max-width:1200px;width:95%;margin:0 auto;padding:20px 0 60px}
+  .pane{display:none}.pane.on{display:block}
+  .card{background:var(--bco);border-radius:var(--r);box-shadow:var(--sh);margin-bottom:18px;overflow:hidden}
+  .ch{padding:13px 20px;font-weight:700;font-size:14px;display:flex;align-items:center;gap:9px;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.5px;color:var(--nav)}
+  .cb{padding:18px 25px}
+  .paso{background:var(--gris);border-radius:var(--r);padding:18px 24px;margin-bottom:16px;border-left:5px solid var(--bd)}
+  .paso-num{display:inline-block;background:var(--nav);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:12px;text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px}
+  .paso h4{font-size:16px;font-weight:700;color:var(--neg);margin-bottom:8px}
+  .paso p,.paso li{font-size:14px;color:var(--txt);line-height:1.6}
+  .paso ul,.paso ol{margin-left:20px;margin-top:8px}.paso li{margin-bottom:5px}
+  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-bottom:20px}
+  .tool-cat-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:20px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--bd)}
+  .tool-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px}
+  .tool-card h4{font-size:14px;color:var(--nav);margin-bottom:6px;font-weight:700}
+  .tool-card p{font-size:13px;color:var(--txt);line-height:1.5}
+  .btn-tool{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;color:#fff}
+  details.guia{background:#fff;border-left:4px solid var(--teal);border-radius:var(--r);margin-bottom:12px;box-shadow:var(--sh);overflow:hidden}
+  details.guia summary{font-weight:700;color:var(--nav);padding:13px 20px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--pale);font-size:14px}
+  details.guia summary::-webkit-details-marker{display:none}
+  details.guia summary::after{content:'+';font-size:18px;color:var(--teal);font-weight:700}
+  details.guia[open] summary::after{content:'−'}
+  .guia-content{padding:18px 20px;font-size:13.5px;color:var(--txt);line-height:1.65;border-top:1px solid var(--bd)}
+  .guia-content h5{font-size:14px;color:var(--nav);margin:12px 0 5px;font-weight:700}
+  .guia-content ul,.guia-content ol{margin-left:18px;margin-bottom:8px}
+  .guia-content li{margin-bottom:5px}
+  .alerta-info{background:var(--pale);border-left:4px solid var(--teal);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--nav)}
+  .alerta-warn{background:var(--acl);border-left:4px solid var(--amb);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--amb)}
+  .alerta-ok{background:var(--gcl);border-left:4px solid var(--grn);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--grn)}
+  .bug-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+  .bug-table th{background:var(--nav);color:#fff;padding:8px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+  .bug-table td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
+  .bug-table tr:hover td{background:var(--gris)}
+  .doc-template{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:22px;font-family:'Times New Roman',serif;font-size:14px;color:#333;line-height:1.6}
+  .doc-template h1{text-align:center;font-size:17px;text-transform:uppercase;margin-bottom:4px;color:#000}
+  .doc-template h2{font-size:14px;border-bottom:1px solid #ccc;padding-bottom:4px;margin:18px 0 8px;color:#000}
+  .fill-blank{background:#FFF9C4;color:#E65100;padding:2px 5px;border-radius:3px;font-family:monospace;font-size:13px}
+  .btn-copy{background:var(--nav);color:#fff;border:none;padding:9px 18px;border-radius:6px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:14px}
+  .btn-copy:hover{background:var(--teal)}
+  .avt-box{background:var(--nav);color:#fff;border-radius:var(--r);padding:14px 18px;margin-top:14px;font-size:14px}
+  .avt-box strong{display:block;color:var(--cl);margin-bottom:5px;font-size:15px}
+  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-left:6px}
+  .badge-red{background:var(--rcl);color:var(--red)}
+  .badge-ok{background:var(--gcl);color:var(--grn)}
+  .badge-warn{background:var(--acl);color:var(--amb)}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="top-info">
+    <a href="index.html" class="btn-back">&#8592; Volver al Índice</a>
+    <div><strong>Proyectos Educativos con TIC</strong><small>IPES "Florentino Ameghino" · 4.° Año <span id="lbl-career"></span></small></div>
+  </div>
+  <div class="top-r"><button class="btn-reset" onclick="resetCareer()">Cambiar día</button><span>2026</span></div>
+</div>
+
+<div id="welcome-screen">
+  <h2>Seleccioná tu turno de cursada</h2>
+  <p>Clase 12 · Simulación Final · 24-26 de junio</p>
+  <div class="career-grid">
+    <button class="btn-career" onclick="selectCareer('miercoles','· Turno Miércoles')">Miércoles<br><span style="font-size:12px;font-weight:400;">(Proyecto Glaciares)</span></button>
+    <button class="btn-career" onclick="selectCareer('jueves','· Turno Jueves')">Jueves<br><span style="font-size:12px;font-weight:400;">(Proyecto Senderismo)</span></button>
+    <button class="btn-career" onclick="selectCareer('viernes','· Turno Viernes')">Viernes<br><span style="font-size:12px;font-weight:400;">(Escape Room TDF)</span></button>
+  </div>
+</div>
+
+<div id="main-app">
+  <div class="titulo">
+    <p>Semana 12 · Simulación Final · Última clase de producción</p>
+    <h2>Simulación final: <span>jugar el recurso, analizarlo y armar el documento final</span></h2>
+  </div>
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('partida',this)">Consigna</button>
+    <button class="tab-btn" onclick="showTab('plan',this)">Plan de Clase</button>
+    <button class="tab-btn" onclick="showTab('herramientas',this)">Herramientas</button>
+    <button class="tab-btn" onclick="showTab('guias',this)">&#128161; Guías</button>
+    <button class="tab-btn" onclick="showTab('bitacora',this)">&#128221; Avance TFI</button>
+  </div>
+  <div class="wrap">
+
+<!-- MIÉRCOLES -->
+<div class="c-block c-miercoles">
+
+<div id="pane-partida" class="pane on">
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Simulación final del proyecto</div>
+    <div class="cb">
+      <div class="alerta-warn" style="margin-bottom:14px;">
+        <strong>Última clase de producción.</strong> El 1 de julio a las 18 hs es la fecha límite para entregar el documento final. El 3 de julio se expone. Sin extensión.
+      </div>
+      <p style="font-size:14.5px;margin-bottom:12px;color:var(--txt);">Hoy se hacen tres cosas, en este orden:</p>
+      <ol style="margin-left:20px;font-size:14.5px;line-height:1.9;color:var(--txt);">
+        <li><strong>Jugar el recurso completo</strong> como lo haría un estudiante real (en celular, sin que nadie explique nada).</li>
+        <li><strong>Anotar virtudes y defectos</strong> de lo que encontraron.</li>
+        <li><strong>Empezar el documento final</strong> con las dos rúbricas (individual + del proyecto).</li>
+      </ol>
+    </div>
+  </div>
+</div><!-- fin pane-partida -->
+
+<div id="pane-plan" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Miércoles</div>
+    <div class="cb">
+
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">Paso 1 — Simulación completa</span>
+        <h4>Jugar el recurso de principio a fin</h4>
+        <p style="font-size:14px;color:var(--txt);">Intercambiar el link con otro grupo y jugar SU recurso sin que nadie explique nada. Si no sabés cómo avanzar → eso es un defecto, anotalo. Probarlo en celular, con datos móviles, escuchando y sin escuchar el audio (DUA).</p>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Paso 2 — Virtudes y defectos</span>
+        <h4>Anotar lo que funciona y lo que falla</h4>
+        <p style="font-size:14px;color:var(--txt);">Clasificar cada defecto por gravedad: <strong>crítico</strong> (bloquea la navegación, se corrige hoy), <strong>moderado</strong> (confunde pero no bloquea, esta semana) o <strong>menor</strong> (estético, antes del 3 de julio).</p>
+      </div>
+
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">Paso 3 — Documento final</span>
+        <h4>Empezar a completar las rúbricas</h4>
+        <p style="font-size:14px;color:var(--txt);">Cada integrante completa su <strong>autoevaluación individual</strong> (5 preguntas: rol, actividades, obstáculos, herramientas nuevas, modificaciones). Es la parte del documento final que escribe cada una.</p>
+        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final con las rúbricas + link del Genially, antes del 1 de julio a las 18 hs.</div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- fin pane-plan -->
+
+<div id="pane-herramientas" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Miércoles</div>
+    <div class="cb">
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>El recurso del otro grupo</h4>
+          <p>El link del Genially que les comparta el grupo que van a testear. Jugarlo en celular, sin ayuda.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-herramientas -->
+
+<div id="pane-guias" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías · Miércoles</div>
+    <div class="cb">
+      <details class="guia">
+        <summary>Tabla rápida para anotar durante la simulación</summary>
+        <div class="guia-content">
+          <table>
+            <thead><tr><th>Qué probé</th><th>¿Funcionó?</th><th>Gravedad</th></tr></thead>
+            <tbody>
+              <tr><td>Navegación de principio a fin</td><td>Sí / No</td><td>Crítico / Moderado / Menor</td></tr>
+              <tr><td>Los juegos cargan y se pueden jugar</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Los QR abren lo correcto</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Carga rápido en celular (datos móviles)</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Se entiende sin que nadie explique</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Se puede resolver sin escuchar el audio (DUA)</td><td>Sí / No</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </div>
+</div><!-- fin pane-guias -->
+
+<div id="pane-bitacora" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Documento final · Miércoles</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:14px;">El documento final del proyecto incluye, como mínimo:</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar estructura al portapapeles</button>
+      <div id="doc-template-content" class="doc-template">
+        <h1>Documento Final — TFI</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 1 de julio a las 18 hs</p>
+        <h2>1. Identificación</h2>
+        <p>Título del recurso · Integrantes y profesorados · Destinatarios · Link público del Genially</p>
+        <h2>2. Descripción del proyecto</h2>
+        <p>Qué enseña, cómo se juega, qué herramientas usaron</p>
+        <h2>3. Autoevaluación individual</h2>
+        <p>Cada integrante completa sus 5 preguntas (rol, actividades, obstáculos, herramientas nuevas, modificaciones)</p>
+        <h2>4. Virtudes y defectos detectados en la simulación</h2>
+        <p>3 virtudes + 3 aspectos a mejorar antes del 3 de julio</p>
+        <h2>5. Declaración de IA y licencias</h2>
+        <p>Herramientas de IA usadas + licencia del recurso (CC BY-NC-SA 4.0)</p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; Entrega</strong>
+        Documento final + link del Genially, antes del 1 de julio a las 18 hs. El 3 de julio se expone.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora -->
+
+</div><!-- fin c-miercoles -->
+
+
+<!-- JUEVES -->
+<div class="c-block c-jueves">
+
+<div id="pane-partida-jueves" class="pane on">
+  <div class="card" style="border-top:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Simulación final · Senderismo</div>
+    <div class="cb">
+      <div class="alerta-warn" style="margin-bottom:14px;">
+        <strong>Última clase de producción.</strong> El 1 de julio a las 18 hs es la fecha límite para el documento final. El 3 de julio se expone. Sin extensión.
+      </div>
+      <p style="font-size:14.5px;margin-bottom:12px;color:var(--txt);">Hoy, igual que los otros grupos: jugar el recurso completo, anotar virtudes y defectos, empezar el documento final.</p>
+      <p style="font-size:14px;color:var(--txt);">Atención especial en el testeo del Senderismo a: la <strong>llave intermedia</strong> (¿se resuelve escuchando el audio una vez y mirando el mapa?), el <strong>desenlace</strong> (¿se entiende que los turistas llegaron, para alguien que no conoce el proyecto?) y la <strong>rama Geografía</strong> (¿converge bien con el final?).</p>
+    </div>
+  </div>
+</div><!-- fin pane-partida-jueves -->
+
+<div id="pane-plan-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Jueves</div>
+    <div class="cb">
+      <div class="paso" style="border-left-color:var(--vio);">
+        <span class="paso-num" style="background:var(--vio);">Paso 1 — Simulación completa</span>
+        <h4>Jugar el recurso de principio a fin</h4>
+        <p style="font-size:14px;color:var(--txt);">Intercambiar el link con Miércoles y jugar su recurso sin explicaciones. Probarlo en celular, escuchando y sin escuchar el audio (DUA). Si no sabés cómo avanzar → es un defecto, anotalo.</p>
+      </div>
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Paso 2 — Virtudes y defectos</span>
+        <h4>Anotar lo que funciona y lo que falla</h4>
+        <p style="font-size:14px;color:var(--txt);">Clasificar por gravedad: <strong>crítico</strong> (bloquea, se corrige hoy), <strong>moderado</strong> (confunde, esta semana), <strong>menor</strong> (estético, antes del 3 de julio).</p>
+      </div>
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">Paso 3 — Documento final</span>
+        <h4>Empezar a completar las rúbricas</h4>
+        <p style="font-size:14px;color:var(--txt);">Cada integrante completa su autoevaluación individual (5 preguntas). Es la parte del documento final que escribe cada una.</p>
+        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final + link del Genially, antes del 1 de julio a las 18 hs.</div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-plan-jueves -->
+
+<div id="pane-herramientas-jueves" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Jueves</div>
+    <div class="cb">
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--nav);">
+          <h4>El recurso de Miércoles</h4>
+          <p>El link del Genially de Glaciares para testear. Jugarlo en celular, sin ayuda.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-jueves -->
+
+<div id="pane-guias-jueves" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías · Jueves</div>
+    <div class="cb">
+      <details class="guia">
+        <summary>Tabla rápida para anotar durante la simulación</summary>
+        <div class="guia-content">
+          <table>
+            <thead><tr><th>Qué probé</th><th>¿Funcionó?</th><th>Gravedad</th></tr></thead>
+            <tbody>
+              <tr><td>Navegación de principio a fin</td><td>Sí / No</td><td>Crítico / Moderado / Menor</td></tr>
+              <tr><td>Llave intermedia (audio + mapa)</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>El desenlace se entiende</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Rama Geografía converge con el final</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Carga rápido en celular</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Se resuelve sin escuchar el audio (DUA)</td><td>Sí / No</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </div>
+</div><!-- fin pane-guias-jueves -->
+
+<div id="pane-bitacora-jueves" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Documento final · Jueves</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:14px;">El documento final incluye, como mínimo:</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar estructura al portapapeles</button>
+      <div id="doc-template-content-jueves" class="doc-template">
+        <h1>Documento Final — TFI (Senderismo)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 1 de julio a las 18 hs</p>
+        <h2>1. Identificación</h2>
+        <p>Título · Integrantes y profesorados · Destinatarios · Link público del Genially</p>
+        <h2>2. Descripción del proyecto</h2>
+        <p>Qué enseña, cómo se juega, qué herramientas usaron</p>
+        <h2>3. Autoevaluación individual</h2>
+        <p>Cada integrante completa sus 5 preguntas (rol, actividades, obstáculos, herramientas nuevas, modificaciones)</p>
+        <h2>4. Virtudes y defectos detectados en la simulación</h2>
+        <p>3 virtudes + 3 aspectos a mejorar antes del 3 de julio</p>
+        <h2>5. Declaración de IA y licencias</h2>
+        <p>Herramientas de IA usadas + licencia (CC BY-NC-SA 4.0) + citas TASL de mapas (Wikiloc, Google Earth)</p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; Entrega</strong>
+        Documento final + link del Genially, antes del 1 de julio a las 18 hs. El 3 de julio se expone.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-jueves -->
+
+</div><!-- fin c-jueves -->
+
+
+<!-- VIERNES -->
+<div class="c-block c-viernes">
+
+<div id="pane-partida-viernes" class="pane on">
+  <div class="card" style="border-top:4px solid var(--vie);">
+    <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Simulación final del Escape Room</div>
+    <div class="cb">
+      <div class="alerta-warn" style="margin-bottom:14px;">
+        <strong>Última clase de producción.</strong> El 1 de julio a las 18 hs es la fecha límite para el documento final. El 3 de julio se expone. Sin extensión.
+      </div>
+      <p style="font-size:14.5px;margin-bottom:12px;color:var(--txt);">Hoy se juega el Escape Room completo, como si fueran las docentes en el aula con los niños. Una persona hace de <strong>docente coordinadora</strong>; las demás, de <strong>grupo de niños</strong> (sin saber los códigos de antemano). Recorren las postas, completan las actividades, anotan los dígitos en el Pasaporte y abren el cofre.</p>
+      <p style="font-size:14px;color:var(--txt);">Después: anotar virtudes y defectos, y empezar el documento final.</p>
+    </div>
+  </div>
+</div><!-- fin pane-partida-viernes -->
+
+<div id="pane-plan-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Plan de clase · Viernes</div>
+    <div class="cb">
+      <div class="paso" style="border-left-color:var(--vie);">
+        <span class="paso-num" style="background:var(--vie);">Paso 1 — Jugar el Escape Room completo</span>
+        <h4>De principio a fin, en condiciones reales</h4>
+        <p style="font-size:14px;color:var(--txt);">Recorrer las 5 postas en orden no lineal, escaneando los QR, jugando cada actividad y anotando los dígitos. Al tener los 5, abrir el cofre. Probar todo en celular/tablet, como lo harían los niños.</p>
+      </div>
+      <div class="paso" style="border-left-color:var(--amb);">
+        <span class="paso-num" style="background:var(--amb);">Paso 2 — Virtudes y defectos</span>
+        <h4>¿Qué funciona y qué confunde a un niño de sala de 5?</h4>
+        <p style="font-size:14px;color:var(--txt);">Clasificar por gravedad: <strong>crítico</strong> (un QR no abre, una actividad no da el dígito → se corrige hoy), <strong>moderado</strong> (confunde pero se puede seguir), <strong>menor</strong> (estético, antes del 3 de julio).</p>
+      </div>
+      <div class="paso" style="border-left-color:var(--grn);">
+        <span class="paso-num" style="background:var(--grn);">Paso 3 — Documento final</span>
+        <h4>Empezar a completar las rúbricas</h4>
+        <p style="font-size:14px;color:var(--txt);">Cada integrante completa su autoevaluación individual (5 preguntas). Al anotar virtudes y defectos, prestar atención a la <strong>integración</strong>: ¿se siente un solo juego o cinco estaciones sueltas?</p>
+        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final + link del Genially, antes del 1 de julio a las 18 hs.</div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-plan-viernes -->
+
+<div id="pane-herramientas-viernes" class="pane">
+  <div class="card">
+    <div class="ch">Herramientas · Viernes</div>
+    <div class="cb">
+      <div class="tools-grid">
+        <div class="tool-card" style="border-left:4px solid var(--vie);">
+          <h4>El juego completo</h4>
+          <p>Todas las postas montadas + el Pasaporte Fueguino + el cofre. Jugarlo como lo harían los niños.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-herramientas-viernes -->
+
+<div id="pane-guias-viernes" class="pane">
+  <div class="card" style="border-left:4px solid var(--teal);">
+    <div class="ch" style="background:var(--pale);color:var(--teal);">Guías · Viernes</div>
+    <div class="cb">
+      <details class="guia">
+        <summary>Tabla rápida para anotar durante la simulación</summary>
+        <div class="guia-content">
+          <table>
+            <thead><tr><th>Qué probé</th><th>¿Funcionó?</th><th>Gravedad</th></tr></thead>
+            <tbody>
+              <tr><td>Los 5 QR de las postas abren su Genially</td><td>Sí / No</td><td>Crítico / Moderado / Menor</td></tr>
+              <tr><td>Cada actividad entrega su dígito</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>El video del albatros se ve y se entiende</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Con los 5 dígitos se abre el cofre</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Se siente un solo juego (no 5 sueltos)</td><td>Sí / No</td><td>—</td></tr>
+              <tr><td>Es adecuado para sala de 5</td><td>Sí / No</td><td>—</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+  </div>
+</div><!-- fin pane-guias-viernes -->
+
+<div id="pane-bitacora-viernes" class="pane">
+  <div class="card" style="border-top:4px solid var(--nav);">
+    <div class="ch" style="background:var(--pale);color:var(--nav);">Documento final · Viernes</div>
+    <div class="cb">
+      <p style="font-size:14.5px;margin-bottom:14px;">El documento final incluye, como mínimo:</p>
+      <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar estructura al portapapeles</button>
+      <div id="doc-template-content-viernes" class="doc-template">
+        <h1>Documento Final — TFI (Escape Room)</h1>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 1 de julio a las 18 hs</p>
+        <h2>1. Identificación</h2>
+        <p>Título · Integrantes y profesorados · Destinatarios (sala de 5) · Link público del Genially</p>
+        <h2>2. Descripción del proyecto</h2>
+        <p>Qué enseña, cómo se juega, qué herramientas usaron</p>
+        <h2>3. Autoevaluación individual</h2>
+        <p>Cada integrante completa sus 5 preguntas (rol, actividades, obstáculos, herramientas nuevas, modificaciones)</p>
+        <h2>4. Virtudes y defectos detectados en la simulación</h2>
+        <p>3 virtudes + 3 aspectos a mejorar antes del 3 de julio</p>
+        <h2>5. Declaración de IA y licencias</h2>
+        <p>Herramientas de IA usadas (ElevenLabs, Canva) + licencia (CC BY-NC-SA 4.0)</p>
+      </div>
+      <div class="avt-box">
+        <strong>&#128197; Entrega</strong>
+        Documento final + link del Genially, antes del 1 de julio a las 18 hs. El 3 de julio se expone.
+      </div>
+    </div>
+  </div>
+</div><!-- fin pane-bitacora-viernes -->
+
+</div><!-- fin c-viernes -->
+
+  </div><!-- fin wrap -->
+</div><!-- fin main-app -->
+
+<script>
+function selectCareer(c,n){document.body.className='';document.body.classList.add('show-'+c,'day-selected');document.getElementById('lbl-career').innerText=n;document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));showTab('partida',document.querySelector('.tab-btn'));}
+function resetCareer(){document.body.classList.remove('day-selected');document.getElementById('lbl-career').innerText='';}
+function showTab(id,btn){document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));let s='';if(document.body.classList.contains('show-jueves'))s='-jueves';else if(document.body.classList.contains('show-viernes'))s='-viernes';let t=document.getElementById('pane-'+id+s)||document.getElementById('pane-'+id);if(t)t.classList.add('on');if(btn)btn.classList.add('active');}
+function copyBitacora(){const v=document.querySelector('.pane.on');if(!v)return;const d=v.querySelector('.doc-template');if(!d)return;navigator.clipboard.writeText(d.innerText).then(()=>{const b=v.querySelector('.btn-copy');if(!b)return;const o=b.innerText;b.innerText='✅ ¡Copiado!';b.style.background='var(--grn)';setTimeout(()=>{b.innerText=o;b.style.background='var(--nav)';},2500);});}
+</script>
+</body>
+</html>
