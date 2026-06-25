@@ -45,28 +45,19 @@
   .paso h4{font-size:16px;font-weight:700;color:var(--neg);margin-bottom:8px}
   .paso p,.paso li{font-size:14px;color:var(--txt);line-height:1.6}
   .paso ul,.paso ol{margin-left:20px;margin-top:8px}.paso li{margin-bottom:5px}
-  .tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-bottom:20px}
-  .tool-cat-title{font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin:20px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--bd)}
-  .tool-card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px}
-  .tool-card h4{font-size:14px;color:var(--nav);margin-bottom:6px;font-weight:700}
-  .tool-card p{font-size:13px;color:var(--txt);line-height:1.5}
-  .btn-tool{display:inline-block;margin-top:8px;padding:5px 12px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;color:#fff}
   details.guia{background:#fff;border-left:4px solid var(--teal);border-radius:var(--r);margin-bottom:12px;box-shadow:var(--sh);overflow:hidden}
   details.guia summary{font-weight:700;color:var(--nav);padding:13px 20px;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;background:var(--pale);font-size:14px}
   details.guia summary::-webkit-details-marker{display:none}
   details.guia summary::after{content:'+';font-size:18px;color:var(--teal);font-weight:700}
   details.guia[open] summary::after{content:'−'}
   .guia-content{padding:18px 20px;font-size:13.5px;color:var(--txt);line-height:1.65;border-top:1px solid var(--bd)}
-  .guia-content h5{font-size:14px;color:var(--nav);margin:12px 0 5px;font-weight:700}
-  .guia-content ul,.guia-content ol{margin-left:18px;margin-bottom:8px}
-  .guia-content li{margin-bottom:5px}
   .alerta-info{background:var(--pale);border-left:4px solid var(--teal);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--nav)}
   .alerta-warn{background:var(--acl);border-left:4px solid var(--amb);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--amb)}
   .alerta-ok{background:var(--gcl);border-left:4px solid var(--grn);border-radius:6px;padding:11px 15px;margin:10px 0;font-size:13px;color:var(--grn)}
-  .bug-table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
-  .bug-table th{background:var(--nav);color:#fff;padding:8px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-  .bug-table td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
-  .bug-table tr:hover td{background:var(--gris)}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0}
+  table th{background:var(--nav);color:#fff;padding:8px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.5px}
+  table td{padding:8px 12px;border-bottom:1px solid var(--bd);vertical-align:top}
+  table tr:hover td{background:var(--gris)}
   .doc-template{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:22px;font-family:'Times New Roman',serif;font-size:14px;color:#333;line-height:1.6}
   .doc-template h1{text-align:center;font-size:17px;text-transform:uppercase;margin-bottom:4px;color:#000}
   .doc-template h2{font-size:14px;border-bottom:1px solid #ccc;padding-bottom:4px;margin:18px 0 8px;color:#000}
@@ -75,10 +66,6 @@
   .btn-copy:hover{background:var(--teal)}
   .avt-box{background:var(--nav);color:#fff;border-radius:var(--r);padding:14px 18px;margin-top:14px;font-size:14px}
   .avt-box strong{display:block;color:var(--cl);margin-bottom:5px;font-size:15px}
-  .badge{display:inline-block;padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-left:6px}
-  .badge-red{background:var(--rcl);color:var(--red)}
-  .badge-ok{background:var(--gcl);color:var(--grn)}
-  .badge-warn{background:var(--acl);color:var(--amb)}
 </style>
 </head>
 <body>
@@ -121,13 +108,13 @@
     <div class="ch" style="background:var(--pale);color:var(--nav);">Simulación final del proyecto</div>
     <div class="cb">
       <div class="alerta-warn" style="margin-bottom:14px;">
-        <strong>Última clase de producción.</strong> Fecha de entrega final y defensa: 1 de julio.
+        <strong>Última clase de producción.</strong> Entrega del documento final + link: antes del 3 de julio. El 3 de julio es la presentación del trabajo.
       </div>
       <p style="font-size:14.5px;margin-bottom:12px;color:var(--txt);">Hoy se hacen tres cosas, en este orden:</p>
       <ol style="margin-left:20px;font-size:14.5px;line-height:1.9;color:var(--txt);">
         <li><strong>Jugar el recurso completo</strong> como lo haría un estudiante real (en celular, sin que nadie explique nada).</li>
         <li><strong>Anotar virtudes y defectos</strong> de lo que encontraron.</li>
-        <li><strong>Concluir el documento final</strong> con las dos rúbricas (individual + del proyecto).</li>
+        <li><strong>Concluir el documento final</strong> con la autoevaluación individual.</li>
       </ol>
     </div>
   </div>
@@ -141,39 +128,25 @@
       <div class="paso" style="border-left-color:var(--vio);">
         <span class="paso-num" style="background:var(--vio);">Paso 1 — Simulación completa</span>
         <h4>Jugar el recurso de principio a fin</h4>
-        <p style="font-size:14px;color:var(--txt);">Sugerencia: Compartir el link a un tercero y que juegue sin que nadie le explique nada. Si no sabe cómo avanzar → eso es un defecto, anotalo. Probarlo en celular, con datos móviles, escuchando y sin escuchar el audio (DUA).</p>
+        <p style="font-size:14px;color:var(--txt);">Sugerencia: compartir el link a un tercero y que juegue sin que nadie le explique nada. Si no sabe cómo avanzar → eso es un defecto, anotalo. Probarlo en celular, con datos móviles, escuchando y sin escuchar el audio (DUA).</p>
       </div>
 
       <div class="paso" style="border-left-color:var(--amb);">
         <span class="paso-num" style="background:var(--amb);">Paso 2 — Virtudes y defectos</span>
         <h4>Anotar lo que funciona y lo que falla</h4>
-        <p style="font-size:14px;color:var(--txt);">Clasificar cada defecto por gravedad: <strong>crítico</strong> (bloquea la navegación, se corrige hoy), <strong>moderado</strong> (confunde pero no bloquea, esta semana) o <strong>menor</strong> (estético es secundario).</p>
+        <p style="font-size:14px;color:var(--txt);">Clasificar cada defecto por gravedad: <strong>crítico</strong> (bloquea la navegación, se corrige hoy), <strong>moderado</strong> (confunde pero no bloquea, esta semana) o <strong>menor</strong> (estético, es secundario).</p>
       </div>
 
       <div class="paso" style="border-left-color:var(--grn);">
         <span class="paso-num" style="background:var(--grn);">Paso 3 — Documento final</span>
-        <h4>Empezar a completar las rúbricas</h4>
+        <h4>Empezar a completar la autoevaluación</h4>
         <p style="font-size:14px;color:var(--txt);">Cada integrante completa su <strong>autoevaluación individual</strong> (5 preguntas: rol, actividades, obstáculos, herramientas nuevas, modificaciones). Es la parte del documento final que escribe cada una.</p>
-        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final  + link del Genially, antes del 1 de julio a las 08:00 hs.</div>
+        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final + link del Genially, antes del 3 de julio.</div>
       </div>
 
     </div>
   </div>
 </div><!-- fin pane-plan -->
-
-<div id="pane-herramientas" class="pane">
-  <div class="card">
-    <div class="ch">Herramientas · Miércoles</div>
-    <div class="cb">
-      <div class="tools-grid">
-        <div class="tool-card" style="border-left:4px solid var(--nav);">
-          <h4>Sería genial conseguir el recurso del otro grupo (jueves)</h4>
-          <p>El link del Genially que les comparta el grupo que van a testear. Jugarlo en celular, sin ayuda.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- fin pane-herramientas -->
 
 <div id="pane-guias" class="pane">
   <div class="card" style="border-left:4px solid var(--teal);">
@@ -207,7 +180,7 @@
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar estructura al portapapeles</button>
       <div id="doc-template-content" class="doc-template">
         <h1>Documento Final — TFI</h1>
-        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 1 de julio a las 08:00 hs</p>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 3 de julio</p>
         <h2>1. Identificación</h2>
         <p>Título · integrantes y profesorados · destinatarios · link público del Genially</p>
         <h2>2. Fundamentación (breve)</h2>
@@ -225,8 +198,8 @@
         <p>Herramientas de IA usadas + licencia del recurso (CC BY-NC-SA 4.0)</p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; Entrega+Defensa</strong>
-        Documento final + link del Genially, antes del 1 de julio a las 08:00 hs.
+        <strong>&#128197; Entrega y presentación</strong>
+        Documento final + link del Genially, antes del 3 de julio. El 3 de julio es la presentación del trabajo.
       </div>
     </div>
   </div>
@@ -243,7 +216,7 @@
     <div class="ch" style="background:var(--pale);color:var(--nav);">Simulación final · Senderismo</div>
     <div class="cb">
       <div class="alerta-warn" style="margin-bottom:14px;">
-        <strong>Última clase de producción.</strong> Fecha de entrega final y defensa: 2 de julio.
+        <strong>Última clase de producción.</strong> Entrega del documento final + link: antes del 3 de julio. El 3 de julio es la presentación del trabajo.
       </div>
       <p style="font-size:14.5px;margin-bottom:12px;color:var(--txt);">Hoy, igual que los otros grupos: jugar el recurso completo, anotar virtudes y defectos, comenzar a completar el documento final.</p>
       <p style="font-size:14px;color:var(--txt);">Atención especial en el testeo del Senderismo a: la <strong>llave intermedia</strong> (¿se resuelve escuchando el audio una vez y mirando el mapa?), el <strong>desenlace</strong> (¿se entiende que los turistas llegaron, para alguien que no conoce el proyecto?) y la <strong>rama Geografía</strong> (¿converge bien con el final?).</p>
@@ -258,8 +231,7 @@
       <div class="paso" style="border-left-color:var(--vio);">
         <span class="paso-num" style="background:var(--vio);">Paso 1 — Simulación completa</span>
         <h4>Jugar el recurso de principio a fin</h4>
-        <p style="font-size:14px;color:var(--txt);">Sugerencia: Compartir el link a un tercero y que juegue sin que nadie le explique nada. Si no sabe cómo avanzar → eso es un defecto, anotalo. Probarlo en celular, con datos móviles, escuchando y sin escuchar el audio (DUA).</p>
-      </div></p>
+        <p style="font-size:14px;color:var(--txt);">Sugerencia: compartir el link a un tercero y que juegue sin que nadie le explique nada. Si no sabe cómo avanzar → eso es un defecto, anotalo. Probarlo en celular, con datos móviles, escuchando y sin escuchar el audio (DUA).</p>
       </div>
       <div class="paso" style="border-left-color:var(--amb);">
         <span class="paso-num" style="background:var(--amb);">Paso 2 — Virtudes y defectos</span>
@@ -268,27 +240,13 @@
       </div>
       <div class="paso" style="border-left-color:var(--grn);">
         <span class="paso-num" style="background:var(--grn);">Paso 3 — Documento final</span>
-        <h4>Empezar a completar las rúbricas</h4>
+        <h4>Empezar a completar la autoevaluación</h4>
         <p style="font-size:14px;color:var(--txt);">Cada integrante completa su autoevaluación individual (5 preguntas). Es la parte del documento final que escribe cada una.</p>
-        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong>  Documento final + link del Genially, antes del 1 de julio a las 22:00 hs.</div>
+        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final + link del Genially, antes del 3 de julio.</div>
       </div>
     </div>
   </div>
 </div><!-- fin pane-plan-jueves -->
-
-<div id="pane-herramientas-jueves" class="pane">
-  <div class="card">
-    <div class="ch">Herramientas · Jueves</div>
-    <div class="cb">
-      <div class="tools-grid">
-        <div class="tool-card" style="border-left:4px solid var(--nav);">
-          <h4>El recurso de Miércoles</h4>
-          <p>El link del Genially de Glaciares para testear. Jugarlo en celular, sin ayuda.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- fin pane-herramientas-jueves -->
 
 <div id="pane-guias-jueves" class="pane">
   <div class="card" style="border-left:4px solid var(--teal);">
@@ -322,7 +280,7 @@
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar estructura al portapapeles</button>
       <div id="doc-template-content-jueves" class="doc-template">
         <h1>Documento Final — TFI (Senderismo)</h1>
-        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 1 de julio a las 22:00 hs</p>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 3 de julio</p>
         <h2>1. Identificación</h2>
         <p>Título · integrantes y profesorados · destinatarios · link público del Genially</p>
         <h2>2. Fundamentación (breve)</h2>
@@ -340,8 +298,8 @@
         <p>Herramientas de IA usadas + licencia (CC BY-NC-SA 4.0) + citas TASL de mapas (Wikiloc, Google Earth)</p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; Entrega</strong>
-        Documento final + link del Genially, antes del 1 de julio a las 22 hs. El 2 de julio se expone.
+        <strong>&#128197; Entrega y presentación</strong>
+        Documento final + link del Genially, antes del 3 de julio. El 3 de julio es la presentación del trabajo.
       </div>
     </div>
   </div>
@@ -358,7 +316,7 @@
     <div class="ch" style="background:var(--vie-cl);color:var(--vie);">Simulación final del Escape Room</div>
     <div class="cb">
       <div class="alerta-warn" style="margin-bottom:14px;">
-        <strong>Última clase de producción.</strong> Fecha de entrega final y defensa: 3 de julio.
+        <strong>Última clase de producción.</strong> Entrega del documento final + link: antes del 3 de julio. El 3 de julio es la presentación del trabajo.
       </div>
       <p style="font-size:14.5px;margin-bottom:12px;color:var(--txt);">Hoy se juega el Escape Room completo, como si fueran las docentes en el aula con los niños. Una persona hace de <strong>docente coordinadora</strong>; las demás, de <strong>grupo de niños</strong> (sin saber los códigos de antemano). Recorren las postas, completan las actividades, anotan los dígitos en el Pasaporte y abren el cofre.</p>
       <p style="font-size:14px;color:var(--txt);">Después: anotar virtudes y defectos, y empezar el documento final.</p>
@@ -382,27 +340,13 @@
       </div>
       <div class="paso" style="border-left-color:var(--grn);">
         <span class="paso-num" style="background:var(--grn);">Paso 3 — Documento final</span>
-        <h4>Empezar a completar las rúbricas</h4>
+        <h4>Empezar a completar la autoevaluación</h4>
         <p style="font-size:14px;color:var(--txt);">Cada integrante completa su autoevaluación individual (5 preguntas). Al anotar virtudes y defectos, prestar atención a la <strong>integración</strong>: ¿se siente un solo juego o cinco estaciones sueltas?</p>
-        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final + link del Genially, antes del 2 de julio a las 22 hs.</div>
+        <div class="alerta-info" style="margin-top:8px;"><strong>Entrega:</strong> documento final + link del Genially, antes del 3 de julio.</div>
       </div>
     </div>
   </div>
 </div><!-- fin pane-plan-viernes -->
-
-<div id="pane-herramientas-viernes" class="pane">
-  <div class="card">
-    <div class="ch">Herramientas · Viernes</div>
-    <div class="cb">
-      <div class="tools-grid">
-        <div class="tool-card" style="border-left:4px solid var(--vie);">
-          <h4>El juego completo</h4>
-          <p>Todas las postas montadas + el Pasaporte Fueguino + el cofre. Jugarlo como lo harían los niños.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div><!-- fin pane-herramientas-viernes -->
 
 <div id="pane-guias-viernes" class="pane">
   <div class="card" style="border-left:4px solid var(--teal);">
@@ -436,7 +380,7 @@
       <button class="btn-copy" onclick="copyBitacora()">&#128203; Copiar estructura al portapapeles</button>
       <div id="doc-template-content-viernes" class="doc-template">
         <h1>Documento Final — TFI (Escape Room)</h1>
-        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 2 de julio a las 22 hs</p>
+        <p style="text-align:center;font-size:12px;color:#666;">Entregar antes del 3 de julio</p>
         <h2>1. Identificación</h2>
         <p>Título · integrantes y profesorados · destinatarios (sala de 5) · link público del Genially</p>
         <h2>2. Fundamentación (breve)</h2>
@@ -454,8 +398,8 @@
         <p>Herramientas de IA usadas (ElevenLabs, Canva) + licencia (CC BY-NC-SA 4.0)</p>
       </div>
       <div class="avt-box">
-        <strong>&#128197; Entrega</strong>
-        Documento final + link del Genially, antes del 2 de julio a las 22 hs. El 3 de julio se expone.
+        <strong>&#128197; Entrega y presentación</strong>
+        Documento final + link del Genially, antes del 3 de julio. El 3 de julio es la presentación del trabajo.
       </div>
     </div>
   </div>
